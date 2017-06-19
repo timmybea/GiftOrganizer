@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B05EE7471EF896FE00D4DC06"
+               BlueprintIdentifier = "B041F7621EF899F500A3E332"
                BuildableName = "Gifty.app"
                BlueprintName = "Gifty"
                ReferencedContainer = "container:Gifty.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B05EE75B1EF896FE00D4DC06"
+               BlueprintIdentifier = "B041F7761EF899F500A3E332"
                BuildableName = "GiftyTests.xctest"
                BlueprintName = "GiftyTests"
                ReferencedContainer = "container:Gifty.xcodeproj">
@@ -42,7 +42,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B05EE7661EF896FE00D4DC06"
+               BlueprintIdentifier = "B041F7811EF899F500A3E332"
                BuildableName = "GiftyUITests.xctest"
                BlueprintName = "GiftyUITests"
                ReferencedContainer = "container:Gifty.xcodeproj">
@@ -52,7 +52,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B05EE7471EF896FE00D4DC06"
+            BlueprintIdentifier = "B041F7621EF899F500A3E332"
             BuildableName = "Gifty.app"
             BlueprintName = "Gifty"
             ReferencedContainer = "container:Gifty.xcodeproj">
@@ -75,7 +75,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B05EE7471EF896FE00D4DC06"
+            BlueprintIdentifier = "B041F7621EF899F500A3E332"
             BuildableName = "Gifty.app"
             BlueprintName = "Gifty"
             ReferencedContainer = "container:Gifty.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B05EE7471EF896FE00D4DC06"
+            BlueprintIdentifier = "B041F7621EF899F500A3E332"
             BuildableName = "Gifty.app"
             BlueprintName = "Gifty"
             ReferencedContainer = "container:Gifty.xcodeproj">
