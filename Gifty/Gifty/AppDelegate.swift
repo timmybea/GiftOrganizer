@@ -28,7 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [CalendarViewController(), PeopleViewController(), SettingsViewController()]
-        tabBarController.tabBar.backgroundColor = UIColor.orange
+        
+        tabBarController.tabBar.barTintColor = ColorManager.violet
+        
+        tabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
+        tabBarController.tabBar.layer.shadowOffset = CGSize(width: 2, height: 5)
+        tabBarController.tabBar.layer.shadowOpacity = 0.5
+        tabBarController.tabBar.layer.shadowRadius = 3
+
+        
+        
         return tabBarController
     }
 
