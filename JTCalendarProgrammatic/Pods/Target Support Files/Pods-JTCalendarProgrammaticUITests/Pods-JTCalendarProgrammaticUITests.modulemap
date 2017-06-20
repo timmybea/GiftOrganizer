@@ -1,0 +1,6 @@
+framework module Pods_JTCalendarProgrammaticUITests {
+  umbrella header "Pods-JTCalendarProgrammaticUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

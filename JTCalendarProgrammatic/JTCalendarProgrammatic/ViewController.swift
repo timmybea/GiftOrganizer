@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import JTAppleCalendar
 
 class ViewController: UIViewController {
 
+    var calendar: CustomCalendar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.brown
+        
+        setupCustomCalendar()
+    }
     
-    
+    private func setupCustomCalendar() {
+        
+        let frame = CGRect(x: 0, y: 20, width: self.view.bounds.width, height: 360)
+        calendar = CustomCalendar(frame: frame)
+        view.addSubview(calendar)
     }
 
     override func didReceiveMemoryWarning() {
