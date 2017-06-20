@@ -8,11 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
-		B041F7691EF899F500A3E332 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7681EF899F500A3E332 /* ViewController.swift */; };
 		B041F76E1EF899F500A3E332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* Assets.xcassets */; };
 		B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */; };
 		B041F77C1EF899F500A3E332 /* GiftyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F77B1EF899F500A3E332 /* GiftyTests.swift */; };
 		B041F7871EF899F500A3E332 /* GiftyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7861EF899F500A3E332 /* GiftyUITests.swift */; };
+		B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */; };
+		B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7991EF89B4900A3E332 /* PeopleViewController.swift */; };
+		B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */; };
+		B041F79E1EF89D1200A3E332 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79D1EF89D1200A3E332 /* BackgroundGradient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +38,6 @@
 /* Begin PBXFileReference section */
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B041F7681EF899F500A3E332 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B041F76D1EF899F500A3E332 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B041F7701EF899F500A3E332 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B041F7721EF899F500A3E332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +47,10 @@
 		B041F7821EF899F500A3E332 /* GiftyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GiftyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7861EF899F500A3E332 /* GiftyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftyUITests.swift; sourceTree = "<group>"; };
 		B041F7881EF899F500A3E332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		B041F7991EF89B4900A3E332 /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
+		B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B041F79D1EF89D1200A3E332 /* BackgroundGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +132,9 @@
 		B041F7941EF89A0800A3E332 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B041F7681EF899F500A3E332 /* ViewController.swift */,
+				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
+				B041F7991EF89B4900A3E332 /* PeopleViewController.swift */,
+				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -134,6 +142,7 @@
 		B041F7951EF89A0A00A3E332 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B041F79D1EF89D1200A3E332 /* BackgroundGradient.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -282,8 +291,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B041F7691EF899F500A3E332 /* ViewController.swift in Sources */,
+				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
+				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
+				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
+				B041F79E1EF89D1200A3E332 /* BackgroundGradient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +540,7 @@
 				B041F78D1EF899F500A3E332 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B041F78E1EF899F500A3E332 /* Build configuration list for PBXNativeTarget "GiftyTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +549,7 @@
 				B041F7901EF899F500A3E332 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B041F7911EF899F500A3E332 /* Build configuration list for PBXNativeTarget "GiftyUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +558,7 @@
 				B041F7931EF899F500A3E332 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

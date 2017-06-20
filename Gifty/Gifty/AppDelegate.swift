@@ -19,9 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = ViewController()
+        window?.rootViewController = setupTabBarController()
         
         return true
+    }
+    
+    private func setupTabBarController() -> UITabBarController {
+        
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [CalendarViewController(), PeopleViewController(), SettingsViewController()]
+        tabBarController.tabBar.backgroundColor = UIColor.orange
+        return tabBarController
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
