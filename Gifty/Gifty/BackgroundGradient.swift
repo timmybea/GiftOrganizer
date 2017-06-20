@@ -13,7 +13,7 @@ class BackgroundGradient: UIView {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "background_gradient")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -22,6 +22,11 @@ class BackgroundGradient: UIView {
         
         imageView.frame = self.bounds
         self.addSubview(imageView)
+    }
+    
+    func resize(_ size: CGSize) {
+        self.bounds.size = size
+        imageView.frame.size = size
     }
     
     required init?(coder aDecoder: NSCoder) {

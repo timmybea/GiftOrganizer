@@ -21,13 +21,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window?.rootViewController = setupTabBarController()
         
+        //MARK: custom status bar
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+    
+        let statusBarBackgroundView = UIView()
+        statusBarBackgroundView.backgroundColor = UIColor.clear
+        window?.addSubview(statusBarBackgroundView)
+        statusBarBackgroundView.frame = CGRect(x: 0, y: 0, width: (window?.frame.width)!, height: 20)
+        
         return true
     }
     
     private func setupTabBarController() -> UITabBarController {
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [CalendarViewController(), PeopleViewController(), SettingsViewController()]
+        let calendarVC = UINavigationController.setupCustomNavigationController(CalendarViewController())
+        let peopleVC = UINavigationController.setupCustomNavigationController(PeopleViewController())
+        let settingsVC = UINavigationController.setupCustomNavigationController(SettingsViewController())
+        
+        tabBarController.viewControllers = [calendarVC, peopleVC, settingsVC]
         
         tabBarController.tabBar.barTintColor = ColorManager.violet
         

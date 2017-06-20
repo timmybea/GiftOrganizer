@@ -8,11 +8,14 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: CustomViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.titleLabel.text = "Settings"
+        self.setTitleLabelPosition(withSize: self.view.bounds.size)
+        
         view.addSubview(BackgroundGradient(frame: view.bounds))
     }
 

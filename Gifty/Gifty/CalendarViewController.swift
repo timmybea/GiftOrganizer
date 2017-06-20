@@ -8,12 +8,26 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController {
 
+
+class CalendarViewController: CustomViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.addSubview(BackgroundGradient(frame: view.bounds))
-    
+        self.titleLabel.text = "Calendar"
+        self.setTitleLabelPosition(withSize: view.bounds.size)
+
+        self.backgroundView = BackgroundGradient(frame: view.bounds)
+        view.addSubview(self.backgroundView)
+     
+        
     }
+    
+    
+
+    
+
+    
 }
+
