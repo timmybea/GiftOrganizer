@@ -17,33 +17,24 @@ class PeopleViewController: CustomViewController {
         self.titleLabel.text = "Another title"
         self.setTitleLabelPosition(withSize: view.bounds.size)
         
-        view.addSubview(BackgroundGradient(frame: view.bounds))
-    }
-    
-    
-    //MARK: turn off autorotate
-    override var shouldAutorotate: Bool {
-        return true
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        self.backgroundView = BackgroundGradient(frame: view.bounds)
+        view.addSubview(self.backgroundView)
         
-        return [.portrait, .landscape]
+        
     }
-    
+
+
     //MARK: orientation change methods
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    
         
-    
-    
+        if backgroundView != nil {
+            self.backgroundView.resize(size)
+            self.backgroundView.frame.origin = CGPoint(x: 0, y: 0)
+        }
+        self.setTitleLabelPosition(withSize: size)
     }
     
-//    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-//    
-//        
-//    }
 
-
+    
 }

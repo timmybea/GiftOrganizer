@@ -18,6 +18,7 @@
 		B041F79E1EF89D1200A3E332 /* BackgroundGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79D1EF89D1200A3E332 /* BackgroundGradient.swift */; };
 		B041F7A11EF89FE600A3E332 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A01EF89FE600A3E332 /* ColorManager.swift */; };
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
+		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		B041F79D1EF89D1200A3E332 /* BackgroundGradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundGradient.swift; sourceTree = "<group>"; };
 		B041F7A01EF89FE600A3E332 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		B041F7A21EF8A74A00A3E332 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
 				B041F7991EF89B4900A3E332 /* PeopleViewController.swift */,
 				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
+				B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				B041F7A11EF89FE600A3E332 /* ColorManager.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B041F79E1EF89D1200A3E332 /* BackgroundGradient.swift in Sources */,
+				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

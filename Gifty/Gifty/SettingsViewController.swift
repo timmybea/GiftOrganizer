@@ -16,8 +16,22 @@ class SettingsViewController: CustomViewController {
         self.titleLabel.text = "Settings"
         self.setTitleLabelPosition(withSize: self.view.bounds.size)
         
-        view.addSubview(BackgroundGradient(frame: view.bounds))
+        self.backgroundView = BackgroundGradient(frame: view.bounds)
+        view.addSubview(self.backgroundView)
+        
     }
 
+    
+    //MARK: orientation change methods
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        if backgroundView != nil {
+            self.backgroundView.resize(size)
+            self.backgroundView.frame.origin = CGPoint(x: 0, y: 0)
+        }
+        self.setTitleLabelPosition(withSize: size)
+        
+    }
 
 }
