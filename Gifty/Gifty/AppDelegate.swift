@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,9 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = setupTabBarController()
         
         //MARK: custom status bar
-        
         UIApplication.shared.statusBarStyle = .lightContent
-    
         let statusBarBackgroundView = UIView()
         statusBarBackgroundView.backgroundColor = UIColor.clear
         window?.addSubview(statusBarBackgroundView)
@@ -49,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.layer.shadowOpacity = 0.5
         tabBarController.tabBar.layer.shadowRadius = 3
 
-        
-        
         return tabBarController
     }
 
@@ -74,8 +71,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        saveContext()
     }
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "ModelName")
+        container.loadPersistentStores(completionHandler: { (description, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        })
+        return container
+    }()
 
+    func saveContext() {
+        let moc = persistentContainer.viewContext
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
 
 }
 
