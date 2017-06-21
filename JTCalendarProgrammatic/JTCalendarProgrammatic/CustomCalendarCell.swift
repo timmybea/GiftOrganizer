@@ -11,12 +11,30 @@ import JTAppleCalendar
 
 class CustomCalendarCell: JTAppleCell {
 
-    var dateLabel: UILabel!
+    var dateLabel: UILabel = {
+        let dateLabel = UILabel()
+        dateLabel.backgroundColor = UIColor.clear
+        dateLabel.textColor = UIColor.white
+        dateLabel.alpha = 0.8
+        dateLabel.adjustsFontSizeToFitWidth = true
+        dateLabel.textAlignment = .center
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        return dateLabel
+    }()
+    
+    let selectedDateView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "pink_circle"))
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.blue
+        self.backgroundColor = UIColor.clear
+        
+        setupSelectedDateView()
         setupLabel()
     }
 
@@ -24,18 +42,24 @@ class CustomCalendarCell: JTAppleCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLabel() {
-        
-        dateLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
-        addSubview(dateLabel)
-        bringSubview(toFront: dateLabel)
-        dateLabel.backgroundColor = UIColor.red
-        dateLabel.textColor = UIColor.black
-        dateLabel.adjustsFontSizeToFitWidth = true
-        dateLabel.textAlignment = .center
-        dateLabel.center.x = self.center.x
-        dateLabel.center.y = self.center.y
+    private func setupSelectedDateView() {
+        addSubview(selectedDateView)
+        selectedDateView.isHidden = true
+        selectedDateView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        selectedDateView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        selectedDateView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        selectedDateView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
+    
+    private func setupLabel() {
+        addSubview(dateLabel)
+        dateLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dateLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+    
+
 
     func configureCellWith(_ cellState: CellState) {
         self.dateLabel.text = cellState.text

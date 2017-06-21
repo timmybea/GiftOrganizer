@@ -18,6 +18,7 @@
 		B0A2079B1EF99F2800170A22 /* JTCalendarProgrammaticUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2079A1EF99F2800170A22 /* JTCalendarProgrammaticUITests.swift */; };
 		B0E570541EF9A0E400D0C889 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E570531EF9A0E400D0C889 /* CustomCalendar.swift */; };
 		B0E570561EF9A47200D0C889 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E570551EF9A47200D0C889 /* CustomCalendarCell.swift */; };
+		B0E570951EF9F38100D0C889 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E570941EF9F38100D0C889 /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		B0A2079C1EF99F2800170A22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0E570531EF9A0E400D0C889 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B0E570551EF9A47200D0C889 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
+		B0E570941EF9F38100D0C889 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		F1FC9A662494F9F97209F387 /* Pods-JTCalendarProgrammaticTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JTCalendarProgrammaticTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JTCalendarProgrammaticTests/Pods-JTCalendarProgrammaticTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F8BB6CA746623E4D9274A752 /* Pods-JTCalendarProgrammaticUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JTCalendarProgrammaticUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-JTCalendarProgrammaticUITests/Pods-JTCalendarProgrammaticUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FC63D224355379B13A6857B9 /* Pods-JTCalendarProgrammaticUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JTCalendarProgrammaticUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-JTCalendarProgrammaticUITests/Pods-JTCalendarProgrammaticUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		B0A207791EF99F2800170A22 /* JTCalendarProgrammatic */ = {
 			isa = PBXGroup;
 			children = (
+				B0E570931EF9F37000D0C889 /* Helpers */,
 				B0E570521EF9A0A300D0C889 /* Controller */,
 				B0E570511EF9A09B00D0C889 /* View */,
 				B0E570501EF9A09200D0C889 /* Model */,
@@ -177,6 +180,14 @@
 				B0A2077C1EF99F2800170A22 /* ViewController.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		B0E570931EF9F37000D0C889 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B0E570941EF9F38100D0C889 /* Helpers.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		ED4ED9DD45ADADEFC4E25230 /* Pods */ = {
@@ -478,6 +489,7 @@
 				B0E570561EF9A47200D0C889 /* CustomCalendarCell.swift in Sources */,
 				B0A2077D1EF99F2800170A22 /* ViewController.swift in Sources */,
 				B0A2077B1EF99F2800170A22 /* AppDelegate.swift in Sources */,
+				B0E570951EF9F38100D0C889 /* Helpers.swift in Sources */,
 				B0E570541EF9A0E400D0C889 /* CustomCalendar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
