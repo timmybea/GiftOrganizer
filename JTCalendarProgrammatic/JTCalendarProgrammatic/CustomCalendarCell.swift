@@ -10,7 +10,7 @@ import UIKit
 import JTAppleCalendar
 
 class CustomCalendarCell: JTAppleCell {
-
+    
     var dateLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.backgroundColor = UIColor.clear
@@ -60,11 +60,21 @@ class CustomCalendarCell: JTAppleCell {
     }
     
     
+    var wasSelected = false
+    
     func configureCellWith(_ cellState: CellState) {
         self.dateLabel.text = cellState.text
-        self.selectedDateView.isHidden = cellState.isSelected ? false : true
+        
+        var staySelected = false
         
         if cellState.isSelected {
+            staySelected = wasSelected ? false : true
+            wasSelected = !wasSelected
+        }
+        
+        self.selectedDateView.isHidden = staySelected ? false : true
+        
+        if staySelected {
             self.dateLabel.textColor = UIColor.purple
         } else {
             if cellState.dateBelongsTo == .thisMonth {
