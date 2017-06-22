@@ -33,7 +33,7 @@ class CustomViewController: UIViewController {
         } else {
             labelX += size.height / 8
         }
-        self.titleLabel.frame = CGRect(x: labelX, y: labelY, width: 250, height: 25)
+        self.titleLabel.frame = CGRect(x: labelX, y: labelY, width: 250, height: 28)
     }
     
     var backgroundView: UIImageView!

@@ -16,13 +16,13 @@ protocol CustomCalendarDelegate {
 
 class CustomCalendar: UIView {
 
-    let gregorianCalendar: Calendar = Calendar(identifier: .gregorian)
+    fileprivate let gregorianCalendar: Calendar = Calendar(identifier: .gregorian)
     
     var delegate: CustomCalendarDelegate?
     
-    let dateFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
     
-    lazy var calendarView: JTAppleCalendarView = {
+    private lazy var calendarView: JTAppleCalendarView = {
         let calendarView = JTAppleCalendarView(frame: .zero)
         calendarView.calendarDataSource = self
         calendarView.calendarDelegate = self
@@ -37,7 +37,7 @@ class CustomCalendar: UIView {
         return calendarView
     }()
     
-    let monthYearLabel: UILabel = {
+    private let monthYearLabel: UILabel = {
         let monthYearLabel = UILabel()
         monthYearLabel.textAlignment = .left
         monthYearLabel.font = UIFont.systemFont(ofSize: 24)
@@ -46,7 +46,7 @@ class CustomCalendar: UIView {
     }()
     
     
-    let dayStackView: UIStackView = {
+    private let dayStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -109,41 +109,17 @@ class CustomCalendar: UIView {
         }
     }
     
-    func scrollToThisMonth() {
-        
+    private func scrollToThisMonth() {
         let today = Date()
-        let value = valueForDate(today)
-        print(value)
+        let value = (Calendar.current.component(.weekday, from: today) - 1) * -1
         let scrollDate = gregorianCalendar.date(byAdding: .weekday, value: value, to: today)!
-    
-            
+
         self.calendarView.scrollToDate(scrollDate, triggerScrollToDateDelegate: true, animateScroll: false, preferredScrollPosition: nil, extraAddedOffset: 0) {
             
             self.calendarView.collectionViewLayout.invalidateLayout()
             
             DispatchQueue.main.async {
                 self.calendarView.reloadData()
-            }
-        }
-        
-    }
-    
-    func valueForDate(_ date: Date) -> Int {
-        let day = Date()
-        let weekday = Calendar.current.component(.weekday, from: day)
-        return weekday
-    }
-    
-    fileprivate func handleTextColor(cell: JTAppleCell?, cellState: CellState) {
-        guard let validCell = cell as? CustomCalendarCell else { return }
-    
-        if cellState.isSelected {
-            validCell.dateLabel.textColor = UIColor.purple
-        } else {
-            if cellState.dateBelongsTo == .thisMonth {
-                validCell.dateLabel.textColor = UIColor.white
-            } else {
-                validCell.dateLabel.textColor = ColorManager.lightText
             }
         }
     }
@@ -154,11 +130,6 @@ class CustomCalendar: UIView {
             monthYearLabel.text = dateFormatter.string(from: date)
             self.delegate?.monthYearLabelWasUpdated(monthYearLabel.text!)
         }
-    }
-    
-    fileprivate func showHideSelectedView(cell: JTAppleCell?, cellState: CellState) {
-        guard let validCell = cell as? CustomCalendarCell else { return }
-        validCell.selectedDateView.isHidden = cellState.isSelected ? false : true
     }
 }
 
@@ -187,27 +158,20 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCalendarCell", for: indexPath) as! CustomCalendarCell
         cell.backgroundColor = UIColor.clear
         cell.configureCellWith(cellState)
-        
-        //Highlight today's date
-        if Calendar.current.isDate(cellState.date, inSameDayAs:Date()) {
-            cell.backgroundColor = UIColor.blue
-        }
-        
-        showHideSelectedView(cell: cell, cellState: cellState)
-        handleTextColor(cell: cell, cellState: cellState)
         return cell
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        showHideSelectedView(cell: cell, cellState: cellState)
-        handleTextColor(cell: cell, cellState: cellState)
-
+        guard let validCell = cell as? CustomCalendarCell else { return }
+        
+        validCell.configureCellWith(cellState)
         self.delegate?.dateWasSelected(cellState.date)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        showHideSelectedView(cell: cell, cellState: cellState)
-        handleTextColor(cell: cell, cellState: cellState)
+        guard let validCell = cell as? CustomCalendarCell else { return }
+        
+        validCell.configureCellWith(cellState)
     }
     
 

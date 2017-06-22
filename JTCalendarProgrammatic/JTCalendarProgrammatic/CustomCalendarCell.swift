@@ -62,10 +62,21 @@ class CustomCalendarCell: JTAppleCell {
     
     func configureCellWith(_ cellState: CellState) {
         self.dateLabel.text = cellState.text
+        self.selectedDateView.isHidden = cellState.isSelected ? false : true
+        
+        if cellState.isSelected {
+            self.dateLabel.textColor = UIColor.purple
+        } else {
+            if cellState.dateBelongsTo == .thisMonth {
+                self.dateLabel.textColor = UIColor.white
+            } else {
+                self.dateLabel.textColor = ColorManager.lightText
+            }
+        }
+        
+        if Calendar.current.isDate(cellState.date, inSameDayAs:Date()) {
+            self.backgroundColor = UIColor.blue
+        }
     }
-    
-    
-    
-    
 
 }

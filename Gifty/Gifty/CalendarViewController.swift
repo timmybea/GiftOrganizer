@@ -23,13 +23,11 @@ class CalendarViewController: CustomViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.titleLabel.text = "Calendar"
+    
         self.setTitleLabelPosition(withSize: view.bounds.size)
         
         setupCustomCalendar()
         setupWhiteDisplayView()
-        //calendar.scrollToThisMonth()
     }
     
     let pad: CGFloat = 8
