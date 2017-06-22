@@ -10,7 +10,7 @@ import UIKit
 import JTAppleCalendar
 
 protocol CustomCalendarDelegate {
-    func dateWasSelected(_ date: Date)
+    func hideShowInfoForSelectedDate(_ date: Date, show: Bool)
     func monthYearLabelWasUpdated(_ string: String)
 }
 
@@ -165,7 +165,8 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         guard let validCell = cell as? CustomCalendarCell else { return }
         
         validCell.configureCellWith(cellState)
-        self.delegate?.dateWasSelected(cellState.date)
+        
+        self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {

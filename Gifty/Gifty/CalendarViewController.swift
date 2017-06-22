@@ -60,9 +60,14 @@ extension CalendarViewController: CustomCalendarDelegate {
     }
 
     
-    func dateWasSelected(_ date: Date) {
-        print(date.description)
+    func hideShowInfoForSelectedDate(_ date: Date, show: Bool) {
+        if show {
+            print(date)
+        } else {
+            print("Don't show info")
+        }
     }
+    
 }
 
 

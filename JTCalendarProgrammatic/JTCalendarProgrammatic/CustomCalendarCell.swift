@@ -11,7 +11,7 @@ import JTAppleCalendar
 
 class CustomCalendarCell: JTAppleCell {
     
-    var dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.backgroundColor = UIColor.clear
         dateLabel.textColor = UIColor.white
@@ -22,7 +22,7 @@ class CustomCalendarCell: JTAppleCell {
         return dateLabel
     }()
     
-    let selectedDateView: UIImageView = {
+    private let selectedDateView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: ImageNames.selectedDateCircle.rawValue))
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,8 @@ class CustomCalendarCell: JTAppleCell {
     }
     
     
-    var wasSelected = false
+    private var wasSelected = false
+    var showInfo = false
     
     func configureCellWith(_ cellState: CellState) {
         self.dateLabel.text = cellState.text
@@ -68,8 +69,10 @@ class CustomCalendarCell: JTAppleCell {
         var staySelected = false
         
         if cellState.isSelected {
-            staySelected = wasSelected ? false : true
-            wasSelected = !wasSelected
+            staySelected = self.wasSelected ? false : true
+            self.wasSelected = !self.wasSelected
+        } else {
+            wasSelected = false
         }
         
         self.selectedDateView.isHidden = staySelected ? false : true
@@ -87,6 +90,8 @@ class CustomCalendarCell: JTAppleCell {
         if Calendar.current.isDate(cellState.date, inSameDayAs:Date()) {
             self.backgroundColor = UIColor.blue
         }
+        
+        self.showInfo = staySelected
     }
 
 }
