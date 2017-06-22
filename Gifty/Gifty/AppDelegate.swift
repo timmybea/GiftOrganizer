@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabBarController.viewControllers = [calendarVC, peopleVC, settingsVC]
         
-        tabBarController.tabBar.barTintColor = ColorManager.violet
+        tabBarController.tabBar.barTintColor = ColorManager.tabBarPurple
         
         tabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
         tabBarController.tabBar.layer.shadowOffset = CGSize(width: 2, height: 5)

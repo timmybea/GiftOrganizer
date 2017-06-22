@@ -14,7 +14,7 @@ class PeopleViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.titleLabel.text = "Another title"
+        self.titleLabel.text = "People"
         self.setTitleLabelPosition(withSize: view.bounds.size)
         
     }

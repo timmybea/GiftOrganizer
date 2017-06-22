@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum ImageNames: String {
+    case horizontalBGGradient = "background_gradient_horizontal"
+    case verticalBGGradient = "background_gradient"
+    case selectedDateCircle = "selected_date_circle"
+    case calendarDisplayView = "cal_display_view"
+}
+
 
 extension UINavigationController {
     
@@ -22,6 +29,18 @@ extension UINavigationController {
 
         return navigationController
     }
-    
+}
 
+extension UIView {
+    func addConstraintsWithFormat(format: String, views: UIView...) {
+        var viewsDictionary = [String: UIView]()
+        
+        for (index, view) in views.enumerated() {
+            view.translatesAutoresizingMaskIntoConstraints = false
+            let key = "v\(index)"
+            viewsDictionary[key] = view
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+    }
 }

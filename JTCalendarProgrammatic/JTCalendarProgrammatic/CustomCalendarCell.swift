@@ -23,7 +23,7 @@ class CustomCalendarCell: JTAppleCell {
     }()
     
     let selectedDateView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "pink_circle"))
+        let imageView = UIImageView(image: UIImage(named: ImageNames.selectedDateCircle.rawValue))
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -59,8 +59,7 @@ class CustomCalendarCell: JTAppleCell {
         dateLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
     
-
-
+    
     func configureCellWith(_ cellState: CellState) {
         self.dateLabel.text = cellState.text
     }

@@ -20,6 +20,8 @@
 		B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */; };
 		B041F7A11EF89FE600A3E332 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A01EF89FE600A3E332 /* ColorManager.swift */; };
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
+		B0AAA0BB1EFB17FA002F2D10 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AAA0B91EFB17FA002F2D10 /* CustomCalendar.swift */; };
+		B0AAA0BC1EFB17FA002F2D10 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AAA0BA1EFB17FA002F2D10 /* CustomCalendarCell.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,8 @@
 		B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B041F7A01EF89FE600A3E332 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		B041F7A21EF8A74A00A3E332 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		B0AAA0B91EFB17FA002F2D10 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomCalendar.swift; path = ../../JTCalendarProgrammatic/JTCalendarProgrammatic/CustomCalendar.swift; sourceTree = "<group>"; };
+		B0AAA0BA1EFB17FA002F2D10 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomCalendarCell.swift; path = ../../JTCalendarProgrammatic/JTCalendarProgrammatic/CustomCalendarCell.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		CF30C550C51DFC2BA7982DFC /* Pods-GiftyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.release.xcconfig"; sourceTree = "<group>"; };
 		DFE808D0507F6B5715849CB5 /* Pods-Gifty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gifty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gifty/Pods-Gifty.debug.xcconfig"; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 		B041F7951EF89A0A00A3E332 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B0AAA0B91EFB17FA002F2D10 /* CustomCalendar.swift */,
+				B0AAA0BA1EFB17FA002F2D10 /* CustomCalendarCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -496,6 +502,8 @@
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,
+				B0AAA0BC1EFB17FA002F2D10 /* CustomCalendarCell.swift in Sources */,
+				B0AAA0BB1EFB17FA002F2D10 /* CustomCalendar.swift in Sources */,
 				B041F7A11EF89FE600A3E332 /* ColorManager.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,

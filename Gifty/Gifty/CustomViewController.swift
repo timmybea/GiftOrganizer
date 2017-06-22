@@ -18,13 +18,13 @@ class CustomViewController: UIViewController {
     var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.white
-        titleLabel.text = "Default"
-        //titleLabel.font = FontManager.AvenirNextRegular(size: FontManager.sizeNavText)
+        titleLabel.textAlignment = .left
+        titleLabel.font = UIFont.systemFont(ofSize: 24)
         return titleLabel
     }()
     
     func setTitleLabelPosition(withSize size: CGSize) {
-        var labelX: CGFloat = -13.0
+        var labelX: CGFloat = -20.0
         var labelY: CGFloat = 10
         
         if UIDevice.current.orientation.isPortrait {
@@ -41,10 +41,10 @@ class CustomViewController: UIViewController {
     func setupBackgroundView() {
         
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "background_gradient")
+        imageView.image =  UIDevice.current.orientation.isPortrait ? UIImage(named: ImageNames.verticalBGGradient.rawValue) : UIImage(named: ImageNames.horizontalBGGradient.rawValue)
+        
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         self.backgroundView = imageView
         view.addSubview(self.backgroundView)
@@ -53,7 +53,6 @@ class CustomViewController: UIViewController {
         backgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         backgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
     }
     
     //MARK: turn off autorotate
@@ -67,6 +66,11 @@ class CustomViewController: UIViewController {
         return [.portrait, .landscape]
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.setTitleLabelPosition(withSize: size)
+        
+        backgroundView.image =  size.width < size.height ? UIImage(named: ImageNames.verticalBGGradient.rawValue) : UIImage(named: ImageNames.horizontalBGGradient.rawValue)
+    }
 
  
 }

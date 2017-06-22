@@ -10,8 +10,8 @@ import UIKit
 
 class ColorManager: NSObject {
 
-    static var violet = UIColor.colorWithVals(r: 149, g: 79, b: 175)
-    
+    static var tabBarPurple = UIColor.colorWithVals(r: 94, g: 5, b: 70)
+    static var lightText = UIColor.colorWithVals(r: 249, g: 175, b: 186)
 }
 
 extension UIColor {

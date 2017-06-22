@@ -11,10 +11,13 @@ import JTAppleCalendar
 
 protocol CustomCalendarDelegate {
     func dateWasSelected(_ date: Date)
+    func monthYearLabelWasUpdated(_ string: String)
 }
 
 class CustomCalendar: UIView {
 
+    let gregorianCalendar: Calendar = Calendar(identifier: .gregorian)
+    
     var delegate: CustomCalendarDelegate?
     
     let dateFormatter = DateFormatter()
@@ -39,7 +42,6 @@ class CustomCalendar: UIView {
         monthYearLabel.textAlignment = .left
         monthYearLabel.font = UIFont.systemFont(ofSize: 24)
         monthYearLabel.textColor = UIColor.white
-        monthYearLabel.text = "Something"
         return monthYearLabel
     }()
     
@@ -56,9 +58,9 @@ class CustomCalendar: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupMonthYearHeader()
         setupDayHeader()
         setupCalendarView()
+        scrollToThisMonth()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -88,7 +90,7 @@ class CustomCalendar: UIView {
         
         dayStackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         dayStackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        dayStackView.topAnchor.constraint(equalTo: monthYearLabel.bottomAnchor, constant: 8).isActive = true
+        dayStackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         dayStackView.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
@@ -105,6 +107,31 @@ class CustomCalendar: UIView {
         calendarView.visibleDates { (visibleDates) in
             self.setMonthYearLabel(from: visibleDates)
         }
+    }
+    
+    func scrollToThisMonth() {
+        
+        let today = Date()
+        let value = valueForDate(today)
+        print(value)
+        let scrollDate = gregorianCalendar.date(byAdding: .weekday, value: value, to: today)!
+    
+            
+        self.calendarView.scrollToDate(scrollDate, triggerScrollToDateDelegate: true, animateScroll: false, preferredScrollPosition: nil, extraAddedOffset: 0) {
+            
+            self.calendarView.collectionViewLayout.invalidateLayout()
+            
+            DispatchQueue.main.async {
+                self.calendarView.reloadData()
+            }
+        }
+        
+    }
+    
+    func valueForDate(_ date: Date) -> Int {
+        let day = Date()
+        let weekday = Calendar.current.component(.weekday, from: day)
+        return weekday
     }
     
     fileprivate func handleTextColor(cell: JTAppleCell?, cellState: CellState) {
@@ -125,6 +152,7 @@ class CustomCalendar: UIView {
         if let date = visibleDates.monthDates.first?.date {
             dateFormatter.dateFormat = "MMMM YYYY"
             monthYearLabel.text = dateFormatter.string(from: date)
+            self.delegate?.monthYearLabelWasUpdated(monthYearLabel.text!)
         }
     }
     
@@ -137,14 +165,18 @@ class CustomCalendar: UIView {
 extension CustomCalendar: JTAppleCalendarViewDataSource {
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        dateFormatter.dateFormat = "YYYY MM dd"
-        dateFormatter.timeZone = Calendar.current.timeZone
-        dateFormatter.locale = Calendar.current.locale
         
-        let startDate = dateFormatter.date(from: "2017 01 01")!
-        let endDate = dateFormatter.date(from: "2017 12 31")!
+        let start = gregorianCalendar.date(byAdding: .year, value: -1, to: Date())!
+        let end = gregorianCalendar.date(byAdding: .year, value: 1, to: Date())!
         
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
+        let parameters = ConfigurationParameters(startDate: start,
+                                                 endDate: end,
+                                                 numberOfRows: 6,
+                                                 calendar: gregorianCalendar,
+                                                 generateInDates: .forAllMonths,
+                                                 generateOutDates: .tillEndOfGrid,
+                                                 firstDayOfWeek: .sunday,
+                                                 hasStrictBoundaries: false)
         return parameters
     }
 }
@@ -169,6 +201,7 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         showHideSelectedView(cell: cell, cellState: cellState)
         handleTextColor(cell: cell, cellState: cellState)
+
         self.delegate?.dateWasSelected(cellState.date)
     }
     
@@ -177,8 +210,9 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         handleTextColor(cell: cell, cellState: cellState)
     }
     
-    
+
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        
         setMonthYearLabel(from: visibleDates)
     }
 }
