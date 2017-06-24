@@ -28,11 +28,19 @@ class CalendarViewController: CustomViewController {
         
         setupCustomCalendar()
         setupWhiteDisplayView()
+        
+        let timer = ScheduledTimer()
+        timer.delegate = self
     }
     
     let pad: CGFloat = 8
     
-    private func setupCustomCalendar() {
+    fileprivate func setupCustomCalendar() {
+        if calendar != nil {
+            calendar.removeFromSuperview()
+            calendar = nil
+        }
+        
         let frame = CGRect(x: pad, y: 70, width: self.view.bounds.width - (2 * pad), height: 300)
         calendar = CustomCalendar(frame: frame)
         calendar.delegate = self
@@ -67,7 +75,13 @@ extension CalendarViewController: CustomCalendarDelegate {
             print("Don't show info")
         }
     }
+}
+
+extension CalendarViewController: SchedultedTimerDelegate {
     
+    func executeAtMidnight() {
+        setupCustomCalendar()
+    }
 }
 
 
