@@ -13,6 +13,7 @@ enum ImageNames: String {
     case verticalBGGradient = "background_gradient"
     case selectedDateCircle = "selected_date_circle"
     case calendarDisplayView = "cal_display_view"
+    case todayBGView = "todays_date"
 }
 
 

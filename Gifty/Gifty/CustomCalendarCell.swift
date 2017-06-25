@@ -29,11 +29,19 @@ class CustomCalendarCell: JTAppleCell {
         return imageView
     }()
     
+    private let todayDateView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: ImageNames.todayBGView.rawValue))
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.clear
         
+        setupTodayDateView()
         setupSelectedDateView()
         setupLabel()
     }
@@ -42,13 +50,23 @@ class CustomCalendarCell: JTAppleCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupTodayDateView() {
+        addSubview(todayDateView)
+        todayDateView.isHidden = true
+        
+        todayDateView.widthAnchor.constraint(equalToConstant: 46).isActive = true
+        todayDateView.heightAnchor.constraint(equalToConstant: 46).isActive = true
+        todayDateView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        todayDateView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 2).isActive = true
+    }
+    
     private func setupSelectedDateView() {
         addSubview(selectedDateView)
         selectedDateView.isHidden = true
         selectedDateView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         selectedDateView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         selectedDateView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        selectedDateView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        selectedDateView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
     }
     
     private func setupLabel() {
@@ -78,7 +96,7 @@ class CustomCalendarCell: JTAppleCell {
         self.selectedDateView.isHidden = staySelected ? false : true
         
         if staySelected {
-            self.dateLabel.textColor = UIColor.purple
+            self.dateLabel.textColor = ColorManager.highlightedText
         } else {
             if cellState.dateBelongsTo == .thisMonth {
                 self.dateLabel.textColor = UIColor.white
@@ -87,8 +105,11 @@ class CustomCalendarCell: JTAppleCell {
             }
         }
         
-        if Calendar.current.isDate(cellState.date, inSameDayAs:Date()) {
-            self.backgroundColor = UIColor.blue
+        todayDateView.isHidden = true
+        let today = DateHandler.localTimeFromUTC(Date())
+        if Calendar.current.isDate(cellState.date, inSameDayAs:today) {
+            self.todayDateView.isHidden = false
+            self.dateLabel.textColor = ColorManager.highlightedText
         }
         
         self.showInfo = staySelected

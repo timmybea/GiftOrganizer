@@ -12,6 +12,7 @@ class ColorManager: NSObject {
 
     static var tabBarPurple = UIColor.colorWithVals(r: 94, g: 5, b: 70)
     static var lightText = UIColor.colorWithVals(r: 249, g: 175, b: 186)
+    static var highlightedText = UIColor.colorWithVals(r: 206, g: 78, b: 120)
 }
 
 extension UIColor {
