@@ -8,6 +8,13 @@
 
 import UIKit
 
+//MARK: constants
+
+
+
+
+
+
 enum ImageNames: String {
     case horizontalBGGradient = "background_gradient_horizontal"
     case verticalBGGradient = "background_gradient"
