@@ -15,6 +15,7 @@
 		B013B5781EFF233200107B64 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
 		B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */; };
 		B013B5C51F0318D300107B64 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5C41F0318D300107B64 /* PeopleCell.swift */; };
+		B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
 		B041F76E1EF899F500A3E332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* Assets.xcassets */; };
 		B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */; };
@@ -58,6 +59,7 @@
 		B013B5771EFF233200107B64 /* DateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
 		B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduledTimer.swift; sourceTree = "<group>"; };
 		B013B5C41F0318D300107B64 /* PeopleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
+		B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePersonViewController.swift; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B041F76D1EF899F500A3E332 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
 				B041F7991EF89B4900A3E332 /* PeopleViewController.swift */,
+				B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */,
 				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
 				B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */,
 			);
@@ -508,6 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B013B5781EFF233200107B64 /* DateHandler.swift in Sources */,
+				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,

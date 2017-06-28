@@ -14,18 +14,31 @@ class PeopleViewController: CustomViewController {
         let flowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor.blue
+        collectionView.backgroundColor = UIColor.clear
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.titleLabel.text = "People"
-        self.setTitleLabelPosition(withSize: view.bounds.size)
         
+        setupNavigationBar()
         setupCollectionView()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+ 
+        self.titleLabel.isHidden = false
+    }
+    
+    private func setupNavigationBar() {
+        self.titleLabel.text = "People"
+        self.setTitleLabelPosition(withSize: view.bounds.size)
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushToCreatePerson))
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "People", style: .plain, target: self, action: nil)
     }
 
     private func setupCollectionView() {
@@ -42,6 +55,15 @@ class PeopleViewController: CustomViewController {
         }
     }
 
+    func pushToCreatePerson() {
+     
+        self.titleLabel.isHidden = true
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(CreatePersonViewController(), animated: true)
+        }
+    }
+    
     //MARK: orientation change methods
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -67,4 +89,16 @@ extension PeopleViewController: UICollectionViewDelegateFlowLayout, UICollection
         return  cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        pushToCreatePerson()
+    }
 }

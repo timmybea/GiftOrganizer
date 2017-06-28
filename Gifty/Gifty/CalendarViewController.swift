@@ -23,14 +23,21 @@ class CalendarViewController: CustomViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        self.setTitleLabelPosition(withSize: view.bounds.size)
         
+        setupNavigationBar()
         setupCustomCalendar()
         setupWhiteDisplayView()
         
         let timer = ScheduledTimer()
         timer.delegate = self
+    }
+    
+    
+    private func setupNavigationBar() {
+        setTitleLabelPosition(withSize: view.bounds.size)
+        navigationController?.navigationBar.tintColor = UIColor.white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushToCreateEvent))
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Calendar", style: .plain, target: self, action: nil)
     }
     
     let pad: CGFloat = 8
@@ -51,6 +58,10 @@ class CalendarViewController: CustomViewController {
         let frame = CGRect(x: -20, y: self.view.bounds.height * 0.62, width: self.view.bounds.width + 40, height: self.view.bounds.height + 60)
         whiteDisplayView.frame = frame
         view.addSubview(whiteDisplayView)
+    }
+    
+    func pushToCreateEvent() {
+        print("push to create event")
     }
 
     //MARK: orientation change methods
