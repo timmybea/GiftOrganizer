@@ -8,12 +8,8 @@
 
 import UIKit
 
-//MARK: constants
-
-
-
-
-
+//MARK: layout constants
+let pad: CGFloat = 8
 
 enum ImageNames: String {
     case horizontalBGGradient = "background_gradient_horizontal"
@@ -21,6 +17,7 @@ enum ImageNames: String {
     case selectedDateCircle = "selected_date_circle"
     case calendarDisplayView = "cal_display_view"
     case todayBGView = "todays_date"
+    case profileImagePlaceHolder = "profile_image"
 }
 
 
@@ -50,5 +47,23 @@ extension UIView {
         }
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
+    }
+}
+
+extension UITextField {
+    
+    func placeholderWith(string: String, color: UIColor, font: UIFont = UIFont(name: "Helvetica", size: 15.0)!) {
+        
+        var placeHolder = NSMutableAttributedString()
+        let text = string
+        
+        // Set the Font
+        placeHolder = NSMutableAttributedString(string:text, attributes: [NSFontAttributeName:font])
+        
+        // Set the color
+        placeHolder.addAttribute(NSForegroundColorAttributeName, value: color, range:NSRange(location:0,length:text.characters.count))
+        
+        // Add attribute
+        self.attributedPlaceholder = placeHolder
     }
 }
