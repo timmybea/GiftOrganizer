@@ -9,7 +9,7 @@
 import UIKit
 
 //MARK: layout constants
-let pad: CGFloat = 8
+let pad: CGFloat = 16
 
 enum ImageNames: String {
     case horizontalBGGradient = "background_gradient_horizontal"

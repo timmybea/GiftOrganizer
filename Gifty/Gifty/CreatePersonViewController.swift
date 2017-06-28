@@ -20,7 +20,6 @@ class CreatePersonViewController: CustomViewController {
         return imageView
     }()
     
-    
     var textFieldTV: PersonTFTableView!
     
     override func viewDidLoad() {

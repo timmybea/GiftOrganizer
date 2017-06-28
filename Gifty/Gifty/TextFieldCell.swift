@@ -8,13 +8,27 @@
 
 import UIKit
 
+protocol TextFieldCellDelegate {
+    func updateVariableFor(identifier: TextFieldIdentifier, with value: String)
+}
+
+enum TextFieldIdentifier: String {
+    case personFirstName = "personFirstName"
+    case personLastName = "personLastName"
+}
+
 class TextFieldCell: UITableViewCell {
 
+    var identifier: TextFieldIdentifier = TextFieldIdentifier.personFirstName
+    var delegate: TextFieldCellDelegate?
+    
     let textField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.textColor = UIColor.white
-        textField.placeholderWith(string: "Name", color: UIColor.white)
+        textField.autocapitalizationType = .sentences
+        textField.returnKeyType = .done
+        textField.keyboardType = .alphabet
         return textField
     }()
     
@@ -28,6 +42,7 @@ class TextFieldCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,22 +51,40 @@ class TextFieldCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWith(placeholder: String) {
+    func configureWith(placeholder: String, identifier: TextFieldIdentifier) {
+        
+        self.selectionStyle = .none
+        self.backgroundColor = UIColor.clear
+        self.identifier = identifier
+        textField.delegate = self
         
         addSubview(textField)
         
         textField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         textField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         textField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3).isActive = true
-                
-        textField.placeholder = placeholder
         
+        textField.placeholderWith(string: placeholder, color: UIColor.white)
+
         addSubview(whiteUnderline)
         whiteUnderline.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         whiteUnderline.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         whiteUnderline.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        whiteUnderline.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        whiteUnderline.heightAnchor.constraint(equalToConstant: 1).isActive = true
+    }
+}
+
+extension TextFieldCell: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if self.delegate != nil, let text = textField.text {
+            delegate?.updateVariableFor(identifier: identifier, with: text)
+        }
     }
     
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.resignFirstResponder()
+        return true
+    }
+    
 }
