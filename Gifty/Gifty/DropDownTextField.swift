@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol DropDownTextFieldDelegate {
+    func dropDownWillAnimate(down: Bool)
+    func optionSelected(option: String)
+}
+
 class DropDownTextField: UIView {
 
     var options: [String]
     var isDroppedDown = false
+    
+    var delegate: DropDownTextFieldDelegate?
 
     let whiteUnderline: UIView = {
         let view = UIView()
@@ -34,7 +41,6 @@ class DropDownTextField: UIView {
     
     let tapView: UIView = {
         let view = UIView()
-
         return view
     }()
     
@@ -43,6 +49,7 @@ class DropDownTextField: UIView {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "option")
         tableView.bounces = false
         tableView.backgroundColor = UIColor.clear
+        
         return tableView
     }()
     
@@ -124,6 +131,8 @@ class DropDownTextField: UIView {
         textField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         textField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         textField.bottomAnchor.constraint(equalTo: whiteUnderline.bottomAnchor, constant: -3).isActive = true
+        textField.font = FontManager.mediumText
+        textField.delegate = self
         textField.isHidden = true
     }
     
@@ -141,9 +150,16 @@ class DropDownTextField: UIView {
                 self.isDroppedDown = false
                 self.animatedView.isHidden = true
                 self.animatedView.frame = downFrame
+                if self.delegate != nil {
+                    self.delegate?.dropDownWillAnimate(down: false)
+                }
             })
         } else {
             //bring down
+            if self.delegate != nil {
+                self.delegate?.dropDownWillAnimate(down: true)
+            }
+            
             animatedView.isHidden = false
             animatedView.frame = upFrame
             
@@ -158,9 +174,27 @@ class DropDownTextField: UIView {
     
     func otherChosen() {
         menuDropDown()
-        
         titleLabel.isHidden = true
-        
+        textField.isHidden = false
+        textField.becomeFirstResponder()
+    }
+    
+    func finishEditingTextField() {
+        textField.resignFirstResponder()
+    }
+}
+
+extension DropDownTextField: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        if self.delegate != nil {
+            delegate?.optionSelected(option: textField.text!)
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
 }
@@ -178,6 +212,7 @@ extension DropDownTextField: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "option")
+        cell?.selectionStyle = .none
         cell?.textLabel?.font = FontManager.mediumText
         cell?.textLabel?.textColor = UIColor.white
         cell?.backgroundColor = UIColor.clear
@@ -199,6 +234,9 @@ extension DropDownTextField: UITableViewDelegate, UITableViewDataSource {
         } else {
             let chosen = options[indexPath.row]
             titleLabel.text = chosen
+            if self.delegate != nil {
+                self.delegate?.optionSelected(option: chosen)
+            }
             menuDropDown()
         }
     }

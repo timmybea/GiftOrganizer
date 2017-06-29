@@ -9,6 +9,7 @@
 import UIKit
 
 protocol TextFieldCellDelegate {
+    func selectedCell(identifier: TextFieldIdentifier)
     func updateVariableFor(identifier: TextFieldIdentifier, with value: String)
 }
 
@@ -76,14 +77,22 @@ class TextFieldCell: UITableViewCell {
 
 extension TextFieldCell: UITextFieldDelegate {
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if self.delegate != nil {
+            self.delegate?.selectedCell(identifier: identifier)
+        }
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if self.delegate != nil, let text = textField.text {
             delegate?.updateVariableFor(identifier: identifier, with: text)
         }
+        self.textField.resignFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.resignFirstResponder()
+        self.textField.resignFirstResponder()
         return true
     }
     

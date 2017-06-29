@@ -8,10 +8,28 @@
 
 import UIKit
 
+protocol PersonTFTableViewDelegate {
+    func didUpdateFirstName(string: String)
+    func didUpdateLastName(string: String)
+}
+
 class PersonTFTableView: UIView {
 
-    var firstName: String = ""
-    var lastName: String = ""
+    var delegate: PersonTFTableViewDelegate?
+    var currentIdentifier: TextFieldIdentifier?
+    var firstName: String = "" {
+        didSet {
+            if self.delegate != nil {
+                self.delegate?.didUpdateFirstName(string: firstName)
+            }
+        }
+    }
+    var lastName: String = "" {
+        didSet {
+            if self.delegate != nil {
+                self.delegate?.didUpdateLastName(string: lastName)            }
+        }
+    }
     
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -19,6 +37,7 @@ class PersonTFTableView: UIView {
         tableView.backgroundColor = UIColor.clear
         tableView.showsVerticalScrollIndicator = false
         tableView.isScrollEnabled = false
+        tableView.allowsSelection = true
         return tableView
     }()
 
@@ -35,6 +54,12 @@ class PersonTFTableView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func finishEditing() {
+        let indexPath = currentIdentifier == TextFieldIdentifier.personFirstName ? IndexPath(row: 0, section: 0) : IndexPath(row: 1, section: 0)
+        let cell = tableView.cellForRow(at: indexPath) as? TextFieldCell
+        cell?.textField.delegate?.textFieldDidEndEditing!((cell?.textField)!)
     }
 }
 
@@ -75,10 +100,12 @@ extension PersonTFTableView: TextFieldCellDelegate {
         
         if identifier == TextFieldIdentifier.personFirstName {
             self.firstName = value
-            print("first name is \(self.firstName)")
         } else if identifier == TextFieldIdentifier.personLastName {
             self.lastName = value
-            print("last name is \(self.lastName)")
         }
+    }
+    
+    func selectedCell(identifier: TextFieldIdentifier) {
+        self.currentIdentifier = identifier
     }
 }
