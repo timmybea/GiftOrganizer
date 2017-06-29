@@ -12,7 +12,6 @@ class PersonTFTableView: UIView {
 
     var firstName: String = ""
     var lastName: String = ""
-    var group: String = ""
     
     let tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -47,7 +46,7 @@ extension PersonTFTableView: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,21 +55,16 @@ extension PersonTFTableView: UITableViewDelegate, UITableViewDataSource {
             cell?.configureWith(placeholder: "First Name", identifier: TextFieldIdentifier.personFirstName)
             cell?.delegate = self
             return cell!
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextfieldCell") as? TextFieldCell
-            cell?.configureWith(placeholder: "Last Name", identifier: TextFieldIdentifier.personLastName)
-            cell?.delegate = self
-            return cell!
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextfieldCell") as? TextFieldCell
-            cell?.configureWith(placeholder: "Something else", identifier: TextFieldIdentifier.personLastName)
+            cell?.configureWith(placeholder: "Last Name", identifier: TextFieldIdentifier.personLastName)
             cell?.delegate = self
             return cell!
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.frame.height / 3
+        return self.frame.height / 2
     }
 }
 

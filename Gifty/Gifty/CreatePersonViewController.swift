@@ -22,13 +22,13 @@ class CreatePersonViewController: CustomViewController {
     
     var textFieldTV: PersonTFTableView!
     
+    var dropDown: DropDownTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         layoutSubviews()
-        
     }
-    
     
     private func layoutSubviews() {
         
@@ -44,10 +44,15 @@ class CreatePersonViewController: CustomViewController {
         
         currMaxX = pad + profileImageView.frame.width + pad
         
-        textFieldTV = PersonTFTableView(frame: CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height))
+        textFieldTV = PersonTFTableView(frame: CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.6666))
+        textFieldTV.backgroundColor = UIColor.clear
         view.addSubview(textFieldTV)
         
+        currMaxY += textFieldTV.frame.height
         
+        let dropDownFrame = CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.3333)
+        dropDown = DropDownTextField(frame: dropDownFrame, title: "Group", options: ["Family", "Friends", "Colleagues"])
+        view.addSubview(dropDown)
     }
 
 

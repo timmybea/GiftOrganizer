@@ -18,6 +18,7 @@ enum ImageNames: String {
     case calendarDisplayView = "cal_display_view"
     case todayBGView = "todays_date"
     case profileImagePlaceHolder = "profile_image"
+    case dropdownTriangle = "dropdown_triangle"
 }
 
 
@@ -52,7 +53,7 @@ extension UIView {
 
 extension UITextField {
     
-    func placeholderWith(string: String, color: UIColor, font: UIFont = UIFont(name: "Helvetica", size: 15.0)!) {
+    func placeholderWith(string: String, color: UIColor, font: UIFont = FontManager.mediumText) {
         
         var placeHolder = NSMutableAttributedString()
         let text = string
