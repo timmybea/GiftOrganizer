@@ -16,17 +16,18 @@ class CreatePersonViewController: CustomViewController {
     var lastName = ""
     var group = ""
     
-    private let profileImageView: UIView = {
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: ImageNames.profileImagePlaceHolder.rawValue))
         imageView.contentMode = .scaleAspectFill
         imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView)))
         imageView.layer.masksToBounds = true
         return imageView
     }()
     
-    private var textFieldTV: PersonTFTableView!
+    var textFieldTV: PersonTFTableView!
     
-    fileprivate var dropDown: DropDownTextField!
+    var dropDown: DropDownTextField!
     
     //MARK: TEST<<<<<<<<
     private var testView: UIView = {
@@ -43,9 +44,8 @@ class CreatePersonViewController: CustomViewController {
     
     private func layoutSubviews() {
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapped))
         self.backgroundView.isUserInteractionEnabled = true
-        self.backgroundView.addGestureRecognizer(tapGesture)
+        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackgroundView)))
         
         var currMaxX: CGFloat = 0
         var currMaxY: CGFloat = 0
@@ -73,20 +73,53 @@ class CreatePersonViewController: CustomViewController {
         //MARK: TEST<<<<<<<<
         currMaxY += profileImageView.bounds.height * 0.3333 + pad
         testView.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: view.bounds.height - pad - currMaxY)
-        let testViewtapGesture = UITapGestureRecognizer(target: self, action: #selector(testViewTapped))
+        let testViewtapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTestView))
         testView.addGestureRecognizer(testViewtapGesture)
         view.addSubview(testView)
     }
 
-    func backgroundTapped() {
+    func didTapBackgroundView() {
         textFieldTV.finishEditing()
         dropDown.finishEditingTextField()
     }
     
-    func testViewTapped() {
-        print("test view tapped")
+    func didTapTestView() {
         textFieldTV.finishEditing()
         dropDown.finishEditingTextField()
+    }
+    
+
+}
+
+extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func didTapProfileImageView() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("did cancel")
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        //print(info)
+        var selectedImage: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            selectedImage = editedImage
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            selectedImage = originalImage
+        }
+        
+        if selectedImage != nil {
+            self.profileImageView.image = selectedImage
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
 
