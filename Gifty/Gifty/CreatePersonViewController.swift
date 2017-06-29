@@ -29,6 +29,16 @@ class CreatePersonViewController: CustomViewController {
     
     var dropDown: DropDownTextField!
     
+    lazy var addFromContactLabel: UILabel = {
+        var label = UILabel()
+        label.text = "+ add from contacts"
+        label.font = FontManager.mediumText
+        label.textColor = UIColor.white
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAddFromContactsLabel)))
+        return label
+    }()
+    
     //MARK: TEST<<<<<<<<
     private var testView: UIView = {
         let view = UIView()
@@ -69,9 +79,13 @@ class CreatePersonViewController: CustomViewController {
         dropDown = DropDownTextField(frame: dropDownFrame, title: "Group", options: ["Family", "Friends", "Colleagues"])
         dropDown.delegate = self
         view.addSubview(dropDown)
+
+        currMaxY += profileImageView.bounds.height * 0.3333 + pad
+        view.addSubview(addFromContactLabel)
+        addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 17)
         
         //MARK: TEST<<<<<<<<
-        currMaxY += profileImageView.bounds.height * 0.3333 + pad
+        currMaxY += addFromContactLabel.frame.height + pad
         testView.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: view.bounds.height - pad - currMaxY)
         let testViewtapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTestView))
         testView.addGestureRecognizer(testViewtapGesture)
@@ -91,6 +105,17 @@ class CreatePersonViewController: CustomViewController {
 
 }
 
+//
+extension CreatePersonViewController {
+    
+    func didTapAddFromContactsLabel() {
+        
+        print("add from contacts")
+    }
+}
+
+
+//MARK: ImagePicker delegate methods
 extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func didTapProfileImageView() {
@@ -123,6 +148,7 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
     }
 }
 
+//MARK: DropDown delegate methods
 extension CreatePersonViewController: DropDownTextFieldDelegate {
     func dropDownWillAnimate(down: Bool) {
         if down {
@@ -138,6 +164,7 @@ extension CreatePersonViewController: DropDownTextFieldDelegate {
     }
 }
 
+//MARK: TextFieldTableView delegate methods
 extension CreatePersonViewController: PersonTFTableViewDelegate {
     func didUpdateFirstName(string: String) {
         self.firstName = string
