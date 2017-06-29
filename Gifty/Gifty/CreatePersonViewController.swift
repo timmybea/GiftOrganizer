@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Contacts
+import ContactsUI
 
 class CreatePersonViewController: CustomViewController {
 
@@ -15,6 +17,7 @@ class CreatePersonViewController: CustomViewController {
     var firstName = ""
     var lastName = ""
     var group = ""
+    var dob: DateComponents?
     
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: ImageNames.profileImagePlaceHolder.rawValue))
@@ -32,6 +35,7 @@ class CreatePersonViewController: CustomViewController {
     lazy var addFromContactLabel: UILabel = {
         var label = UILabel()
         label.text = "+ add from contacts"
+        label.textAlignment = .center
         label.font = FontManager.mediumText
         label.textColor = UIColor.white
         label.isUserInteractionEnabled = true
@@ -82,7 +86,7 @@ class CreatePersonViewController: CustomViewController {
 
         currMaxY += profileImageView.bounds.height * 0.3333 + pad
         view.addSubview(addFromContactLabel)
-        addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 17)
+        addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 17)
         
         //MARK: TEST<<<<<<<<
         currMaxY += addFromContactLabel.frame.height + pad
@@ -111,6 +115,61 @@ extension CreatePersonViewController {
     func didTapAddFromContactsLabel() {
         
         print("add from contacts")
+        let entityType = CNEntityType.contacts
+        let authStatus = CNContactStore.authorizationStatus(for: entityType)
+        
+        if authStatus == .notDetermined {
+            
+            let contactStore = CNContactStore()
+            contactStore.requestAccess(for: entityType, completionHandler: { (success, error) in
+                if success {
+                    self.launchContacts()
+                }
+            })
+        } else if authStatus == .authorized {
+            self.launchContacts()
+        }
+    }
+    
+    func launchContacts() {
+        
+        let contactPicker = CNContactPickerViewController()
+        contactPicker.delegate = self
+        present(contactPicker, animated: true, completion: nil)
+    }
+}
+
+
+//MARK: ContactPicker delegate methods
+extension CreatePersonViewController: CNContactPickerDelegate {
+    
+    func contactPickerDidCancel(_ picker: CNContactPickerViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
+        
+        if contact.imageDataAvailable {
+            let imageData = contact.imageData
+            let image = UIImage(data: imageData!)
+            profileImageView.image = image
+        }
+        textFieldTV.updateWith(firstName: contact.givenName, lastName: contact.familyName)
+        dismiss(animated: true) { 
+            if let dob = contact.birthday {
+                let alertController = UIAlertController(title: "Create Birthday?", message: "Your contact has a birth date stored in it. Would you like to create a birthday event for them?", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                    print("Create new event for birth date \(dob)")
+                    
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                })
+                alertController.addAction(okAction)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
 }
 

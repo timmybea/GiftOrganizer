@@ -13,6 +13,11 @@ protocol PersonTFTableViewDelegate {
     func didUpdateLastName(string: String)
 }
 
+class TextFieldCellIndexPath {
+    static var firstName = IndexPath(row: 0, section: 0)
+    static var lastName = IndexPath(row: 1, section: 0)
+}
+
 class PersonTFTableView: UIView {
 
     var delegate: PersonTFTableViewDelegate?
@@ -57,9 +62,22 @@ class PersonTFTableView: UIView {
     }
     
     func finishEditing() {
-        let indexPath = currentIdentifier == TextFieldIdentifier.personFirstName ? IndexPath(row: 0, section: 0) : IndexPath(row: 1, section: 0)
+        let indexPath = currentIdentifier == TextFieldIdentifier.personFirstName ? TextFieldCellIndexPath.firstName : TextFieldCellIndexPath.lastName
         let cell = tableView.cellForRow(at: indexPath) as? TextFieldCell
         cell?.textField.delegate?.textFieldDidEndEditing!((cell?.textField)!)
+    }
+    
+    func updateWith(firstName: String?, lastName: String?) {
+        
+        if let firstName = firstName {
+            let cell = tableView.cellForRow(at: TextFieldCellIndexPath.firstName) as? TextFieldCell
+            cell?.setText(string: firstName)
+        }
+        
+        if let lastName = lastName {
+            let cell = tableView.cellForRow(at: TextFieldCellIndexPath.lastName) as? TextFieldCell
+            cell?.setText(string: lastName)
+        }
     }
 }
 

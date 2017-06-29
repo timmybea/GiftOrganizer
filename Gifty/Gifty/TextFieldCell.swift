@@ -73,6 +73,11 @@ class TextFieldCell: UITableViewCell {
         whiteUnderline.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         whiteUnderline.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
+    
+    func setText(string: String) {
+        textField.text = string
+        textField.delegate?.textFieldDidEndEditing!(textField)
+    }
 }
 
 extension TextFieldCell: UITextFieldDelegate {
