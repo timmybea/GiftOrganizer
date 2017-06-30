@@ -71,7 +71,7 @@ class TextFieldCell: UITableViewCell {
         whiteUnderline.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         whiteUnderline.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         whiteUnderline.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        whiteUnderline.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        whiteUnderline.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
     func setText(string: String) {

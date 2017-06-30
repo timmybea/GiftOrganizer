@@ -18,6 +18,7 @@ enum ImageNames: String {
     case calendarDisplayView = "cal_display_view"
     case todayBGView = "todays_date"
     case profileImagePlaceHolder = "profile_image"
+    case profileImagePlaceHolderTouched = "profile_image_touched"
     case dropdownTriangle = "dropdown_triangle"
 }
 

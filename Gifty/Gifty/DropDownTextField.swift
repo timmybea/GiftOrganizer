@@ -46,7 +46,7 @@ class DropDownTextField: UIView {
     
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "option")
+        tableView.register(DropDownCell.self, forCellReuseIdentifier: "option")
         tableView.bounces = false
         tableView.backgroundColor = UIColor.clear
         
@@ -55,7 +55,7 @@ class DropDownTextField: UIView {
     
     let animatedView: UIView = {
         let view = UIView()
-        view.backgroundColor = ColorManager.tabBarPurple
+        view.backgroundColor = ColorManager.highlightedText
         return view
     }()
     
@@ -99,7 +99,7 @@ class DropDownTextField: UIView {
     
     private func setupViews() {
         addSubview(whiteUnderline)
-        whiteUnderline.frame = CGRect(x: 0, y: self.originalHeight - 1, width: self.bounds.width, height: 1)
+        whiteUnderline.frame = CGRect(x: 0, y: self.originalHeight - 1, width: self.bounds.width, height: 2)
         
         addSubview(triangleIndicator)
         let triSize: CGFloat = 8
@@ -130,7 +130,7 @@ class DropDownTextField: UIView {
         self.addSubview(textField)
         textField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         textField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        textField.bottomAnchor.constraint(equalTo: whiteUnderline.bottomAnchor, constant: -3).isActive = true
+        textField.bottomAnchor.constraint(equalTo: whiteUnderline.bottomAnchor, constant: -10).isActive = true
         textField.font = FontManager.mediumText
         textField.delegate = self
         textField.isHidden = true
@@ -175,6 +175,7 @@ class DropDownTextField: UIView {
     func otherChosen() {
         menuDropDown()
         titleLabel.isHidden = true
+        textField.text = ""
         textField.isHidden = false
         textField.becomeFirstResponder()
     }
@@ -187,6 +188,11 @@ class DropDownTextField: UIView {
 extension DropDownTextField: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        titleLabel.text = textField.text
+        textField.isHidden = true
+        titleLabel.isHidden = false
+        textField.resignFirstResponder()
+        
         if self.delegate != nil {
             delegate?.optionSelected(option: textField.text!)
         }
@@ -211,15 +217,12 @@ extension DropDownTextField: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "option")
-        cell?.selectionStyle = .none
-        cell?.textLabel?.font = FontManager.mediumText
-        cell?.textLabel?.textColor = UIColor.white
-        cell?.backgroundColor = UIColor.clear
+        let cell = tableView.dequeueReusableCell(withIdentifier: "option") as? DropDownCell
+        
         if indexPath.row < options.count {
-            cell?.textLabel?.text = options[indexPath.row]
+            cell?.configureCellWith(title: options[indexPath.row])
         } else {
-            cell?.textLabel?.text = "Other"
+            cell?.configureCellWith(title: "Other")
         }
         return cell!
     }
@@ -240,5 +243,40 @@ extension DropDownTextField: UITableViewDelegate, UITableViewDataSource {
             menuDropDown()
         }
     }
+}
+
+
+class DropDownCell: UITableViewCell {
+    
+    let whiteView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
+    func configureCellWith(title: String) {
+        self.selectionStyle = .none
+        self.textLabel?.font = FontManager.mediumText
+        self.textLabel?.textColor = UIColor.white
+        self.backgroundColor = UIColor.clear
+
+        self.textLabel?.text = title
+        
+        addSubview(whiteView)
+        
+        whiteView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        whiteView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        whiteView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        whiteView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+    }
+
+    
+    
     
 }

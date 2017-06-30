@@ -19,29 +19,30 @@ class CreatePersonViewController: CustomViewController {
     var group = ""
     var dob: DateComponents?
     
-    lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: ImageNames.profileImagePlaceHolder.rawValue))
-        imageView.contentMode = .scaleAspectFill
-        imageView.isUserInteractionEnabled = true
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapProfileImageView)))
-        imageView.layer.masksToBounds = true
-        return imageView
+    lazy var profileImageView: CustomImageControl = {
+        let imageControl = CustomImageControl()
+        imageControl.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)
+        imageControl.imageView.contentMode = .scaleAspectFill
+        //imageControl.imageView.isUserInteractionEnabled = true
+        imageControl.addTarget(self, action: #selector(profileImageTouchDown), for: .touchDown)
+        imageControl.addTarget(self, action: #selector(profileImageTouchUpInside), for: .touchUpInside)
+        imageControl.layer.masksToBounds = true
+        return imageControl
     }()
     
     var textFieldTV: PersonTFTableView!
     
     var dropDown: DropDownTextField!
     
-    lazy var addFromContactLabel: UILabel = {
-        var label = UILabel()
-        label.text = "+ add from contacts"
-        label.textAlignment = .center
-        label.font = FontManager.mediumText
-        label.textColor = UIColor.white
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAddFromContactsLabel)))
-        return label
+    lazy var addFromContactLabel: ButtonTemplate = {
+        var button = ButtonTemplate(frame: .zero, title: "+ add from contacts")
+        button.titleLabel?.font = FontManager.mediumText
+        button.addTarget(self, action: #selector(didTapAddFromContactsLabel), for: .touchUpInside)
+        button.layer.borderWidth = 0
+        return button
     }()
+    
+    var saveButton: ButtonTemplate!
     
     //MARK: TEST<<<<<<<<
     private var testView: UIView = {
@@ -88,12 +89,19 @@ class CreatePersonViewController: CustomViewController {
         view.addSubview(addFromContactLabel)
         addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 17)
         
+        
+        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        
+        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+        view.addSubview(saveButton)
+        
         //MARK: TEST<<<<<<<<
-        currMaxY += addFromContactLabel.frame.height + pad
-        testView.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: view.bounds.height - pad - currMaxY)
-        let testViewtapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTestView))
-        testView.addGestureRecognizer(testViewtapGesture)
-        view.addSubview(testView)
+//        currMaxY += addFromContactLabel.frame.height + pad
+//        testView.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: view.bounds.height - pad - currMaxY)
+//        let testViewtapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTestView))
+//        testView.addGestureRecognizer(testViewtapGesture)
+//        view.addSubview(testView)
     }
 
     func didTapBackgroundView() {
@@ -152,7 +160,7 @@ extension CreatePersonViewController: CNContactPickerDelegate {
         if contact.imageDataAvailable {
             let imageData = contact.imageData
             let image = UIImage(data: imageData!)
-            profileImageView.image = image
+            profileImageView.imageView.image = image
         }
         textFieldTV.updateWith(firstName: contact.givenName, lastName: contact.familyName)
         dismiss(animated: true) { 
@@ -177,13 +185,24 @@ extension CreatePersonViewController: CNContactPickerDelegate {
 //MARK: ImagePicker delegate methods
 extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func didTapProfileImageView() {
+    func profileImageTouchDown() {
+        if self.profileImageView.isImageSelected == false {
+            self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolderTouched.rawValue)
+        }
+    }
+    
+    func profileImageTouchUpInside() {
+        
+        if self.profileImageView.isImageSelected == false {
+            self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)
+        }
+        
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
-        
     }
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("did cancel")
@@ -191,7 +210,6 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        //print(info)
         var selectedImage: UIImage?
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
@@ -201,7 +219,8 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
         }
         
         if selectedImage != nil {
-            self.profileImageView.image = selectedImage
+            self.profileImageView.imageView.image = selectedImage
+            self.profileImageView.isImageSelected = true
         }
         dismiss(animated: true, completion: nil)
     }

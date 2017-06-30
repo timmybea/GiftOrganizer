@@ -10,12 +10,23 @@ import UIKit
 
 class SettingsViewController: CustomViewController {
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.titleLabel.text = "Settings"
         self.setTitleLabelPosition(withSize: self.view.bounds.size)
 
+        
+        setupButton()
+    }
+    
+    func setupButton() {
+        
+        
+        
+        
     }
 
     
