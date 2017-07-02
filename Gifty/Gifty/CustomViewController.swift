@@ -19,7 +19,7 @@ class CustomViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .left
-        titleLabel.font = UIFont.systemFont(ofSize: 24)
+        titleLabel.font = FontManager.titleText
         return titleLabel
     }()
     

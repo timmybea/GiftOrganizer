@@ -40,7 +40,7 @@ class CustomCalendar: UIView {
     private let monthYearLabel: UILabel = {
         let monthYearLabel = UILabel()
         monthYearLabel.textAlignment = .left
-        monthYearLabel.font = UIFont.systemFont(ofSize: 24)
+        monthYearLabel.font = FontManager.titleText
         monthYearLabel.textColor = UIColor.white
         return monthYearLabel
     }()

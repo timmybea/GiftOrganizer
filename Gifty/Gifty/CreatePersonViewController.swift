@@ -23,7 +23,6 @@ class CreatePersonViewController: CustomViewController {
         let imageControl = CustomImageControl()
         imageControl.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)
         imageControl.imageView.contentMode = .scaleAspectFill
-        //imageControl.imageView.isUserInteractionEnabled = true
         imageControl.addTarget(self, action: #selector(profileImageTouchDown), for: .touchDown)
         imageControl.addTarget(self, action: #selector(profileImageTouchUpInside), for: .touchUpInside)
         imageControl.layer.masksToBounds = true
@@ -43,17 +42,13 @@ class CreatePersonViewController: CustomViewController {
     }()
     
     var saveButton: ButtonTemplate!
-    
-    //MARK: TEST<<<<<<<<
-    private var testView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.green
-        return view
-    }()
+
+    var eventCollectionView: EventCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Create Person", style: .plain, target: self, action: nil)
         layoutSubviews()
     }
     
@@ -89,19 +84,17 @@ class CreatePersonViewController: CustomViewController {
         view.addSubview(addFromContactLabel)
         addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 17)
         
-        
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
         saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
         view.addSubview(saveButton)
         
-        //MARK: TEST<<<<<<<<
-//        currMaxY += addFromContactLabel.frame.height + pad
-//        testView.frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: view.bounds.height - pad - currMaxY)
-//        let testViewtapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTestView))
-//        testView.addGestureRecognizer(testViewtapGesture)
-//        view.addSubview(testView)
+        currMaxY += addFromContactLabel.frame.height + pad
+        let eventHeight = view.bounds.height - currMaxY - tabBarHeight - pad - saveButton.frame.height - pad
+        eventCollectionView = EventCollectionView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: eventHeight))
+        eventCollectionView.delegate = self
+        view.addSubview(eventCollectionView)
     }
 
     func didTapBackgroundView() {
@@ -113,11 +106,9 @@ class CreatePersonViewController: CustomViewController {
         textFieldTV.finishEditing()
         dropDown.finishEditingTextField()
     }
-    
-
 }
 
-//
+
 extension CreatePersonViewController {
     
     func didTapAddFromContactsLabel() {
@@ -252,5 +243,17 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     func didUpdateLastName(string: String) {
         self.lastName = string
         print("updated last name in vc to \(lastName)")
+    }
+}
+
+//MARK: EventCollectionView delegate methods
+extension CreatePersonViewController: EventCollectionViewDelegate {
+    
+    func didTouchAddEventButton() {
+        print("Add new event!")
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(CreateEventViewController(), animated: true)
+        }
     }
 }

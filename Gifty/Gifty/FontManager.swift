@@ -10,7 +10,10 @@ import UIKit
 
 class FontManager: NSObject {
 
-    static let mediumText = UIFont(name: "Helvetica", size: 15.0)!
+    
+    static let titleText = UIFont.systemFont(ofSize: 24)
+    static let subtitleText = UIFont.systemFont(ofSize: 18)
+    static let mediumText = UIFont.systemFont(ofSize: 15)
     
     
 }
