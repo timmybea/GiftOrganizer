@@ -20,6 +20,8 @@ class CreateEventViewController: CustomViewController {
     var addCardImageControl: CustomImageControl!
     var addPhoneImageControl: CustomImageControl!
     
+    var autoCompletePerson: AutoCompletePerson!
+    
     var saveButton: ButtonTemplate!
     
     override func viewDidLoad() {
@@ -86,12 +88,19 @@ class CreateEventViewController: CustomViewController {
         addCardImageControl.addTarget(self, action: #selector(addCardTouched), for: .touchUpInside)
         addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
         
+        currMaxY += addCardImageControl.frame.height + pad
+        
+        let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
+        autoCompletePerson = AutoCompletePerson(frame: autoFrame)
+        view.addSubview(autoCompletePerson)
         
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
         saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
         view.addSubview(saveButton)
+        
+        
         
     }
     
