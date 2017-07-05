@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class PeopleViewController: CustomViewController {
+    
+    var frc: NSFetchedResultsController<Person>? = PersonFRC.frc
     
     let collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -21,10 +24,8 @@ class PeopleViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                
         setupNavigationBar()
         setupCollectionView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,17 +78,27 @@ class PeopleViewController: CustomViewController {
 extension PeopleViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return frc?.sections?.count ?? 0
     }
+    
+    
+    //Section Titles 
+//    func indexTitles(for collectionView: UICollectionView) -> [String]? {
+//        //???? IS THIS CORRECT??
+//    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        let sectionInfo = frc?.sections?[section]
+        return (sectionInfo?.numberOfObjects)!
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PeopleCell", for: indexPath)
-        return  cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PeopleCell", for: indexPath) as? PeopleCell
+        if let person = frc?.object(at: indexPath) {
+            cell?.configureCellWith(person: person)
+        }
+        return cell!
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -100,6 +111,7 @@ extension PeopleViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        //update person
         pushToCreatePerson()
     }
 }

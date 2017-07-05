@@ -8,7 +8,12 @@
 
 import UIKit
 
+protocol ButtonTemplateDelegate {
+    func buttonWasTouched()
+}
 class ButtonTemplate: UIButton {
+    
+    var delegate: ButtonTemplateDelegate?
     
     init(frame: CGRect, title: String) {
         super.init(frame: frame)
@@ -36,5 +41,8 @@ class ButtonTemplate: UIButton {
     
     func buttonWasTouchUpInside() {
         self.layer.borderColor = UIColor.white.cgColor
+        if self.delegate != nil {
+            self.delegate?.buttonWasTouched()
+        }
     }
 }

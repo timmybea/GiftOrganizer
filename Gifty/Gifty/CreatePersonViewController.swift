@@ -89,6 +89,7 @@ class CreatePersonViewController: CustomViewController {
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
         saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+        saveButton.delegate = self
         view.addSubview(saveButton)
         
         currMaxY += addFromContactLabel.frame.height + pad
@@ -211,7 +212,8 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
         }
         
         if selectedImage != nil {
-            self.profileImageView.imageView.image = selectedImage
+            let scaledImage = UIImage.scaleImage(image: selectedImage!, toWidth: profileImageView.frame.width, andHeight: profileImageView.frame.height)
+            self.profileImageView.imageView.image = scaledImage
             self.profileImageView.isImageSelected = true
         }
         dismiss(animated: true, completion: nil)
@@ -257,4 +259,42 @@ extension CreatePersonViewController: EventCollectionViewDelegate {
             self.navigationController?.pushViewController(CreateEventViewController(), animated: true)
         }
     }
+}
+
+//MARK: SAVE BUTTON
+extension CreatePersonViewController: ButtonTemplateDelegate {
+    
+    func buttonWasTouched() {
+        
+        print("Save touched")
+        
+        //Create new person
+        guard firstName != "" else {
+            //create alert controller
+            return
+        }
+        
+        guard group != "" else {
+            //create alert controller
+            return
+        }
+
+        var profileImage: UIImage?
+        if profileImageView.isImageSelected {
+            profileImage = profileImageView.imageView.image
+        }
+        
+        ManagedObjectBuilder.createPerson(firstName: firstName, lastName: lastName, group: group, profileImage: profileImage) { (success, person) in
+            
+            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                print("successfully saved")
+            })
+        }
+        
+        
+        
+        
+        
+    }
+    
 }

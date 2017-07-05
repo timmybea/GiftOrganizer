@@ -22,6 +22,8 @@ class CreateEventViewController: CustomViewController {
     
     var autoCompletePerson: AutoCompletePerson!
     
+    var budgetView: BudgetView!
+    
     var saveButton: ButtonTemplate!
     
     override func viewDidLoad() {
@@ -37,7 +39,7 @@ class CreateEventViewController: CustomViewController {
         self.backgroundView.isUserInteractionEnabled = true
         self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground)))
         
-        var currMaxX: CGFloat = 0
+        //var currMaxX: CGFloat = 0
         var currMaxY: CGFloat = 0
         
         if let navHeight = navigationController?.navigationBar.frame.height {
@@ -89,6 +91,10 @@ class CreateEventViewController: CustomViewController {
         addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
         
         currMaxY += addCardImageControl.frame.height + pad
+        budgetView = BudgetView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 20))
+        view.addSubview(budgetView)
+        
+        currMaxY += budgetView.frame.height + pad
         
         let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
         autoCompletePerson = AutoCompletePerson(frame: autoFrame)
@@ -106,6 +112,7 @@ class CreateEventViewController: CustomViewController {
     
     func didTapBackground() {
         dropDown.finishEditingTextField()
+        
     }
 }
 

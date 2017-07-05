@@ -81,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "ModelName")
+        let container = NSPersistentContainer(name: "PersonEventModel")
         container.loadPersistentStores(completionHandler: { (description, error) in
             if let error = error {
                 print(error.localizedDescription)
