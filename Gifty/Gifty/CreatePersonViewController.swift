@@ -48,7 +48,8 @@ class CreatePersonViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Create Person", style: .plain, target: self, action: nil)
+        self.title = "Add Person"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         layoutSubviews()
     }
     

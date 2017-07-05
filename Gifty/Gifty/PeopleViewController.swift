@@ -21,6 +21,7 @@ class PeopleViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+                
         setupNavigationBar()
         setupCollectionView()
         
@@ -38,7 +39,7 @@ class PeopleViewController: CustomViewController {
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushToCreatePerson))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "People", style: .plain, target: self, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 
     private func setupCollectionView() {

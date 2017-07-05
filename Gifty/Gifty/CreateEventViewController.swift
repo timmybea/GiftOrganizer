@@ -12,15 +12,20 @@ class CreateEventViewController: CustomViewController {
 
     var celebrationType: String = ""
     
-    
     var dropDown: DropDownTextField!
+    
+    var addDate: AddDateView!
     
     var addGiftImageControl: CustomImageControl!
     var addCardImageControl: CustomImageControl!
     var addPhoneImageControl: CustomImageControl!
     
+    var saveButton: ButtonTemplate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = "Add Event"
         
         layoutSubviews()
     }
@@ -43,7 +48,13 @@ class CreateEventViewController: CustomViewController {
         }
         
         currMaxY += 40 + pad
-        let actions = UILabel(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 40))
+        addDate = AddDateView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 25))
+        addDate.delegate = self
+        view.addSubview(addDate)
+        
+        currMaxY += addDate.frame.height + pad
+        
+        let actions = UILabel(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 20))
         actions.textColor = UIColor.white
         actions.font = FontManager.subtitleText
         actions.text = "Actions:"
@@ -74,6 +85,13 @@ class CreateEventViewController: CustomViewController {
         addGiftImageControl.addTarget(self, action: #selector(addGiftTouched), for: .touchUpInside)
         addCardImageControl.addTarget(self, action: #selector(addCardTouched), for: .touchUpInside)
         addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
+        
+        
+        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        
+        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+        view.addSubview(saveButton)
         
     }
     
@@ -116,6 +134,11 @@ extension CreateEventViewController {
         addPhoneImageControl.imageView.tintColor = addPhoneImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
         addPhoneImageControl.isImageSelected = !addPhoneImageControl.isImageSelected
     }
+}
+
+extension CreateEventViewController: AddDateViewDelegate {
     
-    
+    func addDateViewWasTouched() {
+        print("select date vc")
+    }
 }
