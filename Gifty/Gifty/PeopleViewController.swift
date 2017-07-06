@@ -11,7 +11,8 @@ import CoreData
 
 class PeopleViewController: CustomViewController {
     
-    var frc: NSFetchedResultsController<Person>? = PersonFRC.frc
+    var frc: NSFetchedResultsController<Person>? = PersonFRC.frc(byGroup: true)
+    var isSortByGroup = true
     
     lazy var tableView: UITableView = {
         let tableview = UITableView()
@@ -81,9 +82,39 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
         return (frc?.sections?.count)!
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if isSortByGroup {
+//            let sectionInfo = frc?.sections?[section]
+//            return sectionInfo?.name
+//        } else {
+//            return nil
+//        }
 //    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        if isSortByGroup {
+            let sectionInfo = frc?.sections?[section]
+            
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = ColorManager.highlightedText
+            
+            let label = UILabel(frame: CGRect(x: pad, y: 8, width: 200, height: 20))
+            label.font = FontManager.subtitleText
+            label.textColor = UIColor.white
+            label.text = sectionInfo?.name
+            backgroundView.addSubview(label)
+
+//            backgroundView.layer.shadowRadius = 2
+//            backgroundView.layer.shadowColor = UIColor.black as! CGColor
+
+            
+            return backgroundView
+            
+        } else {
+            return nil
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = frc?.sections?[section]
@@ -106,6 +137,10 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 34
     }
 }
 

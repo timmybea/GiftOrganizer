@@ -14,9 +14,9 @@ class CreatePersonViewController: CustomViewController {
 
 //    var Person: Person!
 
-    var firstName = ""
-    var lastName = ""
-    var group = ""
+    var firstName: String?
+    var lastName: String?
+    var group: String?
     var dob: DateComponents?
     
     lazy var profileImageView: CustomImageControl = {
@@ -245,7 +245,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     
     func didUpdateLastName(string: String) {
         self.lastName = string
-        print("updated last name in vc to \(lastName)")
+        print("updated last name in vc to \(lastName!)")
     }
 }
 
@@ -269,12 +269,12 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
         print("Save touched")
         
         //Create new person
-        guard firstName != "" else {
+        guard firstName != nil && firstName != "" else {
             //create alert controller
             return
         }
         
-        guard group != "" else {
+        guard group != nil && group != "" else {
             //create alert controller
             return
         }
@@ -284,7 +284,7 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
             profileImage = profileImageView.imageView.image
         }
         
-        ManagedObjectBuilder.createPerson(firstName: firstName, lastName: lastName, group: group, profileImage: profileImage) { (success, person) in
+        ManagedObjectBuilder.createPerson(firstName: firstName!, lastName: lastName, group: group!, profileImage: profileImage) { (success, person) in
             
             ManagedObjectBuilder.saveChanges(completion: { (success) in
                 print("successfully saved")

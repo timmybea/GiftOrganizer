@@ -12,7 +12,7 @@ class ManagedObjectBuilder: NSObject {
 
     private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
-    static func createPerson(firstName: String, lastName: String, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
+    static func createPerson(firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
     
         guard let moc = moc else {
             completion(false, nil)
@@ -22,14 +22,30 @@ class ManagedObjectBuilder: NSObject {
         let person = Person(context: moc)
         person.id = UUID().uuidString
         person.firstName = firstName
-        person.lastName = lastName
-        person.fullName = "\(firstName) \(lastName)"
+        
+        if let lastName = lastName {
+            person.lastName = lastName
+            person.alphabetisedName = lastName
+            person.fullName = "\(firstName) \(lastName)"
+        } else {
+            person.alphabetisedName = firstName
+            person.fullName = firstName
+        }
+        
+        var upperCase = person.alphabetisedName?.uppercased()
+        person.alphabetisedSection = upperCase?.characters.popFirst() as? String
         person.group = group
                 
         if let image = profileImage {
             person.profileImage = NSData(data: UIImageJPEGRepresentation(image, 0.3)!)
         }
         completion(true, person)
+    }
+    
+    private func getUpperCasedCharFromString(string: String) -> Character {
+        var upperCase = string.uppercased()
+        let first = upperCase.characters.popFirst()
+        return first!
     }
 
     static func saveChanges(completion: (_ success: Bool) -> Void) {
@@ -56,7 +72,7 @@ class ManagedObjectBuilder: NSObject {
     
     
     static func deleteAllPeople() {
-        guard let people = PersonFRC.frc?.fetchedObjects as [Person]? else { return }
+        guard let people = PersonFRC.frc(byGroup: true)?.fetchedObjects as [Person]? else { return }
         
         for person in people {
             person.managedObjectContext?.delete(person)

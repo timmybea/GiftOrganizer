@@ -10,21 +10,30 @@ import UIKit
 import CoreData
 
 class PersonFRC: NSObject {
-
-    static let frc: NSFetchedResultsController<Person>? = {
+    
+    static func frc(byGroup bool: Bool) -> NSFetchedResultsController<Person>? {
+        
         guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "firstName", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "alphabetisedName", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "group", cacheName: nil)
+        
+        let frc: NSFetchedResultsController<Person>?
+        if bool {
+            
+            frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "group", cacheName: nil)
+        } else {
+            frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "alphabetisedSection", cacheName: nil)
+        }
+        
         do {
-            try frc.performFetch()
+            try frc?.performFetch()
         } catch {
             print(error.localizedDescription)
         }
         return frc
-    }()
+    }
     
     private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
