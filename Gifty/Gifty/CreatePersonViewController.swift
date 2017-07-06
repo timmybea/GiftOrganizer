@@ -288,6 +288,10 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
             
             ManagedObjectBuilder.saveChanges(completion: { (success) in
                 print("successfully saved")
+                self.navigationController?.popViewController(animated: true)
+//                self.navigationController?.dismiss(animated: true, completion: {
+//                    //
+//                })
             })
         }
         

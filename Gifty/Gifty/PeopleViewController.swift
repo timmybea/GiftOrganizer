@@ -26,6 +26,7 @@ class PeopleViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        frc?.delegate = self
         setupNavigationBar()
         setupTableView()
     }
@@ -113,33 +114,36 @@ extension PeopleViewController: NSFetchedResultsControllerDelegate {
     //MARK: Fetched results controller - Update tableview with changed from detailvc
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //self.tableView.beginUpdates()
+        self.tableView.beginUpdates()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        switch type {
-//        case .insert:
-//            self.tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
-//        case .delete:
-//            self.tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
-//        default:
-//            return
-//        }
+        switch type {
+        case .insert:
+            self.tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            self.tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        default:
+            return
+        }
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch type {
-//        case .insert:
-//            tableView.insertRows(at: [newIndexPath!], with: .fade)
-//        case .delete:
-//            tableView.deleteRows(at: [indexPath!], with: .fade)
-//        default:
-//            configureCell(tableView.cellForRow(at: indexPath!)!, withBorrowItem: anObject as! BorrowItem)
-//        }
+        
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        default:
+            let cell = tableView.cellForRow(at: indexPath!) as? PersonCell
+            let person = anObject as! Person
+            cell?.configureCellWith(person: person)
+        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-       // self.tableView.endUpdates()
+       self.tableView.endUpdates()
     }
 
 }
