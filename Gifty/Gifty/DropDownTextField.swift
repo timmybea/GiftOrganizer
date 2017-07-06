@@ -49,7 +49,7 @@ class DropDownTextField: UIView {
         tableView.register(DropDownCell.self, forCellReuseIdentifier: "option")
         tableView.bounces = false
         tableView.backgroundColor = UIColor.clear
-        
+        tableView.separatorColor = UIColor.clear
         return tableView
     }()
     
@@ -251,7 +251,7 @@ class DropDownCell: UITableViewCell {
     let whiteView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.lightText
         return view
     }()
     
@@ -263,7 +263,7 @@ class DropDownCell: UITableViewCell {
     func configureCellWith(title: String) {
         self.selectionStyle = .none
         self.textLabel?.font = FontManager.mediumText
-        self.textLabel?.textColor = UIColor.white
+        self.textLabel?.textColor = ColorManager.lightText
         self.backgroundColor = UIColor.clear
 
         self.textLabel?.text = title
@@ -273,7 +273,7 @@ class DropDownCell: UITableViewCell {
         whiteView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         whiteView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         whiteView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        whiteView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        whiteView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
 
     

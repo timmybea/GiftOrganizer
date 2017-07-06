@@ -15,7 +15,7 @@ class PersonFRC: NSObject {
         guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "group", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "firstName", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "group", cacheName: nil)
         do {
@@ -27,4 +27,14 @@ class PersonFRC: NSObject {
     }()
     
     private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    
+    static func updateMoc() {
+        guard let moc = moc else { return }
+        
+        do {
+            try moc.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

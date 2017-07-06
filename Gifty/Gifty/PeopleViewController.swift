@@ -13,19 +13,21 @@ class PeopleViewController: CustomViewController {
     
     var frc: NSFetchedResultsController<Person>? = PersonFRC.frc
     
-    let collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor.clear
-        return collectionView
+    lazy var tableView: UITableView = {
+        let tableview = UITableView()
+        tableview.backgroundColor = UIColor.clear
+        tableview.separatorColor = UIColor.clear
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.register(PersonCell.self, forCellReuseIdentifier: "PersonCell")
+        return tableview
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavigationBar()
-        setupCollectionView()
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,17 +45,13 @@ class PeopleViewController: CustomViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 
-    private func setupCollectionView() {
+    private func setupTableView() {
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(PeopleCell.self, forCellWithReuseIdentifier: "PeopleCell")
+        view.addSubview(tableView)
         
-        view.addSubview(collectionView)
-        
-        if let navHeight = navigationController?.navigationBar.frame.height {
+        if let navHeight = navigationController?.navigationBar.frame.height , let tabHeight = tabBarController?.tabBar.frame.height {
             let yVal = navHeight + UIApplication.shared.statusBarFrame.height
-            collectionView.frame = CGRect(x: 0, y: yVal, width: self.view.bounds.width, height: self.view.bounds.height - yVal)
+            tableView.frame = CGRect(x: 0, y: yVal, width: self.view.bounds.width, height: self.view.bounds.height - yVal - tabHeight)
         }
     }
 
@@ -75,43 +73,73 @@ class PeopleViewController: CustomViewController {
     
 }
 
-extension PeopleViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
+
+extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return frc?.sections?.count ?? 0
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (frc?.sections?.count)!
     }
     
-    
-    //Section Titles 
-//    func indexTitles(for collectionView: UICollectionView) -> [String]? {
-//        //???? IS THIS CORRECT??
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
 //    }
     
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = frc?.sections?[section]
         return (sectionInfo?.numberOfObjects)!
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PeopleCell", for: indexPath) as? PeopleCell
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell") as? PersonCell
         if let person = frc?.object(at: indexPath) {
             cell?.configureCellWith(person: person)
         }
         return cell!
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 40)
-    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        //update person
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         pushToCreatePerson()
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+}
+
+extension PeopleViewController: NSFetchedResultsControllerDelegate {
+  
+    //MARK: Fetched results controller - Update tableview with changed from detailvc
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        //self.tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+//        switch type {
+//        case .insert:
+//            self.tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+//        case .delete:
+//            self.tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+//        default:
+//            return
+//        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        switch type {
+//        case .insert:
+//            tableView.insertRows(at: [newIndexPath!], with: .fade)
+//        case .delete:
+//            tableView.deleteRows(at: [indexPath!], with: .fade)
+//        default:
+//            configureCell(tableView.cellForRow(at: indexPath!)!, withBorrowItem: anObject as! BorrowItem)
+//        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+       // self.tableView.endUpdates()
+    }
+
 }

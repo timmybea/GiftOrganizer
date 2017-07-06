@@ -47,4 +47,21 @@ class ManagedObjectBuilder: NSObject {
         }
         
     }
+    
+
+    //MARK: Development tools
+    static func printAllPeople() {
+        
+    }
+    
+    
+    static func deleteAllPeople() {
+        guard let people = PersonFRC.frc?.fetchedObjects as [Person]? else { return }
+        
+        for person in people {
+            person.managedObjectContext?.delete(person)
+        }
+        PersonFRC.updateMoc()
+    }
+
 }
