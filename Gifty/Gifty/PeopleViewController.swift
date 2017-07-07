@@ -11,7 +11,7 @@ import CoreData
 
 class PeopleViewController: CustomViewController {
     
-    var frc: NSFetchedResultsController<Person>? = PersonFRC.frc(byGroup: true)
+    var frc: NSFetchedResultsController<Person>? = PersonFRC.frc(byGroup: false)
     var isSortByGroup = true
     
     lazy var tableView: UITableView = {
@@ -37,8 +37,25 @@ class PeopleViewController: CustomViewController {
     
     var previousScrollOffset: CGFloat = 0
     
+    //MARK: SEARCH
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    
+    //END
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //SEARCH
+        //headerView.searchBar.delegate = self
+        
+        
+        //END
+        
+        
+        headerView.segmentedControl.selectedSegmentIndex = 0
+        headerView.segmentedControl.addTarget(self, action: #selector(didChangeSortBy), for: .valueChanged)
         
         frc?.delegate = self
         setupNavigationBar()
@@ -92,8 +109,18 @@ class PeopleViewController: CustomViewController {
         }
     }
     
-    //MARK: orientation change methods
+    func didChangeSortBy(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            self.frc = PersonFRC.frc(byGroup: false)
+        } else {
+            self.frc = PersonFRC.frc(byGroup: true)
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     
+    //MARK: orientation change method
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         self.setTitleLabelPosition(withSize: size)
@@ -110,11 +137,10 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        if isSortByGroup {
             let sectionInfo = frc?.sections?[section]
             
             let backgroundView = UIView()
-            backgroundView.backgroundColor = UIColor.clear
+            backgroundView.backgroundColor = ColorManager.tabBarPurple
             
             let label = UILabel(frame: CGRect(x: pad, y: 8, width: 200, height: 20))
             label.font = FontManager.subtitleText
@@ -123,10 +149,6 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
             backgroundView.addSubview(label)
             
             return backgroundView
-            
-        } else {
-            return nil
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -283,5 +305,14 @@ extension PeopleViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
        self.tableView.endUpdates()
     }
+}
+
+
+extension PeopleViewController: UISearchBarDelegate {
+    //MARK: SearchBar Delegate Methods
+    //https://www.youtube.com/watch?v=8mDc8O3QJ5Q
+
+    
+    
 
 }
