@@ -16,6 +16,7 @@ class PeopleViewController: CustomViewController {
     
     lazy var tableView: UITableView = {
         let tableview = UITableView()
+        tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.backgroundColor = UIColor.clear
         tableview.separatorColor = UIColor.clear
         tableview.delegate = self
@@ -24,18 +25,31 @@ class PeopleViewController: CustomViewController {
         return tableview
     }()
     
+    let headerView: SearchHeaderView = {
+        let view = SearchHeaderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var headerViewHeightConstraint: NSLayoutConstraint!
+    let maxHeaderHeight: CGFloat = 88
+    let minHeaderHeight: CGFloat = 0
+    
+    var previousScrollOffset: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         frc?.delegate = self
         setupNavigationBar()
-        setupTableView()
+        setupSubviews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
- 
         self.titleLabel.isHidden = false
+        
+        headerViewHeightConstraint.constant = maxHeaderHeight
+        updateHeader()
     }
     
     private func setupNavigationBar() {
@@ -47,14 +61,26 @@ class PeopleViewController: CustomViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 
-    private func setupTableView() {
+    private func setupSubviews() {
+        
+        let navHeight = (self.navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height
+        let tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
+        
+        view.addSubview(headerView)
+        headerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        headerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navHeight).isActive = true
+        headerView.heightAnchor.constraint(equalToConstant: 88).isActive = true
+        
+        //pull out the height constraint from the header view
+        headerViewHeightConstraint = NSLayoutConstraint(item: headerView, attribute: .height, relatedBy: .equal, toItem: headerView, attribute: .height, multiplier: 0, constant: 0)
+        headerViewHeightConstraint.isActive = true
         
         view.addSubview(tableView)
-        
-        if let navHeight = navigationController?.navigationBar.frame.height , let tabHeight = tabBarController?.tabBar.frame.height {
-            let yVal = navHeight + UIApplication.shared.statusBarFrame.height
-            tableView.frame = CGRect(x: 0, y: yVal, width: self.view.bounds.width, height: self.view.bounds.height - yVal - tabHeight)
-        }
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
     }
 
     func pushToCreatePerson() {
@@ -82,32 +108,19 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
         return (frc?.sections?.count)!
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if isSortByGroup {
-//            let sectionInfo = frc?.sections?[section]
-//            return sectionInfo?.name
-//        } else {
-//            return nil
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
         if isSortByGroup {
             let sectionInfo = frc?.sections?[section]
             
             let backgroundView = UIView()
-            backgroundView.backgroundColor = ColorManager.highlightedText
+            backgroundView.backgroundColor = UIColor.clear
             
             let label = UILabel(frame: CGRect(x: pad, y: 8, width: 200, height: 20))
             label.font = FontManager.subtitleText
             label.textColor = UIColor.white
             label.text = sectionInfo?.name
             backgroundView.addSubview(label)
-
-//            backgroundView.layer.shadowRadius = 2
-//            backgroundView.layer.shadowColor = UIColor.black as! CGColor
-
             
             return backgroundView
             
@@ -142,6 +155,96 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 34
     }
+}
+
+extension PeopleViewController {
+    
+    //MARK: Animated header methods
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollDiff = scrollView.contentOffset.y - self.previousScrollOffset
+        
+        let absoluteTop: CGFloat = 0
+        let absoluteBottom: CGFloat = scrollView.contentSize.height - scrollView.frame.size.height
+        
+        let isScrollingDown = scrollDiff > 0 && scrollView.contentOffset.y > absoluteTop
+        let isScrollingUp = scrollDiff < 0 && scrollView.contentOffset.y < absoluteBottom
+        
+        if canAnimateHeader(scrollView) {
+            var newHeight = headerViewHeightConstraint.constant
+            
+            if isScrollingDown {
+                newHeight = max(self.minHeaderHeight, self.headerViewHeightConstraint.constant - abs(scrollDiff))
+            } else if isScrollingUp && scrollView.contentOffset.y <= 0 {
+                newHeight = min(self.maxHeaderHeight, self.headerViewHeightConstraint.constant + abs(scrollDiff))
+            }
+            
+            if newHeight != self.headerViewHeightConstraint.constant {
+                self.headerViewHeightConstraint.constant = newHeight
+                self.updateHeader()
+                self.setScrollPosition(position: self.previousScrollOffset)
+            }
+        }
+        self.previousScrollOffset = scrollView.contentOffset.y
+    }
+    
+    func canAnimateHeader(_ scrollView: UIScrollView) -> Bool {
+        let scrollViewMaxHeight = scrollView.frame.height + headerViewHeightConstraint.constant - minHeaderHeight
+        return scrollView.contentSize.height > scrollViewMaxHeight
+    }
+    
+    func setScrollPosition(position: CGFloat) {
+        self.tableView.contentOffset = CGPoint(x: self.tableView.contentOffset.x, y: position)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        scrollViewDidStopScrolling()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            scrollViewDidStopScrolling()
+        }
+    }
+    
+    func scrollViewDidStopScrolling() {
+        let range = self.maxHeaderHeight - self.minHeaderHeight
+        let midPoint = self.minHeaderHeight + (range / 2)
+        
+        if self.headerViewHeightConstraint.constant > midPoint {
+            expandHeader()
+        } else {
+            collapseHeader()
+        }
+    }
+    
+    func collapseHeader() {
+        self.view.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.headerViewHeightConstraint.constant = self.minHeaderHeight
+            self.updateHeader()
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func expandHeader() {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.2, animations: {
+            self.headerViewHeightConstraint.constant = self.maxHeaderHeight
+            self.updateHeader()
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func updateHeader() {
+        let range = self.maxHeaderHeight - self.minHeaderHeight
+        let openAmount = self.headerViewHeightConstraint.constant - self.minHeaderHeight
+        let percentage = openAmount / range
+        
+        headerView.segmentedControl.alpha = percentage
+        headerView.searchBar.alpha = percentage
+    }
+    
 }
 
 extension PeopleViewController: NSFetchedResultsControllerDelegate {

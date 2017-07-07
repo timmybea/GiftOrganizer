@@ -33,7 +33,11 @@ class ManagedObjectBuilder: NSObject {
         }
         
         var upperCase = person.alphabetisedName?.uppercased()
-        person.alphabetisedSection = upperCase?.characters.popFirst() as? String
+        if let character = upperCase?.characters.popFirst() {
+            let string: String = "\(character)"
+            person.alphabetisedSection = string
+        }
+
         person.group = group
                 
         if let image = profileImage {

@@ -232,7 +232,7 @@ extension CreatePersonViewController: DropDownTextFieldDelegate {
     
     func optionSelected(option: String) {
         self.group = option
-        print("updated group in vc to \(group)")
+        print("updated group in vc to \(group ?? "")")
     }
 }
 
@@ -240,12 +240,12 @@ extension CreatePersonViewController: DropDownTextFieldDelegate {
 extension CreatePersonViewController: PersonTFTableViewDelegate {
     func didUpdateFirstName(string: String) {
         self.firstName = string
-        print("updated first name in vc to \(firstName)")
+        print("updated first name in vc to \(firstName ?? "")")
     }
     
     func didUpdateLastName(string: String) {
         self.lastName = string
-        print("updated last name in vc to \(lastName!)")
+        print("updated last name in vc to \(lastName ?? "")")
     }
 }
 
