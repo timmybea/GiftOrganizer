@@ -12,7 +12,6 @@ import CoreData
 class PeopleViewController: CustomViewController {
     
     var frc: NSFetchedResultsController<Person>? = PersonFRC.frc(byGroup: false)
-    var isSortByGroup = true
     
     lazy var tableView: UITableView = {
         let tableview = UITableView()
@@ -38,9 +37,8 @@ class PeopleViewController: CustomViewController {
     var previousScrollOffset: CGFloat = 0
     
     //MARK: SEARCH
-    let searchController = UISearchController(searchResultsController: nil)
-    
-    
+    var isSearching = false
+    var filteredData = [Person]()
     //END
     
     
@@ -48,11 +46,10 @@ class PeopleViewController: CustomViewController {
         super.viewDidLoad()
         
         //SEARCH
-        //headerView.searchBar.delegate = self
-        
+        headerView.searchBar.delegate = self
+        headerView.searchBar.returnKeyType = .done
         
         //END
-        
         
         headerView.segmentedControl.selectedSegmentIndex = 0
         headerView.segmentedControl.addTarget(self, action: #selector(didChangeSortBy), for: .valueChanged)
@@ -109,7 +106,9 @@ class PeopleViewController: CustomViewController {
         }
     }
     
+    //MARK: segmented Controller
     func didChangeSortBy(sender: UISegmentedControl) {
+        self.frc = nil
         if sender.selectedSegmentIndex == 0 {
             self.frc = PersonFRC.frc(byGroup: false)
         } else {
@@ -132,11 +131,19 @@ class PeopleViewController: CustomViewController {
 extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (frc?.sections?.count)!
+        
+        if isSearching {
+            return 1
+        } else {
+            return (frc?.sections?.count)!
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
+        
+        if isSearching {
+            return nil
+        } else {
             let sectionInfo = frc?.sections?[section]
             
             let backgroundView = UIView()
@@ -149,22 +156,33 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
             backgroundView.addSubview(label)
             
             return backgroundView
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = frc?.sections?[section]
-        return (sectionInfo?.numberOfObjects)!
+        
+        if isSearching {
+            return filteredData.count
+        } else {
+            let sectionInfo = frc?.sections?[section]
+            return (sectionInfo?.numberOfObjects)!
+        }
     }
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell") as? PersonCell
-        if let person = frc?.object(at: indexPath) {
-            cell?.configureCellWith(person: person)
+        
+        var person: Person
+        if isSearching {
+            person = filteredData[indexPath.row]
+        } else {
+            person = (frc?.object(at: indexPath))!
         }
+        
+        cell?.configureCellWith(person: person)
         return cell!
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         pushToCreatePerson()
@@ -175,7 +193,11 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 34
+        if isSearching {
+            return 0
+        } else {
+            return 34
+        }
     }
 }
 
@@ -310,9 +332,55 @@ extension PeopleViewController: NSFetchedResultsControllerDelegate {
 
 extension PeopleViewController: UISearchBarDelegate {
     //MARK: SearchBar Delegate Methods
-    //https://www.youtube.com/watch?v=8mDc8O3QJ5Q
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text == nil || searchBar.text == "" {
+            isSearching = false
+//            view.endEditing(true)
+//            searchBar.resignFirstResponder()
+//            searchBar.delegate?.searchBarSearchButtonClicked!(searchBar)
+            
+            
+        } else {
+            isSearching = true
+            
+            let filterResult = frc?.fetchedObjects?.filter({ (person) -> Bool in
+                person.fullName!.localizedCaseInsensitiveContains(searchBar.text!)
+            })
+            if filterResult != nil {
+                filteredData = filterResult!
+            }
+            
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //return button clicked
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 
     
     
-
+    
+//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+// //       headerView.searchBar.resignFirstResponder()
+//        searchBar.resignFirstResponder()
+//        view.endEditing(true)
+//        view.resignFirstResponder()
+//    }
+//    
+//    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+//        searchBar.resignFirstResponder()
+//        //        view.resignFirstResponder()
+//        return true
+//    }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 class PersonCell: UITableViewCell {
 
+    var person: Person?
+    
     let whiteView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8

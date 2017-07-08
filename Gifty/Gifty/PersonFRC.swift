@@ -16,17 +16,19 @@ class PersonFRC: NSObject {
         guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "alphabetisedName", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
         let frc: NSFetchedResultsController<Person>?
+        
         if bool {
-            
+            let groupDescriptor = NSSortDescriptor(key: "group", ascending: true)
+            let nameDescriptor = NSSortDescriptor(key: "alphabetisedName", ascending: true)
+            fetchRequest.sortDescriptors = [groupDescriptor, nameDescriptor]
             frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "group", cacheName: nil)
         } else {
+            let groupDescriptor = NSSortDescriptor(key: "alphabetisedSection", ascending: true)
+            let nameDescriptor = NSSortDescriptor(key: "alphabetisedName", ascending: true)
+            fetchRequest.sortDescriptors = [groupDescriptor, nameDescriptor]
             frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "alphabetisedSection", cacheName: nil)
         }
-        
         do {
             try frc?.performFetch()
         } catch {
