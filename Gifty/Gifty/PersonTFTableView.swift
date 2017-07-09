@@ -69,6 +69,10 @@ class PersonTFTableView: UIView {
     
     func updateWith(firstName: String?, lastName: String?) {
         
+        //????? WEIRD!!!! If the print statements are left in, the cells get updated properly, otherwise they don't
+        print("TableView has sections: \(tableView.numberOfSections)")
+        print("Tableview has rows in section 0: \(tableView.numberOfRows(inSection: 0))")
+        
         if let firstName = firstName {
             let cell = tableView.cellForRow(at: TextFieldCellIndexPath.firstName) as? TextFieldCell
             cell?.setText(string: firstName)
@@ -111,7 +115,7 @@ extension PersonTFTableView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
+//MARK: TextFieldCellDelegate
 extension PersonTFTableView: TextFieldCellDelegate {
     
     func updateVariableFor(identifier: TextFieldIdentifier, with value: String) {

@@ -14,11 +14,10 @@ class CreatePersonViewController: CustomViewController {
 
     var person: Person? = nil {
         didSet {
-            self.updatePerson = true
-            self.setupViewsForUpdatePerson()
+            self.isUpdatePerson = true
         }
     }
-    var updatePerson = false
+    var isUpdatePerson = false
     
     var firstName: String?
     var lastName: String?
@@ -103,11 +102,26 @@ class CreatePersonViewController: CustomViewController {
         eventCollectionView = EventCollectionView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: eventHeight))
         eventCollectionView.delegate = self
         view.addSubview(eventCollectionView)
+        
+        if isUpdatePerson {
+            setupViewsForUpdatePerson()
+        }
     }
     
+    
+    //MARK: Update person setup
     func setupViewsForUpdatePerson() {
         print("setup for update person")
         
+        guard let currentPerson = self.person else { return }
+        
+        if currentPerson.profileImage != nil {
+            self.profileImageView.imageView.image = UIImage(data: currentPerson.profileImage! as Data)
+        }
+        
+        textFieldTV.updateWith(firstName: currentPerson.firstName, lastName: currentPerson.lastName)
+
+        dropDown.setTitle(text: currentPerson.group!)
     }
 
 
@@ -116,10 +130,10 @@ class CreatePersonViewController: CustomViewController {
         dropDown.finishEditingTextField()
     }
     
-    func didTapTestView() {
-        textFieldTV.finishEditing()
-        dropDown.finishEditingTextField()
-    }
+//    func didTapTestView() {
+//        textFieldTV.finishEditing()
+//        dropDown.finishEditingTextField()
+//    }
 }
 
 
@@ -127,6 +141,23 @@ extension CreatePersonViewController {
     
     func didTapAddFromContactsLabel() {
         
+        if isUpdatePerson {
+            let alertControntroller = UIAlertController(title: "Are you sure?", message: "This action could change the name of your person", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            })
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                self.addPersonFromContacts()
+            })
+            alertControntroller.addAction(okAction)
+            alertControntroller.addAction(cancelAction)
+            self.present(alertControntroller, animated: true, completion: nil)
+        } else {
+            addPersonFromContacts()
+        }
+    }
+        
+    func addPersonFromContacts() {
         print("add from contacts")
         let entityType = CNEntityType.contacts
         let authStatus = CNContactStore.authorizationStatus(for: entityType)
@@ -145,7 +176,7 @@ extension CreatePersonViewController {
     }
     
     func launchContacts() {
-        
+
         let contactPicker = CNContactPickerViewController()
         contactPicker.delegate = self
         present(contactPicker, animated: true, completion: nil)
@@ -173,7 +204,6 @@ extension CreatePersonViewController: CNContactPickerDelegate {
                 let alertController = UIAlertController(title: "Create Birthday?", message: "Your contact has a birth date stored in it. Would you like to create a birthday event for them?", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     print("Create new event for birth date \(dob)")
-                    
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
                     self.dismiss(animated: true, completion: nil)
@@ -251,13 +281,42 @@ extension CreatePersonViewController: DropDownTextFieldDelegate {
 //MARK: TextFieldTableView delegate methods
 extension CreatePersonViewController: PersonTFTableViewDelegate {
     func didUpdateFirstName(string: String) {
-        self.firstName = string
+
+        if isUpdatePerson && self.firstName != nil {
+            showNameChangeAlert {
+                self.firstName = string
+            }
+        } else {
+            self.firstName = string
+        }
         print("updated first name in vc to \(firstName ?? "")")
     }
     
     func didUpdateLastName(string: String) {
-        self.lastName = string
-        print("updated last name in vc to \(lastName ?? "")")
+        
+        if isUpdatePerson && self.lastName != nil {
+            showNameChangeAlert {
+                self.lastName = string
+            }
+        } else {
+            self.lastName = string
+            print("updated last name in vc to \(lastName ?? "")")
+        }
+        
+    }
+    
+    func showNameChangeAlert(closure: @escaping () -> Void) {
+        let alertControntroller = UIAlertController(title: "NAME CHANGE", message: "This action could change the name of your person", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            closure()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            
+            self.dismiss(animated: true, completion: nil)
+        })
+        alertControntroller.addAction(okAction)
+        alertControntroller.addAction(cancelAction)
+        self.present(alertControntroller, animated: true, completion: nil)
     }
 }
 
@@ -301,9 +360,6 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
             ManagedObjectBuilder.saveChanges(completion: { (success) in
                 print("successfully saved")
                 self.navigationController?.popViewController(animated: true)
-//                self.navigationController?.dismiss(animated: true, completion: {
-//                    //
-//                })
             })
         }
         
