@@ -12,6 +12,7 @@ class SearchHeaderView: UIView {
 
     let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["by Name", "by Group"])
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.tintColor = UIColor.white
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
@@ -24,6 +25,7 @@ class SearchHeaderView: UIView {
         searchBar.setBackgroundImage(image, for: .any, barMetrics: .default)
         searchBar.scopeBarBackgroundImage = image
         searchBar.barTintColor = UIColor.clear
+        searchBar.returnKeyType = .done
         searchBar.tintColor = UIColor.white
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
@@ -31,6 +33,7 @@ class SearchHeaderView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         self.layer.masksToBounds = true
         backgroundColor = UIColor.clear
         addSubviews()

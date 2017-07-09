@@ -12,8 +12,14 @@ import ContactsUI
 
 class CreatePersonViewController: CustomViewController {
 
-//    var Person: Person!
-
+    var person: Person? = nil {
+        didSet {
+            self.updatePerson = true
+            self.setupViewsForUpdatePerson()
+        }
+    }
+    var updatePerson = false
+    
     var firstName: String?
     var lastName: String?
     var group: String?
@@ -98,6 +104,12 @@ class CreatePersonViewController: CustomViewController {
         eventCollectionView.delegate = self
         view.addSubview(eventCollectionView)
     }
+    
+    func setupViewsForUpdatePerson() {
+        print("setup for update person")
+        
+    }
+
 
     func didTapBackgroundView() {
         textFieldTV.finishEditing()

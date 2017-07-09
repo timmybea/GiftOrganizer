@@ -36,22 +36,13 @@ class PeopleViewController: CustomViewController {
     
     var previousScrollOffset: CGFloat = 0
     
-    //MARK: SEARCH
     var isSearching = false
     var filteredData = [Person]()
-    //END
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //SEARCH
         headerView.searchBar.delegate = self
-        headerView.searchBar.returnKeyType = .done
-        
-        //END
-        
-        headerView.segmentedControl.selectedSegmentIndex = 0
         headerView.segmentedControl.addTarget(self, action: #selector(didChangeSortBy), for: .valueChanged)
         
         frc?.delegate = self
@@ -64,6 +55,10 @@ class PeopleViewController: CustomViewController {
         
         headerViewHeightConstraint.constant = maxHeaderHeight
         updateHeader()
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     private func setupNavigationBar() {
@@ -71,7 +66,7 @@ class PeopleViewController: CustomViewController {
         self.setTitleLabelPosition(withSize: view.bounds.size)
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushToCreatePerson))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTouched))
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 
@@ -96,13 +91,20 @@ class PeopleViewController: CustomViewController {
         tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
     }
+    
+    func addButtonTouched() {
+        pushToCreatePerson(person: nil)
+    }
 
-    func pushToCreatePerson() {
-     
+    func pushToCreatePerson(person: Person?) {
         self.titleLabel.isHidden = true
         
+        let destination = CreatePersonViewController()
+        if person != nil {
+            destination.person = person
+        }
         DispatchQueue.main.async {
-            self.navigationController?.pushViewController(CreatePersonViewController(), animated: true)
+            self.navigationController?.pushViewController(destination, animated: true)
         }
     }
     
@@ -121,17 +123,14 @@ class PeopleViewController: CustomViewController {
     
     //MARK: orientation change method
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
         self.setTitleLabelPosition(withSize: size)
     }
-    
 }
 
 
 extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         if isSearching {
             return 1
         } else {
@@ -140,7 +139,6 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         if isSearching {
             return nil
         } else {
@@ -168,7 +166,6 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
             return (sectionInfo?.numberOfObjects)!
         }
     }
-    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PersonCell") as? PersonCell
@@ -179,13 +176,15 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             person = (frc?.object(at: indexPath))!
         }
-        
         cell?.configureCellWith(person: person)
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pushToCreatePerson()
+        let cell = tableView.cellForRow(at: indexPath) as! PersonCell
+        if let person = cell.person {
+            pushToCreatePerson(person: person)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -263,7 +262,6 @@ extension PeopleViewController {
     
     func collapseHeader() {
         self.view.layoutIfNeeded()
-        
         UIView.animate(withDuration: 0.2, animations: {
             self.headerViewHeightConstraint.constant = self.minHeaderHeight
             self.updateHeader()
@@ -288,7 +286,6 @@ extension PeopleViewController {
         headerView.segmentedControl.alpha = percentage
         headerView.searchBar.alpha = percentage
     }
-    
 }
 
 extension PeopleViewController: NSFetchedResultsControllerDelegate {
@@ -332,16 +329,15 @@ extension PeopleViewController: NSFetchedResultsControllerDelegate {
 
 extension PeopleViewController: UISearchBarDelegate {
     //MARK: SearchBar Delegate Methods
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        return true
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
-//            view.endEditing(true)
-//            searchBar.resignFirstResponder()
-//            searchBar.delegate?.searchBarSearchButtonClicked!(searchBar)
-            
-            
         } else {
             isSearching = true
             
@@ -351,36 +347,24 @@ extension PeopleViewController: UISearchBarDelegate {
             if filterResult != nil {
                 filteredData = filterResult!
             }
-            
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-        
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //return button clicked
         searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.delegate?.searchBar!(searchBar, textDidChange: "")
         searchBar.resignFirstResponder()
     }
-
     
-    
-    
-//    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-// //       headerView.searchBar.resignFirstResponder()
-//        searchBar.resignFirstResponder()
-//        view.endEditing(true)
-//        view.resignFirstResponder()
-//    }
-//    
-//    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-//        searchBar.resignFirstResponder()
-//        //        view.resignFirstResponder()
-//        return true
-//    }
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = false
+        return true
+    }
 }

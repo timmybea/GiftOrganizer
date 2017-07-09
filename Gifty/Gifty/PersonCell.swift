@@ -128,11 +128,15 @@ class PersonCell: UITableViewCell {
     }
     
     func configureCellWith(person: Person) {
+        self.person = person
+        
         nameLabel.text = person.fullName
         
         if let imageData = person.profileImage {
             let image = UIImage(data: imageData as Data)
             profileImageView.image = image
+        } else {
+            profileImageView.image = UIImage(named: ImageNames.defaultProfileBlock.rawValue)
         }
     }
 }
