@@ -10,6 +10,12 @@ import UIKit
 
 class CreateEventViewController: CustomViewController {
 
+    var person: Person? {
+        didSet {
+            print("CreateEvent: Person assigned to \(person?.fullName)")
+        }
+    }
+    
     var celebrationType: String = ""
     
     var dropDown: DropDownTextField!

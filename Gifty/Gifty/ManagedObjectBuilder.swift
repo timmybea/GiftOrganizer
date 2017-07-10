@@ -21,6 +21,31 @@ class ManagedObjectBuilder: NSObject {
         
         let person = Person(context: moc)
         person.id = UUID().uuidString
+        
+        setPersonVariables(person: person, firstName: firstName, lastName: lastName, group: group, profileImage: profileImage) { (success, person) in
+            
+            if success {
+                completion(true, person)
+            } else {
+                completion(false, nil)
+            }
+        }
+    }
+    
+    static func updatePerson(person: Person, firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
+        
+        setPersonVariables(person: person, firstName: firstName, lastName: lastName, group: group, profileImage: profileImage) { (success, person) in
+            if success {
+                completion(true, person)
+            } else {
+                completion(false, nil)
+            }
+        }
+    }
+    
+    
+    private static func setPersonVariables(person: Person, firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
+        
         person.firstName = firstName
         
         if let lastName = lastName {
@@ -37,9 +62,9 @@ class ManagedObjectBuilder: NSObject {
             let string: String = "\(character)"
             person.alphabetisedSection = string
         }
-
+        
         person.group = group
-                
+        
         if let image = profileImage {
             person.profileImage = NSData(data: UIImageJPEGRepresentation(image, 0.3)!)
         }
@@ -65,9 +90,7 @@ class ManagedObjectBuilder: NSObject {
             completion(false)
             print(error.localizedDescription)
         }
-        
     }
-    
 
     //MARK: Development tools
     static func printAllPeople() {
