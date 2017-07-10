@@ -282,9 +282,11 @@ extension CreatePersonViewController: DropDownTextFieldDelegate {
 extension CreatePersonViewController: PersonTFTableViewDelegate {
     func didUpdateFirstName(string: String) {
 
-        if isUpdatePerson && self.firstName != nil {
-            showNameChangeAlert {
+        if isUpdatePerson {
+            if self.firstName == nil {
                 self.firstName = string
+            } else if self.firstName != string {
+                showNameChangeAlert(string: string, isfirstName: true)
             }
         } else {
             self.firstName = string
@@ -294,24 +296,34 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     
     func didUpdateLastName(string: String) {
         
-        if isUpdatePerson && self.lastName != nil {
-            showNameChangeAlert {
+        if isUpdatePerson {
+            if self.lastName == nil {
                 self.lastName = string
+            } else if self.lastName != string {
+                showNameChangeAlert(string: string, isfirstName: false)
             }
         } else {
             self.lastName = string
-            print("updated last name in vc to \(lastName ?? "")")
+            
         }
-        
+        print("updated last name in vc to \(lastName ?? "")")
     }
     
-    func showNameChangeAlert(closure: @escaping () -> Void) {
+    func showNameChangeAlert(string: String, isfirstName: Bool) {
         let alertControntroller = UIAlertController(title: "NAME CHANGE", message: "This action could change the name of your person", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            closure()
+            if isfirstName {
+                self.firstName = string
+            } else {
+                self.lastName = string
+            }
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
-            
+            if isfirstName {
+                self.textFieldTV.updateWith(firstName: self.firstName, lastName: nil)
+            } else {
+                self.textFieldTV.updateWith(firstName: nil, lastName: self.lastName)
+            }
             self.dismiss(animated: true, completion: nil)
         })
         alertControntroller.addAction(okAction)
