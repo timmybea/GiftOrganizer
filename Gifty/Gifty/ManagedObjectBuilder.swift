@@ -10,7 +10,7 @@ import UIKit
 
 class ManagedObjectBuilder: NSObject {
 
-    private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
     //MARK: PERSON MODEL
     static func createPerson(firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {

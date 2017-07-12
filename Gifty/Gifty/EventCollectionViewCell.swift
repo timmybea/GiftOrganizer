@@ -38,4 +38,9 @@ class EventCollectionViewCell: UICollectionViewCell {
         eventTypeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         eventTypeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
+    
+    func configureWith(event: Event) {
+
+        eventTypeLabel.text = event.type
+    }
 }

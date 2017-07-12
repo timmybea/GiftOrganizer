@@ -16,6 +16,25 @@ class EventCollectionView: UIView {
 
     var delegate: EventCollectionViewDelegate?
     
+    var orderedEvents: [Event]? {
+        didSet {
+            showHideCollectionView()
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    func showHideCollectionView() {
+        if orderedEvents?.count == nil || orderedEvents?.count == 0 {
+            eventLabel.isHidden = false
+            collectionView.isHidden = true
+        } else {
+            eventLabel.isHidden = true
+            collectionView.isHidden = false
+        }
+    }
+    
     var eventLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +42,7 @@ class EventCollectionView: UIView {
         label.text = "No events created"
         label.textAlignment = .left
         label.font = FontManager.subtitleText
+        label.isHidden = false
         return label
     }()
     
@@ -32,14 +52,15 @@ class EventCollectionView: UIView {
         flowLayout.minimumLineSpacing = 4
         let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         cv.isScrollEnabled = true
-        cv.dataSource = self //<<<TEMP!!
+        cv.dataSource = self
         cv.delegate = self
         cv.register(EventCollectionViewCell.self, forCellWithReuseIdentifier: "EventCell")
         cv.backgroundColor = UIColor.blue
+        cv.isHidden = true
         return cv
     }()
     
-    var tempDATA = ["ONE", "TWO", "THREE"] //<<<<<TEMP!!
+    //var tempDATA = ["ONE", "TWO", "THREE"] //<<<<<TEMP!!
     
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
@@ -71,9 +92,9 @@ class EventCollectionView: UIView {
         addSubview(collectionView)
         collectionView.frame = CGRect(x: pad, y: 4 + addButton.frame.height + smallPad, width: self.bounds.width - pad - pad, height: self.bounds.height - (3 * smallPad) - addButton.frame.height)
         
-//        addSubview(eventLabel)
-//        eventLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-//        eventLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        addSubview(eventLabel)
+        eventLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        eventLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
 }
 
@@ -81,12 +102,12 @@ class EventCollectionView: UIView {
 extension EventCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tempDATA.count
+        return orderedEvents?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventCell", for: indexPath) as! EventCollectionViewCell
-        cell.eventTypeLabel.text = tempDATA[indexPath.row]
+        cell.configureWith(event: (orderedEvents?[indexPath.row])!)
         return cell
     }
     

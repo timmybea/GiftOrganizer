@@ -185,7 +185,7 @@ extension CreateEventViewController {
     func addEventToPersonTouched() {
         
         //Create New Event For Person
-        ManagedObjectBuilder.addNewEventToPerson(date: Date(), type: "wedding", gift: true, card: true, phone: false, person: self.person!) { (success, event) in
+        ManagedObjectBuilder.addNewEventToPerson(date: Date(), type: "graduation", gift: true, card: true, phone: false, person: self.person!) { (success, event) in
             
             print("successfully added event")
             

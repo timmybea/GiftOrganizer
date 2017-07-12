@@ -10,22 +10,27 @@ import UIKit
 import Contacts
 import ContactsUI
 
+protocol CreatePersonViewControllerDelegate {
+    func didSaveChanges()
+}
+
 class CreatePersonViewController: CustomViewController {
 
+    var delegate: CreatePersonViewControllerDelegate?
+    
     var person: Person? = nil {
         didSet {
             self.isUpdatePerson = true
         }
     }
-    
-    //var tempPerson: Person? = nil
-    
     var isUpdatePerson = false
     
     var firstName: String?
     var lastName: String?
     var group: String?
     var dob: DateComponents?
+
+    var orderedEvents: [Event]?
     
     lazy var profileImageView: CustomImageControl = {
         let imageControl = CustomImageControl()
@@ -59,8 +64,34 @@ class CreatePersonViewController: CustomViewController {
         super.viewDidLoad()
         
         self.title = "Add Person"
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(title: "< BACK", style: .plain, target: self, action: #selector(backButtonTouched))
+        self.navigationItem.leftBarButtonItem = backButton
         layoutSubviews()
+    }
+    
+    //MARK: Back button touched
+    func backButtonTouched() {
+        
+        if isUpdatePerson {
+            if let currentPerson = self.person, currentPerson.hasChanges {
+                let alertController = UIAlertController(title: "Unsaved Changes", message: "If you continue to navigate away, you will lose your unsaved changes", preferredStyle: .alert)
+                let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+                    //discard changes to person
+                    currentPerson.managedObjectContext?.refresh(currentPerson, mergeChanges: false)
+                    self.navigationController?.popViewController(animated: true)
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                    //do nothing
+                })
+                alertController.addAction(continueAction)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
+            } else {
+                navigationController?.popViewController(animated: true)
+            }
+        }
+
     }
     
     private func layoutSubviews() {
@@ -132,6 +163,8 @@ class CreatePersonViewController: CustomViewController {
 
         dropDown.setTitle(text: currentPerson.group!)
         self.group = person?.group
+        
+        updateEventCollectionViewWithOrderedEvents()
     }
 
 
@@ -405,19 +438,23 @@ extension CreatePersonViewController: EventCollectionViewDelegate {
     }
 }
 
-
+//MARK: Create Event Delegate
 extension CreatePersonViewController: CreateEventViewControllerDelegate {
     
     func eventAddedToPerson() {
     
         print("CreateEventVCDelegate called")
-
+        updateEventCollectionViewWithOrderedEvents()
+    }
+    
+    func updateEventCollectionViewWithOrderedEvents() {
         if let events = self.person?.event?.allObjects as? [Event] {
-            for event in events {
-                print(event.type ?? "")
-            }
+            
+            //correctly order the events by date
+            self.eventCollectionView.orderedEvents = events
         }
     }
+    
 }
 
 
@@ -440,6 +477,9 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
                                 if !success {
                                     print("Error occured during save")
                                 }
+                                if self.delegate != nil {
+                                    self.delegate?.didSaveChanges()
+                                }
                                 navigationController?.popViewController(animated: true)
                             })
                         } else {
@@ -454,6 +494,9 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
                             ManagedObjectBuilder.saveChanges(completion: { (success) in
                                 if success {
                                     print("Saved new person successfully")
+                                    if self.delegate != nil {
+                                        self.delegate?.didSaveChanges()
+                                    }
                                     self.navigationController?.popViewController(animated: true)
                                 }
                             })

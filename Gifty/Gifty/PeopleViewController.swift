@@ -100,6 +100,8 @@ class PeopleViewController: CustomViewController {
         self.titleLabel.isHidden = true
         
         let destination = CreatePersonViewController()
+        destination.delegate = self
+
         if person != nil {
             destination.person = person
         }
@@ -366,5 +368,22 @@ extension PeopleViewController: UISearchBarDelegate {
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.showsCancelButton = false
         return true
+    }
+}
+
+extension PeopleViewController: CreatePersonViewControllerDelegate {
+    
+    
+    func didSaveChanges() {
+        
+        do {
+            try frc?.performFetch()
+        } catch {
+            print("uh oh")
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
