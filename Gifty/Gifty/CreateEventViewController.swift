@@ -8,11 +8,24 @@
 
 import UIKit
 
-class CreateEventViewController: CustomViewController {
+protocol CreateEventViewControllerDelegate {
+    func eventAddedToPerson()
+}
 
+
+class CreateEventViewController: CustomViewController {
+    
+    //New event for person
+    //update event for person
+    //new event and assign to person (from calendar)
+    
+    
+    
+    var delegate: CreateEventViewControllerDelegate?
+    
     var person: Person? {
         didSet {
-            print("CreateEvent: Person assigned to \(person?.fullName)")
+            print("CreateEvent: Person assigned to \(String(describing: person?.fullName!))")
         }
     }
     
@@ -110,6 +123,7 @@ class CreateEventViewController: CustomViewController {
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
         saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+        saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
         view.addSubview(saveButton)
         
         
@@ -162,5 +176,30 @@ extension CreateEventViewController: AddDateViewDelegate {
     
     func addDateViewWasTouched() {
         print("select date vc")
+    }
+}
+
+//MARK: ADD EVENT TO PERSON
+extension CreateEventViewController {
+    
+    func addEventToPersonTouched() {
+        
+        //Create New Event For Person
+        ManagedObjectBuilder.addNewEventToPerson(date: Date(), type: "wedding", gift: true, card: true, phone: false, person: self.person!) { (success, event) in
+            
+            print("successfully added event")
+            
+            if self.delegate != nil {
+                self.delegate?.eventAddedToPerson()
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        //update existing event for person
+        
+        
+        
+        //create new event and assign to person
+        
     }
 }

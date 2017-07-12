@@ -18,7 +18,7 @@ class CreatePersonViewController: CustomViewController {
         }
     }
     
-    var tempPerson: Person? = nil
+    //var tempPerson: Person? = nil
     
     var isUpdatePerson = false
     
@@ -115,17 +115,23 @@ class CreatePersonViewController: CustomViewController {
     
     //MARK: Update person setup
     func setupViewsForUpdatePerson() {
-        print("setup for update person")
+        print("MARK: Update person setup")
         
-        guard let currentPerson = self.person else { return }
+        guard let currentPerson = self.person else {
+            print("No person to update")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
         
         if currentPerson.profileImage != nil {
             self.profileImageView.imageView.image = UIImage(data: currentPerson.profileImage! as Data)
             self.profileImageView.isImageSelected = true
+            self.profileImage = profileImageView.imageView.image
         }
         textFieldTV.updateWith(firstName: currentPerson.firstName, lastName: currentPerson.lastName)
 
         dropDown.setTitle(text: currentPerson.group!)
+        self.group = person?.group
     }
 
 
@@ -256,6 +262,7 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
             let scaledImage = UIImage.scaleImage(image: selectedImage!, toWidth: profileImageView.frame.width, andHeight: profileImageView.frame.height)
             self.profileImageView.imageView.image = scaledImage
             self.profileImageView.isImageSelected = true
+            self.profileImage = profileImageView.imageView.image
         }
         dismiss(animated: true, completion: nil)
     }
@@ -338,13 +345,16 @@ extension CreatePersonViewController: EventCollectionViewDelegate {
         print("Add new event!")
         
         let destination = CreateEventViewController()
+        destination.delegate = self
         
         if isUpdatePerson {
             //create vc and assign person
             destination.person = self.person
         } else {
             //create 'unsaved' person then create vc and assign
-            destination.person = createPersonEntity()
+            let newPerson = createPersonEntity()
+            self.person = newPerson
+            destination.person = newPerson
         }
         
         DispatchQueue.main.async {
@@ -352,35 +362,64 @@ extension CreatePersonViewController: EventCollectionViewDelegate {
         }
     }
     
-    func checkSufficientInformationToSave() {
+    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
         guard firstName != nil && firstName != "" else {
+            completion(false)
+            print("No first name")
             //create alert controller
             return
         }
         
         guard group != nil && group != "" else {
             //create alert controller
+            completion(false)
+            print("No Group")
             return
         }
-        //???MOVE
-        if profileImageView.isImageSelected {
-            self.profileImage = profileImageView.imageView.image
+        
+        if isUpdatePerson {
+            guard self.person != nil else {
+                completion(false)
+                print("No person to update")
+                return
+            }
         }
+        
+        completion(true)
     }
     
     func createPersonEntity() -> Person? {
         
-        checkSufficientInformationToSave()
-        
         var newPerson: Person?
-        ManagedObjectBuilder.createPerson(firstName: firstName!, lastName: lastName, group: group!, profileImage: profileImage) { (success, person) in
+        
+        checkSufficientInformationToSave { (success) in
             if success {
-                newPerson = person
+                ManagedObjectBuilder.createPerson(firstName: firstName!, lastName: lastName, group: group!, profileImage: profileImage) { (success, person) in
+                    if success {
+                        newPerson = person
+                    }
+                }
             }
         }
         return newPerson
     }
 }
+
+
+extension CreatePersonViewController: CreateEventViewControllerDelegate {
+    
+    func eventAddedToPerson() {
+    
+        print("CreateEventVCDelegate called")
+
+        if let events = self.person?.event?.allObjects as? [Event] {
+            for event in events {
+                print(event.type ?? "")
+            }
+        }
+    }
+}
+
 
 //MARK: SAVE BUTTON
 extension CreatePersonViewController: ButtonTemplateDelegate {
@@ -388,43 +427,45 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
     func buttonWasTouched() {
         
         print("Save touched")
-        checkSufficientInformationToSave()
-        
-        //UPDATE EXISTING PERSON
-        if isUpdatePerson {
-            
-            ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
-                
-                if success {
-                    ManagedObjectBuilder.saveChanges(completion: { (success) in
-                        if !success {
-                            print("Error occured during save")
+
+        checkSufficientInformationToSave { (success) in
+            if success {
+                //UPDATE EXISTING PERSON
+                if isUpdatePerson {
+                    
+                    ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
+                        
+                        if success {
+                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                                if !success {
+                                    print("Error occured during save")
+                                }
+                                navigationController?.popViewController(animated: true)
+                            })
+                        } else {
+                            print("Could not update managed object")
                         }
-                        navigationController?.popViewController(animated: true)
                     })
                 } else {
-                    print("Could not update managed object")
-                }
-            })
-        } else {
-            
-            //SAVE NEW PERSON (No event added)
-            ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
-                if success {
-                    ManagedObjectBuilder.saveChanges(completion: { (success) in
+                    
+                    //SAVE NEW PERSON (No event added)
+                    ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
                         if success {
-                            print("Saved new person successfully")
-                            self.navigationController?.popViewController(animated: true)
+                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                                if success {
+                                    print("Saved new person successfully")
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            })
                         }
                     })
                 }
-            })
+            }
         }
         
         
         
-        
-        
+    
         //SAVE TEMP PERSON (event added)
     }
     

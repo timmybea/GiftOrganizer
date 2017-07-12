@@ -12,6 +12,7 @@ class ManagedObjectBuilder: NSObject {
 
     private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
+    //MARK: PERSON MODEL
     static func createPerson(firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
     
         guard let moc = moc else {
@@ -42,7 +43,6 @@ class ManagedObjectBuilder: NSObject {
             }
         }
     }
-    
     
     private static func setPersonVariables(person: Person, firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
         
@@ -76,7 +76,30 @@ class ManagedObjectBuilder: NSObject {
         let first = upperCase.characters.popFirst()
         return first!
     }
+    
+    //MARK: EVENT MODEL
+    static func addNewEventToPerson(date: Date, type: String, gift: Bool, card: Bool, phone: Bool, person: Person, completion: (_ success: Bool, _ event: Event?) -> Void) {
+        
+        guard let moc = moc else {
+            completion(false, nil)
+            return
+        }
+        
+        let event = Event(context: moc)
+        event.id = UUID().uuidString
+        event.date = date as NSDate
+        event.type = type
+        event.isGiftSelected = gift
+        event.isCardSelected = card
+        event.isPhoneSelected = phone
+        
+        person.addToEvent(event)
+        
+        completion(true, event)
+    }
 
+    
+    //MARK: SAVE
     static func saveChanges(completion: (_ success: Bool) -> Void) {
         guard let moc = moc else {
             completion(false)
