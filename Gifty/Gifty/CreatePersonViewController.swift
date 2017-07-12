@@ -379,6 +379,7 @@ extension CreatePersonViewController: EventCollectionViewDelegate {
         
         let destination = CreateEventViewController()
         destination.delegate = self
+        destination.createEventState = CreateEventState.newEventForPerson
         
         if isUpdatePerson {
             //create vc and assign person

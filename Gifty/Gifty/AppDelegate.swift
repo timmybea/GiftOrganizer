@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = setupTabBarController()
         
         //MARK: testing functions
-        ManagedObjectBuilder.deleteAllPeople()
+        //ManagedObjectBuilder.deleteAllPeople()
         
         //MARK: custom status bar
         UIApplication.shared.statusBarStyle = .lightContent

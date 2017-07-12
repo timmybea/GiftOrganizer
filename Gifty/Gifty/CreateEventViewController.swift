@@ -12,15 +12,16 @@ protocol CreateEventViewControllerDelegate {
     func eventAddedToPerson()
 }
 
+enum CreateEventState {
+    case newEventForPerson
+    case updateEventForPerson
+    case newEventToBeAssigned
+}
 
 class CreateEventViewController: CustomViewController {
     
-    //New event for person
-    //update event for person
-    //new event and assign to person (from calendar)
-    
-    
-    
+    var createEventState: CreateEventState?
+
     var delegate: CreateEventViewControllerDelegate?
     
     var person: Person? {
@@ -29,7 +30,17 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-    var celebrationType: String = ""
+    var eventType: String? {
+        didSet {
+            print("update event type to \(eventType)")
+        }
+    }
+    
+    var eventDate: Date? = Date()
+    
+    var addGift: Bool = false
+    var addCard: Bool = false
+    var addPhone: Bool = false
     
     var dropDown: DropDownTextField!
     
@@ -49,16 +60,39 @@ class CreateEventViewController: CustomViewController {
         super.viewDidLoad()
         
         self.title = "Add Event"
-        
-        layoutSubviews()
+        if let state = self.createEventState {
+            layoutSubviews(for: state)
+        }
     }
     
-    func layoutSubviews() {
+    
+    func layoutSubviews(for createEventState: CreateEventState) {
+        
+        if createEventState == CreateEventState.newEventForPerson || createEventState == CreateEventState.updateEventForPerson {
+            
+            basicSubviewLayout()
+            
+        } else if self.createEventState == CreateEventState.newEventToBeAssigned {
+            
+//            let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
+//            autoCompletePerson = AutoCompletePerson(frame: autoFrame)
+//            view.addSubview(autoCompletePerson)
+//            
+//            guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+//            
+//            let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+//            saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+//            saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
+//            view.addSubview(saveButton)
+            
+        }
+    }
+    
+    func basicSubviewLayout() {
         
         self.backgroundView.isUserInteractionEnabled = true
         self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground)))
         
-        //var currMaxX: CGFloat = 0
         var currMaxY: CGFloat = 0
         
         if let navHeight = navigationController?.navigationBar.frame.height {
@@ -86,7 +120,7 @@ class CreateEventViewController: CustomViewController {
         currMaxY += actions.frame.height + pad
         let oneFourthViewWidth = view.bounds.width / 4
         let size: CGFloat = 45
-
+        
         addGiftImageControl = CustomImageControl(frame: CGRect(x: oneFourthViewWidth - (size / 2), y: currMaxY, width: size, height: size))
         addGiftImageControl.imageView.image = UIImage(named: ImageNames.addGift.rawValue)?.withRenderingMode(.alwaysTemplate)
         addGiftImageControl.imageView.contentMode = .scaleAspectFit
@@ -114,20 +148,6 @@ class CreateEventViewController: CustomViewController {
         view.addSubview(budgetView)
         
         currMaxY += budgetView.frame.height + pad
-        
-        let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
-        autoCompletePerson = AutoCompletePerson(frame: autoFrame)
-        view.addSubview(autoCompletePerson)
-        
-        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
-        
-        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
-        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
-        saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
-        view.addSubview(saveButton)
-        
-        
-        
     }
     
     func didTapBackground() {
@@ -148,8 +168,7 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
     }
     
     func optionSelected(option: String) {
-        self.celebrationType = option
-        print(celebrationType)
+        self.eventType = option
     }
 }
 
@@ -184,22 +203,34 @@ extension CreateEventViewController {
     
     func addEventToPersonTouched() {
         
-        //Create New Event For Person
-        ManagedObjectBuilder.addNewEventToPerson(date: Date(), type: "graduation", gift: true, card: true, phone: false, person: self.person!) { (success, event) in
+        if self.createEventState == CreateEventState.newEventForPerson {
+            //Create New Event For Person
+            checkSufficientInformationToCreateEvent()
             
-            print("successfully added event")
-            
-            if self.delegate != nil {
-                self.delegate?.eventAddedToPerson()
+            ManagedObjectBuilder.addNewEventToPerson(date: Date(), type: "graduation", gift: true, card: true, phone: false, person: self.person!) { (success, event) in
+                
+                print("successfully added event")
+                
+                if self.delegate != nil {
+                    self.delegate?.eventAddedToPerson()
+                }
+                self.navigationController?.popViewController(animated: true)
             }
-            self.navigationController?.popViewController(animated: true)
         }
+        
         
         //update existing event for person
         
         
         
         //create new event and assign to person
+        
+    }
+    
+    func checkSufficientInformationToCreateEvent() {
+        
+        
+        
         
     }
 }
