@@ -192,7 +192,9 @@ class DropDownTextField: UIView {
 extension DropDownTextField: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        titleLabel.text = textField.text
+        let text = textField.text
+        let capitalized = text?.capitalized
+        titleLabel.text = capitalized
         textField.isHidden = true
         titleLabel.isHidden = false
         textField.resignFirstResponder()

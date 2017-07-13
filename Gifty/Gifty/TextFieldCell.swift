@@ -74,14 +74,8 @@ class TextFieldCell: UITableViewCell {
         whiteUnderline.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
-    //var updateTV: Bool = false
-    
     func setText(string: String) {
         textField.text = string
-        
-//        if updateTableView {
-//            updateTV = true
-//        }
         textField.delegate?.textFieldDidEndEditing!(textField)
     }
 }
@@ -96,11 +90,15 @@ extension TextFieldCell: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        //if updateTV {
-            if self.delegate != nil, let text = textField.text {
-                delegate?.updateVariableFor(identifier: identifier, with: text)
+        
+        if let capitalizedText = textField.text?.capitalized, self.delegate != nil {
+            if capitalizedText != textField.text {
+                textField.text = capitalizedText
             }
-        //}
+            delegate?.updateVariableFor(identifier: identifier, with: textField.text!)
+        }
+        
+        
         self.textField.resignFirstResponder()
     }
     
