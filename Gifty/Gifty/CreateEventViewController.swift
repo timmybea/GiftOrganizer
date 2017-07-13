@@ -74,16 +74,7 @@ class CreateEventViewController: CustomViewController {
             
         } else if self.createEventState == CreateEventState.newEventToBeAssigned {
             
-//            let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
-//            autoCompletePerson = AutoCompletePerson(frame: autoFrame)
-//            view.addSubview(autoCompletePerson)
-//            
-//            guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
-//            
-//            let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
-//            saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
-//            saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
-//            view.addSubview(saveButton)
+
             
         }
     }
@@ -148,6 +139,17 @@ class CreateEventViewController: CustomViewController {
         view.addSubview(budgetView)
         
         currMaxY += budgetView.frame.height + pad
+        
+        let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
+        autoCompletePerson = AutoCompletePerson(frame: autoFrame)
+        view.addSubview(autoCompletePerson)
+        
+        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        
+        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+        saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
+        view.addSubview(saveButton)
     }
     
     func didTapBackground() {
@@ -156,6 +158,7 @@ class CreateEventViewController: CustomViewController {
     }
 }
 
+//MARK: Drop down textfield delegate
 
 extension CreateEventViewController: DropDownTextFieldDelegate {
     
@@ -169,6 +172,7 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
     
     func optionSelected(option: String) {
         self.eventType = option
+        print("event selected: \(self.eventType)")
     }
 }
 
@@ -177,17 +181,22 @@ extension CreateEventViewController {
     func addGiftTouched() {
         addGiftImageControl.imageView.tintColor = addGiftImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
         addGiftImageControl.isImageSelected = !addGiftImageControl.isImageSelected
+        addGift = addGiftImageControl.isImageSelected ? true : false
+        print("add gift: \(addGift)")
     }
     
     func addCardTouched() {
         addCardImageControl.imageView.tintColor = addCardImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
         addCardImageControl.isImageSelected = !addCardImageControl.isImageSelected
-    
+        addCard = addCardImageControl.isImageSelected ? true : false
+        print("add card: \(addCard)")
     }
     
     func addPhoneTouched() {
         addPhoneImageControl.imageView.tintColor = addPhoneImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
         addPhoneImageControl.isImageSelected = !addPhoneImageControl.isImageSelected
+        addPhone = addPhoneImageControl.isImageSelected ? true : false
+        print("add phone: \(addPhone)")
     }
 }
 
@@ -205,17 +214,20 @@ extension CreateEventViewController {
         
         if self.createEventState == CreateEventState.newEventForPerson {
             //Create New Event For Person
-            checkSufficientInformationToCreateEvent()
-            
-            ManagedObjectBuilder.addNewEventToPerson(date: Date(), type: "graduation", gift: true, card: true, phone: false, person: self.person!) { (success, event) in
+
+            checkSufficientInformationToCreateEvent(completion: { (success) in
                 
-                print("successfully added event")
-                
-                if self.delegate != nil {
-                    self.delegate?.eventAddedToPerson()
+                ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!) { (success, event) in
+                    
+                    print("successfully added event")
+                    
+                    if self.delegate != nil {
+                        self.delegate?.eventAddedToPerson()
+                    }
+                    self.navigationController?.popViewController(animated: true)
                 }
-                self.navigationController?.popViewController(animated: true)
-            }
+                
+            })
         }
         
         
@@ -227,10 +239,23 @@ extension CreateEventViewController {
         
     }
     
-    func checkSufficientInformationToCreateEvent() {
+    func checkSufficientInformationToCreateEvent(completion: (_ success: Bool) -> Void) {
         
+        guard self.eventDate != nil else {
+            completion(false)
+            return
+        }
         
+        guard self.eventType != nil else {
+            completion(false)
+            return
+        }
+
+        guard self.person != nil else {
+            completion(false)
+            return
+        }
         
-        
+        completion(true)
     }
 }
