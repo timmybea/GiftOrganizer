@@ -172,14 +172,6 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCalendarCell", for: indexPath) as! CustomCalendarCell
         cell.backgroundColor = UIColor.clear
         cell.configureCellWith(cellState)
-        
-//        if let initialDate = self.initiallySelectedDate {
-//            
-//            if DateHandler.stringFromDate(date) == DateHandler.stringFromDate(initialDate) && initialWasSelected == false {
-//                cell.setInitialSelection()
-//                initialWasSelected = true
-//            }
-//        }
 
         return cell
     }

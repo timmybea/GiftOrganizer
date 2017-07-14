@@ -102,13 +102,10 @@ class PersonCell: UITableViewCell {
         profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: whiteView.centerYAnchor).isActive = true
-//        profileImageView.layer.cornerRadius = profileImageView.frame.size.height / 2
-//        profileImageView.layer.masksToBounds = true
         
         self.addSubview(nameLabel)
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: medPad).isActive = true
         nameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
-        
         
         self.addSubview(eventCountLabel)
         eventCountLabel.leftAnchor.constraint(equalTo: whiteView.rightAnchor, constant: -40).isActive = true
@@ -137,6 +134,10 @@ class PersonCell: UITableViewCell {
             profileImageView.image = image
         } else {
             profileImageView.image = UIImage(named: ImageNames.defaultProfileBlock.rawValue)
+        }
+        
+        if let eventCount = person.event?.allObjects.count {
+            eventCountLabel.text = "0/\(eventCount)"
         }
     }
 }

@@ -16,13 +16,13 @@ class DatePickerViewController: CustomViewController {
 
     var delegate: datePickerViewControllerDelegate?
     
-    var monthYearLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.font = FontManager.titleText
-        label.textColor = UIColor.white
-        return label
-    }()
+//    var monthYearLabel: UILabel = {
+//        let label = UILabel()
+//        label.textAlignment = .center
+//        label.font = FontManager.titleText
+//        label.textColor = UIColor.white
+//        return label
+//    }()
     
     var calendar: CustomCalendar!
     
@@ -35,10 +35,8 @@ class DatePickerViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Select Event Date"
         navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
-, style: .plain, target: self, action: #selector(backButtonTouched))
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue), style: .plain, target: self, action: #selector(backButtonTouched))
         self.navigationItem.leftBarButtonItem = backButton
         
         setupSubViews()
@@ -52,10 +50,10 @@ class DatePickerViewController: CustomViewController {
         
         var yVal: CGFloat = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.shared.statusBarFrame.height + pad
             
-        monthYearLabel.frame = CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 26)
-        view.addSubview(monthYearLabel)
-        
-        yVal += monthYearLabel.frame.height + pad
+//        monthYearLabel.frame = CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 26)
+//        view.addSubview(monthYearLabel)
+//        
+//        yVal += monthYearLabel.frame.height + pad
 
         calendar = CustomCalendar(frame: CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 300))
         calendar.delegate = self
@@ -68,10 +66,8 @@ class DatePickerViewController: CustomViewController {
         
         yVal += calendar.frame.height + pad
         
-        //guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
-        
         let buttonframe = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 35)
-        addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD")
+        addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD DATE")
         addDateToEventButton.delegate = self
         view.addSubview(addDateToEventButton)
     }
@@ -112,7 +108,7 @@ extension DatePickerViewController: CustomCalendarDelegate {
     }
     
     func monthYearLabelWasUpdated(_ string: String) {
-        self.monthYearLabel.text = string
+        self.title = string
     }
 }
 

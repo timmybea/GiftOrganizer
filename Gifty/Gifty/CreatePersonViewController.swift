@@ -66,91 +66,167 @@ class CreatePersonViewController: CustomViewController {
         self.title = "Add Person"
         
         navigationItem.hidesBackButton = true
+        
         let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
             , style: .plain, target: self, action: #selector(backButtonTouched))
+        
         self.navigationItem.leftBarButtonItem = backButton
 
         layoutSubviews()
     }
     
-    //MARK: Back button touched
+    //MARK: BACK BUTTON
     func backButtonTouched() {
         
-        if isUpdatePerson {
-            if let currentPerson = self.person, currentPerson.hasChanges {
-                let alertController = UIAlertController(title: "Unsaved Changes", message: "If you continue to navigate away, you will lose your unsaved changes", preferredStyle: .alert)
-                let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
-                    //discard changes to person
-                    currentPerson.managedObjectContext?.refresh(currentPerson, mergeChanges: false)
-                    self.navigationController?.popViewController(animated: true)
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
-                    //do nothing
-                })
-                alertController.addAction(continueAction)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true, completion: nil)
-            } else {
-                navigationController?.popViewController(animated: true)
-            }
+        if let currentPerson = self.person, currentPerson.hasChanges {
+            
+            backButtonAlert(for: currentPerson)
+            
+        } else if variablesWereSet() && !isUpdatePerson {
+            
+            backButtonAlert(for: nil)
+            
         } else {
-            //implement checks for changes to variables!
+            
             navigationController?.popViewController(animated: true)
+            
+        }
+    }
+    
+    
+    private func backButtonAlert(for person: Person?) {
+        
+        let alertController = UIAlertController(title: "Unsaved Changes", message: "If you continue to navigate away, you will lose your unsaved changes", preferredStyle: .alert)
+        
+        let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+            
+            if let currentPerson = person {
+                //discard changes to person
+                currentPerson.managedObjectContext?.refresh(currentPerson, mergeChanges: false)
+        
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            //do nothing
+        })
+        
+        alertController.addAction(continueAction)
+        
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    
+    }
+    
+    private func variablesWereSet() -> Bool {
+        
+        guard self.firstName == nil else {
+     
+            return true
+        
         }
 
+        guard self.lastName == nil else {
+         
+            return true
+        
+        }
+        
+        guard self.group == nil else {
+         
+            return true
+        
+        }
+        
+        guard self.profileImage == nil else {
+         
+            return true
+        
+        }
+        
+        return false
     }
     
     private func layoutSubviews() {
         
         self.backgroundView.isUserInteractionEnabled = true
+        
         self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackgroundView)))
         
         var currMaxX: CGFloat = 0
+        
         var currMaxY: CGFloat = 0
         
         if let navHeight = navigationController?.navigationBar.frame.height {
+         
             currMaxY = navHeight + UIApplication.shared.statusBarFrame.height + pad
+            
             profileImageView.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 150)
+        
         }
+        
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
+        
         view.addSubview(profileImageView)
         
         currMaxX = pad + profileImageView.frame.width + pad
         
         textFieldTV = PersonTFTableView(frame: CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.6666))
+        
         textFieldTV.delegate = self
+        
         view.addSubview(textFieldTV)
         
         currMaxY += textFieldTV.frame.height
         
         let dropDownFrame = CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.3333)
+        
         dropDown = DropDownTextField(frame: dropDownFrame, title: "Group", options: ["Family", "Friends", "Colleagues"])
+        
         dropDown.delegate = self
+        
         view.addSubview(dropDown)
 
         currMaxY += profileImageView.bounds.height * 0.3333 + pad
+        
         view.addSubview(addFromContactLabel)
+        
         addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 17)
         
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+        
         saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+        
         saveButton.delegate = self
+        
         view.addSubview(saveButton)
         
         currMaxY += addFromContactLabel.frame.height + pad
+        
         let eventHeight = view.bounds.height - currMaxY - tabBarHeight - pad - saveButton.frame.height - pad
+        
         eventCollectionView = EventCollectionView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: eventHeight))
+        
         eventCollectionView.delegate = self
+        
         view.addSubview(eventCollectionView)
         
         if isUpdatePerson {
+        
             setupViewsForUpdatePerson()
+        
         }
     }
+}
+
+    //MARK: UPDATE PERSON SETUP
     
-    //MARK: Update person setup
+extension CreatePersonViewController {
     func setupViewsForUpdatePerson() {
         print("MARK: Update person setup")
         
@@ -166,14 +242,14 @@ class CreatePersonViewController: CustomViewController {
             self.profileImage = profileImageView.imageView.image
         }
         textFieldTV.updateWith(firstName: currentPerson.firstName, lastName: currentPerson.lastName)
-
+        
         dropDown.setTitle(text: currentPerson.group!)
         self.group = person?.group
         
         updateEventCollectionViewWithOrderedEvents()
     }
-
-
+    
+    
     func didTapBackgroundView() {
         textFieldTV.finishEditing()
         dropDown.finishEditingTextField()
@@ -181,6 +257,7 @@ class CreatePersonViewController: CustomViewController {
 }
 
 
+//MARK: ADD FROM CONTACTS
 extension CreatePersonViewController {
     
     func didTapAddFromContactsLabel() {
@@ -355,7 +432,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     }
     
     func showNameChangeAlert(string: String, isfirstName: Bool) {
-        let alertControntroller = UIAlertController(title: "NAME CHANGE", message: "This action could change the name of your person", preferredStyle: .alert)
+        let alertControntroller = UIAlertController(title: "Name Change", message: "This action could change the name of your person", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
             if isfirstName {
                 self.firstName = string
@@ -400,32 +477,6 @@ extension CreatePersonViewController: EventCollectionViewDelegate {
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
         }
-    }
-    
-    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
-        guard firstName != nil && firstName != "" else {
-            completion(false)
-            print("No first name")
-            //create alert controller
-            return
-        }
-        
-        guard group != nil && group != "" else {
-            //create alert controller
-            completion(false)
-            print("No Group")
-            return
-        }
-        
-        if isUpdatePerson {
-            guard self.person != nil else {
-                completion(false)
-                print("No person to update")
-                return
-            }
-        }
-        
-        completion(true)
     }
     
     func createPersonEntity() -> Person? {
@@ -512,11 +563,46 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
                 }
             }
         }
-        
-        
-        
     
         //SAVE TEMP PERSON (event added)
+    }
+    
+    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
+        guard firstName != nil && firstName != "" else {
+            completion(false)
+            insufficientInfoAlert(message: "Please add a first name")
+            return
+        }
+        
+        guard group != nil && group != "" else {
+            completion(false)
+            insufficientInfoAlert(message: "Please add a group")
+            return
+        }
+        
+        if isUpdatePerson {
+            guard self.person != nil else {
+                completion(false)
+                print("No person to update")
+                return
+            }
+        }
+        
+        completion(true)
+    }
+    
+    private func insufficientInfoAlert(message: String) {
+        
+        let alertController = UIAlertController(title: "Insufficient Information", message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            //do nothing
+        })
+        
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
 }
