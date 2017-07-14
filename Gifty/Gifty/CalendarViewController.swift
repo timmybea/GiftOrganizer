@@ -34,13 +34,8 @@ class CalendarViewController: CustomViewController {
     
     
     private func setupNavigationBar() {
-        setTitleLabelPosition(withSize: view.bounds.size)
-        navigationController?.navigationBar.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushToCreateEvent))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Calendar", style: .plain, target: self, action: nil)
     }
-    
-    //let pad: CGFloat = 8
     
     fileprivate func setupCustomCalendar() {
         if calendar != nil {
@@ -48,7 +43,7 @@ class CalendarViewController: CustomViewController {
             calendar = nil
         }
         
-        let frame = CGRect(x: pad, y: 70, width: self.view.bounds.width - (2 * pad), height: 300)
+        let frame = CGRect(x: pad, y: 70, width: self.view.bounds.width - (2 * pad), height: 280)
         calendar = CustomCalendar(frame: frame)
         calendar.delegate = self
         view.addSubview(calendar)
@@ -75,7 +70,7 @@ class CalendarViewController: CustomViewController {
 extension CalendarViewController: CustomCalendarDelegate {
     
     func monthYearLabelWasUpdated(_ string: String) {
-        self.titleLabel.text = string
+        self.title = string
     }
 
     

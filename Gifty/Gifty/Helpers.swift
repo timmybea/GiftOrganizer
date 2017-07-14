@@ -28,6 +28,7 @@ enum ImageNames: String {
     case calendarIcon = "calendar"
     case defaultProfileBlock = "default_profile_block"
     case eventIcon = "event_icon"
+    case back = "back"
 }
 
 
@@ -39,9 +40,10 @@ extension UINavigationController {
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = true
-        
+        navigationController.navigationBar.tintColor = UIColor.white
         navigationController.view.addSubview(viewController.titleLabel)
-
+        navigationController.navigationBar.titleTextAttributes = [NSFontAttributeName: FontManager.titleText, NSForegroundColorAttributeName: UIColor.white]
+        
         return navigationController
     }
 }

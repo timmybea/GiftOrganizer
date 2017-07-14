@@ -64,9 +64,12 @@ class CreatePersonViewController: CustomViewController {
         super.viewDidLoad()
         
         self.title = "Add Person"
+        
         navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(title: "< BACK", style: .plain, target: self, action: #selector(backButtonTouched))
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
+            , style: .plain, target: self, action: #selector(backButtonTouched))
         self.navigationItem.leftBarButtonItem = backButton
+
         layoutSubviews()
     }
     
@@ -90,6 +93,9 @@ class CreatePersonViewController: CustomViewController {
             } else {
                 navigationController?.popViewController(animated: true)
             }
+        } else {
+            //implement checks for changes to variables!
+            navigationController?.popViewController(animated: true)
         }
 
     }

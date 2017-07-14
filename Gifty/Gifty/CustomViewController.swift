@@ -17,13 +17,15 @@ class CustomViewController: UIViewController {
     
     var titleLabel: UILabel = {
         let titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .left
+        titleLabel.textAlignment = .center
         titleLabel.font = FontManager.titleText
         return titleLabel
     }()
     
     func setTitleLabelPosition(withSize size: CGSize) {
+
         var labelX: CGFloat = -20.0
         var labelY: CGFloat = 10
         
@@ -33,7 +35,8 @@ class CustomViewController: UIViewController {
         } else {
             labelX += size.height / 8
         }
-        self.titleLabel.frame = CGRect(x: labelX, y: labelY, width: 250, height: 28)
+        
+        self.titleLabel.frame = CGRect(x: labelX, y: labelY, width: 200, height: 28)
     }
     
     var backgroundView: UIImageView!

@@ -49,7 +49,7 @@ class PersonCell: UITableViewCell {
         let label = UILabel()
         label.textColor = ColorManager.highlightedText
         label.textAlignment = .left
-        label.font = FontManager.subtitleText
+        label.font = FontManager.mediumText
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "0/0"
         return label

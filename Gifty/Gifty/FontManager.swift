@@ -12,7 +12,7 @@ class FontManager: NSObject {
     
     static let titleText = UIFont.systemFont(ofSize: 24)
     static let subtitleText = UIFont.systemFont(ofSize: 18)
-    static let mediumText = UIFont.systemFont(ofSize: 15)
+    static let mediumText = UIFont.systemFont(ofSize: 16)
     static let smallText = UIFont.systemFont(ofSize: 13)
     
 }

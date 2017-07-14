@@ -62,16 +62,14 @@ class PeopleViewController: CustomViewController {
     }
     
     private func setupNavigationBar() {
-        self.titleLabel.text = "People"
-        self.setTitleLabelPosition(withSize: view.bounds.size)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        self.title = "People"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTouched))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
     }
 
     private func setupSubviews() {
-        
+                
         let navHeight = (self.navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height
         let tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
         

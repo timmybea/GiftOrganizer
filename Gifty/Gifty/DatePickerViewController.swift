@@ -18,7 +18,7 @@ class DatePickerViewController: CustomViewController {
     
     var monthYearLabel: UILabel = {
         let label = UILabel()
-        //label.backgroundColor = UIColor.blue
+        label.textAlignment = .center
         label.font = FontManager.titleText
         label.textColor = UIColor.white
         return label
@@ -37,7 +37,8 @@ class DatePickerViewController: CustomViewController {
 
         self.title = "Select Event Date"
         navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(title: "< BACK", style: .plain, target: self, action: #selector(backButtonTouched))
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
+, style: .plain, target: self, action: #selector(backButtonTouched))
         self.navigationItem.leftBarButtonItem = backButton
         
         setupSubViews()
@@ -50,9 +51,8 @@ class DatePickerViewController: CustomViewController {
         }
         
         var yVal: CGFloat = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.shared.statusBarFrame.height + pad
-        let leftPad: CGFloat = (self.view.bounds.width / 8) - 10
             
-        monthYearLabel.frame = CGRect(x: leftPad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 26)
+        monthYearLabel.frame = CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 26)
         view.addSubview(monthYearLabel)
         
         yVal += monthYearLabel.frame.height + pad
@@ -66,15 +66,15 @@ class DatePickerViewController: CustomViewController {
         
         view.addSubview(calendar)
         
-        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        yVal += calendar.frame.height + pad
         
-        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
-        addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD DATE TO EVENT")
+        //guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        
+        let buttonframe = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 35)
+        addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD")
         addDateToEventButton.delegate = self
         view.addSubview(addDateToEventButton)
     }
-    
-
 }
 
 //MARK: Back button method

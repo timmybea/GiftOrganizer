@@ -39,9 +39,10 @@ class CreateEventViewController: CustomViewController {
     var eventDate: Date? {
         didSet {
             print("event date changed to \(String(describing: eventDate))")
+            addDate.updateLabel(with: eventDate)
         }
     }
-    
+    var isRecurringEvent = false
     var addGift: Bool = false
     var addCard: Bool = false
     var addPhone: Bool = false
@@ -64,6 +65,12 @@ class CreateEventViewController: CustomViewController {
         super.viewDidLoad()
         
         self.title = "Add Event"
+        
+        navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
+            , style: .plain, target: self, action: #selector(backButtonTouched))
+        self.navigationItem.leftBarButtonItem = backButton
+        
         if let state = self.createEventState {
             layoutSubviews(for: state)
         }
@@ -99,7 +106,7 @@ class CreateEventViewController: CustomViewController {
             view.addSubview(dropDown)
         }
         
-        currMaxY += 40 + pad
+        currMaxY += 40 + pad + pad
         addDate = AddDateView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 25))
         addDate.delegate = self
         view.addSubview(addDate)
@@ -144,10 +151,10 @@ class CreateEventViewController: CustomViewController {
         
         currMaxY += budgetView.frame.height + pad
         
-        let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
-        autoCompletePerson = AutoCompletePerson(frame: autoFrame)
-        view.addSubview(autoCompletePerson)
-        
+//        let autoFrame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 50)
+//        autoCompletePerson = AutoCompletePerson(frame: autoFrame)
+//        view.addSubview(autoCompletePerson)
+//        
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
@@ -177,6 +184,15 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
     func optionSelected(option: String) {
         self.eventType = option
         print("event selected: \(String(describing: self.eventType))")
+    }
+}
+
+extension CreateEventViewController {
+    
+    func backButtonTouched() {
+        
+        //check if there are changes and send alert
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
@@ -217,7 +233,16 @@ extension CreateEventViewController: AddDateViewDelegate {
             destination.initialDate = self.eventDate
         }
         self.navigationController?.pushViewController(destination, animated: true)
+    }
+
+    func switchChanged(recurring: Bool) {
         
+        if recurring {
+            self.isRecurringEvent = true
+        } else {
+            self.isRecurringEvent = false
+        }
+        print("Is recurring changed: \(self.isRecurringEvent)")
     }
 }
 
