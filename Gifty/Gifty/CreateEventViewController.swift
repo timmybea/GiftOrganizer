@@ -32,11 +32,15 @@ class CreateEventViewController: CustomViewController {
     
     var eventType: String? {
         didSet {
-            print("update event type to \(eventType)")
+            print("update event type to \(String(describing: eventType))")
         }
     }
     
-    var eventDate: Date? = Date()
+    var eventDate: Date? {
+        didSet {
+            print("event date changed to \(String(describing: eventDate))")
+        }
+    }
     
     var addGift: Bool = false
     var addCard: Bool = false
@@ -172,10 +176,11 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
     
     func optionSelected(option: String) {
         self.eventType = option
-        print("event selected: \(self.eventType)")
+        print("event selected: \(String(describing: self.eventType))")
     }
 }
 
+//MARK: Select actions
 extension CreateEventViewController {
     
     func addGiftTouched() {
@@ -200,11 +205,28 @@ extension CreateEventViewController {
     }
 }
 
+
+//MARK: Add date view delegate
 extension CreateEventViewController: AddDateViewDelegate {
     
     func addDateViewWasTouched() {
-        print("select date vc")
+
+        let destination = DatePickerViewController()
+        destination.delegate = self
+        if self.eventDate != nil {
+            destination.initialDate = self.eventDate
+        }
+        self.navigationController?.pushViewController(destination, animated: true)
+        
     }
+}
+
+extension CreateEventViewController: datePickerViewControllerDelegate {
+    
+    func didSetDate(_ date: Date?) {
+        self.eventDate = date
+    }
+    
 }
 
 //MARK: ADD EVENT TO PERSON

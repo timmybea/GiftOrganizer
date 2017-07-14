@@ -30,6 +30,7 @@ class DateHandler: NSObject {
     }
     
     static func stringFromDate(_ date: Date) -> String {
+        dateFormatter.dateFormat = "yyyy MM dd"
         return dateFormatter.string(from: date)
     }
     

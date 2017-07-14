@@ -40,7 +40,7 @@ class CalendarViewController: CustomViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Calendar", style: .plain, target: self, action: nil)
     }
     
-    let pad: CGFloat = 8
+    //let pad: CGFloat = 8
     
     fileprivate func setupCustomCalendar() {
         if calendar != nil {

@@ -97,8 +97,6 @@ extension TextFieldCell: UITextFieldDelegate {
             }
             delegate?.updateVariableFor(identifier: identifier, with: textField.text!)
         }
-        
-        
         self.textField.resignFirstResponder()
     }
     

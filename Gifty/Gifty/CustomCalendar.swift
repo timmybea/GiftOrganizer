@@ -22,6 +22,17 @@ class CustomCalendar: UIView {
     
     private let dateFormatter = DateFormatter()
     
+    var initiallySelectedDate: Date? {
+        didSet {
+            if initiallySelectedDate != nil {
+                calendarView.selectDates([initiallySelectedDate!])
+            }
+            DispatchQueue.main.async {
+                self.calendarView.reloadData()
+            }
+        }
+    }
+    
     private lazy var calendarView: JTAppleCalendarView = {
         let calendarView = JTAppleCalendarView(frame: .zero)
         calendarView.calendarDataSource = self
@@ -153,20 +164,29 @@ extension CustomCalendar: JTAppleCalendarViewDataSource {
     }
 }
 
+
+
 extension CustomCalendar: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCalendarCell", for: indexPath) as! CustomCalendarCell
         cell.backgroundColor = UIColor.clear
         cell.configureCellWith(cellState)
+        
+//        if let initialDate = self.initiallySelectedDate {
+//            
+//            if DateHandler.stringFromDate(date) == DateHandler.stringFromDate(initialDate) && initialWasSelected == false {
+//                cell.setInitialSelection()
+//                initialWasSelected = true
+//            }
+//        }
+
         return cell
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         guard let validCell = cell as? CustomCalendarCell else { return }
-        
         validCell.configureCellWith(cellState)
-        
         self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
     }
     

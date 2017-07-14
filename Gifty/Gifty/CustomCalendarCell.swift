@@ -111,8 +111,12 @@ class CustomCalendarCell: JTAppleCell {
             self.todayDateView.isHidden = false
             self.dateLabel.textColor = ColorManager.highlightedText
         }
-        
         self.showInfo = staySelected
     }
     
+    func setInitialSelection() {
+        self.selectedDateView.isHidden = false
+        self.dateLabel.textColor = ColorManager.highlightedText
+        wasSelected = true
+    }
 }
