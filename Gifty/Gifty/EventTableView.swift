@@ -8,19 +8,21 @@
 
 import UIKit
 
-protocol EventCollectionViewDelegate {
+protocol EventTableViewDelegate {
     func didTouchAddEventButton()
+    func didTouchEditEvent(event: Event)
+    func didTouchDeleteEvent(event: Event)
 }
 
-class EventCollectionView: UIView {
+class EventTableView: UIView {
 
-    var delegate: EventCollectionViewDelegate?
+    var delegate: EventTableViewDelegate?
     
     var orderedEvents: [Event]? {
         didSet {
             showHideCollectionView()
             DispatchQueue.main.async {
-                self.collectionView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
@@ -28,10 +30,10 @@ class EventCollectionView: UIView {
     func showHideCollectionView() {
         if orderedEvents?.count == nil || orderedEvents?.count == 0 {
             eventLabel.isHidden = false
-            collectionView.isHidden = true
+            tableView.isHidden = true
         } else {
             eventLabel.isHidden = true
-            collectionView.isHidden = false
+            tableView.isHidden = false
         }
     }
     
@@ -46,21 +48,17 @@ class EventCollectionView: UIView {
         return label
     }()
     
-    lazy var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        flowLayout.minimumLineSpacing = 4
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        cv.isScrollEnabled = true
-        cv.dataSource = self
-        cv.delegate = self
-        cv.register(EventCollectionViewCell.self, forCellWithReuseIdentifier: "EventCell")
-        cv.backgroundColor = UIColor.blue
-        cv.isHidden = true
-        return cv
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
+        tableView.backgroundColor = UIColor.clear
+        tableView.separatorColor = UIColor.clear
+        tableView.bounces = false
+        tableView.isHidden = true
+        return tableView
     }()
-    
-    //var tempDATA = ["ONE", "TWO", "THREE"] //<<<<<TEMP!!
     
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
@@ -89,8 +87,8 @@ class EventCollectionView: UIView {
         let addSize: CGFloat = 30
         addButton.frame = CGRect(x: self.bounds.width - 4 - addSize, y: 4, width: addSize, height: addSize)
 
-        addSubview(collectionView)
-        collectionView.frame = CGRect(x: pad, y: 4 + addButton.frame.height + smallPad, width: self.bounds.width - pad - pad, height: self.bounds.height - (3 * smallPad) - addButton.frame.height)
+        addSubview(tableView)
+        tableView.frame = CGRect(x: pad, y: 4 + addButton.frame.height + smallPad, width: self.bounds.width - pad - pad, height: self.bounds.height - (3 * smallPad) - addButton.frame.height)
         
         addSubview(eventLabel)
         eventLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -99,28 +97,50 @@ class EventCollectionView: UIView {
 }
 
 
-extension EventCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return orderedEvents?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EventCell", for: indexPath) as! EventCollectionViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
+        
         cell.configureWith(event: (orderedEvents?[indexPath.row])!)
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("TOUCHED CELL AT ROW \(indexPath.row)")
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 58
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.collectionView.frame.width, height: 50)
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Touched cell at \(indexPath.row)")
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
+            if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
+                self.delegate?.didTouchEditEvent(event: event)
+            }
+        }
+        editAction.backgroundColor = ColorManager.yellow
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
+                self.delegate?.didTouchDeleteEvent(event: event)
+            }
+            self.orderedEvents?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        deleteAction.backgroundColor = ColorManager.highlightedText
+        return [deleteAction, editAction]
+    }
+    
 }
 
-extension EventCollectionView {
+extension EventTableView {
     
     func addButtonTouchedDown() {
         addButton.imageView.tintColor = ColorManager.lightText

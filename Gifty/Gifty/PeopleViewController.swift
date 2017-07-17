@@ -198,6 +198,26 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
             return 34
         }
     }
+    
+    //MARK: Editing methods
+    
+
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let context = self.frc?.managedObjectContext {
+                context.delete((self.frc?.object(at: indexPath))!)
+            }
+            
+            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                //do nothing
+            })
+        }
+    }
 }
 
 extension PeopleViewController {

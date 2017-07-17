@@ -164,8 +164,6 @@ extension CustomCalendar: JTAppleCalendarViewDataSource {
     }
 }
 
-
-
 extension CustomCalendar: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {

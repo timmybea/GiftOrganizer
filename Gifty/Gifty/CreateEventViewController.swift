@@ -39,7 +39,7 @@ class CreateEventViewController: CustomViewController {
     var eventDate: Date? {
         didSet {
             print("event date changed to \(String(describing: eventDate))")
-            addDate.updateLabel(with: eventDate)
+            addDateView.updateLabel(with: eventDate)
         }
     }
     var isRecurringEvent = false
@@ -49,11 +49,9 @@ class CreateEventViewController: CustomViewController {
     
     var dropDown: DropDownTextField!
     
-    var addDate: AddDateView!
+    var addDateView: AddDateView!
     
-    var addGiftImageControl: CustomImageControl!
-    var addCardImageControl: CustomImageControl!
-    var addPhoneImageControl: CustomImageControl!
+    var actionsSelectorView: ActionsSelectorView!
     
     var autoCompletePerson: AutoCompletePerson!
     
@@ -67,8 +65,7 @@ class CreateEventViewController: CustomViewController {
         self.title = "Add Event"
         
         navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
-            , style: .plain, target: self, action: #selector(backButtonTouched))
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue), style: .plain, target: self, action: #selector(backButtonTouched))
         self.navigationItem.leftBarButtonItem = backButton
         
         if let state = self.createEventState {
@@ -76,7 +73,7 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-    
+    //MARK: LAYOUT SUBVIEWS
     func layoutSubviews(for createEventState: CreateEventState) {
         
         if createEventState == CreateEventState.newEventForPerson || createEventState == CreateEventState.updateEventForPerson {
@@ -95,61 +92,27 @@ class CreateEventViewController: CustomViewController {
         self.backgroundView.isUserInteractionEnabled = true
         self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground)))
         
-        var currMaxY: CGFloat = 0
+        var yVal: CGFloat = 0
         
         if let navHeight = navigationController?.navigationBar.frame.height {
-            currMaxY = navHeight + UIApplication.shared.statusBarFrame.height + pad
-            let frame = CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 40)
+            yVal = navHeight + UIApplication.shared.statusBarFrame.height + pad
+            let frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 40)
             let options = ["Birthday", "Graduation", "Wedding", "Baby Shower"]
             dropDown = DropDownTextField(frame: frame, title: "Celebration Type", options: options)
             dropDown.delegate = self
             view.addSubview(dropDown)
         }
         
-        currMaxY += 40 + pad + pad
-        addDate = AddDateView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 25))
-        addDate.delegate = self
-        view.addSubview(addDate)
+        yVal += 40 + pad + pad
+        addDateView = AddDateView(frame: CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 25))
+        addDateView.delegate = self
+        view.addSubview(addDateView)
         
-        currMaxY += addDate.frame.height + pad
+        yVal += addDateView.frame.height + pad + pad
         
-        let actions = UILabel(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 20))
-        actions.textColor = UIColor.white
-        actions.font = FontManager.subtitleText
-        actions.text = "Actions:"
-        view.addSubview(actions)
-        
-        currMaxY += actions.frame.height + pad
-        let oneFourthViewWidth = view.bounds.width / 4
-        let size: CGFloat = 45
-        
-        addGiftImageControl = CustomImageControl(frame: CGRect(x: oneFourthViewWidth - (size / 2), y: currMaxY, width: size, height: size))
-        addGiftImageControl.imageView.image = UIImage(named: ImageNames.addGift.rawValue)?.withRenderingMode(.alwaysTemplate)
-        addGiftImageControl.imageView.contentMode = .scaleAspectFit
-        addGiftImageControl.imageView.tintColor = ColorManager.lightText
-        view.addSubview(addGiftImageControl)
-        
-        addCardImageControl = CustomImageControl(frame: CGRect(x: (2 * oneFourthViewWidth) - (size / 2), y: currMaxY, width: size, height: size))
-        addCardImageControl.imageView.image = UIImage(named: ImageNames.addGreetingCard.rawValue)?.withRenderingMode(.alwaysTemplate)
-        addCardImageControl.imageView.contentMode = .scaleAspectFit
-        addCardImageControl.tintColor = ColorManager.lightText
-        view.addSubview(addCardImageControl)
-        
-        addPhoneImageControl = CustomImageControl(frame: CGRect(x: (3 * oneFourthViewWidth) - (size / 2), y: currMaxY, width: size, height: size))
-        addPhoneImageControl.imageView.image = UIImage(named: ImageNames.addPhoneCall.rawValue)?.withRenderingMode(.alwaysTemplate)
-        addPhoneImageControl.imageView.contentMode = .scaleAspectFit
-        addPhoneImageControl.tintColor = ColorManager.lightText
-        view.addSubview(addPhoneImageControl)
-        
-        addGiftImageControl.addTarget(self, action: #selector(addGiftTouched), for: .touchUpInside)
-        addCardImageControl.addTarget(self, action: #selector(addCardTouched), for: .touchUpInside)
-        addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
-        
-        currMaxY += addCardImageControl.frame.height + pad
-        budgetView = BudgetView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: 20))
-        view.addSubview(budgetView)
-        
-        currMaxY += budgetView.frame.height + pad
+        actionsSelectorView = ActionsSelectorView(frame: CGRect(x: 0, y: yVal, width: view.bounds.width, height: 85))
+        actionsSelectorView.delegate = self
+        view.addSubview(actionsSelectorView)
         
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
@@ -161,7 +124,6 @@ class CreateEventViewController: CustomViewController {
     
     func didTapBackground() {
         dropDown.finishEditingTextField()
-        
     }
 }
 
@@ -192,33 +154,10 @@ extension CreateEventViewController {
     }
 }
 
-//MARK: Select actions
-extension CreateEventViewController {
-    
-    func addGiftTouched() {
-        addGiftImageControl.imageView.tintColor = addGiftImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
-        addGiftImageControl.isImageSelected = !addGiftImageControl.isImageSelected
-        addGift = addGiftImageControl.isImageSelected ? true : false
-        print("add gift: \(addGift)")
-    }
-    
-    func addCardTouched() {
-        addCardImageControl.imageView.tintColor = addCardImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
-        addCardImageControl.isImageSelected = !addCardImageControl.isImageSelected
-        addCard = addCardImageControl.isImageSelected ? true : false
-        print("add card: \(addCard)")
-    }
-    
-    func addPhoneTouched() {
-        addPhoneImageControl.imageView.tintColor = addPhoneImageControl.isImageSelected ? ColorManager.lightText : UIColor.white
-        addPhoneImageControl.isImageSelected = !addPhoneImageControl.isImageSelected
-        addPhone = addPhoneImageControl.isImageSelected ? true : false
-        print("add phone: \(addPhone)")
-    }
-}
 
 
-//MARK: Add date view delegate
+
+//MARK: ADD DATE VIEW DELEGATE
 extension CreateEventViewController: AddDateViewDelegate {
     
     func addDateViewWasTouched() {
@@ -242,12 +181,32 @@ extension CreateEventViewController: AddDateViewDelegate {
     }
 }
 
+//MARK: DATE PICKER VC DELEGATE
 extension CreateEventViewController: datePickerViewControllerDelegate {
     
     func didSetDate(_ date: Date?) {
         self.eventDate = date
     }
     
+}
+
+//MARK: ACTIONS SELECTOR DELEGATE METHODS
+extension CreateEventViewController: ActionsSelectorViewDelegate {
+    
+    func addGiftChanged(bool: Bool) {
+        addGift = bool
+        print("add gift: \(addGift)")
+    }
+    
+    func addCardChanged(bool: Bool) {
+        addCard = bool
+        print("add card: \(addCard)")
+    }
+    
+    func addPhoneChanged(bool: Bool) {
+        addPhone = bool
+        print("add phone: \(addPhone)")
+    }
 }
 
 //MARK: ADD EVENT TO PERSON

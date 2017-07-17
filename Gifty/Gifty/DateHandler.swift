@@ -34,6 +34,16 @@ class DateHandler: NSObject {
         return dateFormatter.string(from: date)
     }
     
+    static func stringMonthAbb(from date: Date) -> String {
+        dateFormatter.dateFormat = "MMM"
+        return dateFormatter.string(from: date)
+    }
+    
+    static func stringDayNum(from date: Date) -> String {
+        dateFormatter.dateFormat = "dd"
+        return dateFormatter.string(from: date)
+    }
+    
 
     //MARK: Handle time zone
     static func localTimeFromUTC(_ date: Date) -> Date {

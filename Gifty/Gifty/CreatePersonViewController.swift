@@ -58,7 +58,7 @@ class CreatePersonViewController: CustomViewController {
     
     var saveButton: ButtonTemplate!
 
-    var eventCollectionView: EventCollectionView!
+    var eventTableView: EventTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -210,11 +210,11 @@ class CreatePersonViewController: CustomViewController {
         
         let eventHeight = view.bounds.height - currMaxY - tabBarHeight - pad - saveButton.frame.height - pad
         
-        eventCollectionView = EventCollectionView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: eventHeight))
+        eventTableView = EventTableView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: eventHeight))
         
-        eventCollectionView.delegate = self
+        eventTableView.delegate = self
         
-        view.addSubview(eventCollectionView)
+        view.addSubview(eventTableView)
         
         if isUpdatePerson {
         
@@ -455,7 +455,31 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 }
 
 //MARK: ADD EVENT
-extension CreatePersonViewController: EventCollectionViewDelegate {
+extension CreatePersonViewController: EventTableViewDelegate {
+    
+    func didTouchEditEvent(event: Event) {
+        
+        print("Edit existing event")
+        let destination = CreateEventViewController()
+        destination.delegate = self
+        destination.createEventState = CreateEventState.updateEventForPerson
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
+    }
+    
+    func didTouchDeleteEvent(event: Event) {
+        
+        let context  = ManagedObjectBuilder.moc
+        context?.delete(event)
+        ManagedObjectBuilder.saveChanges { (success) in
+            //do nothing
+        }
+    }
+    
+
+
     
     func didTouchAddEventButton() {
         print("Add new event!")
@@ -509,7 +533,7 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
         if let events = self.person?.event?.allObjects as? [Event] {
             
             //correctly order the events by date
-            self.eventCollectionView.orderedEvents = events
+            self.eventTableView.orderedEvents = events
         }
     }
     

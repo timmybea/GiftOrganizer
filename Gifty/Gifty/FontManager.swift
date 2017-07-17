@@ -15,4 +15,7 @@ class FontManager: NSObject {
     static let mediumText = UIFont.systemFont(ofSize: 16)
     static let smallText = UIFont.systemFont(ofSize: 13)
     
+    static let dateDay = UIFont(name: "AvenirNext-Bold", size: 22)
+    static let dateMonth = UIFont(name: "AvenirNext-Bold", size: 13)
+    
 }

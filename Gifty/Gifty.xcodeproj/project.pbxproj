@@ -22,7 +22,8 @@
 		B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3B1F05AD6B00805687 /* Contacts.framework */; };
 		B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3D1F05AD8300805687 /* ContactsUI.framework */; };
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
-		B02866781F143590003F5E22 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventCollectionViewCell.swift */; };
+		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
+		B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
 		B041F76E1EF899F500A3E332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* Assets.xcassets */; };
 		B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */; };
@@ -35,10 +36,11 @@
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
-		B07042081F06DAE000D6A027 /* EventCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042071F06DAE000D6A027 /* EventCollectionView.swift */; };
+		B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042071F06DAE000D6A027 /* EventTableView.swift */; };
 		B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */; };
 		B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070420B1F0D50DE00D6A027 /* AddDateView.swift */; };
 		B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */; };
+		B083B5C71F197705002F87AC /* ActionsSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083B5C61F197705002F87AC /* ActionsSelectorView.swift */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
 		B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */; };
@@ -87,7 +89,8 @@
 		B019FC3B1F05AD6B00805687 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		B019FC3D1F05AD8300805687 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
-		B02866771F143590003F5E22 /* EventCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCollectionViewCell.swift; sourceTree = "<group>"; };
+		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsButtonsView.swift; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B041F76D1EF899F500A3E332 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,10 +109,11 @@
 		B041F7A21EF8A74A00A3E332 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
 		B07042051F06CC6200D6A027 /* CustomImageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageControl.swift; sourceTree = "<group>"; };
-		B07042071F06DAE000D6A027 /* EventCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventCollectionView.swift; sourceTree = "<group>"; };
+		B07042071F06DAE000D6A027 /* EventTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableView.swift; sourceTree = "<group>"; };
 		B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		B070420B1F0D50DE00D6A027 /* AddDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDateView.swift; sourceTree = "<group>"; };
 		B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletePerson.swift; sourceTree = "<group>"; };
+		B083B5C61F197705002F87AC /* ActionsSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsSelectorView.swift; sourceTree = "<group>"; };
 		B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		B0CA63231F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonEventModel.xcdatamodel; sourceTree = "<group>"; };
 		B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectBuilder.swift; sourceTree = "<group>"; };
@@ -244,14 +248,16 @@
 				B013B5CC1F04497400107B64 /* DropDownTextField.swift */,
 				B07042031F06B7B400D6A027 /* ButtonTemplate.swift */,
 				B07042051F06CC6200D6A027 /* CustomImageControl.swift */,
-				B07042071F06DAE000D6A027 /* EventCollectionView.swift */,
-				B02866771F143590003F5E22 /* EventCollectionViewCell.swift */,
+				B07042071F06DAE000D6A027 /* EventTableView.swift */,
+				B02866771F143590003F5E22 /* EventTableViewCell.swift */,
 				B070420B1F0D50DE00D6A027 /* AddDateView.swift */,
 				B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */,
 				B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */,
 				B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */,
 				B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */,
 				B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */,
+				B083B5C61F197705002F87AC /* ActionsSelectorView.swift */,
+				B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -584,6 +590,7 @@
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
+				B083B5C71F197705002F87AC /* ActionsSelectorView.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
@@ -591,19 +598,20 @@
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
 				B041F7A11EF89FE600A3E332 /* ColorManager.swift in Sources */,
+				B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */,
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
-				B02866781F143590003F5E22 /* EventCollectionViewCell.swift in Sources */,
+				B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */,
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,
 				B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */,
 				B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */,
 				B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
-				B07042081F06DAE000D6A027 /* EventCollectionView.swift in Sources */,
+				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */,
 				B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */,
 				B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */,

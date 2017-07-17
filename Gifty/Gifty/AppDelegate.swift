@@ -32,9 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.addSubview(statusBarBackgroundView)
         statusBarBackgroundView.frame = CGRect(x: 0, y: 0, width: (window?.frame.width)!, height: 20)
         
-//        let navigationBarAppearace = UINavigationBar.appearance()
-//        navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.white]
-//        
         return true
     }
     
