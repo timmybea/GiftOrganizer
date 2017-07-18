@@ -48,9 +48,12 @@ class EventTableViewCell: UITableViewCell {
         return view
     }()
     
-    var actionsButtonsView: ActionsButtonsView = {
+    lazy var actionsButtonsView: ActionsButtonsView = {
         let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionType.checkList)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.tintSelected = ColorManager.highlightedText
+        view.tintCompleted = ColorManager.yellow
+        view.delegate = self
         return view
     }()
     
@@ -92,9 +95,6 @@ class EventTableViewCell: UITableViewCell {
         actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor).isActive = true
         actionsButtonsView.topAnchor.constraint(equalTo: customBackground.topAnchor).isActive = true
         actionsButtonsView.layoutSubviews()
-        actionsButtonsView.tintSelected = ColorManager.highlightedText
-        actionsButtonsView.tintCompleted = ColorManager.yellow
-        actionsButtonsView.delegate = self
         
     }
     

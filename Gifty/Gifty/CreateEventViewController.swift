@@ -43,15 +43,22 @@ class CreateEventViewController: CustomViewController {
         }
     }
     var isRecurringEvent = false
-    var addGift: Bool = false
-    var addCard: Bool = false
-    var addPhone: Bool = false
+    var addGift = ActionsSelectionState.unselected
+    var addCard = ActionsSelectionState.unselected
+    var addPhone = ActionsSelectionState.unselected
     
     var dropDown: DropDownTextField!
     
     var addDateView: AddDateView!
     
-    var actionsSelectorView: ActionsSelectorView!
+    
+    lazy var actionsButtonsView: ActionsButtonsView = {
+        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionType.selectDeselect)
+        view.backgroundColor = UIColor.blue
+        //view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        return view
+    }()
     
     var autoCompletePerson: AutoCompletePerson!
     
@@ -110,10 +117,10 @@ class CreateEventViewController: CustomViewController {
         
         yVal += addDateView.frame.height + pad + pad
         
-        actionsSelectorView = ActionsSelectorView(frame: CGRect(x: 0, y: yVal, width: view.bounds.width, height: 85))
-        actionsSelectorView.delegate = self
-        view.addSubview(actionsSelectorView)
-        
+        actionsButtonsView.frame = CGRect(x: self.view.frame.width / 4, y: yVal, width: self.view.frame.width / 2, height: actionsButtonsView.imageSize)
+        view.addSubview(actionsButtonsView)
+        actionsButtonsView.layoutSubviews()
+
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
@@ -191,21 +198,21 @@ extension CreateEventViewController: datePickerViewControllerDelegate {
 }
 
 //MARK: ACTIONS SELECTOR DELEGATE METHODS
-extension CreateEventViewController: ActionsSelectorViewDelegate {
+extension CreateEventViewController: ActionsButtonsViewDelegate {
     
-    func addGiftChanged(bool: Bool) {
-        addGift = bool
-        print("add gift: \(addGift)")
+    func giftChangedTo(selectionState: ActionsSelectionState) {
+        self.addGift = selectionState
+        print("Event gift state: \(self.addGift.rawValue)")
     }
     
-    func addCardChanged(bool: Bool) {
-        addCard = bool
-        print("add card: \(addCard)")
+    func cardChangedTo(selectionState: ActionsSelectionState) {
+        self.addCard = selectionState
+        print("Event card state: \(addCard.rawValue)")
     }
     
-    func addPhoneChanged(bool: Bool) {
-        addPhone = bool
-        print("add phone: \(addPhone)")
+    func phoneChangedTo(selectionState: ActionsSelectionState) {
+        self.addPhone = selectionState
+        print("Event phone state: \(addPhone.rawValue)")
     }
 }
 
