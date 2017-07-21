@@ -57,6 +57,8 @@ class EventTableViewCell: UITableViewCell {
         return view
     }()
     
+    var isExpandedCell = false
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -102,7 +104,7 @@ class EventTableViewCell: UITableViewCell {
 
         eventTypeLabel.text = event.type
  
-//>>>>>     actionsButtonsView.configureWith(event: event)
+        actionsButtonsView.configureButtonStatesFor(event: event)
 
         self.dayLabel.text = DateHandler.stringDayNum(from: event.date! as Date)
         

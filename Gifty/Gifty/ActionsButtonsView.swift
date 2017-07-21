@@ -74,7 +74,7 @@ class ActionsButtonsView: UIView {
             imageControl.translatesAutoresizingMaskIntoConstraints = false
             imageControl.imageView.image = UIImage(named: name.rawValue)?.withRenderingMode(.alwaysTemplate)
             imageControl.imageView.contentMode = .scaleAspectFit
-            imageControl.imageView.tintColor = ColorManager.lightText
+//            imageControl.imageView.tintColor = ColorManager.lightText
             imageControl.actionsSelectionState = ActionsSelectionState.unselected
             
             self.addSubview(imageControl)
@@ -102,7 +102,7 @@ class ActionsButtonsView: UIView {
         addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
     }
     
-    func configure(imageControl: CustomImageControl, for selectionState: ActionsSelectionState) {
+    private func configure(imageControl: CustomImageControl, for selectionState: ActionsSelectionState) {
         
         imageControl.actionsSelectionState = selectionState
         if selectionState == ActionsSelectionState.completed {
@@ -112,9 +112,10 @@ class ActionsButtonsView: UIView {
         } else if selectionState == ActionsSelectionState.unselected {
             imageControl.imageView.tintColor = tintUnselected
         }
+
     }
     
-    func handleTouchesFor(imageControl: CustomImageControl) {
+    private func handleTouchesFor(imageControl: CustomImageControl) {
         if self.actionsSelectionType == ActionsSelectionType.checkList {
             if imageControl.actionsSelectionState == ActionsSelectionState.completed {
                 //go back to selected/uncompleted
@@ -135,6 +136,24 @@ class ActionsButtonsView: UIView {
                 //go to selected
                 configure(imageControl: imageControl, for: ActionsSelectionState.selected)
             }
+        }
+    }
+    
+    func configureButtonStatesFor(event: Event) {
+        
+        guard event.giftState != nil, event.cardState != nil, event.phoneState != nil else { return }
+        
+        configure(imageControl: addGiftImageControl, for: getSelectionState(for: event.giftState!))
+        configure(imageControl: addCardImageControl, for: getSelectionState(for: event.cardState!))
+        configure(imageControl: addPhoneImageControl, for: getSelectionState(for: event.phoneState!))
+    }
+    
+    func getSelectionState(for string: String) -> ActionsSelectionState {
+        switch string {
+        case ActionsSelectionState.unselected.rawValue: return .unselected
+        case ActionsSelectionState.selected.rawValue: return .selected
+        case ActionsSelectionState.completed.rawValue: return .completed
+        default: return .unselected
         }
     }
     

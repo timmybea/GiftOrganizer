@@ -478,9 +478,6 @@ extension CreatePersonViewController: EventTableViewDelegate {
         }
     }
     
-
-
-    
     func didTouchAddEventButton() {
         print("Add new event!")
         
@@ -532,8 +529,9 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
     func updateEventCollectionViewWithOrderedEvents() {
         if let events = self.person?.event?.allObjects as? [Event] {
             
-            //correctly order the events by date
+            //TO DO: correctly order the events by date
             self.eventTableView.orderedEvents = events
+
         }
     }
     

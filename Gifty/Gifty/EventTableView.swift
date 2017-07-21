@@ -70,6 +70,8 @@ class EventTableView: UIView {
         return add
     }()
     
+    var selectedIndexRow: Int = -1
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
@@ -111,13 +113,23 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 58
+        if indexPath.row == selectedIndexRow {
+            return 100
+        } else {
+            return 58
+        }
     }
-    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Touched cell at \(indexPath.row)")
+        
+        tableView.beginUpdates()
+        if indexPath.row == selectedIndexRow {
+            selectedIndexRow = -1
+        } else {
+            selectedIndexRow = indexPath.row
+        }
+        tableView.endUpdates()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
