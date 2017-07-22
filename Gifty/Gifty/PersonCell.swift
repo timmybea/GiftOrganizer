@@ -49,7 +49,7 @@ class PersonCell: UITableViewCell {
         let label = UILabel()
         label.textColor = Theme.colors.lightToneTwo.color
         label.textAlignment = .left
-        label.font = FontManager.mediumText
+        label.font = Theme.fonts.mediumText.font
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "0/0"
         return label
@@ -59,7 +59,7 @@ class PersonCell: UITableViewCell {
         let label = UILabel()
         label.textColor = Theme.colors.lightToneTwo.color
         label.textAlignment = .left
-        label.font = FontManager.smallText
+        label.font = Theme.fonts.smallText.font
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Total budget: $0, Spent: $0"
         return label

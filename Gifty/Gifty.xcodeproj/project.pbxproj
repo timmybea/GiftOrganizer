@@ -18,7 +18,6 @@
 		B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5C81F041DD700107B64 /* PersonTFTableView.swift */; };
 		B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5CA1F0428A300107B64 /* TextFieldCell.swift */; };
 		B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5CC1F04497400107B64 /* DropDownTextField.swift */; };
-		B013B5CF1F045B5900107B64 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5CE1F045B5900107B64 /* FontManager.swift */; };
 		B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3B1F05AD6B00805687 /* Contacts.framework */; };
 		B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3D1F05AD8300805687 /* ContactsUI.framework */; };
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
@@ -85,7 +84,6 @@
 		B013B5C81F041DD700107B64 /* PersonTFTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTFTableView.swift; sourceTree = "<group>"; };
 		B013B5CA1F0428A300107B64 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		B013B5CC1F04497400107B64 /* DropDownTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTextField.swift; sourceTree = "<group>"; };
-		B013B5CE1F045B5900107B64 /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		B019FC3B1F05AD6B00805687 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		B019FC3D1F05AD8300805687 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
@@ -279,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				B041F7A21EF8A74A00A3E332 /* Helpers.swift */,
-				B013B5CE1F045B5900107B64 /* FontManager.swift */,
 				B0CA63271F0D7D3200C1A2B1 /* UIImage + Scale.swift */,
 				B0C205761F22D2C200C3E7ED /* Theme.swift */,
 			);
@@ -583,7 +580,6 @@
 			files = (
 				B013B5781EFF233200107B64 /* DateHandler.swift in Sources */,
 				B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */,
-				B013B5CF1F045B5900107B64 /* FontManager.swift in Sources */,
 				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,

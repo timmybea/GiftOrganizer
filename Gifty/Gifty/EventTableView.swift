@@ -53,6 +53,7 @@ class EventTableView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
+        tableView.layer.masksToBounds = false
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor.clear
         tableView.bounces = false
@@ -89,11 +90,11 @@ class EventTableView: UIView {
         addButton.frame = CGRect(x: self.bounds.width - 4 - addSize, y: 4, width: addSize, height: addSize)
 
         addSubview(tableView)
-        tableView.frame = CGRect(x: pad, y: 4 + addButton.frame.height + smallPad, width: self.bounds.width - pad - pad, height: self.bounds.height - (3 * smallPad) - addButton.frame.height)
+        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad - pad, height: self.bounds.height - (3 * smallPad) - addButton.frame.height - 35 - smallPad - pad)
         
         addSubview(eventLabel)
-        eventLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        eventLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        eventLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+        eventLabel.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
     }
 }
 
@@ -115,7 +116,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == selectedIndexRow {
             return 100
         } else {
-            return 58
+            return 62
         }
     }
     

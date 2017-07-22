@@ -10,7 +10,7 @@ import UIKit
 
 //MARK: layout constants
 let pad: CGFloat = 16
-let smallPad: CGFloat = 8
+let smallPad: CGFloat = 12
 
 enum ImageNames: String {
     case horizontalBGGradient = "background_gradient_horizontal"
@@ -29,6 +29,8 @@ enum ImageNames: String {
     case defaultProfileBlock = "default_profile_block"
     case eventIcon = "event_icon"
     case back = "back"
+    case completeIcon = "complete_icon"
+    case incompleteIcon = "incomplete_icon"
 }
 
 
@@ -54,9 +56,9 @@ extension UIView {
         
         self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: -1, height: 1)
-        self.layer.shadowRadius = 1
+        self.layer.shadowOpacity = 0.16
+        self.layer.shadowOffset = CGSize(width: 4, height: 4)
+        self.layer.shadowRadius = 2
         
        // self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
        // self.layer.shouldRasterize = true
@@ -82,7 +84,7 @@ extension UIView {
 
 extension UITextField {
     
-    func placeholderWith(string: String, color: UIColor, font: UIFont = FontManager.mediumText) {
+    func placeholderWith(string: String, color: UIColor, font: UIFont = Theme.fonts.mediumText.font) {
         
         var placeHolder = NSMutableAttributedString()
         let text = string

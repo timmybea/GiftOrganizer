@@ -16,7 +16,7 @@ class BudgetView: UIView {
         label.text = "Budget: $"
         label.textColor = UIColor.white
         label.textAlignment = .left
-        label.font = FontManager.mediumText
+        label.font = Theme.fonts.mediumText.font
         return label
     }()
     
@@ -35,7 +35,7 @@ class BudgetView: UIView {
         label.text = "Actual Cost: $"
         label.textColor = UIColor.white
         label.textAlignment = .left
-        label.font = FontManager.mediumText
+        label.font = Theme.fonts.mediumText.font
         return label
     }()
     

@@ -50,7 +50,7 @@ class CreatePersonViewController: CustomViewController {
     
     lazy var addFromContactLabel: ButtonTemplate = {
         var button = ButtonTemplate(frame: .zero, title: "+ add from contacts")
-        button.titleLabel?.font = FontManager.mediumText
+        button.titleLabel?.font = Theme.fonts.mediumText.font
         button.addTarget(self, action: #selector(didTapAddFromContactsLabel), for: .touchUpInside)
         button.backgroundColor = UIColor.clear
         button.layer.borderWidth = 0
@@ -200,8 +200,9 @@ class CreatePersonViewController: CustomViewController {
         
         currMaxY += addFromContactLabel.frame.height + pad
         
-        let eventHeight = view.bounds.height - currMaxY
-            //- tabBarHeight - pad - saveButton.frame.height - pad
+        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        
+        let eventHeight = view.bounds.height - currMaxY - tabBarHeight
         
         eventTableView = EventTableView(frame: CGRect(x: 0, y: currMaxY, width: view.bounds.width, height: eventHeight))
         
@@ -209,7 +210,7 @@ class CreatePersonViewController: CustomViewController {
         
         view.addSubview(eventTableView)
         
-        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
+        
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
         

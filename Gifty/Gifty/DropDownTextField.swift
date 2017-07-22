@@ -28,7 +28,7 @@ class DropDownTextField: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.mediumText
+        label.font = Theme.fonts.mediumText.font
         label.textColor = UIColor.white
         return label
     }()
@@ -131,7 +131,7 @@ class DropDownTextField: UIView {
         textField.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         textField.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         textField.bottomAnchor.constraint(equalTo: whiteUnderline.bottomAnchor, constant: -10).isActive = true
-        textField.font = FontManager.mediumText
+        textField.font = Theme.fonts.mediumText.font
         textField.delegate = self
         textField.isHidden = true
     }
@@ -268,7 +268,7 @@ class DropDownCell: UITableViewCell {
     
     func configureCellWith(title: String) {
         self.selectionStyle = .none
-        self.textLabel?.font = FontManager.mediumText
+        self.textLabel?.font = Theme.fonts.mediumText.font
         self.textLabel?.textColor = Theme.colors.lightToneOne.color
         self.backgroundColor = UIColor.clear
 

@@ -27,7 +27,7 @@ class AddDateView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Select date"
         label.textColor = UIColor.white
-        label.font = FontManager.mediumText
+        label.font = Theme.fonts.mediumText.font
         label.textAlignment = .left
         return label
     }()
@@ -55,7 +55,7 @@ class AddDateView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
-        label.font = FontManager.mediumText
+        label.font = Theme.fonts.mediumText.font
         label.textAlignment = .right
         label.text = "Recurring"
         return label

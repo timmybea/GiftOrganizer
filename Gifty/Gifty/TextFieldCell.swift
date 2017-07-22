@@ -26,7 +26,7 @@ class TextFieldCell: UITableViewCell {
     let textField: UITextField = {
         let textField = UITextField(frame: .zero)
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = FontManager.mediumText
+        textField.font = Theme.fonts.mediumText.font
         textField.textColor = UIColor.white
         textField.autocapitalizationType = .sentences
         textField.returnKeyType = .done

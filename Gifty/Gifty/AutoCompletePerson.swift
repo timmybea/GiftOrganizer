@@ -19,7 +19,7 @@ class AutoCompletePerson: UIView {
     
     let autoCompleteTF: UITextField = {
         let textfield = UITextField()
-        textfield.font = FontManager.mediumText
+        textfield.font = Theme.fonts.mediumText.font
         textfield.placeholderWith(string: "Person's name", color: UIColor.white)
         return textfield
     }()
