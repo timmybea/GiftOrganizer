@@ -76,6 +76,7 @@ class EventTableViewCell: UITableViewCell {
     var isExpandedCell = false {
         didSet {
             //call the change actionsButtons
+            print("is Expanded: \(isExpandedCell)")
         }
     }
     

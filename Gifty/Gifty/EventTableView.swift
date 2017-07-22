@@ -113,14 +113,18 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //let cell = tableView.cellForRow(at: indexPath) as? EventTableViewCell
         if indexPath.row == selectedIndexRow {
+            //cell?.isExpandedCell = true
             return 100
         } else {
+            //cell?.isExpandedCell = false
             return 62
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         tableView.beginUpdates()
         if indexPath.row == selectedIndexRow {
             selectedIndexRow = -1
