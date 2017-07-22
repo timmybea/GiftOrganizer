@@ -20,7 +20,7 @@ class CustomViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = UIColor.white
         titleLabel.textAlignment = .center
-        titleLabel.font = FontManager.titleText
+        titleLabel.font = Theme.fonts.titleText.font
         return titleLabel
     }()
     

@@ -13,7 +13,7 @@ class EventTableViewCell: UITableViewCell {
     let monthLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = ColorManager.highlightedText
+        label.textColor = Theme.colors.lightToneTwo.color
         label.font = FontManager.dateMonth
         label.textAlignment = .center
         label.text = "MAR"
@@ -24,7 +24,7 @@ class EventTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = ColorManager.highlightedText
+        label.textColor = Theme.colors.lightToneTwo.color
         label.font = FontManager.dateDay
         label.text = "24"
         return label
@@ -33,8 +33,9 @@ class EventTableViewCell: UITableViewCell {
     let eventTypeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = ColorManager.tabBarPurple
-        label.font = FontManager.subtitleText
+        label.textColor = Theme.colors.darkPurple.color
+        label.textAlignment = .left
+        label.font = FontManager.mediumText
         return label
     }()
     
@@ -42,17 +43,17 @@ class EventTableViewCell: UITableViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.white
-        view.layer.borderWidth = 2
-        view.layer.borderColor = ColorManager.lightText.cgColor
-        view.layer.cornerRadius = 4
+        //view.layer.borderWidth = 2
+        //view.layer.borderColor = Theme.colors.lightToneOne.color.cgColor
+        view.layer.cornerRadius = 8
         return view
     }()
     
     lazy var actionsButtonsView: ActionsButtonsView = {
         let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionType.checkList)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.tintSelected = ColorManager.highlightedText
-        view.tintCompleted = ColorManager.yellow
+        view.tintSelected = Theme.colors.lightToneTwo.color
+        view.tintCompleted = Theme.colors.yellow.color
         view.delegate = self
         return view
     }()
@@ -73,43 +74,51 @@ class EventTableViewCell: UITableViewCell {
     
     func setupSubviews() {
         
+        self.backgroundColor = UIColor.clear
+        
         addSubview(customBackground)
         customBackground.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
         customBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2).isActive = true
         customBackground.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         customBackground.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         
-        customBackground.addSubview(dayLabel)
-        dayLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        dayLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4).isActive = true
-        
         customBackground.addSubview(monthLabel)
-        monthLabel.bottomAnchor.constraint(equalTo: dayLabel.topAnchor, constant: 4).isActive = true
-        monthLabel.centerXAnchor.constraint(equalTo: dayLabel.centerXAnchor).isActive = true
+        monthLabel.leftAnchor.constraint(equalTo: customBackground.leftAnchor, constant: pad).isActive = true
+        monthLabel.topAnchor.constraint(equalTo: customBackground.topAnchor, constant: 6).isActive = true
         
-//        customBackground.addSubview(eventTypeLabel)
-//        eventTypeLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-//        eventTypeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        customBackground.addSubview(dayLabel)
+        dayLabel.topAnchor.constraint(equalTo: monthLabel.bottomAnchor, constant: -4).isActive = true
+        dayLabel.centerXAnchor.constraint(equalTo: monthLabel.centerXAnchor).isActive = true
+       
+        customBackground.addSubview(eventTypeLabel)
+        eventTypeLabel.leftAnchor.constraint(equalTo: customBackground.leftAnchor, constant: 50).isActive = true
+        eventTypeLabel.topAnchor.constraint(equalTo: customBackground.topAnchor, constant: 6).isActive = true
         
-        customBackground.addSubview(actionsButtonsView)
-        actionsButtonsView.leftAnchor.constraint(equalTo: monthLabel.rightAnchor, constant: pad).isActive = true
-        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
-        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor).isActive = true
-        actionsButtonsView.topAnchor.constraint(equalTo: customBackground.topAnchor).isActive = true
-        actionsButtonsView.layoutSubviews()
+//        customBackground.addSubview(actionsButtonsView)
+//        actionsButtonsView.leftAnchor.constraint(equalTo: monthLabel.rightAnchor, constant: pad).isActive = true
+//        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
+//        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor).isActive = true
+//        actionsButtonsView.topAnchor.constraint(equalTo: customBackground.topAnchor).isActive = true
+//        actionsButtonsView.layoutSubviews()
         
     }
     
     func configureWith(event: Event) {
 
-        eventTypeLabel.text = event.type
- 
-        actionsButtonsView.configureButtonStatesFor(event: event)
-
+        if let fullName = event.person?.fullName, let type = event.type {
+            eventTypeLabel.text = "\(fullName) • \(type)"
+        }
         self.dayLabel.text = DateHandler.stringDayNum(from: event.date! as Date)
-        
         self.monthLabel.text = DateHandler.stringMonthAbb(from: event.date! as Date).uppercased()
+
+        
+        
+        //actionsButtonsView.configureButtonStatesFor(event: event)
+
+        
     }
+    
+
 }
 
 

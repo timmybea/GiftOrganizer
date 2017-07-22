@@ -96,12 +96,12 @@ class CustomCalendarCell: JTAppleCell {
         self.selectedDateView.isHidden = staySelected ? false : true
         
         if staySelected {
-            self.dateLabel.textColor = ColorManager.highlightedText
+            self.dateLabel.textColor = Theme.colors.lightToneTwo.color
         } else {
             if cellState.dateBelongsTo == .thisMonth {
                 self.dateLabel.textColor = UIColor.white
             } else {
-                self.dateLabel.textColor = ColorManager.lightText
+                self.dateLabel.textColor = Theme.colors.lightToneOne.color
             }
         }
         
@@ -109,14 +109,14 @@ class CustomCalendarCell: JTAppleCell {
         let today = DateHandler.localTimeFromUTC(Date())
         if Calendar.current.isDate(cellState.date, inSameDayAs:today) {
             self.todayDateView.isHidden = false
-            self.dateLabel.textColor = ColorManager.highlightedText
+            self.dateLabel.textColor = Theme.colors.lightToneTwo.color
         }
         self.showInfo = staySelected
     }
     
     func setInitialSelection() {
         self.selectedDateView.isHidden = false
-        self.dateLabel.textColor = ColorManager.highlightedText
+        self.dateLabel.textColor = Theme.colors.lightToneTwo.color
         wasSelected = true
     }
 }

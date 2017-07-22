@@ -46,7 +46,7 @@ class AddDateView: UIView {
         let newSwitch = UISwitch()
         newSwitch.setOn(false, animated: false)
         newSwitch.translatesAutoresizingMaskIntoConstraints = false
-        newSwitch.onTintColor = ColorManager.lightText
+        newSwitch.onTintColor = Theme.colors.lightToneOne.color
         newSwitch.tintColor = UIColor.white
         return newSwitch
     }()
@@ -136,8 +136,8 @@ extension AddDateView {
     
     func didTouchDownSelf() {
         
-        self.calendarImage.tintColor = ColorManager.lightText
-        self.label.textColor = ColorManager.lightText
+        self.calendarImage.tintColor = Theme.colors.lightToneOne.color
+        self.label.textColor = Theme.colors.lightToneOne.color
     }
     
     func didTouchUpSelf() {

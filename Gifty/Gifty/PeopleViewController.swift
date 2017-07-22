@@ -14,10 +14,11 @@ class PeopleViewController: CustomViewController {
     var frc: NSFetchedResultsController<Person>? = PersonFRC.frc(byGroup: false)
     
     lazy var tableView: UITableView = {
-        let tableview = UITableView()
+        let tableview = UITableView(frame: .zero, style: UITableViewStyle.grouped)
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.backgroundColor = UIColor.clear
         tableview.separatorColor = UIColor.clear
+        tableview.showsVerticalScrollIndicator = false
         tableview.delegate = self
         tableview.dataSource = self
         tableview.register(PersonCell.self, forCellReuseIdentifier: "PersonCell")
@@ -143,16 +144,16 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         } else {
             let sectionInfo = frc?.sections?[section]
-            
+
             let backgroundView = UIView()
-            backgroundView.backgroundColor = ColorManager.tabBarPurple
-            
+            backgroundView.backgroundColor = UIColor.clear
+
             let label = UILabel(frame: CGRect(x: pad, y: 8, width: 200, height: 20))
-            label.font = FontManager.subtitleText
+            label.font = Theme.fonts.subtitleText.font
             label.textColor = UIColor.white
             label.text = sectionInfo?.name
             backgroundView.addSubview(label)
-            
+
             return backgroundView
         }
     }
@@ -195,9 +196,13 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
         if isSearching {
             return 0
         } else {
-            return 34
+           return 34
         }
     }
+    
+//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+//        return frc?.sectionIndexTitles
+//    }
     
     //MARK: Editing methods
     

@@ -52,12 +52,13 @@ class CreatePersonViewController: CustomViewController {
         var button = ButtonTemplate(frame: .zero, title: "+ add from contacts")
         button.titleLabel?.font = FontManager.mediumText
         button.addTarget(self, action: #selector(didTapAddFromContactsLabel), for: .touchUpInside)
+        button.backgroundColor = UIColor.clear
         button.layer.borderWidth = 0
         return button
     }()
     
     var saveButton: ButtonTemplate!
-
+    
     var eventTableView: EventTableView!
     
     override func viewDidLoad() {
@@ -196,6 +197,18 @@ class CreatePersonViewController: CustomViewController {
         
         addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 17)
         
+        
+        currMaxY += addFromContactLabel.frame.height + pad
+        
+        let eventHeight = view.bounds.height - currMaxY
+            //- tabBarHeight - pad - saveButton.frame.height - pad
+        
+        eventTableView = EventTableView(frame: CGRect(x: 0, y: currMaxY, width: view.bounds.width, height: eventHeight))
+        
+        eventTableView.delegate = self
+        
+        view.addSubview(eventTableView)
+        
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
@@ -205,16 +218,6 @@ class CreatePersonViewController: CustomViewController {
         saveButton.delegate = self
         
         view.addSubview(saveButton)
-        
-        currMaxY += addFromContactLabel.frame.height + pad
-        
-        let eventHeight = view.bounds.height - currMaxY - tabBarHeight - pad - saveButton.frame.height - pad
-        
-        eventTableView = EventTableView(frame: CGRect(x: pad, y: currMaxY, width: view.bounds.width - pad - pad, height: eventHeight))
-        
-        eventTableView.delegate = self
-        
-        view.addSubview(eventTableView)
         
         if isUpdatePerson {
         

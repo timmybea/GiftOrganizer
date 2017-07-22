@@ -33,9 +33,9 @@ class ActionsButtonsView: UIView {
     var addCardImageControl: CustomImageControl!
     var addPhoneImageControl: CustomImageControl!
     
-    var tintUnselected = ColorManager.lightText
+    var tintUnselected = Theme.colors.lightToneOne.color
     var tintSelected = UIColor.white
-    var tintCompleted = ColorManager.yellow
+    var tintCompleted = Theme.colors.yellow.color
     
     var actionsSelectionType: ActionsSelectionType = ActionsSelectionType.checkList
     var imageSize: CGFloat = 45

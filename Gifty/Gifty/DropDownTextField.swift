@@ -55,7 +55,7 @@ class DropDownTextField: UIView {
     
     let animatedView: UIView = {
         let view = UIView()
-        view.backgroundColor = ColorManager.highlightedText
+        view.backgroundColor = Theme.colors.lightToneTwo.color
         return view
     }()
     
@@ -269,7 +269,7 @@ class DropDownCell: UITableViewCell {
     func configureCellWith(title: String) {
         self.selectionStyle = .none
         self.textLabel?.font = FontManager.mediumText
-        self.textLabel?.textColor = ColorManager.lightText
+        self.textLabel?.textColor = Theme.colors.lightToneOne.color
         self.backgroundColor = UIColor.clear
 
         self.textLabel?.text = title

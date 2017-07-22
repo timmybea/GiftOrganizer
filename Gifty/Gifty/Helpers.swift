@@ -42,9 +42,27 @@ extension UINavigationController {
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.tintColor = UIColor.white
         navigationController.view.addSubview(viewController.titleLabel)
-        navigationController.navigationBar.titleTextAttributes = [NSFontAttributeName: FontManager.titleText, NSForegroundColorAttributeName: UIColor.white]
+        navigationController.navigationBar.titleTextAttributes = [NSFontAttributeName: Theme.fonts.titleText.font, NSForegroundColorAttributeName: UIColor.white]
         
         return navigationController
+    }
+}
+
+extension UIView {
+    
+    func dropShadow() {
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowOffset = CGSize(width: -1, height: 1)
+        self.layer.shadowRadius = 1
+        
+       // self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+       // self.layer.shouldRasterize = true
+        
+        //self.layer.rasterizationScale = UIScreen.main.scale
+        
     }
 }
 

@@ -51,7 +51,7 @@ class CustomCalendar: UIView {
     private let monthYearLabel: UILabel = {
         let monthYearLabel = UILabel()
         monthYearLabel.textAlignment = .left
-        monthYearLabel.font = FontManager.titleText
+        monthYearLabel.font = Theme.fonts.titleText.font
         monthYearLabel.textColor = UIColor.white
         return monthYearLabel
     }()
@@ -92,7 +92,7 @@ class CustomCalendar: UIView {
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.adjustsFontSizeToFitWidth = true
-            label.textColor = ColorManager.lightText
+            label.textColor = Theme.colors.lightToneOne.color
             label.textAlignment = .center
             label.text = day
             dayStackView.insertArrangedSubview(label, at: index)

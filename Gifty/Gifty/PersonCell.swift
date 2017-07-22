@@ -12,13 +12,13 @@ class PersonCell: UITableViewCell {
 
     var person: Person?
     
-    let whiteView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8
-        view.backgroundColor = UIColor.white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    let whiteView: UIView = {
+//        let view = UIView()
+//        view.layer.cornerRadius = 8
+//        view.backgroundColor = UIColor.white
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     
     let profileImageView: CircleView = {
         let view = CircleView(image: UIImage(named: ImageNames.defaultProfileBlock.rawValue))
@@ -31,8 +31,8 @@ class PersonCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = ColorManager.highlightedText
-        label.font = FontManager.subtitleText
+        label.textColor = Theme.colors.lightToneTwo.color
+        label.font = Theme.fonts.subtitleText.font
         return label
     }()
     
@@ -40,14 +40,14 @@ class PersonCell: UITableViewCell {
         let image = UIImage(named: ImageNames.eventIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
         let view = UIImageView(image: image)
         view.contentMode = .scaleAspectFit
-        view.tintColor = ColorManager.highlightedText
+        view.tintColor = Theme.colors.lightToneTwo.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let eventCountLabel: UILabel = {
         let label = UILabel()
-        label.textColor = ColorManager.highlightedText
+        label.textColor = Theme.colors.lightToneTwo.color
         label.textAlignment = .left
         label.font = FontManager.mediumText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class PersonCell: UITableViewCell {
     
     let budgetSummaryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = ColorManager.highlightedText
+        label.textColor = Theme.colors.lightToneTwo.color
         label.textAlignment = .left
         label.font = FontManager.smallText
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,39 +84,41 @@ class PersonCell: UITableViewCell {
     }
     
     func setupViews() {
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = Theme.colors.offWhite.color
         
         self.selectionStyle = .none
         
         let medPad: CGFloat = 8
         let smallPad: CGFloat = 4
         
-        self.addSubview(whiteView)
-        whiteView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        whiteView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
-        whiteView.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
-        whiteView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2).isActive = true
+//        self.addSubview(whiteView)
+//        whiteView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
+//        whiteView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+//        whiteView.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
+//        whiteView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2).isActive = true
+//        whiteView.dropShadow()
+
         
         self.addSubview(profileImageView)
-        profileImageView.leftAnchor.constraint(equalTo: whiteView.leftAnchor, constant: medPad).isActive = true
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: medPad).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: whiteView.centerYAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         self.addSubview(nameLabel)
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: medPad).isActive = true
         nameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
         
         self.addSubview(eventCountLabel)
-        eventCountLabel.leftAnchor.constraint(equalTo: whiteView.rightAnchor, constant: -40).isActive = true
-        eventCountLabel.rightAnchor.constraint(equalTo: whiteView.rightAnchor, constant: -medPad).isActive = true
-        eventCountLabel.centerYAnchor.constraint(equalTo: whiteView.centerYAnchor).isActive = true
+        eventCountLabel.leftAnchor.constraint(equalTo: self.rightAnchor, constant: -40).isActive = true
+        eventCountLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -medPad).isActive = true
+        eventCountLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
 
         self.addSubview(eventIcon)
         eventIcon.rightAnchor.constraint(equalTo: eventCountLabel.leftAnchor, constant: -smallPad).isActive = true
         eventIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
         eventIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        eventIcon.centerYAnchor.constraint(equalTo: whiteView.centerYAnchor).isActive = true
+        eventIcon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         self.addSubview(budgetSummaryLabel)
         budgetSummaryLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: medPad).isActive = true

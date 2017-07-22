@@ -40,10 +40,10 @@ class EventTableView: UIView {
     var eventLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = ColorManager.highlightedText
+        label.textColor = Theme.colors.lightToneTwo.color
         label.text = "No events created"
         label.textAlignment = .left
-        label.font = FontManager.subtitleText
+        label.font = Theme.fonts.subtitleText.font
         label.isHidden = false
         return label
     }()
@@ -64,7 +64,7 @@ class EventTableView: UIView {
         let add = CustomImageControl()
         add.imageView.image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate)
         add.imageView.contentMode = .scaleAspectFill
-        add.imageView.tintColor = ColorManager.highlightedText
+        add.imageView.tintColor = UIColor.white
         add.addTarget(self, action: #selector(addButtonTouchedDown), for: .touchDown)
         add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
         return add
@@ -82,8 +82,7 @@ class EventTableView: UIView {
     }
     
     func setupSubviews() {
-        backgroundColor = UIColor.white
-        self.layer.cornerRadius = 5
+        backgroundColor = Theme.colors.offWhite.color
 
         addSubview(addButton)
         let addSize: CGFloat = 30
@@ -121,8 +120,6 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Touched cell at \(indexPath.row)")
-        
         tableView.beginUpdates()
         if indexPath.row == selectedIndexRow {
             selectedIndexRow = -1
@@ -138,7 +135,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
                 self.delegate?.didTouchEditEvent(event: event)
             }
         }
-        editAction.backgroundColor = ColorManager.yellow
+        editAction.backgroundColor = Theme.colors.yellow.color
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
             if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
                 self.delegate?.didTouchDeleteEvent(event: event)
@@ -146,7 +143,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             self.orderedEvents?.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        deleteAction.backgroundColor = ColorManager.highlightedText
+        deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
         return [deleteAction, editAction]
     }
     
@@ -155,11 +152,11 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
 extension EventTableView {
     
     func addButtonTouchedDown() {
-        addButton.imageView.tintColor = ColorManager.lightText
+        addButton.imageView.tintColor = Theme.colors.lightToneOne.color
     }
     
     func addButtonTouchedUpInside() {
-        addButton.imageView.tintColor = ColorManager.highlightedText
+        addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
         if self.delegate != nil {
             self.delegate?.didTouchAddEventButton()
         }
