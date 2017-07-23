@@ -127,12 +127,12 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         CATransaction.setCompletionBlock {
             
             let cell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
-            cell.showActionsSelectorView()
+            cell.showActionsButtonsView()
         }
         
         tableView.beginUpdates()
         if selectedIndexPath != nil, let prevCell = tableView.cellForRow(at: selectedIndexPath!) as? EventTableViewCell {
-            prevCell.testBlueView.isHidden = true
+            prevCell.hideActionsButtonsView()
         }
         
         if indexPath == selectedIndexPath {

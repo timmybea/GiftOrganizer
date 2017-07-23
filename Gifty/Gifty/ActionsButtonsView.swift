@@ -59,7 +59,7 @@ class ActionsButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
+    private func setupSubviews() {
         
         for subview in self.subviews {
             subview.removeFromSuperview()
@@ -74,7 +74,7 @@ class ActionsButtonsView: UIView {
             imageControl.translatesAutoresizingMaskIntoConstraints = false
             imageControl.imageView.image = UIImage(named: name.rawValue)?.withRenderingMode(.alwaysTemplate)
             imageControl.imageView.contentMode = .scaleAspectFit
-//            imageControl.imageView.tintColor = ColorManager.lightText
+            imageControl.imageView.tintColor = Theme.colors.lightToneOne.color
             imageControl.actionsSelectionState = ActionsSelectionState.unselected
             
             self.addSubview(imageControl)
@@ -140,6 +140,8 @@ class ActionsButtonsView: UIView {
     }
     
     func configureButtonStatesFor(event: Event) {
+        
+        setupSubviews()
         
         guard event.giftState != nil, event.cardState != nil, event.phoneState != nil else { return }
         

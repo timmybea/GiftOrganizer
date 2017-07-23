@@ -138,28 +138,23 @@ class EventTableViewCell: UITableViewCell {
         summaryLabel.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
         summaryLabel.bottomAnchor.constraint(equalTo: dayLabel.bottomAnchor, constant: -6).isActive = true
         
-
-        customBackground.addSubview(testBlueView)
-        testBlueView.leftAnchor.constraint(equalTo: customBackground.leftAnchor, constant: pad).isActive = true
-        testBlueView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
-        testBlueView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6).isActive = true
-        testBlueView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        testBlueView.isHidden = true
-        
-        //        customBackground.addSubview(actionsButtonsView)
-        //        actionsButtonsView.leftAnchor.constraint(equalTo: monthLabel.rightAnchor, constant: pad).isActive = true
-        //        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
-        //        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor).isActive = true
-        //        actionsButtonsView.topAnchor.constraint(equalTo: customBackground.topAnchor).isActive = true
-        //        actionsButtonsView.layoutSubviews()
+        customBackground.addSubview(actionsButtonsView)
+        actionsButtonsView.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
+        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
+        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6).isActive = true
+        actionsButtonsView.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        actionsButtonsView.isHidden = true
     }
     
     
-    func showActionsSelectorView() {
-        
+    func showActionsButtonsView() {
         if self.customBackground.frame.height > 70.0 {
-            testBlueView.isHidden = false
+            actionsButtonsView.isHidden = false
         }
+    }
+    
+    func hideActionsButtonsView() {
+        actionsButtonsView.isHidden = true
     }
     
     
@@ -185,9 +180,7 @@ class EventTableViewCell: UITableViewCell {
             completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
         }
         
-        
-        //actionsButtonsView.configureButtonStatesFor(event: event)
-
+        actionsButtonsView.configureButtonStatesFor(event: event)
         
     }
     
