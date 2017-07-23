@@ -20,14 +20,14 @@ class EventTableView: UIView {
     
     var orderedEvents: [Event]? {
         didSet {
-            showHideCollectionView()
+            showHideTableView()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    func showHideCollectionView() {
+    private func showHideTableView() {
         if orderedEvents?.count == nil || orderedEvents?.count == 0 {
             eventLabel.isHidden = false
             tableView.isHidden = true
@@ -71,8 +71,8 @@ class EventTableView: UIView {
         return add
     }()
     
-    var selectedIndexRow: Int = -1
-    
+    var selectedIndexPath: IndexPath?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
@@ -113,25 +113,36 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //let cell = tableView.cellForRow(at: indexPath) as? EventTableViewCell
-        if indexPath.row == selectedIndexRow {
-            //cell?.isExpandedCell = true
+        if indexPath == selectedIndexPath {
             return 100
         } else {
-            //cell?.isExpandedCell = false
             return 62
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        CATransaction.begin()
+        
+        CATransaction.setCompletionBlock {
+            
+            let cell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
+            cell.showActionsSelectorView()
+        }
+        
         tableView.beginUpdates()
-        if indexPath.row == selectedIndexRow {
-            selectedIndexRow = -1
+        if selectedIndexPath != nil, let prevCell = tableView.cellForRow(at: selectedIndexPath!) as? EventTableViewCell {
+            prevCell.testBlueView.isHidden = true
+        }
+        
+        if indexPath == selectedIndexPath {
+            selectedIndexPath = nil
         } else {
-            selectedIndexRow = indexPath.row
+            selectedIndexPath = indexPath
         }
         tableView.endUpdates()
+        
+        CATransaction.commit()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

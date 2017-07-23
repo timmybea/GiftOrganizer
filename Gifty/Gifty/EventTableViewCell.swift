@@ -73,12 +73,12 @@ class EventTableViewCell: UITableViewCell {
         return label
     }()
     
-    var isExpandedCell = false {
-        didSet {
-            //call the change actionsButtons
-            print("is Expanded: \(isExpandedCell)")
-        }
-    }
+    lazy var testBlueView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.blue
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -139,17 +139,29 @@ class EventTableViewCell: UITableViewCell {
         summaryLabel.bottomAnchor.constraint(equalTo: dayLabel.bottomAnchor, constant: -6).isActive = true
         
 
+        customBackground.addSubview(testBlueView)
+        testBlueView.leftAnchor.constraint(equalTo: customBackground.leftAnchor, constant: pad).isActive = true
+        testBlueView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
+        testBlueView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6).isActive = true
+        testBlueView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        testBlueView.isHidden = true
         
+        //        customBackground.addSubview(actionsButtonsView)
+        //        actionsButtonsView.leftAnchor.constraint(equalTo: monthLabel.rightAnchor, constant: pad).isActive = true
+        //        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
+        //        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor).isActive = true
+        //        actionsButtonsView.topAnchor.constraint(equalTo: customBackground.topAnchor).isActive = true
+        //        actionsButtonsView.layoutSubviews()
     }
     
-    private func cellHeightExpanded() {
-        customBackground.addSubview(actionsButtonsView)
-        actionsButtonsView.leftAnchor.constraint(equalTo: monthLabel.rightAnchor, constant: pad).isActive = true
-        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
-        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor).isActive = true
-        actionsButtonsView.topAnchor.constraint(equalTo: customBackground.topAnchor).isActive = true
-        actionsButtonsView.layoutSubviews()
+    
+    func showActionsSelectorView() {
+        
+        if self.customBackground.frame.height > 70.0 {
+            testBlueView.isHidden = false
+        }
     }
+    
     
     func configureWith(event: Event) {
 
