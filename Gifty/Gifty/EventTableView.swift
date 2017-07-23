@@ -12,6 +12,7 @@ protocol EventTableViewDelegate {
     func didTouchAddEventButton()
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
+    func setAction(_ action: Actions, to state: ActionSelectionStates)
 }
 
 class EventTableView: UIView {
@@ -20,20 +21,18 @@ class EventTableView: UIView {
     
     var orderedEvents: [Event]? {
         didSet {
-            showHideTableView()
+            updateEventLabelForEventsCount()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    private func showHideTableView() {
-        if orderedEvents?.count == nil || orderedEvents?.count == 0 {
-            eventLabel.isHidden = false
-            tableView.isHidden = true
+    private func updateEventLabelForEventsCount() {
+        if let events = orderedEvents, events.count > 0 {
+            eventLabel.text = "Upcoming events"
         } else {
-            eventLabel.isHidden = true
-            tableView.isHidden = false
+            eventLabel.text = "You have no upcoming events"
         }
     }
     
@@ -41,7 +40,7 @@ class EventTableView: UIView {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Theme.colors.lightToneTwo.color
-        label.text = "No events created"
+        label.text = "No upcoming events"
         label.textAlignment = .left
         label.font = Theme.fonts.subtitleText.font
         label.isHidden = false
@@ -53,19 +52,20 @@ class EventTableView: UIView {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
-        tableView.layer.masksToBounds = false
+        //tableView.layer.masksToBounds = false
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor.clear
         tableView.bounces = false
-        tableView.isHidden = true
+        //tableView.isHidden = true
         return tableView
     }()
     
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
         add.imageView.image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate)
-        add.imageView.contentMode = .scaleAspectFill
-        add.imageView.tintColor = UIColor.white
+        add.imageView.contentMode = .scaleAspectFit
+        //add.imageView.backgroundColor = UIColor.blue
+        add.imageView.tintColor = Theme.colors.lightToneTwo.color
         add.addTarget(self, action: #selector(addButtonTouchedDown), for: .touchDown)
         add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
         return add
@@ -86,15 +86,17 @@ class EventTableView: UIView {
         backgroundColor = Theme.colors.offWhite.color
 
         addSubview(addButton)
-        let addSize: CGFloat = 30
-        addButton.frame = CGRect(x: self.bounds.width - 4 - addSize, y: 4, width: addSize, height: addSize)
+        let addSize: CGFloat = 22
+        addButton.frame = CGRect(x: self.bounds.width - pad - addSize, y: smallPad, width: addSize, height: addSize)
 
         addSubview(tableView)
-        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad - pad, height: self.bounds.height - (3 * smallPad) - addButton.frame.height - 35 - smallPad - pad)
+        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
         
         addSubview(eventLabel)
-        eventLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
-        eventLabel.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
+        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
+        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
+//        eventLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
+//        eventLabel.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
     }
 }
 
@@ -107,7 +109,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
-        
+        cell.delegate = self
         cell.configureWith(event: (orderedEvents?[indexPath.row])!)
         return cell
     }
@@ -175,6 +177,40 @@ extension EventTableView {
         addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
         if self.delegate != nil {
             self.delegate?.didTouchAddEventButton()
+        }
+    }
+}
+
+//MARK: Event Cell Delegate (Save change to event)
+extension EventTableView: EventTableViewCellDelegate {
+    func setAction(_ action: Actions, to state: ActionSelectionStates, for event: Event) {
+        
+        let currentEvent = event
+        
+        if action == Actions.gift {
+            
+            currentEvent.giftState = state.rawValue
+            
+        } else if action == Actions.card {
+            
+            currentEvent.cardState = state.rawValue
+            
+        } else if action == Actions.phone {
+            
+            currentEvent.phoneState = state.rawValue
+            
+        }
+        print("\(currentEvent.type!): \(action) was changed to state: \(state.rawValue)")
+        
+        _ = ManagedObjectBuilder.checkEventComplete(currentEvent)
+        
+        ManagedObjectBuilder.saveChanges { (success) in
+            print("saved successfully")
+            
+            //update cell subviews according to checklist completion
+            if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {
+                cell.configureWith(event: orderedEvents![self.selectedIndexPath!.row])
+            }
         }
     }
 }

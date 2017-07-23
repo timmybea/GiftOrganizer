@@ -90,15 +90,7 @@ class PersonCell: UITableViewCell {
         
         let medPad: CGFloat = 8
         let smallPad: CGFloat = 4
-        
-//        self.addSubview(whiteView)
-//        whiteView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-//        whiteView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
-//        whiteView.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
-//        whiteView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2).isActive = true
-//        whiteView.dropShadow()
 
-        
         self.addSubview(profileImageView)
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: medPad).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -138,8 +130,17 @@ class PersonCell: UITableViewCell {
             profileImageView.image = UIImage(named: ImageNames.defaultProfileBlock.rawValue)
         }
         
-        if let eventCount = person.event?.allObjects.count {
-            eventCountLabel.text = "0/\(eventCount)"
+        if let events = person.event?.allObjects as? [Event] {
+            
+            let eventCount = events.count
+            var completedCount = 0
+            
+            for event in events {
+                if event.isComplete {
+                    completedCount += 1
+                }
+            }
+            eventCountLabel.text = "\(completedCount)/\(eventCount)"
         }
     }
 }

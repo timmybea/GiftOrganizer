@@ -460,6 +460,11 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 
 //MARK: ADD EVENT
 extension CreatePersonViewController: EventTableViewDelegate {
+   
+    func setAction(_ action: Actions, to state: ActionSelectionStates) {
+        //do something
+    }
+
     
     func didTouchEditEvent(event: Event) {
         

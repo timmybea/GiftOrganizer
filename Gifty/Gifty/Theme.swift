@@ -18,6 +18,7 @@ struct Theme {
         case lightToneTwo
         case yellow
         case charcoal
+        case completedGreen
         
         var color: UIColor {
             switch self {
@@ -28,6 +29,7 @@ struct Theme {
             case .lightToneTwo: return UIColor.colorWithVals(r: 206, g: 78, b: 120)
             case .yellow: return UIColor.colorWithVals(r: 255, g: 210, b: 92)
             case .charcoal: return UIColor.colorWithVals(r: 62, g: 62, b: 62)
+            case .completedGreen: return UIColor.colorWithVals(r: 137, g: 219, b: 112)
             }
         }
     }

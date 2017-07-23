@@ -8,21 +8,25 @@
 
 import UIKit
 
-enum ActionsSelectionState: String {
+enum ActionSelectionStates: String {
     case unselected = "unselected"
     case selected = "selected"
     case completed = "completed"
 }
 
-enum ActionsSelectionType {
+enum ActionsSelectionTypes {
     case selectDeselect
     case checkList
 }
 
+enum Actions {
+    case gift
+    case card
+    case phone
+}
+
 protocol ActionsButtonsViewDelegate {
-    func giftChangedTo(selectionState: ActionsSelectionState)
-    func cardChangedTo(selectionState: ActionsSelectionState)
-    func phoneChangedTo(selectionState: ActionsSelectionState)
+    func setAction(_ action: Actions, to state: ActionSelectionStates)
 }
 
 class ActionsButtonsView: UIView {
@@ -34,13 +38,13 @@ class ActionsButtonsView: UIView {
     var addPhoneImageControl: CustomImageControl!
     
     var tintUnselected = Theme.colors.lightToneOne.color
-    var tintSelected = UIColor.white
-    var tintCompleted = Theme.colors.yellow.color
+    var tintSelected = Theme.colors.lightToneTwo.color
+    var tintCompleted = Theme.colors.completedGreen.color
     
-    var actionsSelectionType: ActionsSelectionType = ActionsSelectionType.checkList
+    var actionsSelectionType: ActionsSelectionTypes = ActionsSelectionTypes.checkList
     var imageSize: CGFloat = 45
     
-    convenience init(imageSize: CGFloat?, actionsSelectionType: ActionsSelectionType) {
+    convenience init(imageSize: CGFloat?, actionsSelectionType: ActionsSelectionTypes) {
         self.init(frame: .zero)
     
         if let size = imageSize {
@@ -59,7 +63,7 @@ class ActionsButtonsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupSubviews() {
+    func setupSubviews() {
         
         for subview in self.subviews {
             subview.removeFromSuperview()
@@ -75,7 +79,7 @@ class ActionsButtonsView: UIView {
             imageControl.imageView.image = UIImage(named: name.rawValue)?.withRenderingMode(.alwaysTemplate)
             imageControl.imageView.contentMode = .scaleAspectFit
             imageControl.imageView.tintColor = Theme.colors.lightToneOne.color
-            imageControl.actionsSelectionState = ActionsSelectionState.unselected
+            imageControl.actionsSelectionState = ActionSelectionStates.unselected
             
             self.addSubview(imageControl)
             imageControl.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
@@ -102,39 +106,39 @@ class ActionsButtonsView: UIView {
         addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
     }
     
-    private func configure(imageControl: CustomImageControl, for selectionState: ActionsSelectionState) {
+    private func configure(imageControl: CustomImageControl, for selectionState: ActionSelectionStates) {
         
         imageControl.actionsSelectionState = selectionState
-        if selectionState == ActionsSelectionState.completed {
+        if selectionState == ActionSelectionStates.completed {
             imageControl.imageView.tintColor = self.tintCompleted
-        } else if selectionState == ActionsSelectionState.selected {
+        } else if selectionState == ActionSelectionStates.selected {
             imageControl.imageView.tintColor = tintSelected
-        } else if selectionState == ActionsSelectionState.unselected {
+        } else if selectionState == ActionSelectionStates.unselected {
             imageControl.imageView.tintColor = tintUnselected
         }
 
     }
     
     private func handleTouchesFor(imageControl: CustomImageControl) {
-        if self.actionsSelectionType == ActionsSelectionType.checkList {
-            if imageControl.actionsSelectionState == ActionsSelectionState.completed {
+        if self.actionsSelectionType == ActionsSelectionTypes.checkList {
+            if imageControl.actionsSelectionState == ActionSelectionStates.completed {
                 //go back to selected/uncompleted
-                configure(imageControl: imageControl, for: ActionsSelectionState.selected)
-            } else if imageControl.actionsSelectionState == ActionsSelectionState.selected {
+                configure(imageControl: imageControl, for: ActionSelectionStates.selected)
+            } else if imageControl.actionsSelectionState == ActionSelectionStates.selected {
                 //go to completed
-                configure(imageControl: imageControl, for: ActionsSelectionState.completed)
-            } else if imageControl.actionsSelectionState == ActionsSelectionState.unselected {
+                configure(imageControl: imageControl, for: ActionSelectionStates.completed)
+            } else if imageControl.actionsSelectionState == ActionSelectionStates.unselected {
                 //go to selected
-                configure(imageControl: imageControl, for: ActionsSelectionState.selected)
+                //configure(imageControl: imageControl, for: ActionSelectionStates.selected)
             }
         } else {
             //setup for select/Deselect
-            if imageControl.actionsSelectionState == ActionsSelectionState.selected {
+            if imageControl.actionsSelectionState == ActionSelectionStates.selected {
                 //go to unselected
-                configure(imageControl: imageControl, for: ActionsSelectionState.unselected)
-            } else if imageControl.actionsSelectionState == ActionsSelectionState.unselected {
+                configure(imageControl: imageControl, for: ActionSelectionStates.unselected)
+            } else if imageControl.actionsSelectionState == ActionSelectionStates.unselected {
                 //go to selected
-                configure(imageControl: imageControl, for: ActionsSelectionState.selected)
+                configure(imageControl: imageControl, for: ActionSelectionStates.selected)
             }
         }
     }
@@ -150,11 +154,11 @@ class ActionsButtonsView: UIView {
         configure(imageControl: addPhoneImageControl, for: getSelectionState(for: event.phoneState!))
     }
     
-    func getSelectionState(for string: String) -> ActionsSelectionState {
+    func getSelectionState(for string: String) -> ActionSelectionStates {
         switch string {
-        case ActionsSelectionState.unselected.rawValue: return .unselected
-        case ActionsSelectionState.selected.rawValue: return .selected
-        case ActionsSelectionState.completed.rawValue: return .completed
+        case ActionSelectionStates.unselected.rawValue: return .unselected
+        case ActionSelectionStates.selected.rawValue: return .selected
+        case ActionSelectionStates.completed.rawValue: return .completed
         default: return .unselected
         }
     }
@@ -163,21 +167,21 @@ class ActionsButtonsView: UIView {
     func addGiftTouched() {
         handleTouchesFor(imageControl: addGiftImageControl)
         if self.delegate != nil {
-            delegate?.giftChangedTo(selectionState: addGiftImageControl.actionsSelectionState)
+            delegate?.setAction(Actions.gift, to: addGiftImageControl.actionsSelectionState)
         }
     }
     
     func addCardTouched() {
         handleTouchesFor(imageControl: addCardImageControl)
         if self.delegate != nil {
-            delegate?.cardChangedTo(selectionState: addCardImageControl.actionsSelectionState)
+            delegate?.setAction(Actions.card, to: addCardImageControl.actionsSelectionState)
         }
     }
     
     func addPhoneTouched() {
         handleTouchesFor(imageControl: addPhoneImageControl)
         if self.delegate != nil {
-            delegate?.phoneChangedTo(selectionState: addPhoneImageControl.actionsSelectionState)
+            delegate?.setAction(Actions.phone, to: addPhoneImageControl.actionsSelectionState)
         }
     }
 }

@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol EventTableViewCellDelegate {
+    func setAction(_ action: Actions, to state: ActionSelectionStates, for event: Event)
+}
+
 class EventTableViewCell: UITableViewCell {
+    
+    var event: Event?
+    
+    var delegate: EventTableViewCellDelegate?
     
     let monthLabel: UILabel = {
         let label = UILabel()
@@ -48,10 +56,10 @@ class EventTableViewCell: UITableViewCell {
     }()
     
     lazy var actionsButtonsView: ActionsButtonsView = {
-        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionType.checkList)
+        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionTypes.checkList)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.tintSelected = Theme.colors.lightToneTwo.color
-        view.tintCompleted = Theme.colors.yellow.color
+        //view.tintSelected = Theme.colors.lightToneTwo.color
+        //view.tintCompleted = Theme.colors.yellow.color
         view.delegate = self
         return view
     }()
@@ -71,13 +79,6 @@ class EventTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.font = Theme.fonts.smallText.font
         return label
-    }()
-    
-    lazy var testBlueView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.blue
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -100,7 +101,7 @@ class EventTableViewCell: UITableViewCell {
         customBackground.topAnchor.constraint(equalTo: self.topAnchor, constant: 4).isActive = true
         customBackground.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4).isActive = true
         customBackground.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        customBackground.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        customBackground.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
         
         let leftEdgeView = UIView()
         leftEdgeView.backgroundColor = Theme.colors.lightToneOne.color
@@ -125,7 +126,7 @@ class EventTableViewCell: UITableViewCell {
         eventTypeLabel.leftAnchor.constraint(equalTo: customBackground.leftAnchor, constant: 50).isActive = true
         eventTypeLabel.topAnchor.constraint(equalTo: customBackground.topAnchor, constant: 6).isActive = true
         
-        customBackground.layer.masksToBounds = true
+        //customBackground.layer.masksToBounds = true
         customBackground.dropShadow()
         
         customBackground.addSubview(completionIcon)
@@ -159,6 +160,8 @@ class EventTableViewCell: UITableViewCell {
     
     
     func configureWith(event: Event) {
+        
+        self.event = event
 
         if let fullName = event.person?.fullName, let type = event.type {
             eventTypeLabel.text = "\(fullName) • \(type)"
@@ -173,7 +176,7 @@ class EventTableViewCell: UITableViewCell {
             completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
         } else if count > 0 {
             if count == 1 {
-                self.summaryLabel.text = "You have one incomplete action"
+                self.summaryLabel.text = "You have 1 incomplete action"
             } else {
                 self.summaryLabel.text = "You have \(count) incomplete actions"
             }
@@ -188,15 +191,15 @@ class EventTableViewCell: UITableViewCell {
         
         var count = 0
         
-        if event.giftState == ActionsSelectionState.selected.rawValue {
+        if event.giftState == ActionSelectionStates.selected.rawValue {
             count += 1
         }
 
-        if event.cardState == ActionsSelectionState.selected.rawValue {
+        if event.cardState == ActionSelectionStates.selected.rawValue {
             count += 1
         }
         
-        if event.phoneState == ActionsSelectionState.selected.rawValue {
+        if event.phoneState == ActionSelectionStates.selected.rawValue {
             count += 1
         }
         return count
@@ -204,18 +207,24 @@ class EventTableViewCell: UITableViewCell {
 
 }
 
-
+//MARK: ActionsButtons Delegate
 extension EventTableViewCell: ActionsButtonsViewDelegate {
     
-    func giftChangedTo(selectionState: ActionsSelectionState) {
-        print("GIFT IS \(selectionState.rawValue)")
-    }
-    
-    func cardChangedTo(selectionState: ActionsSelectionState) {
-        print("CARD IS \(selectionState.rawValue)")
-    }
-    
-    func phoneChangedTo(selectionState: ActionsSelectionState) {
-        print("PHONE IS \(selectionState.rawValue)")
+    func setAction(_ action: Actions, to state: ActionSelectionStates) {
+        
+        if self.delegate != nil, self.event != nil {
+            self.delegate!.setAction(action, to: state, for: self.event!)
+        }
+        
+//        if action == Actions.gift, self.delegate != nil, self.event != nil {
+//            print("Gift is: \(state.rawValue)")
+//            self.delegate!.setAction(action, to: state, for: self.event!)
+//            
+//        } else if action == Actions.card, self.delegate != nil, self.event != nil {
+//            print("Card is: \(state.rawValue)")
+//            self.delegate!.setAction(action, to: state, for: self.event!)
+//        } else if action == Actions.phone {
+//            print("Phone is: \(state.rawValue)")
+//        }
     }
 }

@@ -43,9 +43,9 @@ class CreateEventViewController: CustomViewController {
         }
     }
     var isRecurringEvent = false
-    var addGift = ActionsSelectionState.unselected
-    var addCard = ActionsSelectionState.unselected
-    var addPhone = ActionsSelectionState.unselected
+    var addGift = ActionSelectionStates.unselected
+    var addCard = ActionSelectionStates.unselected
+    var addPhone = ActionSelectionStates.unselected
     
     var dropDown: DropDownTextField!
     
@@ -53,8 +53,8 @@ class CreateEventViewController: CustomViewController {
     
     
     lazy var actionsButtonsView: ActionsButtonsView = {
-        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionType.selectDeselect)
-        view.backgroundColor = UIColor.blue
+        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionTypes.selectDeselect)
+        //view.backgroundColor = UIColor.blue
         //view.translatesAutoresizingMaskIntoConstraints = false
         view.delegate = self
         return view
@@ -119,7 +119,8 @@ class CreateEventViewController: CustomViewController {
         
         actionsButtonsView.frame = CGRect(x: self.view.frame.width / 4, y: yVal, width: self.view.frame.width / 2, height: actionsButtonsView.imageSize)
         view.addSubview(actionsButtonsView)
-        actionsButtonsView.layoutSubviews()
+        actionsButtonsView.setupSubviews()
+        
 
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
@@ -200,19 +201,19 @@ extension CreateEventViewController: datePickerViewControllerDelegate {
 //MARK: ACTIONS SELECTOR DELEGATE METHODS
 extension CreateEventViewController: ActionsButtonsViewDelegate {
     
-    func giftChangedTo(selectionState: ActionsSelectionState) {
-        self.addGift = selectionState
-        print("Event gift state: \(self.addGift.rawValue)")
-    }
-    
-    func cardChangedTo(selectionState: ActionsSelectionState) {
-        self.addCard = selectionState
-        print("Event card state: \(addCard.rawValue)")
-    }
-    
-    func phoneChangedTo(selectionState: ActionsSelectionState) {
-        self.addPhone = selectionState
-        print("Event phone state: \(addPhone.rawValue)")
+
+    func setAction(_ action: Actions, to state: ActionSelectionStates) {
+        
+        if action == Actions.gift {
+            self.addGift = state
+            print("Event gift state: \(self.addGift.rawValue)")
+        } else if action == Actions.card {
+            self.addCard = state
+            print("Event card state: \(self.addCard.rawValue)")
+        } else if action == Actions.phone {
+            self.addPhone = state
+            print("Event phone state: \(self.addPhone.rawValue)")
+        }
     }
 }
 
