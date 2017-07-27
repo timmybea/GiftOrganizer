@@ -111,7 +111,7 @@ class CustomCalendar: UIView {
         
         calendarView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         calendarView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        calendarView.topAnchor.constraint(equalTo: dayStackView.bottomAnchor).isActive = true
+        calendarView.topAnchor.constraint(equalTo: dayStackView.bottomAnchor, constant: 6).isActive = true
         calendarView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         calendarView.register(CustomCalendarCell.self, forCellWithReuseIdentifier: "CustomCalendarCell")

@@ -95,8 +95,6 @@ class EventTableView: UIView {
         addSubview(eventLabel)
         eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
         eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
-//        eventLabel.centerXAnchor.constraint(equalTo: tableView.centerXAnchor).isActive = true
-//        eventLabel.centerYAnchor.constraint(equalTo: tableView.centerYAnchor).isActive = true
     }
 }
 
