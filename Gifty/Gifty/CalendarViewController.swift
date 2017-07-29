@@ -14,7 +14,7 @@ class CalendarViewController: CustomViewController {
     
     var calendar: CustomCalendar!
     
-    var whiteDisplayView: UIView = {
+    lazy var whiteDisplayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
         return view
@@ -33,10 +33,7 @@ class CalendarViewController: CustomViewController {
         
         setupNavigationBar()
         setupCustomCalendar()
-
-        setupDynamicAnimator()
-        addWhiteDisplayView()
-        
+ 
         let timer = ScheduledTimer()
         timer.delegate = self
     }
@@ -56,6 +53,13 @@ class CalendarViewController: CustomViewController {
         calendar = CustomCalendar(frame: frame)
         calendar.delegate = self
         view.addSubview(calendar)
+        
+        if whiteDisplayView.isDescendant(of: self.view) {
+            self.view.bringSubview(toFront: whiteDisplayView)
+        } else {
+            setupDynamicAnimator()
+            addWhiteDisplayView()
+        }
     }
     
     func pushToCreateEvent() {
@@ -100,7 +104,7 @@ extension CalendarViewController {
     
     func setupDynamicAnimator() {
         
-        dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
+        self.dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
         
         gravityBehavior = UIGravityBehavior()
         gravityBehavior.magnitude = 4
@@ -109,11 +113,11 @@ extension CalendarViewController {
     
     func addWhiteDisplayView()  {
         
-        let yOffset = calendar.frame.maxY
+        let yOffset = calendar.frame.maxY + pad
         self.whiteDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
         
         view.addSubview(whiteDisplayView)
-        view.bringSubview(toFront: whiteDisplayView)
+        view.bringSubview(toFront: self.whiteDisplayView)
         
         //pan Gesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(panRecognizer:)))
