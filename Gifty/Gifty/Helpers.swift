@@ -32,6 +32,7 @@ enum ImageNames: String {
     case completeIcon = "complete_icon"
     case incompleteIcon = "incomplete_icon"
     case swipeIcon = "swipe_icon"
+    case calendarSpot = "cal_spot"
 }
 
 

@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: testing functions
         //ManagedObjectBuilder.deleteAllPeople()
+        //ManagedObjectBuilder.deleteAllEvents()
         
         //MARK: custom status bar
         UIApplication.shared.statusBarStyle = .lightContent

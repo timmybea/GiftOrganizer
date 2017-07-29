@@ -36,6 +36,14 @@ class CustomCalendarCell: JTAppleCell {
         return imageView
     }()
     
+    private let actionSpot: UIImageView = {
+        let image = UIImage(named: ImageNames.calendarSpot.rawValue)?.withRenderingMode(.alwaysTemplate)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -44,6 +52,7 @@ class CustomCalendarCell: JTAppleCell {
         setupTodayDateView()
         setupSelectedDateView()
         setupLabel()
+        setupActionSpot()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -78,6 +87,17 @@ class CustomCalendarCell: JTAppleCell {
     }
     
     
+    private func setupActionSpot() {
+        
+        addSubview(actionSpot)
+        actionSpot.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3).isActive = true
+        actionSpot.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        actionSpot.heightAnchor.constraint(equalToConstant: 8).isActive = true
+        actionSpot.widthAnchor.constraint(equalToConstant: 8).isActive = true
+        actionSpot.tintColor = Theme.colors.completedGreen.color
+        actionSpot.isHidden = true
+    }
+    
     private var wasSelected = false
     var showInfo = false
     
@@ -93,16 +113,14 @@ class CustomCalendarCell: JTAppleCell {
             wasSelected = false
         }
         
-        self.selectedDateView.isHidden = staySelected ? false : true
-        
-        if staySelected {
-            self.dateLabel.textColor = Theme.colors.lightToneTwo.color
+        if cellState.dateBelongsTo == .thisMonth {
+            self.selectedDateView.isHidden = staySelected ? false : true
+            self.dateLabel.textColor = staySelected ? Theme.colors.lightToneTwo.color : UIColor.white
+            self.actionSpot.isHidden = staySelected ? false : true
+            self.wasSelected = staySelected
         } else {
-            if cellState.dateBelongsTo == .thisMonth {
-                self.dateLabel.textColor = UIColor.white
-            } else {
-                self.dateLabel.textColor = Theme.colors.lightToneOne.color
-            }
+            self.dateLabel.textColor = UIColor.clear
+            self.actionSpot.isHidden = true
         }
         
         todayDateView.isHidden = true
@@ -112,11 +130,5 @@ class CustomCalendarCell: JTAppleCell {
             self.dateLabel.textColor = Theme.colors.lightToneTwo.color
         }
         self.showInfo = staySelected
-    }
-    
-    func setInitialSelection() {
-        self.selectedDateView.isHidden = false
-        self.dateLabel.textColor = Theme.colors.lightToneTwo.color
-        wasSelected = true
     }
 }

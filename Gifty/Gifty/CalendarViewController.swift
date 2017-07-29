@@ -82,10 +82,12 @@ extension CalendarViewController: CustomCalendarDelegate {
 
     
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool) {
-        if show {
-            print(date)
-        } else {
-            print("Don't show info")
+        if date != nil {
+            if show {
+                print(date ?? "no date available")
+            } else {
+                print("Don't show info")
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import JTAppleCalendar
+import CoreData
 
 protocol CustomCalendarDelegate {
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool)
@@ -19,6 +20,10 @@ class CustomCalendar: UIView {
     fileprivate let gregorianCalendar: Calendar = Calendar(identifier: .gregorian)
     
     var delegate: CustomCalendarDelegate?
+    
+    var frc = EventFRC.frc()
+    
+    var previouslySelectedDate: Date?
     
     private let dateFormatter = DateFormatter()
     
@@ -73,11 +78,30 @@ class CustomCalendar: UIView {
         setupCalendarView()
         scrollToThisMonth()
         
+        //>>>>TEST FRC
+        printObjectsInFRC()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //>>>>TEST FRC
+    func printObjectsInFRC() {
+        
+        print("PRINT EVENT SECTIONS")
+        
+        if let sections = frc?.sections {
+            for section in sections {
+                print(section.name)
+                
+            }
+        }
+        
+    }
+    
+    
     
     private func setupMonthYearHeader() {
         addSubview(monthYearLabel)
@@ -174,18 +198,25 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         return cell
     }
     
+    //handle selection and deselection of calendar cells
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+        
         guard let validCell = cell as? CustomCalendarCell else { return }
-        validCell.configureCellWith(cellState)
-        self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
+        
+        if cellState.dateBelongsTo == .thisMonth {
+            validCell.configureCellWith(cellState)
+            self.previouslySelectedDate = date
+            self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
+        } else if let prevDate = previouslySelectedDate {
+                calendar.selectDates([prevDate])
+        }
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        guard let validCell = cell as? CustomCalendarCell else { return }
-        
-        validCell.configureCellWith(cellState)
+            guard let validCell = cell as? CustomCalendarCell else { return }
+            validCell.configureCellWith(cellState)
+
     }
-    
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         

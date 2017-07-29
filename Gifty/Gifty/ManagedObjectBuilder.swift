@@ -132,12 +132,25 @@ class ManagedObjectBuilder: NSObject {
         
     }
     
-    
     static func deleteAllPeople() {
         guard let people = PersonFRC.frc(byGroup: true)?.fetchedObjects as [Person]? else { return }
         
         for person in people {
+            
+            for event in person.event?.allObjects as! [Event] {
+                event.managedObjectContext?.delete(event)
+            }
             person.managedObjectContext?.delete(person)
+        }
+        PersonFRC.updateMoc()
+    }
+    
+    static func deleteAllEvents() {
+        guard let events = EventFRC.frc()?.fetchedObjects as [Event]? else { return }
+        
+        for event in events {
+            
+                event.managedObjectContext?.delete(event)
         }
         PersonFRC.updateMoc()
     }
