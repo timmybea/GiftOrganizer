@@ -21,6 +21,7 @@
 		B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3B1F05AD6B00805687 /* Contacts.framework */; };
 		B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3D1F05AD8300805687 /* ContactsUI.framework */; };
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
+		B027E5581F2C123800EC273A /* WhiteDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027E5571F2C123800EC273A /* WhiteDisplayView.swift */; };
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
 		B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
@@ -86,6 +87,7 @@
 		B019FC3B1F05AD6B00805687 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		B019FC3D1F05AD8300805687 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
+		B027E5571F2C123800EC273A /* WhiteDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteDisplayView.swift; sourceTree = "<group>"; };
 		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsButtonsView.swift; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +255,7 @@
 				B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */,
 				B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */,
 				B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */,
+				B027E5571F2C123800EC273A /* WhiteDisplayView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
+				B027E5581F2C123800EC273A /* WhiteDisplayView.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,

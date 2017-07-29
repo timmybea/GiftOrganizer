@@ -31,6 +31,7 @@ enum ImageNames: String {
     case back = "back"
     case completeIcon = "complete_icon"
     case incompleteIcon = "incomplete_icon"
+    case swipeIcon = "swipe_icon"
 }
 
 

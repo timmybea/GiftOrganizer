@@ -14,9 +14,9 @@ class CalendarViewController: CustomViewController {
     
     var calendar: CustomCalendar!
     
-    lazy var whiteDisplayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.white
+    lazy var whiteDisplayView: WhiteDisplayView = {
+        let view = WhiteDisplayView()
+        view.delegate = self
         return view
     }()
     
@@ -131,6 +131,7 @@ extension CalendarViewController {
         let boundaryStart = CGPoint(x: 0, y: boundaryY)
         let boundaryEnd = CGPoint(x: whiteDisplayView.frame.width, y: boundaryY)
         collisionBehavior.addBoundary(withIdentifier: 1 as NSCopying, from: boundaryStart, to: boundaryEnd)
+        collisionBehavior.collisionDelegate = self
         dynamicAnimator.addBehavior(collisionBehavior)
         
         gravityBehavior.addItem(whiteDisplayView)
@@ -174,11 +175,11 @@ extension CalendarViewController {
         if viewHasNearedSnapPosition {
             if !isViewSnapped {
                 var snapPosition = view.center
-                snapPosition.y += 60
+                snapPosition.y += UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!
                 
                 snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
                 dynamicAnimator.addBehavior(snap!)
-                
+                whiteDisplayView.whiteDisplaySnapped()
                 //changeStackViewAlpha(currentView: dragView)
                 
                 isViewSnapped = true
@@ -189,6 +190,28 @@ extension CalendarViewController {
                 //changeStackViewAlpha(currentView: dragView)
                 isViewSnapped = false
             }
+        }
+    }
+}
+
+
+//MARK: Collision Behavior Delegate
+extension CalendarViewController: UICollisionBehaviorDelegate {
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
+        whiteDisplayView.whiteDisplayTouchedBoundary()
+    }
+
+}
+
+//MARK: WhiteDisplayViewDelegate
+extension CalendarViewController: WhiteDisplayViewDelegate {
+    
+    func whiteDisplayPosition(up: Bool) {
+        if up {
+            print("display view is up")
+        } else {
+            print("display view is down")
         }
     }
 }
