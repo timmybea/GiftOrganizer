@@ -88,6 +88,7 @@ class ManagedObjectBuilder: NSObject {
         let event = Event(context: moc)
         event.id = UUID().uuidString
         event.date = date as NSDate
+        event.dateString = DateHandler.stringFromDate(date)
         event.type = type
         event.giftState = gift.rawValue
         event.cardState = card.rawValue

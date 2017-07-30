@@ -21,24 +21,40 @@ class CustomCalendar: UIView {
     
     var delegate: CustomCalendarDelegate?
     
-    var frc = EventFRC.frc()
+
+    
+    var eventDateCompleteDict: Dictionary<String, Bool>?
+    
+//        {
+//        didSet {
+//            print("Dictionary in didSet: \(String(describing: eventDateCompleteDict))" )
+//            
+//            if eventDateCompleteDict != nil {
+//                calendarView.reloadData()
+//            }
+//            
+//            
+//            reloadAllDatesFromDataSource()
+//            
+//        }
+//    }
     
     var previouslySelectedDate: Date?
     
     private let dateFormatter = DateFormatter()
     
-    var initiallySelectedDate: Date? {
-        didSet {
-            if initiallySelectedDate != nil {
-                calendarView.selectDates([initiallySelectedDate!])
-            }
-            DispatchQueue.main.async {
-                self.calendarView.reloadData()
-            }
-        }
-    }
+//    var initiallySelectedDate: Date? {
+//        didSet {
+//            if initiallySelectedDate != nil {
+//                calendarView.selectDates([initiallySelectedDate!])
+//            }
+//            DispatchQueue.main.async {
+//                self.calendarView.reloadData()
+//            }
+//        }
+//    }
     
-    private lazy var calendarView: JTAppleCalendarView = {
+    fileprivate lazy var calendarView: JTAppleCalendarView = {
         let calendarView = JTAppleCalendarView(frame: .zero)
         calendarView.calendarDataSource = self
         calendarView.calendarDelegate = self
@@ -79,26 +95,16 @@ class CustomCalendar: UIView {
         scrollToThisMonth()
         
         //>>>>TEST FRC
-        printObjectsInFRC()
+        
+        
+
+        
+        
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    //>>>>TEST FRC
-    func printObjectsInFRC() {
-        
-        print("PRINT EVENT SECTIONS")
-        
-        if let sections = frc?.sections {
-            for section in sections {
-                print(section.name)
-                
-            }
-        }
-        
     }
     
     
@@ -167,6 +173,41 @@ class CustomCalendar: UIView {
             self.delegate?.monthYearLabelWasUpdated(monthYearLabel.text!)
         }
     }
+    
+    func updateDataSource(stringDateCompleteDict: Dictionary<String, Bool>) {
+        
+        print("UPDATE DICT: \(stringDateCompleteDict)")
+        
+        self.eventDateCompleteDict = stringDateCompleteDict
+        
+        reloadAllDatesFromDataSource()
+        
+    }
+    
+    func reloadAllDatesFromDataSource() {
+
+        if let keysCollection = self.eventDateCompleteDict?.keys {
+            
+            let keysArray = Array(keysCollection)
+            
+            var reloadDates = [Date]()
+            
+            for key in keysArray {
+                
+                let components = key.components(separatedBy: " ")
+                
+                if let date = DateHandler.dateWith(dd: components[2], MM: components[1], yyyy: components[0]) {
+                    
+                    print(date)
+                    reloadDates.append(date)
+                }
+            }
+            
+            calendarView.reloadDates(reloadDates)
+            print("RELOAD DATES")
+        }
+    }
+    
 }
 
 extension CustomCalendar: JTAppleCalendarViewDataSource {
@@ -192,13 +233,20 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCalendarCell", for: indexPath) as! CustomCalendarCell
-        cell.backgroundColor = UIColor.clear
         cell.configureCellWith(cellState)
-
+        
+        let dateString = DateHandler.stringFromDate(date)
+//        print("DATE STRING IS: \(dateString)")
+//        print("dictionary is nil: \(self.eventDateCompleteDict == nil)")
+        if let completedAction = self.eventDateCompleteDict?[dateString] {
+//           print("ENTERED THE DICTIONARY: \(completedAction)")
+            cell.actionForDate(complete: completedAction)
+        }
+        
         return cell
     }
     
-    //handle selection and deselection of calendar cells
+    //handle date selection
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         
         guard let validCell = cell as? CustomCalendarCell else { return }
@@ -212,14 +260,46 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         }
     }
     
+    //handle date deselection
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
             guard let validCell = cell as? CustomCalendarCell else { return }
             validCell.configureCellWith(cellState)
-
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {        
         setMonthYearLabel(from: visibleDates)
     }
+}
+
+extension CustomCalendar: NSFetchedResultsControllerDelegate {
+    
+    
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        //calendarView.
+//    }
+    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+//        //
+//    }
+    
+
+    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+//        //
+//    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        //
+    }
+    
+    
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        
+        
+        
+        calendarView.reloadData()
+    }
+    
+    
 }

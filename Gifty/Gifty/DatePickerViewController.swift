@@ -49,18 +49,13 @@ class DatePickerViewController: CustomViewController {
         }
         
         var yVal: CGFloat = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.shared.statusBarFrame.height + pad
-            
-//        monthYearLabel.frame = CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 26)
-//        view.addSubview(monthYearLabel)
-//        
-//        yVal += monthYearLabel.frame.height + pad
 
         calendar = CustomCalendar(frame: CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 300))
         calendar.delegate = self
         
-        if self.initialDate != nil {
-            calendar.initiallySelectedDate = initialDate
-        }
+//        if self.initialDate != nil {
+//            calendar.initiallySelectedDate = initialDate
+//        }
         
         view.addSubview(calendar)
         

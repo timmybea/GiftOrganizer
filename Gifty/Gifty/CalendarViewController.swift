@@ -8,9 +8,11 @@
 
 import UIKit
 import JTAppleCalendar
-
+import CoreData
 
 class CalendarViewController: CustomViewController {
+    
+    var frc: NSFetchedResultsController<Event>!
     
     var calendar: CustomCalendar!
     
@@ -33,6 +35,7 @@ class CalendarViewController: CustomViewController {
         
         setupNavigationBar()
         setupCustomCalendar()
+        setupFRC()
  
         let timer = ScheduledTimer()
         timer.delegate = self
@@ -62,6 +65,35 @@ class CalendarViewController: CustomViewController {
         }
     }
     
+    func setupFRC() {
+        self.frc = EventFRC.frc()
+        
+        var eventDateCompleteDict = Dictionary<String, Bool>()
+        
+        if let sections = frc?.sections {
+            for section in sections {
+                
+                let dateString = section.name
+                
+                var complete = false
+                
+                if let eventsForDate = section.objects as? [Event] {
+                    for event in eventsForDate {
+                        
+                        if event.isComplete == true {
+                            complete = true
+                        }
+                    }
+                }
+                
+                eventDateCompleteDict[dateString] = complete
+            }
+        }
+
+        self.calendar.updateDataSource(stringDateCompleteDict: eventDateCompleteDict)
+        
+    }
+    
     func pushToCreateEvent() {
         print("push to create event")
     }
@@ -82,13 +114,11 @@ extension CalendarViewController: CustomCalendarDelegate {
 
     
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool) {
-        if date != nil {
             if show {
-                print(date ?? "no date available")
+                print(date)
             } else {
                 print("Don't show info")
             }
-        }
     }
 }
 

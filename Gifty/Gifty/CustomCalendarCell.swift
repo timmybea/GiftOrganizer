@@ -116,11 +116,11 @@ class CustomCalendarCell: JTAppleCell {
         if cellState.dateBelongsTo == .thisMonth {
             self.selectedDateView.isHidden = staySelected ? false : true
             self.dateLabel.textColor = staySelected ? Theme.colors.lightToneTwo.color : UIColor.white
-            self.actionSpot.isHidden = staySelected ? false : true
+            //self.actionSpot.isHidden = staySelected ? false : true
             self.wasSelected = staySelected
         } else {
             self.dateLabel.textColor = UIColor.clear
-            self.actionSpot.isHidden = true
+            //self.actionSpot.isHidden = true
         }
         
         todayDateView.isHidden = true
@@ -131,4 +131,12 @@ class CustomCalendarCell: JTAppleCell {
         }
         self.showInfo = staySelected
     }
+    
+    func actionForDate(complete: Bool) {
+        
+        self.actionSpot.isHidden = false
+        self.actionSpot.tintColor = complete ? Theme.colors.completedGreen.color : Theme.colors.lightToneOne.color
+        
+    }
+    
 }
