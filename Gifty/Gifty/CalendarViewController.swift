@@ -33,9 +33,11 @@ class CalendarViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("VIEW DID LOAD")
+        
         setupNavigationBar()
         setupCustomCalendar()
-        setupFRC()
+        
  
         let timer = ScheduledTimer()
         timer.delegate = self
@@ -47,6 +49,9 @@ class CalendarViewController: CustomViewController {
     }
     
     fileprivate func setupCustomCalendar() {
+        
+        print("SETUP CUSTOM CALENDAR")
+
         if calendar != nil {
             calendar.removeFromSuperview()
             calendar = nil
@@ -63,6 +68,7 @@ class CalendarViewController: CustomViewController {
             setupDynamicAnimator()
             addWhiteDisplayView()
         }
+        setupFRC()
     }
     
     func setupFRC() {

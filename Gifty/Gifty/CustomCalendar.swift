@@ -21,23 +21,7 @@ class CustomCalendar: UIView {
     
     var delegate: CustomCalendarDelegate?
     
-
-    
     var eventDateCompleteDict: Dictionary<String, Bool>?
-    
-//        {
-//        didSet {
-//            print("Dictionary in didSet: \(String(describing: eventDateCompleteDict))" )
-//            
-//            if eventDateCompleteDict != nil {
-//                calendarView.reloadData()
-//            }
-//            
-//            
-//            reloadAllDatesFromDataSource()
-//            
-//        }
-//    }
     
     var previouslySelectedDate: Date?
     
@@ -93,21 +77,11 @@ class CustomCalendar: UIView {
         setupDayHeader()
         setupCalendarView()
         scrollToThisMonth()
-        
-        //>>>>TEST FRC
-        
-        
-
-        
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     private func setupMonthYearHeader() {
         addSubview(monthYearLabel)
@@ -176,12 +150,9 @@ class CustomCalendar: UIView {
     
     func updateDataSource(stringDateCompleteDict: Dictionary<String, Bool>) {
         
-        print("UPDATE DICT: \(stringDateCompleteDict)")
-        
         self.eventDateCompleteDict = stringDateCompleteDict
         
         reloadAllDatesFromDataSource()
-        
     }
     
     func reloadAllDatesFromDataSource() {
@@ -204,7 +175,6 @@ class CustomCalendar: UIView {
             }
             
             calendarView.reloadDates(reloadDates)
-            print("RELOAD DATES")
         }
     }
     
@@ -236,13 +206,12 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         cell.configureCellWith(cellState)
         
         let dateString = DateHandler.stringFromDate(date)
-//        print("DATE STRING IS: \(dateString)")
-//        print("dictionary is nil: \(self.eventDateCompleteDict == nil)")
-        if let completedAction = self.eventDateCompleteDict?[dateString] {
-//           print("ENTERED THE DICTIONARY: \(completedAction)")
-            cell.actionForDate(complete: completedAction)
-        }
         
+
+        if let completedAction = self.eventDateCompleteDict![dateString], cellState.dateBelongsTo == .thisMonth {
+            cell.action(for: dateString, complete: completedAction)
+        }
+
         return cell
     }
     
@@ -269,37 +238,4 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {        
         setMonthYearLabel(from: visibleDates)
     }
-}
-
-extension CustomCalendar: NSFetchedResultsControllerDelegate {
-    
-    
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        //calendarView.
-//    }
-    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
-//        //
-//    }
-    
-
-    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        //
-//    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        //
-    }
-    
-    
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        
-        
-        
-        calendarView.reloadData()
-    }
-    
-    
 }

@@ -116,27 +116,35 @@ class CustomCalendarCell: JTAppleCell {
         if cellState.dateBelongsTo == .thisMonth {
             self.selectedDateView.isHidden = staySelected ? false : true
             self.dateLabel.textColor = staySelected ? Theme.colors.lightToneTwo.color : UIColor.white
-            //self.actionSpot.isHidden = staySelected ? false : true
-            self.wasSelected = staySelected
         } else {
             self.dateLabel.textColor = UIColor.clear
-            //self.actionSpot.isHidden = true
         }
         
+        actionSpot.isHidden = actionDateString == DateHandler.stringFromDate(cellState.date) ? false : true
+        
         todayDateView.isHidden = true
+        
         let today = DateHandler.localTimeFromUTC(Date())
-        if Calendar.current.isDate(cellState.date, inSameDayAs:today) {
-            self.todayDateView.isHidden = false
-            self.dateLabel.textColor = Theme.colors.lightToneTwo.color
+        if Calendar.current.isDate(cellState.date, inSameDayAs:today) && cellState.dateBelongsTo == .thisMonth {
+                self.todayDateView.isHidden = false
+                self.dateLabel.textColor = Theme.colors.lightToneTwo.color
         }
         self.showInfo = staySelected
     }
     
-    func actionForDate(complete: Bool) {
+    var actionDateString = ""
+    
+    func action(for dateString: String, complete: Bool?) {
+        //if an event is deleted and you need to remove the action spot pass nil for complete.
         
-        self.actionSpot.isHidden = false
-        self.actionSpot.tintColor = complete ? Theme.colors.completedGreen.color : Theme.colors.lightToneOne.color
-        
+        if complete == nil {
+            self.actionSpot.isHidden = true
+        } else {
+            self.actionSpot.isHidden = false
+            self.actionDateString = dateString
+            self.actionSpot.tintColor = complete! ? Theme.colors.completedGreen.color : Theme.colors.lightToneOne.color
+        }
+
     }
     
 }
