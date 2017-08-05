@@ -12,9 +12,14 @@ import CoreData
 
 class CalendarViewController: CustomViewController {
     
-    var frc: NSFetchedResultsController<Event>!
+    var frc: NSFetchedResultsController<Event>? = EventFRC.frc()
     
-    var calendar: CustomCalendar!
+    lazy var calendar: CustomCalendar = {
+        let frame = CGRect(x: pad, y: 70, width: self.view.bounds.width - (2 * pad), height: 280)
+        let calendar = CustomCalendar(frame: frame)
+        calendar.delegate = self
+        return calendar
+    }()
     
     lazy var whiteDisplayView: WhiteDisplayView = {
         let view = WhiteDisplayView()
@@ -33,11 +38,9 @@ class CalendarViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("VIEW DID LOAD")
-        
         setupNavigationBar()
-        setupCustomCalendar()
-        
+        setupSubviews()
+        passCalendarDataSource()
  
         let timer = ScheduledTimer()
         timer.delegate = self
@@ -48,19 +51,11 @@ class CalendarViewController: CustomViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pushToCreateEvent))
     }
     
-    fileprivate func setupCustomCalendar() {
+    fileprivate func setupSubviews() {
         
-        print("SETUP CUSTOM CALENDAR")
-
-        if calendar != nil {
-            calendar.removeFromSuperview()
-            calendar = nil
+        if !calendar.isDescendant(of: self.view) {
+            self.view.addSubview(calendar)
         }
-        
-        let frame = CGRect(x: pad, y: 70, width: self.view.bounds.width - (2 * pad), height: 280)
-        calendar = CustomCalendar(frame: frame)
-        calendar.delegate = self
-        view.addSubview(calendar)
         
         if whiteDisplayView.isDescendant(of: self.view) {
             self.view.bringSubview(toFront: whiteDisplayView)
@@ -68,11 +63,9 @@ class CalendarViewController: CustomViewController {
             setupDynamicAnimator()
             addWhiteDisplayView()
         }
-        setupFRC()
     }
     
-    func setupFRC() {
-        self.frc = EventFRC.frc()
+    func passCalendarDataSource() {
         
         var eventDateCompleteDict = Dictionary<String, Bool>()
         
@@ -91,13 +84,10 @@ class CalendarViewController: CustomViewController {
                         }
                     }
                 }
-                
                 eventDateCompleteDict[dateString] = complete
             }
         }
-
         self.calendar.updateDataSource(stringDateCompleteDict: eventDateCompleteDict)
-        
     }
     
     func pushToCreateEvent() {
@@ -131,7 +121,7 @@ extension CalendarViewController: CustomCalendarDelegate {
 extension CalendarViewController: SchedultedTimerDelegate {
     
     func executeAtMidnight() {
-        setupCustomCalendar()
+        setupSubviews()
     }
 }
 
@@ -153,8 +143,8 @@ extension CalendarViewController {
         
         let yOffset = calendar.frame.maxY + pad
         self.whiteDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
-        
         view.addSubview(whiteDisplayView)
+        
         view.bringSubview(toFront: self.whiteDisplayView)
         
         //pan Gesture

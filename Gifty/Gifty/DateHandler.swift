@@ -39,6 +39,11 @@ class DateHandler: NSObject {
         return dateFormatter.string(from: date)
     }
     
+    static func stringMonth(from date: Date) -> String {
+        dateFormatter.dateFormat = "MM"
+        return dateFormatter.string(from: date)
+    }
+    
     static func stringDayNum(from date: Date) -> String {
         dateFormatter.dateFormat = "dd"
         return dateFormatter.string(from: date)
