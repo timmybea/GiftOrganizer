@@ -483,7 +483,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         let context  = ManagedObjectBuilder.moc
         context?.delete(event)
         ManagedObjectBuilder.saveChanges { (success) in
-            //do nothing
+            print("deleted event?")
         }
     }
     

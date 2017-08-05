@@ -135,10 +135,11 @@ class CustomCalendarCell: JTAppleCell {
     var actionDateString = ""
     
     func action(for dateString: String, complete: Bool?) {
-        //if an event is deleted and you need to remove the action spot pass nil for complete.
+        //if an event is deleted and you need to remove the action circle pass nil for complete.
         
         if complete == nil {
             self.actionSpot.isHidden = true
+            actionDateString = ""
         } else {
             self.actionSpot.isHidden = false
             self.actionDateString = dateString

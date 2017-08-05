@@ -130,11 +130,9 @@ class CustomCalendar: UIView {
     
     private func scrollToThisMonth() {
         let today = DateHandler.localTimeFromUTC(Date())
-        print("today is: \(today)")
-        //print(today.description)
+        
         let value = (Calendar.current.component(.weekday, from: today) - 1) * -1
         var scrollDate = gregorianCalendar.date(byAdding: .weekday, value: value, to: today)!
-        print("scrollDate is: \(scrollDate)")
         
         let todayMonth = DateHandler.stringMonth(from: today)
         let scrollMonth = DateHandler.stringMonth(from: scrollDate)
@@ -143,20 +141,6 @@ class CustomCalendar: UIView {
         if todayMonth != scrollMonth {
             scrollDate = gregorianCalendar.date(byAdding: .weekOfYear, value: 1, to: scrollDate)!
         }
-
-        print("NOW scroll date is: \(scrollDate)")
-        
-//        self.calendarView.scrollToDate(scrollDate, triggerScrollToDateDelegate: true, animateScroll: false, preferredScrollPosition: nil, extraAddedOffset: 0) {
-
-            
-            
-//            self.calendarView.collectionViewLayout.invalidateLayout()
-//            
-//            DispatchQueue.main.async {
-//                self.calendarView.reloadData()
-//                print("SCROLLED")
-//            }
-//        }
 
         self.calendarView.scrollToDate(scrollDate, animateScroll: false)
             
@@ -174,31 +158,49 @@ class CustomCalendar: UIView {
         
         self.dataSource = stringDateCompleteDict
         
-        //reloadAllDatesFromDataSource()
+        reloadAllDatesFromDataSource()
     }
     
-    func reloadAllDatesFromDataSource() {
+    func deleteDateFromDataSource(_ dateString: String) {
+        
+        self.dataSource?.removeValue(forKey: dateString)
+        reloadDatesFromDataSource(dateStrings: [dateString])
+        
+    }
+    
+    private func reloadAllDatesFromDataSource() {
 
         if let keysCollection = self.dataSource?.keys {
             
             let keysArray = Array(keysCollection)
             
-            var reloadDates = [Date]()
+            let reloadDatesArray = dateArrayFrom(dateStringArray: keysArray)
             
-            for key in keysArray {
-                
-                let components = key.components(separatedBy: " ")
-                
-                if let date = DateHandler.dateWith(dd: components[2], MM: components[1], yyyy: components[0]) {
-                    
-                    print(date)
-                    reloadDates.append(date)
-                }
-            }
-            
-            calendarView.reloadDates(reloadDates)
-            //scrollToThisMonth()
+            calendarView.reloadDates(reloadDatesArray)
         }
+    }
+    
+    private func reloadDatesFromDataSource(dateStrings: [String]) {
+        
+        let reloadDatesArray = dateArrayFrom(dateStringArray: dateStrings)
+        calendarView.reloadDates(reloadDatesArray)
+    
+    }
+    
+    private func dateArrayFrom(dateStringArray: [String]) -> [Date] {
+        
+        var dateArray = [Date]()
+        
+        for dateString in dateStringArray {
+            
+            let components = dateString.components(separatedBy: " ")
+            
+            if let date = DateHandler.dateWith(dd: components[2], MM: components[1], yyyy: components[0]) {
+                
+                dateArray.append(date)
+            }
+        }
+        return dateArray
     }
     
 }
@@ -210,15 +212,6 @@ extension CustomCalendar: JTAppleCalendarViewDataSource {
         let start = gregorianCalendar.date(byAdding: .year, value: -1, to: Date())!
         let end = gregorianCalendar.date(byAdding: .year, value: 1, to: Date())!
         
-//        let parameters = ConfigurationParameters(startDate: start,
-//                                                 endDate: end,
-//                                                 numberOfRows: 6,
-//                                                 calendar: gregorianCalendar,
-//                                                 generateInDates: .forAllMonths,
-//                                                 generateOutDates: .tillEndOfGrid,
-//                                                 firstDayOfWeek: .sunday,
-//                                                 hasStrictBoundaries: false)
-
         let parameters = ConfigurationParameters(startDate: start, endDate: end)
             
         return parameters
@@ -235,6 +228,8 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         
         if let completedAction = self.dataSource?[dateString], cellState.dateBelongsTo == .thisMonth {
             cell.action(for: dateString, complete: completedAction)
+        } else {
+            cell.action(for: dateString, complete: nil)
         }
 
         return cell

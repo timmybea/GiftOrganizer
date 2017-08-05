@@ -38,6 +38,7 @@ class CalendarViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.frc?.delegate = self
         setupNavigationBar()
         setupSubviews()
         passCalendarDataSource()
@@ -94,7 +95,7 @@ class CalendarViewController: CustomViewController {
         print("push to create event")
     }
 
-    //MARK: orientation change methods
+    //MARK: Orientation change methods
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -102,6 +103,7 @@ class CalendarViewController: CustomViewController {
     }
 }
 
+//MARK: Calendar Delegate (update month label)
 extension CalendarViewController: CustomCalendarDelegate {
     
     func monthYearLabelWasUpdated(_ string: String) {
@@ -118,16 +120,17 @@ extension CalendarViewController: CustomCalendarDelegate {
     }
 }
 
+
+//MARK: Scheduled timer (update today view at midnight)
 extension CalendarViewController: SchedultedTimerDelegate {
     
     func executeAtMidnight() {
-        setupSubviews()
+        //SET TODAY!!
     }
 }
 
 
-//MARK: dynamic animator for white view
-
+//MARK: Dynamic Animator for White View
 extension CalendarViewController {
     
     func setupDynamicAnimator() {
@@ -232,7 +235,7 @@ extension CalendarViewController: UICollisionBehaviorDelegate {
 
 }
 
-//MARK: WhiteDisplayViewDelegate
+//MARK: White Display View Delegate
 extension CalendarViewController: WhiteDisplayViewDelegate {
     
     func whiteDisplayPosition(up: Bool) {
@@ -242,6 +245,41 @@ extension CalendarViewController: WhiteDisplayViewDelegate {
             print("display view is down")
         }
     }
+}
+
+//MARK: Event FRC delegate methods (update the calendar datasource)
+extension CalendarViewController: NSFetchedResultsControllerDelegate {
+    
+
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        //nothing?
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        let changedEvent = anObject as! Event
+        
+        if type == .delete {
+            
+            if changedEvent.dateString != nil {
+                calendar.deleteDateFromDataSource(changedEvent.dateString!)
+            } else {
+                print("DELETE EVENT ERROR: No date string available")
+            }
+            
+        } else if type == .insert {
+            
+        } else if type == .update {
+            
+        }
+        
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        //nothing?
+    }
+    
 }
 
 
