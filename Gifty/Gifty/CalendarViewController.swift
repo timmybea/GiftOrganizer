@@ -88,7 +88,7 @@ class CalendarViewController: CustomViewController {
                 eventDateCompleteDict[dateString] = complete
             }
         }
-        self.calendar.updateDataSource(stringDateCompleteDict: eventDateCompleteDict)
+        self.calendar.setDataSource(stringDateCompleteDict: eventDateCompleteDict)
     }
     
     func pushToCreateEvent() {
@@ -258,22 +258,17 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        let changedEvent = anObject as! Event
-        
-        if type == .delete {
-            
-            if changedEvent.dateString != nil {
-                calendar.deleteDateFromDataSource(changedEvent.dateString!)
-            } else {
-                print("DELETE EVENT ERROR: No date string available")
+        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
+            if type == .delete {
+                
+                calendar.deleteDateFromDataSource(dateString)
+                
+            } else if type == .insert || type == .update {
+                
+                calendar.updateDataSource(dateString: dateString, completed: changedEvent.isComplete)
+                
             }
-            
-        } else if type == .insert {
-            
-        } else if type == .update {
-            
         }
-        
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

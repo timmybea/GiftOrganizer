@@ -232,7 +232,6 @@ class CreatePersonViewController: CustomViewController {
     
 extension CreatePersonViewController {
     func setupViewsForUpdatePerson() {
-        print("MARK: Update person setup")
         
         guard let currentPerson = self.person else {
             print("No person to update")
@@ -483,7 +482,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         let context  = ManagedObjectBuilder.moc
         context?.delete(event)
         ManagedObjectBuilder.saveChanges { (success) in
-            print("deleted event?")
+            //
         }
     }
     

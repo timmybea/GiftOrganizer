@@ -154,54 +154,77 @@ class CustomCalendar: UIView {
         }
     }
     
-    func updateDataSource(stringDateCompleteDict: Dictionary<String, Bool>) {
+
+    //MARK: changes to datasource and refreshing calendar view
+    
+    func setDataSource(stringDateCompleteDict: Dictionary<String, Bool>) {
         
         self.dataSource = stringDateCompleteDict
         
-        reloadAllDatesFromDataSource()
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
+        
     }
     
     func deleteDateFromDataSource(_ dateString: String) {
         
         self.dataSource?.removeValue(forKey: dateString)
-        reloadDatesFromDataSource(dateStrings: [dateString])
+        
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
         
     }
     
-    private func reloadAllDatesFromDataSource() {
+    func updateDataSource(dateString: String, completed: Bool) {
+        self.dataSource?[dateString] = completed
+        
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
+    }
 
-        if let keysCollection = self.dataSource?.keys {
-            
-            let keysArray = Array(keysCollection)
-            
-            let reloadDatesArray = dateArrayFrom(dateStringArray: keysArray)
-            
-            calendarView.reloadDates(reloadDatesArray)
-        }
-    }
     
-    private func reloadDatesFromDataSource(dateStrings: [String]) {
-        
-        let reloadDatesArray = dateArrayFrom(dateStringArray: dateStrings)
-        calendarView.reloadDates(reloadDatesArray)
-    
-    }
-    
-    private func dateArrayFrom(dateStringArray: [String]) -> [Date] {
-        
-        var dateArray = [Date]()
-        
-        for dateString in dateStringArray {
-            
-            let components = dateString.components(separatedBy: " ")
-            
-            if let date = DateHandler.dateWith(dd: components[2], MM: components[1], yyyy: components[0]) {
-                
-                dateArray.append(date)
-            }
-        }
-        return dateArray
-    }
+//    private func reloadAllDatesFromDataSource() {
+//
+//        if let keysCollection = self.dataSource?.keys {
+//            
+//            let keysArray = Array(keysCollection)
+//            
+//            let reloadDatesArray = dateArrayFrom(dateStringArray: keysArray)
+//            
+//            DispatchQueue.main.async {
+//                self.calendarView.reloadDates(reloadDatesArray)
+//            }
+//        }
+//    }
+//    
+//    private func reloadDatesFromDataSource(dateStrings: [String]) {
+//        
+//        let reloadDatesArray = dateArrayFrom(dateStringArray: dateStrings)
+//        
+//        DispatchQueue.main.async {
+//            print("RELOAD DATA")
+//            self.calendarView.reloadDates(reloadDatesArray)
+//        }
+//    }
+//    
+//    private func dateArrayFrom(dateStringArray: [String]) -> [Date] {
+//        
+//        var dateArray = [Date]()
+//        
+//        for dateString in dateStringArray {
+//            
+//            let components = dateString.components(separatedBy: " ")
+//            
+//            if let date = DateHandler.dateWith(dd: components[2], MM: components[1], yyyy: components[0]) {
+//                
+//                dateArray.append(date)
+//            }
+//        }
+//        return dateArray
+//    }
     
 }
 
@@ -244,6 +267,7 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
             validCell.configureCellWith(cellState)
             self.previouslySelectedDate = date
             self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
+            validCell.bounceAnimation()
         } else if let prevDate = previouslySelectedDate {
                 calendar.selectDates([prevDate])
         }
@@ -251,8 +275,9 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
     
     //handle date deselection
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-            guard let validCell = cell as? CustomCalendarCell else { return }
-            validCell.configureCellWith(cellState)
+        guard let validCell = cell as? CustomCalendarCell else { return }
+        validCell.configureCellWith(cellState)
+        
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {        
