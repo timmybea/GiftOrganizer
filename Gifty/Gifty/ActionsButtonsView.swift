@@ -116,7 +116,7 @@ class ActionsButtonsView: UIView {
         } else if selectionState == ActionSelectionStates.unselected {
             imageControl.imageView.tintColor = tintUnselected
         }
-
+//        imageControl.bounceAnimation()
     }
     
     private func handleTouchesFor(imageControl: CustomImageControl) {
@@ -169,6 +169,7 @@ class ActionsButtonsView: UIView {
         if self.delegate != nil {
             delegate?.setAction(Actions.gift, to: addGiftImageControl.actionsSelectionState)
         }
+        addGiftImageControl.bounceAnimation()
     }
     
     func addCardTouched() {
@@ -176,6 +177,7 @@ class ActionsButtonsView: UIView {
         if self.delegate != nil {
             delegate?.setAction(Actions.card, to: addCardImageControl.actionsSelectionState)
         }
+        addCardImageControl.bounceAnimation()
     }
     
     func addPhoneTouched() {
@@ -183,5 +185,6 @@ class ActionsButtonsView: UIView {
         if self.delegate != nil {
             delegate?.setAction(Actions.phone, to: addPhoneImageControl.actionsSelectionState)
         }
+        addPhoneImageControl.bounceAnimation()
     }
 }

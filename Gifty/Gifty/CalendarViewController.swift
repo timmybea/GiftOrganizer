@@ -21,9 +21,9 @@ class CalendarViewController: CustomViewController {
         return calendar
     }()
     
-    lazy var whiteDisplayView: WhiteDisplayView = {
-        let view = WhiteDisplayView()
-        view.delegate = self
+    lazy var eventDisplayView: EventDisplayViewCalendar = {
+        let view = EventDisplayViewCalendar()
+        view.stackViewDelegate = self
         return view
     }()
     
@@ -58,11 +58,11 @@ class CalendarViewController: CustomViewController {
             self.view.addSubview(calendar)
         }
         
-        if whiteDisplayView.isDescendant(of: self.view) {
-            self.view.bringSubview(toFront: whiteDisplayView)
+        if eventDisplayView.isDescendant(of: self.view) {
+            self.view.bringSubview(toFront: eventDisplayView)
         } else {
             setupDynamicAnimator()
-            addWhiteDisplayView()
+            addEventDisplayView()
         }
     }
     
@@ -142,30 +142,33 @@ extension CalendarViewController {
         dynamicAnimator.addBehavior(gravityBehavior)
     }
     
-    func addWhiteDisplayView()  {
+    func addEventDisplayView()  {
         
         let yOffset = calendar.frame.maxY + pad
-        self.whiteDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
-        view.addSubview(whiteDisplayView)
+        self.eventDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
+        let maxY = self.view.frame.maxY - (self.tabBarController?.tabBar.frame.height)! - smallPad
+        eventDisplayView.setTableViewFrame(with: maxY)
         
-        view.bringSubview(toFront: self.whiteDisplayView)
+        view.addSubview(eventDisplayView)
+        
+        view.bringSubview(toFront: self.eventDisplayView)
         
         //pan Gesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(panRecognizer:)))
-        whiteDisplayView.addGestureRecognizer(panGesture)
+        eventDisplayView.addGestureRecognizer(panGesture)
         
         //collision behavior
-        let collisionBehavior = UICollisionBehavior(items: [whiteDisplayView])
+        let collisionBehavior = UICollisionBehavior(items: [eventDisplayView])
         
         //lower boundary
-        let boundaryY = whiteDisplayView.frame.origin.y + whiteDisplayView.frame.height
+        let boundaryY = eventDisplayView.frame.origin.y + eventDisplayView.frame.height
         let boundaryStart = CGPoint(x: 0, y: boundaryY)
-        let boundaryEnd = CGPoint(x: whiteDisplayView.frame.width, y: boundaryY)
+        let boundaryEnd = CGPoint(x: eventDisplayView.frame.width, y: boundaryY)
         collisionBehavior.addBoundary(withIdentifier: 1 as NSCopying, from: boundaryStart, to: boundaryEnd)
         collisionBehavior.collisionDelegate = self
         dynamicAnimator.addBehavior(collisionBehavior)
         
-        gravityBehavior.addItem(whiteDisplayView)
+        gravityBehavior.addItem(eventDisplayView)
         
     }
     
@@ -210,7 +213,8 @@ extension CalendarViewController {
                 
                 snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
                 dynamicAnimator.addBehavior(snap!)
-                whiteDisplayView.whiteDisplaySnapped()
+                eventDisplayView.eventDisplaySnapped()
+                
                 //changeStackViewAlpha(currentView: dragView)
                 
                 isViewSnapped = true
@@ -230,15 +234,15 @@ extension CalendarViewController {
 extension CalendarViewController: UICollisionBehaviorDelegate {
     
     func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
-        whiteDisplayView.whiteDisplayTouchedBoundary()
+        eventDisplayView.eventDisplayTouchedBoundary()
     }
 
 }
 
-//MARK: White Display View Delegate
-extension CalendarViewController: WhiteDisplayViewDelegate {
+//MARK: Event Display View Delegate
+extension CalendarViewController: StackViewDelegate {
     
-    func whiteDisplayPosition(up: Bool) {
+    func eventDisplayPosition(up: Bool) {
         if up {
             print("display view is up")
         } else {

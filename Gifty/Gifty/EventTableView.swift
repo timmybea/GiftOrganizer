@@ -27,8 +27,8 @@ class EventTableView: UIView {
             }
         }
     }
-    
-    private func updateEventLabelForEventsCount() {
+
+    func updateEventLabelForEventsCount() {
         if let events = orderedEvents, events.count > 0 {
             eventLabel.text = "Upcoming events"
         } else {
@@ -49,27 +49,26 @@ class EventTableView: UIView {
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
-        //tableView.layer.masksToBounds = false
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor.clear
         tableView.bounces = false
-        //tableView.isHidden = true
         return tableView
     }()
     
-    lazy var addButton: CustomImageControl = {
-        let add = CustomImageControl()
-        add.imageView.image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate)
-        add.imageView.contentMode = .scaleAspectFit
-        //add.imageView.backgroundColor = UIColor.blue
-        add.imageView.tintColor = Theme.colors.lightToneTwo.color
-        add.addTarget(self, action: #selector(addButtonTouchedDown), for: .touchDown)
-        add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
-        return add
-    }()
+    //>>>>>
+//    lazy var addButton: CustomImageControl = {
+//        let add = CustomImageControl()
+//        add.imageView.image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate)
+//        add.imageView.contentMode = .scaleAspectFit
+//        add.imageView.tintColor = Theme.colors.lightToneTwo.color
+//        add.addTarget(self, action: #selector(addButtonTouchedDown), for: .touchDown)
+//        add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
+//        return add
+//    }()
     
     var selectedIndexPath: IndexPath?
 
@@ -82,19 +81,20 @@ class EventTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func setupSubviews() {
-        backgroundColor = Theme.colors.offWhite.color
-
-        addSubview(addButton)
-        let addSize: CGFloat = 22
-        addButton.frame = CGRect(x: self.bounds.width - pad - addSize, y: smallPad, width: addSize, height: addSize)
-
-        addSubview(tableView)
-        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
-        
-        addSubview(eventLabel)
-        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
-        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
+//        backgroundColor = Theme.colors.offWhite.color
+//
+//        addSubview(addButton)
+//        let addSize: CGFloat = 22
+//        addButton.frame = CGRect(x: self.bounds.width - pad - addSize, y: smallPad, width: addSize, height: addSize)
+//
+//        addSubview(tableView)
+//        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
+//        
+//        addSubview(eventLabel)
+//        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
+//        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
     }
 }
 
@@ -163,20 +163,6 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         return [deleteAction, editAction]
     }
     
-}
-
-extension EventTableView {
-    
-    func addButtonTouchedDown() {
-        addButton.imageView.tintColor = Theme.colors.lightToneOne.color
-    }
-    
-    func addButtonTouchedUpInside() {
-        addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
-        if self.delegate != nil {
-            self.delegate?.didTouchAddEventButton()
-        }
-    }
 }
 
 //MARK: Event Cell Delegate (Save change to event)

@@ -59,7 +59,7 @@ class CreatePersonViewController: CustomViewController {
     
     var saveButton: ButtonTemplate!
     
-    var eventTableView: EventTableView!
+    var eventTableView: EventDisplayViewCreatePerson!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -204,7 +204,7 @@ class CreatePersonViewController: CustomViewController {
         
         let eventHeight = view.bounds.height - currMaxY - tabBarHeight
         
-        eventTableView = EventTableView(frame: CGRect(x: 0, y: currMaxY, width: view.bounds.width, height: eventHeight))
+        eventTableView = EventDisplayViewCreatePerson(frame: CGRect(x: 0, y: currMaxY, width: view.bounds.width, height: eventHeight))
         
         eventTableView.delegate = self
         
