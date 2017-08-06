@@ -62,5 +62,4 @@ class DateHandler: NSObject {
         return date.addingTimeInterval(TimeInterval(secondsFromGMT * -1))
     }
     
-    
 }

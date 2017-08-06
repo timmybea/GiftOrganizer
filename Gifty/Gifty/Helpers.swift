@@ -71,9 +71,7 @@ extension UIView {
             self.transform = CGAffineTransform(scaleX: 1, y: 1)
         })
     }
-}
-
-extension UIView {
+    
     func addConstraintsWithFormat(format: String, views: UIView...) {
         var viewsDictionary = [String: UIView]()
         

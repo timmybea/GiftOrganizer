@@ -30,6 +30,31 @@ class EventFRC: NSObject {
         return frc
     }
     
+    
+    static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
+        
+        guard let moc = moc else { return nil }
+        
+        let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
+        let frc: NSFetchedResultsController<Event>?
+        
+        let dateDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [dateDescriptor]
+
+        let dateString = DateHandler.stringFromDate(date)
+        let predicate = NSPredicate(format: "ANY dateString CONTAINS[c] '\(dateString)'")
+        fetchRequest.predicate = predicate
+        
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "dateString", cacheName: nil)
+        
+        do {
+            try frc?.performFetch()
+        } catch {
+            print(error.localizedDescription)
+        }
+        return frc
+    }
+    
     private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
     
     static func updateMoc() {

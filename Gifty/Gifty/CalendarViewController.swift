@@ -114,6 +114,8 @@ extension CalendarViewController: CustomCalendarDelegate {
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool) {
             if show {
                 print(date)
+                frc = EventFRC.frc(for: date)
+                eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
                 print("Don't show info")
             }

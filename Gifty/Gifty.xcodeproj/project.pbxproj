@@ -25,7 +25,7 @@
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
 		B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
-		B041F76E1EF899F500A3E332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* Assets.xcassets */; };
+		B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */; };
 		B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */; };
 		B041F77C1EF899F500A3E332 /* GiftyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F77B1EF899F500A3E332 /* GiftyTests.swift */; };
 		B041F7871EF899F500A3E332 /* GiftyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7861EF899F500A3E332 /* GiftyUITests.swift */; };
@@ -48,6 +48,8 @@
 		B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */; };
 		B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */; };
 		B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */; };
+		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
+		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
@@ -94,7 +96,7 @@
 		B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsButtonsView.swift; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B041F76D1EF899F500A3E332 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PersonAssets.xcassets; sourceTree = "<group>"; };
 		B041F7701EF899F500A3E332 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B041F7721EF899F500A3E332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B041F7771EF899F500A3E332 /* GiftyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GiftyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,8 @@
 		B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonFRC.swift; sourceTree = "<group>"; };
 		B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
 		B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
+		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
@@ -197,13 +201,10 @@
 		B041F7651EF899F500A3E332 /* Gifty */ = {
 			isa = PBXGroup;
 			children = (
-				B041F79F1EF89FC800A3E332 /* Helpers */,
-				B041F7961EF89A0D00A3E332 /* Model */,
-				B041F7951EF89A0A00A3E332 /* View */,
-				B041F7941EF89A0800A3E332 /* Controller */,
-				B041F76D1EF899F500A3E332 /* Assets.xcassets */,
-				B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */,
-				B041F7721EF899F500A3E332 /* Info.plist */,
+				B0D514FC1F37803D008A88A4 /* App */,
+				B0D514FB1F378000008A88A4 /* CalendarTab */,
+				B0D5150B1F37890C008A88A4 /* PersonTab */,
+				B0D5150F1F378A63008A88A4 /* SettingsTab */,
 			);
 			path = Gifty;
 			sourceTree = "<group>";
@@ -229,13 +230,6 @@
 		B041F7941EF89A0800A3E332 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
-				B041F7991EF89B4900A3E332 /* PeopleViewController.swift */,
-				B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */,
-				B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */,
-				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
-				B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */,
-				B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -243,50 +237,182 @@
 		B041F7951EF89A0A00A3E332 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B013B5731EFF21E300107B64 /* CustomCalendar.swift */,
-				B013B5751EFF221000107B64 /* CustomCalendarCell.swift */,
 				B013B5C81F041DD700107B64 /* PersonTFTableView.swift */,
 				B013B5CA1F0428A300107B64 /* TextFieldCell.swift */,
 				B013B5CC1F04497400107B64 /* DropDownTextField.swift */,
 				B07042031F06B7B400D6A027 /* ButtonTemplate.swift */,
-				B07042051F06CC6200D6A027 /* CustomImageControl.swift */,
-				B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */,
 				B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */,
-				B07042071F06DAE000D6A027 /* EventTableView.swift */,
-				B02866771F143590003F5E22 /* EventTableViewCell.swift */,
 				B070420B1F0D50DE00D6A027 /* AddDateView.swift */,
 				B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */,
 				B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */,
 				B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */,
 				B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */,
 				B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */,
-				B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		B041F7961EF89A0D00A3E332 /* Model */ = {
+		B0D514FB1F378000008A88A4 /* CalendarTab */ = {
 			isa = PBXGroup;
 			children = (
-				B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */,
-				B013B5771EFF233200107B64 /* DateHandler.swift */,
-				B041F7661EF899F500A3E332 /* AppDelegate.swift */,
-				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
-				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
-				B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */,
-				B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */,
+				B0D515091F37886D008A88A4 /* Controller */,
+				B0D515071F378857008A88A4 /* Model */,
+				B0D5150A1F378899008A88A4 /* Resources */,
+				B0D515081F37885F008A88A4 /* View */,
 			);
-			name = Model;
+			name = CalendarTab;
 			sourceTree = "<group>";
 		};
-		B041F79F1EF89FC800A3E332 /* Helpers */ = {
+		B0D514FC1F37803D008A88A4 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				B0D515001F378212008A88A4 /* AppDelegate */,
+				B0D514FF1F3780A5008A88A4 /* Controller */,
+				B0D514FD1F378092008A88A4 /* Model */,
+				B0D515011F378541008A88A4 /* Resources */,
+				B0D515021F3785D2008A88A4 /* SupportingFiles */,
+				B0D514FE1F37809F008A88A4 /* View */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		B0D514FD1F378092008A88A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */,
+				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
+				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
+				B013B5771EFF233200107B64 /* DateHandler.swift */,
 				B041F7A21EF8A74A00A3E332 /* Helpers.swift */,
 				B0CA63271F0D7D3200C1A2B1 /* UIImage + Scale.swift */,
 				B0C205761F22D2C200C3E7ED /* Theme.swift */,
 			);
-			name = Helpers;
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B0D514FE1F37809F008A88A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */,
+				B07042071F06DAE000D6A027 /* EventTableView.swift */,
+				B02866771F143590003F5E22 /* EventTableViewCell.swift */,
+				B07042051F06CC6200D6A027 /* CustomImageControl.swift */,
+				B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B0D514FF1F3780A5008A88A4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B0D515001F378212008A88A4 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				B041F7661EF899F500A3E332 /* AppDelegate.swift */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		B0D515011F378541008A88A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B0D515031F378751008A88A4 /* MainAssets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B0D515021F3785D2008A88A4 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				B041F7721EF899F500A3E332 /* Info.plist */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		B0D515071F378857008A88A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B0D515081F37885F008A88A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */,
+				B013B5731EFF21E300107B64 /* CustomCalendar.swift */,
+				B013B5751EFF221000107B64 /* CustomCalendarCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B0D515091F37886D008A88A4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B0D5150A1F378899008A88A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B0D5150B1F37890C008A88A4 /* PersonTab */ = {
+			isa = PBXGroup;
+			children = (
+				B0D5150C1F378935008A88A4 /* Controller */,
+				B0D5150D1F378965008A88A4 /* Model */,
+				B0D5150E1F378A4B008A88A4 /* Resources */,
+				B041F7951EF89A0A00A3E332 /* View */,
+			);
+			name = PersonTab;
+			sourceTree = "<group>";
+		};
+		B0D5150C1F378935008A88A4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */,
+				B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */,
+				B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */,
+				B041F7991EF89B4900A3E332 /* PeopleViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B0D5150D1F378965008A88A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B0D5150E1F378A4B008A88A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B0D5150F1F378A63008A88A4 /* SettingsTab */ = {
+			isa = PBXGroup;
+			children = (
+				B041F7941EF89A0800A3E332 /* Controller */,
+				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
+			);
+			name = SettingsTab;
 			sourceTree = "<group>";
 		};
 		D97FE7C96A58FFBC09172875 /* Frameworks */ = {
@@ -420,8 +546,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */,
 				B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */,
-				B041F76E1EF899F500A3E332 /* Assets.xcassets in Resources */,
+				B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */,
+				B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

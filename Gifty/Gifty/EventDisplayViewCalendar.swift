@@ -80,7 +80,7 @@ class EventDisplayViewCalendar: EventTableView {
         self.heightUp = 500
             
         addSubview(tableView)
-        tableView.backgroundColor = UIColor.blue
+        //tableView.backgroundColor = UIColor.blue
         tableView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: smallPad).isActive = true
         self.heightConstraintTableView = tableView.heightAnchor.constraint(equalToConstant: heightDown)
         self.heightConstraintTableView?.isActive = true
