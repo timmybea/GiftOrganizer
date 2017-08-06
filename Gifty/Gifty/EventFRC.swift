@@ -42,7 +42,7 @@ class EventFRC: NSObject {
         fetchRequest.sortDescriptors = [dateDescriptor]
 
         let dateString = DateHandler.stringFromDate(date)
-        let predicate = NSPredicate(format: "ANY dateString CONTAINS[c] '\(dateString)'")
+        let predicate = NSPredicate(format: "dateString CONTAINS[c] '\(dateString)'")
         fetchRequest.predicate = predicate
         
         frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "dateString", cacheName: nil)

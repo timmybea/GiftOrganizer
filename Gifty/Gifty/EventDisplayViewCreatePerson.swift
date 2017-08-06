@@ -29,12 +29,14 @@ class EventDisplayViewCreatePerson: EventTableView {
     }()
     
     override func setupSubviews() {
+        
         backgroundColor = Theme.colors.offWhite.color
         
         addSubview(addButton)
         let addSize: CGFloat = 22
         addButton.frame = CGRect(x: self.bounds.width - pad - addSize, y: smallPad, width: addSize, height: addSize)
         
+        //self.tableView.translatesAutoresizingMaskIntoConstraints = true
         addSubview(tableView)
         tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
         

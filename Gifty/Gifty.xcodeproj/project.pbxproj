@@ -237,17 +237,17 @@
 		B041F7951EF89A0A00A3E332 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B013B5C81F041DD700107B64 /* PersonTFTableView.swift */,
-				B013B5CA1F0428A300107B64 /* TextFieldCell.swift */,
-				B013B5CC1F04497400107B64 /* DropDownTextField.swift */,
-				B07042031F06B7B400D6A027 /* ButtonTemplate.swift */,
-				B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */,
 				B070420B1F0D50DE00D6A027 /* AddDateView.swift */,
 				B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */,
 				B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */,
-				B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */,
+				B07042031F06B7B400D6A027 /* ButtonTemplate.swift */,
 				B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */,
+				B013B5CC1F04497400107B64 /* DropDownTextField.swift */,
+				B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */,
+				B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */,
+				B013B5C81F041DD700107B64 /* PersonTFTableView.swift */,
 				B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */,
+				B013B5CA1F0428A300107B64 /* TextFieldCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";

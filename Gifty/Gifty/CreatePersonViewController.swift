@@ -249,7 +249,7 @@ extension CreatePersonViewController {
         dropDown.setTitle(text: currentPerson.group!)
         self.group = person?.group
         
-        updateEventCollectionViewWithOrderedEvents()
+        updateEventDisplayViewWithOrderedEvents()
     }
     
     
@@ -531,15 +531,14 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
     func eventAddedToPerson() {
     
         print("CreateEventVCDelegate called")
-        updateEventCollectionViewWithOrderedEvents()
+        updateEventDisplayViewWithOrderedEvents()
     }
     
-    func updateEventCollectionViewWithOrderedEvents() {
+    func updateEventDisplayViewWithOrderedEvents() {
         if let events = self.person?.event?.allObjects as? [Event] {
             
             //TO DO: correctly order the events by date
             self.eventTableView.orderedEvents = events
-
         }
     }
     

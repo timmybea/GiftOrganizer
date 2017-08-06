@@ -75,6 +75,8 @@ class EventDisplayViewCalendar: EventTableView {
     var heightUp: CGFloat = 0.0
     
     func setTableViewFrame(with maxY: CGFloat) {
+        
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableViewMaxY = maxY
         self.heightDown = self.tableViewMaxY - self.frame.minY - smallPad - 34
         self.heightUp = 500

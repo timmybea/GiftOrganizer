@@ -116,7 +116,6 @@ class ActionsButtonsView: UIView {
         } else if selectionState == ActionSelectionStates.unselected {
             imageControl.imageView.tintColor = tintUnselected
         }
-//        imageControl.bounceAnimation()
     }
     
     private func handleTouchesFor(imageControl: CustomImageControl) {

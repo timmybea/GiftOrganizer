@@ -115,6 +115,7 @@ extension CalendarViewController: CustomCalendarDelegate {
             if show {
                 print(date)
                 frc = EventFRC.frc(for: date)
+                frc?.delegate = self
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
                 print("Don't show info")
