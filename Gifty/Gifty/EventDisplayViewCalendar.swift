@@ -38,7 +38,6 @@ class EventDisplayViewCalendar: EventTableView {
     let panGestureView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.blue
         return view
     }()
     
@@ -81,8 +80,6 @@ class EventDisplayViewCalendar: EventTableView {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(panRecognizer:)))
         panGestureView.addGestureRecognizer(panGesture)
         
-        
-        
     }
     
     //MARK: setup pan
@@ -94,31 +91,19 @@ class EventDisplayViewCalendar: EventTableView {
 
     }
     
-    
-    
-    
-    
-    
     var heightConstraintTableView: NSLayoutConstraint?
-    var tableViewMaxY: CGFloat = 0.0
     var heightDown: CGFloat = 0.0
     var heightUp: CGFloat = 0.0
     
-//    func setTableViewFrame(with maxY: CGFloat) {
-//        
-//        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-//        self.tableViewMaxY = maxY
-//        self.heightDown = self.tableViewMaxY - self.frame.minY - smallPad - 34
-//        self.heightUp = 500
-//            
-//        addSubview(tableView)
-//        //tableView.backgroundColor = UIColor.blue
-//        tableView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: smallPad).isActive = true
-//        self.heightConstraintTableView = tableView.heightAnchor.constraint(equalToConstant: heightDown)
-//        self.heightConstraintTableView?.isActive = true
-//        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-//        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-//    }
+    func setTableViewFrame(with tabHeight: CGFloat, navHeight: CGFloat) {
+        
+        self.heightDown = self.frame.height - self.frame.minY - smallPad - 34 - tabHeight
+        self.heightUp = self.frame.height - smallPad - 34 - tabHeight - pad - navHeight
+            
+        addSubview(tableView)
+        tableView.backgroundColor = UIColor.blue
+        tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: heightDown)
+    }
     
     func eventDisplaySnapped() {
         
@@ -127,7 +112,7 @@ class EventDisplayViewCalendar: EventTableView {
         UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: {
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
             
-            self.heightConstraintTableView?.constant = self.heightUp
+            self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.heightUp)
             self.tableView.layoutIfNeeded()
         }, completion: nil)
         
@@ -148,7 +133,7 @@ class EventDisplayViewCalendar: EventTableView {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
             
-            self.heightConstraintTableView?.constant = self.heightDown
+            self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.heightDown)
             self.tableView.layoutIfNeeded()
         }, completion: nil)
         

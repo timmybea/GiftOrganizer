@@ -149,9 +149,11 @@ extension CalendarViewController {
         
         let yOffset = calendar.frame.maxY + pad
         self.eventDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
-        //let maxY = self.view.frame.maxY - (self.tabBarController?.tabBar.frame.height)! - smallPad
-        //eventDisplayView.setTableViewFrame(with: maxY)
         
+        if let tabHeight = self.tabBarController?.tabBar.frame.height, let navHeight = self.navigationController?.navigationBar.frame.height {
+            eventDisplayView.setTableViewFrame(with: tabHeight, navHeight: navHeight)
+        }
+
         view.addSubview(eventDisplayView)
         view.bringSubview(toFront: self.eventDisplayView)
         
