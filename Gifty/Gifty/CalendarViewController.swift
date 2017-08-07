@@ -13,6 +13,8 @@ import CoreData
 class CalendarViewController: CustomViewController {
     
     var frc: NSFetchedResultsController<Event>? = EventFRC.frc()
+
+    var monthYearString = ""
     
     lazy var calendar: CustomCalendar = {
         let frame = CGRect(x: pad, y: 70, width: self.view.bounds.width - (2 * pad), height: 280)
@@ -108,6 +110,7 @@ extension CalendarViewController: CustomCalendarDelegate {
     
     func monthYearLabelWasUpdated(_ string: String) {
         self.title = string
+        self.monthYearString = string
     }
 
     
@@ -119,6 +122,7 @@ extension CalendarViewController: CustomCalendarDelegate {
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
                 print("Don't show info")
+                eventDisplayView.orderedEvents = nil
             }
     }
 }
@@ -184,13 +188,12 @@ extension CalendarViewController {
                 snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
                 dynamicAnimator.addBehavior(snap!)
                 eventDisplayView.eventDisplaySnapped()
-                //changeStackViewAlpha(currentView: dragView)
+                self.title = "Upcoming Events"
                 isViewSnapped = true
             }
         } else {
             if isViewSnapped {
                 dynamicAnimator.removeBehavior(snap!)
-                //changeStackViewAlpha(currentView: dragView)
                 isViewSnapped = false
             }
         }
@@ -203,6 +206,7 @@ extension CalendarViewController: UICollisionBehaviorDelegate {
     
     func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
         eventDisplayView.eventDisplayTouchedBoundary()
+        self.title = monthYearString
     }
 
 }

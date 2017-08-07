@@ -101,7 +101,6 @@ class EventDisplayViewCalendar: EventTableView {
         self.heightUp = self.frame.height - smallPad - 34 - tabHeight - pad - navHeight
             
         addSubview(tableView)
-        tableView.backgroundColor = UIColor.blue
         tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: heightDown)
     }
     
