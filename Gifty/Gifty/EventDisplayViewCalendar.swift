@@ -10,6 +10,7 @@ import UIKit
 
 protocol StackViewDelegate {
     func eventDisplayPosition(up: Bool)
+    func stackViewPan(panRecognizer: UIPanGestureRecognizer)
 }
 
 class EventDisplayViewCalendar: EventTableView {
@@ -34,12 +35,19 @@ class EventDisplayViewCalendar: EventTableView {
         return view
     }()
     
-    override init(frame: CGRect) {
+    let panGestureView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.blue
+        return view
+    }()
+    
+    init(frame: CGRect, in superView: UIView) {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         
-        setupSubviews()
+        setupSubviews(in: superView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,7 +55,7 @@ class EventDisplayViewCalendar: EventTableView {
     }
 
     
-    override func setupSubviews() {
+    func setupSubviews(in superView: UIView) {
         
         self.addSubview(swipeIcon)
         swipeIcon.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
@@ -63,32 +71,54 @@ class EventDisplayViewCalendar: EventTableView {
         separatorView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         separatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
         
-//        addSubview(eventLabel)
-//        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
-//        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
+        self.addSubview(panGestureView)
+        panGestureView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        panGestureView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        panGestureView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        panGestureView.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor).isActive = true
+        
+        //pan Gesture
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(panRecognizer:)))
+        panGestureView.addGestureRecognizer(panGesture)
+        
+        
         
     }
+    
+    //MARK: setup pan
+    func handlePan(panRecognizer: UIPanGestureRecognizer) {
+        
+        if stackViewDelegate != nil {
+            stackViewDelegate?.stackViewPan(panRecognizer: panRecognizer)
+        }
+
+    }
+    
+    
+    
+    
+    
     
     var heightConstraintTableView: NSLayoutConstraint?
     var tableViewMaxY: CGFloat = 0.0
     var heightDown: CGFloat = 0.0
     var heightUp: CGFloat = 0.0
     
-    func setTableViewFrame(with maxY: CGFloat) {
-        
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableViewMaxY = maxY
-        self.heightDown = self.tableViewMaxY - self.frame.minY - smallPad - 34
-        self.heightUp = 500
-            
-        addSubview(tableView)
-        //tableView.backgroundColor = UIColor.blue
-        tableView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: smallPad).isActive = true
-        self.heightConstraintTableView = tableView.heightAnchor.constraint(equalToConstant: heightDown)
-        self.heightConstraintTableView?.isActive = true
-        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-    }
+//    func setTableViewFrame(with maxY: CGFloat) {
+//        
+//        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+//        self.tableViewMaxY = maxY
+//        self.heightDown = self.tableViewMaxY - self.frame.minY - smallPad - 34
+//        self.heightUp = 500
+//            
+//        addSubview(tableView)
+//        //tableView.backgroundColor = UIColor.blue
+//        tableView.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: smallPad).isActive = true
+//        self.heightConstraintTableView = tableView.heightAnchor.constraint(equalToConstant: heightDown)
+//        self.heightConstraintTableView?.isActive = true
+//        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
+//        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+//    }
     
     func eventDisplaySnapped() {
         

@@ -22,7 +22,7 @@ class CalendarViewController: CustomViewController {
     }()
     
     lazy var eventDisplayView: EventDisplayViewCalendar = {
-        let view = EventDisplayViewCalendar()
+        let view = EventDisplayViewCalendar(frame: self.view.frame, in: self.view)
         view.stackViewDelegate = self
         return view
     }()
@@ -149,16 +149,11 @@ extension CalendarViewController {
         
         let yOffset = calendar.frame.maxY + pad
         self.eventDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
-        let maxY = self.view.frame.maxY - (self.tabBarController?.tabBar.frame.height)! - smallPad
-        eventDisplayView.setTableViewFrame(with: maxY)
+        //let maxY = self.view.frame.maxY - (self.tabBarController?.tabBar.frame.height)! - smallPad
+        //eventDisplayView.setTableViewFrame(with: maxY)
         
         view.addSubview(eventDisplayView)
-        
         view.bringSubview(toFront: self.eventDisplayView)
-        
-        //pan Gesture
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(panRecognizer:)))
-        eventDisplayView.addGestureRecognizer(panGesture)
         
         //collision behavior
         let collisionBehavior = UICollisionBehavior(items: [eventDisplayView])
@@ -175,36 +170,6 @@ extension CalendarViewController {
         
     }
     
-    func handlePan(panRecognizer: UIPanGestureRecognizer) {
-        
-        let currentPosition = panRecognizer.location(in: self.view)
-        
-        if let dragView = panRecognizer.view {
-            if panRecognizer.state == .began {
-                let isTouchNearTop = panRecognizer.location(in: dragView).y < 150
-                
-                if isTouchNearTop {
-                    isDragging = true
-                    previousPosition = currentPosition
-                }
-            } else if panRecognizer.state == .changed && isDragging {
-                if let previousPosition = previousPosition {
-                    let offset = previousPosition.y - currentPosition.y
-                    dragView.center = CGPoint(x: dragView.center.x, y: dragView.center.y - offset)
-                }
-                previousPosition = currentPosition
-            } else if panRecognizer.state == .ended && isDragging {
-                
-                snap(dragView: dragView)
-                
-                //Applies behavior to the dynamic item again. Makes it adhere to gravity etc.
-                dynamicAnimator.updateItem(usingCurrentState: dragView)
-                
-                isDragging = false
-            }
-        }
-    }
-    
     func snap(dragView: UIView) {
         
         let viewHasNearedSnapPosition = dragView.frame.origin.y < 130
@@ -217,9 +182,7 @@ extension CalendarViewController {
                 snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
                 dynamicAnimator.addBehavior(snap!)
                 eventDisplayView.eventDisplaySnapped()
-                
                 //changeStackViewAlpha(currentView: dragView)
-                
                 isViewSnapped = true
             }
         } else {
@@ -250,6 +213,34 @@ extension CalendarViewController: StackViewDelegate {
             print("display view is up")
         } else {
             print("display view is down")
+        }
+    }
+    
+    
+    func stackViewPan(panRecognizer: UIPanGestureRecognizer) {
+        
+        let currentPosition = panRecognizer.location(in: self.view)
+        
+        if let dragView = panRecognizer.view?.superview {
+            if panRecognizer.state == .began {
+
+                    isDragging = true
+                    previousPosition = currentPosition
+            } else if panRecognizer.state == .changed && isDragging {
+                if let previousPosition = previousPosition {
+                    let offset = previousPosition.y - currentPosition.y
+                    dragView.center = CGPoint(x: dragView.center.x, y: dragView.center.y - offset)
+                }
+                previousPosition = currentPosition
+            } else if panRecognizer.state == .ended && isDragging {
+                
+                snap(dragView: dragView)
+                
+                //Applies behavior to the dynamic item again. Makes it adhere to gravity etc.
+                dynamicAnimator.updateItem(usingCurrentState: dragView)
+                
+                isDragging = false
+            }
         }
     }
 }
