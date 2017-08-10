@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol AddButtonDelegate {
+    func didTouchAddEventButton()
+}
+
 class EventDisplayViewCreatePerson: EventTableView {
 
+    var addButtonDelegate: AddButtonDelegate?
+    
     override internal func updateEventLabelForEventsCount() {
         if let events = orderedEvents, events.count > 0 {
             eventLabel.text = "Upcoming events"
@@ -64,8 +70,8 @@ extension EventDisplayViewCreatePerson {
     
     func addButtonTouchedUpInside() {
         addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
-        if self.delegate != nil {
-            self.delegate?.didTouchAddEventButton()
+        if self.addButtonDelegate != nil {
+            self.addButtonDelegate?.didTouchAddEventButton()
         }
     }
 }

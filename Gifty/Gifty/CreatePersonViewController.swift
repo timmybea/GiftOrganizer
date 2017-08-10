@@ -207,6 +207,7 @@ class CreatePersonViewController: CustomViewController {
         eventTableView = EventDisplayViewCreatePerson(frame: CGRect(x: 0, y: currMaxY, width: view.bounds.width, height: eventHeight))
         
         eventTableView.delegate = self
+        eventTableView.addButtonDelegate = self
         
         view.addSubview(eventTableView)
         
@@ -457,7 +458,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     }
 }
 
-//MARK: ADD EVENT
+//MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
    
     func setAction(_ action: Actions, to state: ActionSelectionStates) {
@@ -486,6 +487,12 @@ extension CreatePersonViewController: EventTableViewDelegate {
         }
     }
     
+}
+
+//MARK: Add Button Delegate
+
+extension CreatePersonViewController: AddButtonDelegate {
+
     func didTouchAddEventButton() {
         print("Add new event!")
         

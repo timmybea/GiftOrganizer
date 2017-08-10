@@ -281,4 +281,12 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
 }
 
+//extension CalendarViewController: EventTableViewDelegate {
+//    func didTouchEditEvent(event: Event) {
+//        
+//    }
+//
+//    
+//}
+
 
