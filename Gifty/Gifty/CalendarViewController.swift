@@ -188,7 +188,6 @@ extension CalendarViewController {
                 snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
                 dynamicAnimator.addBehavior(snap!)
                 eventDisplayView.eventDisplaySnapped()
-                self.title = "Upcoming Events"
                 isViewSnapped = true
             }
         } else {
@@ -206,7 +205,6 @@ extension CalendarViewController: UICollisionBehaviorDelegate {
     
     func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
         eventDisplayView.eventDisplayTouchedBoundary()
-        self.title = monthYearString
     }
 
 }
@@ -217,8 +215,14 @@ extension CalendarViewController: StackViewDelegate {
     func eventDisplayPosition(up: Bool) {
         if up {
             print("display view is up")
+            self.title = "Upcoming Events"
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.clear
         } else {
             print("display view is down")
+            self.title = monthYearString
+            navigationItem.rightBarButtonItem?.isEnabled = true
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         }
     }
     

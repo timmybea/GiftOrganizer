@@ -18,11 +18,13 @@ class CreatePersonViewController: CustomViewController {
 
     var delegate: CreatePersonViewControllerDelegate?
     
-    var person: Person? = nil {
-        didSet {
-            self.isUpdatePerson = true
-        }
-    }
+    var person: Person? = nil
+//    {
+//        didSet {
+//            self.isUpdatePerson = true
+//        }
+//    }
+
     var isUpdatePerson = false
     
     var firstName: String?
@@ -103,8 +105,18 @@ class CreatePersonViewController: CustomViewController {
             
             if let currentPerson = person {
                 //discard changes to person
-                currentPerson.managedObjectContext?.refresh(currentPerson, mergeChanges: false)
-        
+                
+                //>>>> You are here
+                if self.isUpdatePerson {
+                    currentPerson.managedObjectContext?.refresh(currentPerson, mergeChanges: false)
+                } else {
+                    let events = currentPerson.event?.allObjects
+                    
+                    for event in events as! [Event] {
+                        event.managedObjectContext?.delete(event)
+                    }
+                    currentPerson.managedObjectContext?.delete(currentPerson)
+                }
             }
             
             self.navigationController?.popViewController(animated: true)
@@ -252,7 +264,6 @@ extension CreatePersonViewController {
         
         updateEventDisplayViewWithOrderedEvents()
     }
-    
     
     func didTapBackgroundView() {
         textFieldTV.finishEditing()
@@ -562,7 +573,7 @@ extension CreatePersonViewController: ButtonTemplateDelegate {
         checkSufficientInformationToSave { (success) in
             if success {
                 //UPDATE EXISTING PERSON
-                if isUpdatePerson {
+                if self.person != nil {
                     
                     ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
                         

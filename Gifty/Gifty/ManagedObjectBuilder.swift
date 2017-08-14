@@ -94,14 +94,14 @@ class ManagedObjectBuilder: NSObject {
         event.cardState = card.rawValue
         event.phoneState = phone.rawValue
         
-        _ = checkEventComplete(event)
+        _ = setEventComplete(event)
         
         person.addToEvent(event)
         
         completion(true, event)
     }
     
-    static func checkEventComplete(_ event: Event) -> Bool {
+    static func setEventComplete(_ event: Event) -> Bool {
         if event.giftState == ActionSelectionStates.selected.rawValue || event.cardState == ActionSelectionStates.selected.rawValue || event.phoneState == ActionSelectionStates.selected.rawValue {
             event.isComplete = false
             return false

@@ -159,7 +159,7 @@ extension EventTableView: EventTableViewCellDelegate {
         }
         print("\(currentEvent.type!): \(action) was changed to state: \(state.rawValue)")
         
-        _ = ManagedObjectBuilder.checkEventComplete(currentEvent)
+        _ = ManagedObjectBuilder.setEventComplete(currentEvent)
         
         ManagedObjectBuilder.saveChanges { (success) in
             print("saved successfully")

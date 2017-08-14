@@ -103,6 +103,7 @@ class PeopleViewController: CustomViewController {
 
         if person != nil {
             destination.person = person
+            destination.isUpdatePerson = true
         }
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
