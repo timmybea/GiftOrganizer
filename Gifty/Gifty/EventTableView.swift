@@ -126,9 +126,9 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         editAction.backgroundColor = Theme.colors.yellow.color
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
             if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
+                self.orderedEvents?.remove(at: indexPath.row)
                 self.delegate?.didTouchDeleteEvent(event: event)
             }
-            self.orderedEvents?.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color

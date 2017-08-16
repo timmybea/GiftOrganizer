@@ -181,13 +181,16 @@ class CustomCalendar: UIView {
         
     }
     
-    func updateDataSource(dateString: String, completed: Bool) {
+    func updateDataSource(dateString: String, completed: Bool, increment: Bool) {
         var data = self.dataSource?[dateString]
         
         if data != nil {
             
             data?.eventsCompleted = data?.eventsCompleted == true ? true : completed
-            data?.eventCount += 1
+            
+            if increment {
+                data?.eventCount += 1
+            }
             self.dataSource?[dateString] = data
             
         } else {

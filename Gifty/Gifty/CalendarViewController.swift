@@ -26,6 +26,7 @@ class CalendarViewController: CustomViewController {
     lazy var eventDisplayView: EventDisplayViewCalendar = {
         let view = EventDisplayViewCalendar(frame: self.view.frame, in: self.view)
         view.stackViewDelegate = self
+        view.delegate = self
         return view
     }()
     
@@ -77,25 +78,30 @@ class CalendarViewController: CustomViewController {
                 
                 let dateString = section.name
                 
-                var complete = false
-                var eventCount = 0
-                
                 if let eventsForDate = section.objects as? [Event] {
-                    for event in eventsForDate {
-                        
-                        if event.isComplete == true {
-                            complete = true
-                        }
-                    }
-                    eventCount = eventsForDate.count
-                }
-                let data = CalendarEventData(eventCount: eventCount, eventsCompleted: complete)
+                    
+                    let complete = checkActionsComplete(events: eventsForDate)
+                    let eventCount = eventsForDate.count
                 
-                eventDateCompleteDict[dateString] = data
+                    let data = CalendarEventData(eventCount: eventCount, eventsCompleted: complete)
+    
+                    eventDateCompleteDict[dateString] = data
+                }
             }
         }
         self.calendar.setDataSource(stringDateCompleteDict: eventDateCompleteDict)
     }
+    
+    
+    fileprivate func checkActionsComplete(events: [Event]) -> Bool {
+        for event in events {
+            if event.isComplete == true {
+                return true
+            }
+        }
+        return false
+    }
+    
     
     func pushToCreateEvent() {
         print("push to create event")
@@ -277,9 +283,28 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
                 
                 calendar.deleteDateFromDataSource(dateString)
                 
-            } else if type == .insert || type == .update {
+                if changedEvent.isComplete {
+                    
+                    let dateComponents = dateString.components(separatedBy: " ")
+                    if let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) {
+                        self.frc = EventFRC.frc(for: date)
+                        
+                        if self.frc != nil {
+                            
+                            var complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
+                            
+                            calendar.updateDataSource(dateString: dateString, completed: complete, increment: false)
+                        }
+                    }
+                }
                 
-                calendar.updateDataSource(dateString: dateString, completed: changedEvent.isComplete)
+            } else if type == .insert {
+            
+                calendar.updateDataSource(dateString: dateString, completed: changedEvent.isComplete, increment: true)
+                
+            } else if type == .update {
+                
+                calendar.updateDataSource(dateString: dateString, completed: changedEvent.isComplete, increment: false)
                 
             }
         }
@@ -292,7 +317,7 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension CalendarViewController: EventTableViewDelegate {
-
+    
     func didTouchEditEvent(event: Event) {
         
         print("Edit existing event")
