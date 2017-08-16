@@ -70,7 +70,7 @@ class CalendarViewController: CustomViewController {
     
     func passCalendarDataSource() {
         
-        var eventDateCompleteDict = Dictionary<String, Bool>()
+        var eventDateCompleteDict = Dictionary<String, CalendarEventData>()
         
         if let sections = frc?.sections {
             for section in sections {
@@ -78,6 +78,7 @@ class CalendarViewController: CustomViewController {
                 let dateString = section.name
                 
                 var complete = false
+                var eventCount = 0
                 
                 if let eventsForDate = section.objects as? [Event] {
                     for event in eventsForDate {
@@ -86,8 +87,11 @@ class CalendarViewController: CustomViewController {
                             complete = true
                         }
                     }
+                    eventCount = eventsForDate.count
                 }
-                eventDateCompleteDict[dateString] = complete
+                let data = CalendarEventData(eventCount: eventCount, eventsCompleted: complete)
+                
+                eventDateCompleteDict[dateString] = data
             }
         }
         self.calendar.setDataSource(stringDateCompleteDict: eventDateCompleteDict)

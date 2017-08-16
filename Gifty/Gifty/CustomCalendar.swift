@@ -15,28 +15,22 @@ protocol CustomCalendarDelegate {
     func monthYearLabelWasUpdated(_ string: String)
 }
 
+struct CalendarEventData {
+    var eventCount: Int
+    var eventsCompleted: Bool
+}
+
 class CustomCalendar: UIView {
     
     fileprivate let gregorianCalendar: Calendar = Calendar(identifier: .gregorian)
     
     var delegate: CustomCalendarDelegate?
     
-    fileprivate var dataSource: Dictionary<String, Bool>?
+    fileprivate var dataSource: Dictionary<String, CalendarEventData>?
     
     var previouslySelectedDate: Date?
     
     private let dateFormatter = DateFormatter()
-    
-//    var initiallySelectedDate: Date? {
-//        didSet {
-//            if initiallySelectedDate != nil {
-//                calendarView.selectDates([initiallySelectedDate!])
-//            }
-//            DispatchQueue.main.async {
-//                self.calendarView.reloadData()
-//            }
-//        }
-//    }
     
     fileprivate lazy var calendarView: JTAppleCalendarView = {
         let calendarView = JTAppleCalendarView(frame: .zero)
@@ -157,7 +151,7 @@ class CustomCalendar: UIView {
 
     //MARK: changes to datasource and refreshing calendar view
     
-    func setDataSource(stringDateCompleteDict: Dictionary<String, Bool>) {
+    func setDataSource(stringDateCompleteDict: Dictionary<String, CalendarEventData>) {
         
         self.dataSource = stringDateCompleteDict
         
@@ -169,7 +163,17 @@ class CustomCalendar: UIView {
     
     func deleteDateFromDataSource(_ dateString: String) {
         
-        self.dataSource?.removeValue(forKey: dateString)
+        var data = self.dataSource?[dateString]
+        
+        if data != nil {
+            data?.eventCount -= 1
+            
+            if data?.eventCount == 0 {
+                self.dataSource?.removeValue(forKey: dateString)
+            } else {
+                self.dataSource?[dateString] = data
+            }
+        }
         
         DispatchQueue.main.async {
             self.calendarView.reloadData()
@@ -178,7 +182,17 @@ class CustomCalendar: UIView {
     }
     
     func updateDataSource(dateString: String, completed: Bool) {
-        self.dataSource?[dateString] = completed
+        var data = self.dataSource?[dateString]
+        
+        if data != nil {
+            
+            data?.eventsCompleted = data?.eventsCompleted == true ? true : completed
+            data?.eventCount += 1
+            self.dataSource?[dateString] = data
+            
+        } else {
+            self.dataSource?[dateString] = CalendarEventData(eventCount: 1, eventsCompleted: completed)
+        }
         
         DispatchQueue.main.async {
             self.calendarView.reloadData()
@@ -208,7 +222,7 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         let dateString = DateHandler.stringFromDate(date)
         
         if let completedAction = self.dataSource?[dateString], cellState.dateBelongsTo == .thisMonth {
-            cell.action(for: dateString, complete: completedAction)
+            cell.action(for: dateString, complete: completedAction.eventsCompleted)
         } else {
             cell.action(for: dateString, complete: nil)
         }
