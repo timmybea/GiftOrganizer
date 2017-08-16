@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CreateEventViewControllerDelegate {
-    func eventAddedToPerson()
+    func eventAddedToPerson(uuid: String)
 }
 
 enum CreateEventState {
@@ -232,7 +232,7 @@ extension CreateEventViewController {
                     print("successfully added event")
                     
                     if self.delegate != nil {
-                        self.delegate?.eventAddedToPerson()
+                        self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
                     }
                     self.navigationController?.popViewController(animated: true)
                 }

@@ -11,7 +11,6 @@ import UIKit
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
-    func setAction(_ action: Actions, to state: ActionSelectionStates)
 }
 
 class EventTableView: UIView {

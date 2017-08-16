@@ -184,48 +184,6 @@ class CustomCalendar: UIView {
             self.calendarView.reloadData()
         }
     }
-
-    
-//    private func reloadAllDatesFromDataSource() {
-//
-//        if let keysCollection = self.dataSource?.keys {
-//            
-//            let keysArray = Array(keysCollection)
-//            
-//            let reloadDatesArray = dateArrayFrom(dateStringArray: keysArray)
-//            
-//            DispatchQueue.main.async {
-//                self.calendarView.reloadDates(reloadDatesArray)
-//            }
-//        }
-//    }
-//    
-//    private func reloadDatesFromDataSource(dateStrings: [String]) {
-//        
-//        let reloadDatesArray = dateArrayFrom(dateStringArray: dateStrings)
-//        
-//        DispatchQueue.main.async {
-//            print("RELOAD DATA")
-//            self.calendarView.reloadDates(reloadDatesArray)
-//        }
-//    }
-//    
-//    private func dateArrayFrom(dateStringArray: [String]) -> [Date] {
-//        
-//        var dateArray = [Date]()
-//        
-//        for dateString in dateStringArray {
-//            
-//            let components = dateString.components(separatedBy: " ")
-//            
-//            if let date = DateHandler.dateWith(dd: components[2], MM: components[1], yyyy: components[0]) {
-//                
-//                dateArray.append(date)
-//            }
-//        }
-//        return dateArray
-//    }
-    
 }
 
 extension CustomCalendar: JTAppleCalendarViewDataSource {

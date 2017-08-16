@@ -215,16 +215,5 @@ extension EventTableViewCell: ActionsButtonsViewDelegate {
         if self.delegate != nil, self.event != nil {
             self.delegate!.setAction(action, to: state, for: self.event!)
         }
-        
-//        if action == Actions.gift, self.delegate != nil, self.event != nil {
-//            print("Gift is: \(state.rawValue)")
-//            self.delegate!.setAction(action, to: state, for: self.event!)
-//            
-//        } else if action == Actions.card, self.delegate != nil, self.event != nil {
-//            print("Card is: \(state.rawValue)")
-//            self.delegate!.setAction(action, to: state, for: self.event!)
-//        } else if action == Actions.phone {
-//            print("Phone is: \(state.rawValue)")
-//        }
     }
 }

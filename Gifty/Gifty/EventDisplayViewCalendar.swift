@@ -44,7 +44,7 @@ class EventDisplayViewCalendar: EventTableView {
     init(frame: CGRect, in superView: UIView) {
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = Theme.colors.offWhite.color
         
         setupSubviews(in: superView)
     }

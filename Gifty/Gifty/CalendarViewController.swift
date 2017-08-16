@@ -255,6 +255,8 @@ extension CalendarViewController: StackViewDelegate {
     }
 }
 
+
+
 //MARK: Event FRC delegate methods (update the calendar datasource)
 extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
@@ -285,12 +287,26 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
 }
 
-//extension CalendarViewController: EventTableViewDelegate {
-//    func didTouchEditEvent(event: Event) {
-//        
-//    }
-//
-//    
-//}
+extension CalendarViewController: EventTableViewDelegate {
+
+    func didTouchEditEvent(event: Event) {
+        
+        print("Edit existing event")
+        let destination = CreateEventViewController()
+        //destination.delegate = self
+        destination.createEventState = CreateEventState.updateEventForPerson
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
+    }
+    
+    func didTouchDeleteEvent(event: Event) {
+        
+        event.managedObjectContext?.delete(event)
+        
+    }
+    
+}
 
 

@@ -19,11 +19,6 @@ class CreatePersonViewController: CustomViewController {
     var delegate: CreatePersonViewControllerDelegate?
     
     var person: Person? = nil
-//    {
-//        didSet {
-//            self.isUpdatePerson = true
-//        }
-//    }
 
     var isUpdatePerson = false
     
@@ -33,6 +28,8 @@ class CreatePersonViewController: CustomViewController {
     var dob: DateComponents?
 
     var orderedEvents: [Event]?
+    
+    var newEventIds = [String]()
     
     lazy var profileImageView: CustomImageControl = {
         let imageControl = CustomImageControl()
@@ -105,10 +102,17 @@ class CreatePersonViewController: CustomViewController {
             
             if let currentPerson = person {
                 //discard changes to person
-                
-                //>>>> You are here
                 if self.isUpdatePerson {
+                    
+                    for id in self.newEventIds {
+                        if let event = ManagedObjectBuilder.getEventBy(uuid: id) {
+                            print("Deleted Event \(id)")
+                            event.managedObjectContext?.delete(event)
+                        }
+                    }
+                    
                     currentPerson.managedObjectContext?.refresh(currentPerson, mergeChanges: false)
+                    
                 } else {
                     let events = currentPerson.event?.allObjects
                     
@@ -471,12 +475,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
-   
-    func setAction(_ action: Actions, to state: ActionSelectionStates) {
-        //do something
-    }
 
-    
     func didTouchEditEvent(event: Event) {
         
         print("Edit existing event")
@@ -491,11 +490,9 @@ extension CreatePersonViewController: EventTableViewDelegate {
     
     func didTouchDeleteEvent(event: Event) {
         
-        let context  = ManagedObjectBuilder.moc
-        context?.delete(event)
-        ManagedObjectBuilder.saveChanges { (success) in
-            //
-        }
+        
+        event.managedObjectContext?.delete(event)
+        
     }
     
 }
@@ -546,9 +543,10 @@ extension CreatePersonViewController: AddButtonDelegate {
 //MARK: Create Event Delegate
 extension CreatePersonViewController: CreateEventViewControllerDelegate {
     
-    func eventAddedToPerson() {
+    func eventAddedToPerson(uuid: String) {
     
         print("CreateEventVCDelegate called")
+        self.newEventIds.append(uuid)
         updateEventDisplayViewWithOrderedEvents()
     }
     

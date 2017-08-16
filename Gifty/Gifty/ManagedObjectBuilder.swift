@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ManagedObjectBuilder: NSObject {
 
@@ -110,6 +111,32 @@ class ManagedObjectBuilder: NSObject {
             return true
         }
     }
+    
+    static func getEventBy(uuid: String) -> Event? {
+        
+        let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
+        
+        let dateDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.sortDescriptors = [dateDescriptor]
+        
+        let predicate = NSPredicate(format: "id CONTAINS[c] '\(uuid)'")
+        fetchRequest.predicate = predicate
+
+        var fetchedEvents: [Event]?
+        
+        do {
+            try fetchedEvents = moc?.fetch(fetchRequest)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        if fetchedEvents != nil {
+            return fetchedEvents?.first
+        } else {
+            return nil
+        }
+    }
+
 
     
     //MARK: SAVE
@@ -155,5 +182,6 @@ class ManagedObjectBuilder: NSObject {
         }
         PersonFRC.updateMoc()
     }
+    
 
 }
