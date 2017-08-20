@@ -57,14 +57,31 @@ class EventTableView: UIView {
     }()
     
     var selectedIndexPath: IndexPath?
-
+    
+    let id = UUID().uuidString
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        //Register to listen for NSNotificationCenter
+        NotificationCenter.default.addObserver(self, selector: #selector(testReceived(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
 
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func testReceived(notification: NSNotification) {
+        print("TEST NOTIFICATION RECEIVED")
+        
+        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
+            print("RELOAD DATA")
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
+        }
     }
     
 
@@ -162,6 +179,11 @@ extension EventTableView: EventTableViewCellDelegate {
         
         ManagedObjectBuilder.saveChanges { (success) in
             print("saved successfully")
+            
+            //send notification
+            guard let dateString = event.dateString else { return }
+            let userInfo = ["EventDisplayViewId": self.id, "dateString": dateString]
+            NotificationCenter.default.post(name: Notifications.Names.actionStateChanged.Name, object: nil, userInfo: userInfo)
             
             //update cell subviews according to checklist completion
             if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {

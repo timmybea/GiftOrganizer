@@ -35,6 +35,19 @@ enum ImageNames: String {
     case calendarSpot = "cal_spot"
 }
 
+struct Notifications {
+    
+    enum Names {
+        case actionStateChanged
+    
+        var Name: NSNotification.Name {
+            switch self {
+            case .actionStateChanged: return NSNotification.Name.init("actionStateChanged")
+            }
+        }
+    }
+}
+
 
 extension UINavigationController {
     

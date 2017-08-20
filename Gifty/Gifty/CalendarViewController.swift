@@ -279,33 +279,22 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
-            if type == .delete {
-                
-                calendar.deleteDateFromDataSource(dateString)
-                
-                if changedEvent.isComplete {
-                    
-                    let dateComponents = dateString.components(separatedBy: " ")
-                    if let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) {
-                        self.frc = EventFRC.frc(for: date)
-                        
-                        if self.frc != nil {
-                            
-                            var complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
-                            
-                            calendar.updateDataSource(dateString: dateString, completed: complete, increment: false)
-                        }
-                    }
-                }
-                
-            } else if type == .insert {
             
-                calendar.updateDataSource(dateString: dateString, completed: changedEvent.isComplete, increment: true)
+            if type == .delete {
+                calendar.deleteDateFromDataSource(dateString)
+            }
+            
+            let dateComponents = dateString.components(separatedBy: " ")
+            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
+            self.frc = EventFRC.frc(for: date)
+            
+            if self.frc != nil {
+                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
+                let count = frc?.fetchedObjects?.count
                 
-            } else if type == .update {
-                
-                calendar.updateDataSource(dateString: dateString, completed: changedEvent.isComplete, increment: false)
-                
+                if count! > 0 {
+                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
+                }
             }
         }
     }

@@ -105,11 +105,10 @@ class ManagedObjectBuilder: NSObject {
     static func setEventComplete(_ event: Event) -> Bool {
         if event.giftState == ActionSelectionStates.selected.rawValue || event.cardState == ActionSelectionStates.selected.rawValue || event.phoneState == ActionSelectionStates.selected.rawValue {
             event.isComplete = false
-            return false
         } else {
             event.isComplete = true
-            return true
         }
+        return event.isComplete
     }
     
     static func getEventBy(uuid: String) -> Event? {

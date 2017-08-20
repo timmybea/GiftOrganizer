@@ -163,17 +163,7 @@ class CustomCalendar: UIView {
     
     func deleteDateFromDataSource(_ dateString: String) {
         
-        var data = self.dataSource?[dateString]
-        
-        if data != nil {
-            data?.eventCount -= 1
-            
-            if data?.eventCount == 0 {
-                self.dataSource?.removeValue(forKey: dateString)
-            } else {
-                self.dataSource?[dateString] = data
-            }
-        }
+        self.dataSource?.removeValue(forKey: dateString)
         
         DispatchQueue.main.async {
             self.calendarView.reloadData()
@@ -181,20 +171,20 @@ class CustomCalendar: UIView {
         
     }
     
-    func updateDataSource(dateString: String, completed: Bool, increment: Bool) {
+    func updateDataSource(dateString: String, count: Int, completed: Bool) {
+        
         var data = self.dataSource?[dateString]
         
         if data != nil {
             
-            data?.eventsCompleted = data?.eventsCompleted == true ? true : completed
-            
-            if increment {
-                data?.eventCount += 1
-            }
+            data?.eventsCompleted = completed
+            data?.eventCount = count
             self.dataSource?[dateString] = data
             
         } else {
-            self.dataSource?[dateString] = CalendarEventData(eventCount: 1, eventsCompleted: completed)
+            
+            self.dataSource?[dateString] = CalendarEventData(eventCount: count, eventsCompleted: completed)
+        
         }
         
         DispatchQueue.main.async {
