@@ -98,11 +98,11 @@ class CalendarViewController: CustomViewController {
     
     fileprivate func checkActionsComplete(events: [Event]) -> Bool {
         for event in events {
-            if event.isComplete == true {
-                return true
+            if event.isComplete == false {
+                return false
             }
         }
-        return false
+        return true
     }
     
     //MARK: action state changed (sent by event display view cell)
