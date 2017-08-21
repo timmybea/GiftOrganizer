@@ -68,6 +68,8 @@ class CustomCalendar: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        
+        
         setupDayHeader()
         self.calendarView.isHidden = true
         setupCalendarView()
@@ -161,30 +163,28 @@ class CustomCalendar: UIView {
         
     }
     
-    func deleteDateFromDataSource(_ dateString: String) {
-        
-        self.dataSource?.removeValue(forKey: dateString)
-        
-        DispatchQueue.main.async {
-            self.calendarView.reloadData()
-        }
-        
-    }
-    
+//    func deleteDateFromDataSource(_ dateString: String) {
+//        
+//        self.dataSource?.removeValue(forKey: dateString)
+//        
+//        DispatchQueue.main.async {
+//            self.calendarView.reloadData()
+//        }
+//        
+//    }
+//    
     func updateDataSource(dateString: String, count: Int, completed: Bool) {
         
         var data = self.dataSource?[dateString]
         
         if data != nil {
-            
             data?.eventsCompleted = completed
             data?.eventCount = count
             self.dataSource?[dateString] = data
-            
         } else {
             
-            self.dataSource?[dateString] = CalendarEventData(eventCount: count, eventsCompleted: completed)
-        
+            //UNUSED! THIS IS FOR NEW EVENT NOT UPDATE
+            self.dataSource?[dateString] = CalendarEventData(eventCount: count, eventsCompleted: completed)        
         }
         
         DispatchQueue.main.async {

@@ -41,6 +41,9 @@ class CalendarViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Register to listen for NSNotificationCenter
+        NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
+        
         self.frc?.delegate = self
         setupNavigationBar()
         setupSubviews()
@@ -102,13 +105,31 @@ class CalendarViewController: CustomViewController {
         return false
     }
     
+    //MARK: action state changed (sent by event display view cell)
+
+    @objc private func actionStateChanged(notification: NSNotification) {
+        
+        guard let dateString = notification.userInfo?["dateString"] as? String else { return }
+        
+        let dateComponents = dateString.components(separatedBy: " ")
+        guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
+        self.frc = EventFRC.frc(for: date)
+
+        if self.frc != nil {
+            let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
+            let count = frc?.fetchedObjects?.count
+            
+            if count! > 0 {
+                calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
+            }
+        }
+    }
     
     func pushToCreateEvent() {
         print("push to create event")
     }
 
     //MARK: Orientation change methods
-    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
@@ -278,25 +299,25 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
-            
-            if type == .delete {
-                calendar.deleteDateFromDataSource(dateString)
-            }
-            
-            let dateComponents = dateString.components(separatedBy: " ")
-            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
-            self.frc = EventFRC.frc(for: date)
-            
-            if self.frc != nil {
-                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
-                let count = frc?.fetchedObjects?.count
-                
-                if count! > 0 {
-                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
-                }
-            }
-        }
+//        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
+//            
+//            if type == .delete {
+//                calendar.deleteDateFromDataSource(dateString)
+//            }
+//            
+//            let dateComponents = dateString.components(separatedBy: " ")
+//            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
+//            self.frc = EventFRC.frc(for: date)
+//            
+//            if self.frc != nil {
+//                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
+//                let count = frc?.fetchedObjects?.count
+//                
+//                if count! > 0 {
+//                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
+//                }
+//            }
+//        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

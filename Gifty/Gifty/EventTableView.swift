@@ -64,7 +64,7 @@ class EventTableView: UIView {
         super.init(frame: frame)
         
         //Register to listen for NSNotificationCenter
-        NotificationCenter.default.addObserver(self, selector: #selector(testReceived(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
 
     }
     
@@ -72,19 +72,14 @@ class EventTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func testReceived(notification: NSNotification) {
-        print("TEST NOTIFICATION RECEIVED")
+    func actionStateChanged(notification: NSNotification) {
         
         if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
-            print("RELOAD DATA")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
         }
     }
-    
-
 }
 
 
