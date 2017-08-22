@@ -34,6 +34,8 @@ class EventTableView: UIView {
         }
     }
     
+    var displayDateString: String? = nil
+    
     var eventLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +74,7 @@ class EventTableView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func actionStateChanged(notification: NSNotification) {
+    @objc private func actionStateChanged(notification: NSNotification) {
         
         if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
             DispatchQueue.main.async {
@@ -80,6 +82,12 @@ class EventTableView: UIView {
             }
         }
     }
+    
+//    func reloadDataForTableView() {
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//    }
 }
 
 

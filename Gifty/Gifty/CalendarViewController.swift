@@ -150,9 +150,11 @@ extension CalendarViewController: CustomCalendarDelegate {
                 print(date)
                 frc = EventFRC.frc(for: date)
                 frc?.delegate = self
+                eventDisplayView.displayDateString = DateHandler.stringFromDate(date)
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
                 print("Don't show info")
+                eventDisplayView.displayDateString = nil
                 eventDisplayView.orderedEvents = nil
             }
     }
@@ -299,25 +301,41 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-//        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
-//            
+        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
+            
+            
+            let dateComponents = dateString.components(separatedBy: " ")
+            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
+            
 //            if type == .delete {
 //                calendar.deleteDateFromDataSource(dateString)
 //            }
-//            
-//            let dateComponents = dateString.components(separatedBy: " ")
-//            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
-//            self.frc = EventFRC.frc(for: date)
-//            
-//            if self.frc != nil {
-//                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
-//                let count = frc?.fetchedObjects?.count
-//                
-//                if count! > 0 {
-//                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
-//                }
-//            }
-//        }
+
+            if type == .insert {
+                
+                if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+                    self.hideShowInfoForSelectedDate(date, show: true)
+                }
+                
+                                
+                //update the datasource for the calendar view
+                
+                
+            }
+            
+            
+
+            self.frc = EventFRC.frc(for: date)
+            
+            if self.frc != nil {
+                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
+                let count = frc?.fetchedObjects?.count
+                
+                if count! > 0 {
+                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
+                }
+            }
+        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

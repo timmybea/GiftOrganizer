@@ -18,7 +18,7 @@ class EventDisplayViewCalendar: EventTableView {
     var stackViewDelegate: StackViewDelegate?
     
     var isSnapped = false
-    
+        
     let swipeIcon: UIImageView = {
         let swipeIcon = UIImage(named: ImageNames.swipeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: swipeIcon)
@@ -53,6 +53,15 @@ class EventDisplayViewCalendar: EventTableView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func currentlyDisplaying(dateString: String) -> Bool {
+        
+        if let currentDate = self.displayDateString {
+            return currentDate == dateString
+        } else {
+            return false
+        }
+    }
+    
     
     func setupSubviews(in superView: UIView) {
         
