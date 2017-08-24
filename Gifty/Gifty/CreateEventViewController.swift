@@ -231,6 +231,11 @@ extension CreateEventViewController {
                     
                     print("successfully added event")
                     
+                    //send notification
+                    guard let dateString = event?.dateString else { return }
+                    let userInfo = ["dateString": dateString]
+                    NotificationCenter.default.post(name: Notifications.Names.newEventCreated.Name, object: nil, userInfo: userInfo)
+                    
                     if self.delegate != nil {
                         self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
                     }

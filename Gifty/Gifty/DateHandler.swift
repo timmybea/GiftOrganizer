@@ -29,6 +29,12 @@ class DateHandler: NSObject {
         return dateFormatter.date(from: "\(yyyy) \(MM) \(dd) \(HH)-\(mm)-\(ss)")
     }
     
+    static func dateFromDateString(_ dateString: String) -> Date? {
+        let dateComponents = dateString.components(separatedBy: " ")
+        guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return nil }
+        return date
+    }
+    
     static func stringFromDate(_ date: Date) -> String {
         dateFormatter.dateFormat = "yyyy MM dd"
         return dateFormatter.string(from: date)

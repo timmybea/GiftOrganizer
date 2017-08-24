@@ -43,6 +43,7 @@ class CalendarViewController: CustomViewController {
         
         //Register to listen for NSNotificationCenter
         NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newEventCreated(notification:)), name: Notifications.Names.newEventCreated.Name, object: nil)
         
         self.frc?.delegate = self
         setupNavigationBar()
@@ -95,7 +96,6 @@ class CalendarViewController: CustomViewController {
         self.calendar.setDataSource(stringDateCompleteDict: eventDateCompleteDict)
     }
     
-    
     fileprivate func checkActionsComplete(events: [Event]) -> Bool {
         for event in events {
             if event.isComplete == false {
@@ -105,25 +105,47 @@ class CalendarViewController: CustomViewController {
         return true
     }
     
-    //MARK: action state changed (sent by event display view cell)
+    //MARK: NOTIFICATION action state changed (sent by event display view cell)
 
     @objc private func actionStateChanged(notification: NSNotification) {
         
         guard let dateString = notification.userInfo?["dateString"] as? String else { return }
         
-        let dateComponents = dateString.components(separatedBy: " ")
-        guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
-        self.frc = EventFRC.frc(for: date)
-
-        if self.frc != nil {
-            let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
-            let count = frc?.fetchedObjects?.count
+        updateCalendarDataSource(dateString: dateString)
+    }
+    
+    //MARK: NOTIFICATION new event created. Update the display view and the calendar action view.
+    @objc private func newEventCreated(notification: NSNotification) {
+    
+        guard let dateString = notification.userInfo?["dateString"] as? String else { return }
+        
+        if let date = DateHandler.dateFromDateString(dateString) {
             
-            if count! > 0 {
-                calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
+            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+                
+                self.hideShowInfoForSelectedDate(date, show: true)
+            }
+        }
+        
+        updateCalendarDataSource(dateString: dateString)
+    }
+    
+    private func updateCalendarDataSource(dateString: String) {
+        
+        if let date = DateHandler.dateFromDateString(dateString) {
+            self.frc = EventFRC.frc(for: date)
+            
+            if let currFRC = self.frc, let events = currFRC.fetchedObjects {
+                let complete = checkActionsComplete(events: events)
+                let count = events.count
+                
+                if count > 0 {
+                    calendar.updateDataSource(dateString: dateString, count: count, completed: complete)
+                }
             }
         }
     }
+    
     
     func pushToCreateEvent() {
         print("push to create event")
@@ -288,8 +310,6 @@ extension CalendarViewController: StackViewDelegate {
     }
 }
 
-
-
 //MARK: Event FRC delegate methods (update the calendar datasource)
 extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
@@ -312,29 +332,27 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 //            }
 
             if type == .insert {
-                
-                if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
-                    self.hideShowInfoForSelectedDate(date, show: true)
-                }
-                
-                                
-                //update the datasource for the calendar view
-                
-                
-            }
-            
-            
 
-            self.frc = EventFRC.frc(for: date)
-            
-            if self.frc != nil {
-                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
-                let count = frc?.fetchedObjects?.count
+                //This has now been moved to an NSNotification
+//                if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+//                    self.hideShowInfoForSelectedDate(date, show: true)
+//                }
                 
-                if count! > 0 {
-                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
-                }
+                
             }
+            
+            
+            //update datasource for calendar view
+//            self.frc = EventFRC.frc(for: date)
+//            
+//            if self.frc != nil {
+//                let complete = checkActionsComplete(events: (frc?.fetchedObjects)!)
+//                let count = frc?.fetchedObjects?.count
+//                
+//                if count! > 0 {
+//                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
+//                }
+//            }
         }
     }
     
