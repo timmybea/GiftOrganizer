@@ -8,14 +8,18 @@
 
 import UIKit
 
-protocol StackViewDelegate {
+protocol EventDisplayViewCalendarDelegate: EventTableViewDelegate {
     func eventDisplayPosition(up: Bool)
     func stackViewPan(panRecognizer: UIPanGestureRecognizer)
 }
 
 class EventDisplayViewCalendar: EventTableView {
 
-    var stackViewDelegate: StackViewDelegate?
+    private var eventDisplayViewDelegate: EventDisplayViewCalendarDelegate?
+    override var delegate: EventTableViewDelegate? {
+        set { self.eventDisplayViewDelegate = newValue as! EventDisplayViewCalendarDelegate? }
+        get { return self.eventDisplayViewDelegate }
+    }
     
     var isSnapped = false
         
@@ -93,11 +97,7 @@ class EventDisplayViewCalendar: EventTableView {
     
     //MARK: setup pan
     func handlePan(panRecognizer: UIPanGestureRecognizer) {
-        
-        if stackViewDelegate != nil {
-            stackViewDelegate?.stackViewPan(panRecognizer: panRecognizer)
-        }
-
+            self.eventDisplayViewDelegate?.stackViewPan(panRecognizer: panRecognizer)
     }
     
     var heightConstraintTableView: NSLayoutConstraint?
@@ -124,9 +124,7 @@ class EventDisplayViewCalendar: EventTableView {
             self.tableView.layoutIfNeeded()
         }, completion: nil)
         
-        if self.stackViewDelegate != nil {
-            self.stackViewDelegate?.eventDisplayPosition(up: true)
-        }
+        self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
     }
     
     func eventDisplayTouchedBoundary() {
@@ -145,8 +143,6 @@ class EventDisplayViewCalendar: EventTableView {
             self.tableView.layoutIfNeeded()
         }, completion: nil)
         
-        if self.stackViewDelegate != nil {
-            self.stackViewDelegate?.eventDisplayPosition(up: false)
-        }
+        self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
     }
 }

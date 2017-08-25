@@ -25,7 +25,6 @@ class CalendarViewController: CustomViewController {
     
     lazy var eventDisplayView: EventDisplayViewCalendar = {
         let view = EventDisplayViewCalendar(frame: self.view.frame, in: self.view)
-        view.stackViewDelegate = self
         view.delegate = self
         return view
     }()
@@ -265,7 +264,7 @@ extension CalendarViewController: UICollisionBehaviorDelegate {
 }
 
 //MARK: Event Display View Delegate
-extension CalendarViewController: StackViewDelegate {
+extension CalendarViewController: EventDisplayViewCalendarDelegate {
     
     func eventDisplayPosition(up: Bool) {
         if up {
@@ -321,27 +320,27 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
-            
-            
-            let dateComponents = dateString.components(separatedBy: " ")
-            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
-            
+//        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
+//            
+//            
+//            let dateComponents = dateString.components(separatedBy: " ")
+//            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
+//            
 //            if type == .delete {
 //                calendar.deleteDateFromDataSource(dateString)
 //            }
-
-            if type == .insert {
-
+//
+//            if type == .insert {
+//
                 //This has now been moved to an NSNotification
 //                if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
 //                    self.hideShowInfoForSelectedDate(date, show: true)
 //                }
-                
-                
-            }
-            
-            
+//                
+//                
+//            }
+//            
+//            
             //update datasource for calendar view
 //            self.frc = EventFRC.frc(for: date)
 //            
@@ -353,7 +352,7 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 //                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
 //                }
 //            }
-        }
+//        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {

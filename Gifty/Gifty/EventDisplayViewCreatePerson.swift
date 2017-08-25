@@ -8,13 +8,17 @@
 
 import UIKit
 
-protocol AddButtonDelegate {
+protocol EventDisplayViewPersonDelegate: EventTableViewDelegate {
     func didTouchAddEventButton()
 }
 
 class EventDisplayViewCreatePerson: EventTableView {
 
-    var addButtonDelegate: AddButtonDelegate?
+    fileprivate var eventDisplayViewPersonDelegate: EventDisplayViewPersonDelegate?
+    override var delegate: EventTableViewDelegate? {
+        get { return eventDisplayViewPersonDelegate }
+        set { self.eventDisplayViewPersonDelegate = newValue as! EventDisplayViewPersonDelegate? }
+    }
     
     override internal func updateEventLabelForEventsCount() {
         if let events = orderedEvents, events.count > 0 {
@@ -70,9 +74,7 @@ extension EventDisplayViewCreatePerson {
     
     func addButtonTouchedUpInside() {
         addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
-        if self.addButtonDelegate != nil {
-            self.addButtonDelegate?.didTouchAddEventButton()
-        }
+        self.eventDisplayViewPersonDelegate?.didTouchAddEventButton()
     }
 }
 
