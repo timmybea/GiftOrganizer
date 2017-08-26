@@ -129,7 +129,7 @@ class CalendarViewController: CustomViewController {
         updateCalendarDataSource(dateString: dateString)
     }
     
-    private func updateCalendarDataSource(dateString: String) {
+    fileprivate func updateCalendarDataSource(dateString: String) {
         
         if let date = DateHandler.dateFromDateString(dateString) {
             self.frc = EventFRC.frc(for: date)
@@ -320,16 +320,16 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
-//        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
-//            
-//            
-//            let dateComponents = dateString.components(separatedBy: " ")
-//            guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return }
-//            
-//            if type == .delete {
-//                calendar.deleteDateFromDataSource(dateString)
-//            }
-//
+        if let changedEvent = anObject as? Event, let dateString = changedEvent.dateString {
+
+            if type == .delete {
+                calendar.deleteDateFromDataSource(dateString)
+            }
+            
+//            guard let date = DateHandler.dateFromDateString(dateString) else { return }
+
+            self.updateCalendarDataSource(dateString: dateString)
+
 //            if type == .insert {
 //
                 //This has now been moved to an NSNotification
@@ -352,7 +352,7 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 //                    calendar.updateDataSource(dateString: dateString, count: count!, completed: complete)
 //                }
 //            }
-//        }
+        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -376,11 +376,12 @@ extension CalendarViewController: EventTableViewDelegate {
     }
     
     func didTouchDeleteEvent(event: Event) {
-        
         event.managedObjectContext?.delete(event)
         
+        ManagedObjectBuilder.saveChanges { (success) in
+            //
+        }
     }
-    
 }
 
 

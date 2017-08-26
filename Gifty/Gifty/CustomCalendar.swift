@@ -15,16 +15,14 @@ protocol CustomCalendarDelegate {
     func monthYearLabelWasUpdated(_ string: String)
 }
 
-struct CalendarEventData {
-    var eventCount: Int
-    var eventsCompleted: Bool
-}
+typealias CalendarEventData = (eventCount: Int, eventsCompleted: Bool)
 
 class CustomCalendar: UIView {
     
     fileprivate let gregorianCalendar: Calendar = Calendar(identifier: .gregorian)
     
     var delegate: CustomCalendarDelegate?
+    
     
     fileprivate var dataSource: Dictionary<String, CalendarEventData>?
     
@@ -67,8 +65,6 @@ class CustomCalendar: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
         
         setupDayHeader()
         self.calendarView.isHidden = true
@@ -163,16 +159,16 @@ class CustomCalendar: UIView {
         
     }
     
-//    func deleteDateFromDataSource(_ dateString: String) {
-//        
-//        self.dataSource?.removeValue(forKey: dateString)
-//        
-//        DispatchQueue.main.async {
-//            self.calendarView.reloadData()
-//        }
-//        
-//    }
-//    
+    func deleteDateFromDataSource(_ dateString: String) {
+        
+        self.dataSource?.removeValue(forKey: dateString)
+        
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
+        
+    }
+    
     func updateDataSource(dateString: String, count: Int, completed: Bool) {
         
         var data = self.dataSource?[dateString]

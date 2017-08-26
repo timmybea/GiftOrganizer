@@ -486,10 +486,11 @@ extension CreatePersonViewController: EventTableViewDelegate {
     }
     
     func didTouchDeleteEvent(event: Event) {
-        
-        
         event.managedObjectContext?.delete(event)
         
+        ManagedObjectBuilder.saveChanges { (success) in
+            //
+        }
     }
     
 }
