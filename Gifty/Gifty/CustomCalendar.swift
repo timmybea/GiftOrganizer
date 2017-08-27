@@ -23,7 +23,6 @@ class CustomCalendar: UIView {
     
     var delegate: CustomCalendarDelegate?
     
-    
     fileprivate var dataSource: Dictionary<String, CalendarEventData>?
     
     var previouslySelectedDate: Date?

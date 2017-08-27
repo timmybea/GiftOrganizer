@@ -162,29 +162,30 @@ class EventTableViewCell: UITableViewCell {
     func configureWith(event: Event) {
         
         self.event = event
-
-        if let fullName = event.person?.fullName, let type = event.type {
-            eventTypeLabel.text = "\(fullName) • \(type)"
-        }
-        self.dayLabel.text = DateHandler.stringDayNum(from: event.date! as Date)
-        self.monthLabel.text = DateHandler.stringMonthAbb(from: event.date! as Date).uppercased()
-
-        let count = countIncompleteActions(event: event)
         
-        if count == 0 {
-            self.summaryLabel.text = "All actions completed"
-            completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
-        } else if count > 0 {
-            if count == 1 {
-                self.summaryLabel.text = "You have 1 incomplete action"
-            } else {
-                self.summaryLabel.text = "You have \(count) incomplete actions"
+        if self.event != nil {
+            if let fullName = event.person?.fullName, let type = event.type {
+                eventTypeLabel.text = "\(fullName) • \(type)"
             }
-            completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
+            self.dayLabel.text = DateHandler.stringDayNum(from: event.date! as Date)
+            self.monthLabel.text = DateHandler.stringMonthAbb(from: event.date! as Date).uppercased()
+            
+            let count = countIncompleteActions(event: event)
+            
+            if count == 0 {
+                self.summaryLabel.text = "All actions completed"
+                completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
+            } else if count > 0 {
+                if count == 1 {
+                    self.summaryLabel.text = "You have 1 incomplete action"
+                } else {
+                    self.summaryLabel.text = "You have \(count) incomplete actions"
+                }
+                completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
+            }
+            
+            actionsButtonsView.configureButtonStatesFor(event: event)
         }
-        
-        actionsButtonsView.configureButtonStatesFor(event: event)
-        
     }
     
     private func countIncompleteActions(event: Event) -> Int {

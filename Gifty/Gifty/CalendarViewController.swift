@@ -379,7 +379,12 @@ extension CalendarViewController: EventTableViewDelegate {
         event.managedObjectContext?.delete(event)
         
         ManagedObjectBuilder.saveChanges { (success) in
-            //
+            if success {
+                print("successfully deleted event")
+                
+                let userInfo = ["EventDisplayViewId": eventDisplayView.id]
+                NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+            }
         }
     }
 }

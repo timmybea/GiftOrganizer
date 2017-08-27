@@ -40,11 +40,13 @@ struct Notifications {
     enum Names {
         case actionStateChanged
         case newEventCreated
+        case eventDeleted
     
         var Name: NSNotification.Name {
             switch self {
             case .actionStateChanged: return NSNotification.Name.init("actionStateChanged")
             case .newEventCreated: return NSNotification.Name.init("newEventCreated")
+            case .eventDeleted: return NSNotification.Name.init("eventDeleted")
             }
         }
     }

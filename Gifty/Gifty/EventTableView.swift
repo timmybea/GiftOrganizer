@@ -67,7 +67,7 @@ class EventTableView: UIView {
         
         //Register to listen for NSNotificationCenter
         NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -83,11 +83,14 @@ class EventTableView: UIView {
         }
     }
     
-//    func reloadDataForTableView() {
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
-//    }
+    @objc private func eventDeleted(notification: NSNotification) {
+        
+        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
 }
 
 
@@ -146,9 +149,10 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         editAction.backgroundColor = Theme.colors.yellow.color
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
             if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
-                self.orderedEvents?.remove(at: indexPath.row)
+               self.orderedEvents?.remove(at: indexPath.row)
                 self.delegate?.didTouchDeleteEvent(event: event)
             }
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color

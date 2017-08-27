@@ -489,7 +489,10 @@ extension CreatePersonViewController: EventTableViewDelegate {
         event.managedObjectContext?.delete(event)
         
         ManagedObjectBuilder.saveChanges { (success) in
-            //
+            //send notification
+            guard let dateString = event.dateString else { return }
+            let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
+            NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
         }
     }
     
