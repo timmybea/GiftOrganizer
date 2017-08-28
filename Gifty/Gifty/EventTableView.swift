@@ -11,6 +11,7 @@ import UIKit
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
+    func dataSourceNeedsUpdate(dateString: String)
 }
 
 class EventTableView: UIView {
@@ -85,7 +86,10 @@ class EventTableView: UIView {
     
     @objc private func eventDeleted(notification: NSNotification) {
         
-        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
+        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String, senderId != self.id {
+            
+            self.delegate?.dataSourceNeedsUpdate(dateString: dateString)
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

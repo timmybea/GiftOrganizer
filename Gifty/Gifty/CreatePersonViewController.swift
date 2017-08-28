@@ -240,6 +240,15 @@ class CreatePersonViewController: CustomViewController {
         
         }
     }
+    
+    func updateEventDisplayViewWithOrderedEvents() {
+        if let events = self.person?.event?.allObjects as? [Event] {
+            
+            //TO DO: correctly order the events by date
+            self.eventTableView.orderedEvents = events
+        }
+    }
+    
 }
 
     //MARK: UPDATE PERSON SETUP
@@ -473,6 +482,10 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
 
+    func dataSourceNeedsUpdate(dateString: String) {
+        self.updateEventDisplayViewWithOrderedEvents()
+    }
+
     func didTouchEditEvent(event: Event) {
         
         print("Edit existing event")
@@ -486,15 +499,17 @@ extension CreatePersonViewController: EventTableViewDelegate {
     }
     
     func didTouchDeleteEvent(event: Event) {
+        guard let dateString = event.dateString else { return }
         event.managedObjectContext?.delete(event)
         
         ManagedObjectBuilder.saveChanges { (success) in
             //send notification
-            guard let dateString = event.dateString else { return }
+            
             let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
             NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
         }
     }
+    
     
 }
 
@@ -551,13 +566,6 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
         updateEventDisplayViewWithOrderedEvents()
     }
     
-    func updateEventDisplayViewWithOrderedEvents() {
-        if let events = self.person?.event?.allObjects as? [Event] {
-            
-            //TO DO: correctly order the events by date
-            self.eventTableView.orderedEvents = events
-        }
-    }
     
 }
 
