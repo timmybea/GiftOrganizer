@@ -63,6 +63,8 @@ class CreatePersonViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
+        
         self.title = "Add Person"
         
         navigationItem.hidesBackButton = true
@@ -247,6 +249,10 @@ class CreatePersonViewController: CustomViewController {
             //TO DO: correctly order the events by date
             self.eventTableView.orderedEvents = events
         }
+    }
+    
+    @objc func eventDeleted(notification: NSNotification) {
+        self.updateEventDisplayViewWithOrderedEvents()
     }
     
 }
@@ -482,10 +488,6 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
 
-    func dataSourceNeedsUpdate(dateString: String) {
-        self.updateEventDisplayViewWithOrderedEvents()
-    }
-
     func didTouchEditEvent(event: Event) {
         
         print("Edit existing event")
@@ -503,10 +505,16 @@ extension CreatePersonViewController: EventTableViewDelegate {
         event.managedObjectContext?.delete(event)
         
         ManagedObjectBuilder.saveChanges { (success) in
-            //send notification
-            
-            let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
-            NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+            if success {
+                //send notification
+                
+                let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
+                
+                notificationDispatch.async {
+                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
+                    NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                }
+            }
         }
     }
     

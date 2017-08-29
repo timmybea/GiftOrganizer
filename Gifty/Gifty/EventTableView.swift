@@ -11,7 +11,7 @@ import UIKit
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
-    func dataSourceNeedsUpdate(dateString: String)
+    //func dataSourceNeedsUpdate(dateString: String)
 }
 
 class EventTableView: UIView {
@@ -68,7 +68,7 @@ class EventTableView: UIView {
         
         //Register to listen for NSNotificationCenter
         NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -84,17 +84,17 @@ class EventTableView: UIView {
         }
     }
     
-    @objc private func eventDeleted(notification: NSNotification) {
-        
-        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String, senderId != self.id {
-            
-            self.delegate?.dataSourceNeedsUpdate(dateString: dateString)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+//    @objc private func eventDeleted(notification: NSNotification) {
+//        
+//        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String, senderId != self.id {
+//            
+//            self.delegate?.dataSourceNeedsUpdate(dateString: dateString)
+//            
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
+//    }
 }
 
 

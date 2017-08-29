@@ -43,6 +43,7 @@ class CalendarViewController: CustomViewController {
         //Register to listen for NSNotificationCenter
         NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(newEventCreated(notification:)), name: Notifications.Names.newEventCreated.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
         
         self.frc?.delegate = self
         setupNavigationBar()
@@ -141,6 +142,21 @@ class CalendarViewController: CustomViewController {
                 if count > 0 {
                     calendar.updateDataSource(dateString: dateString, count: count, completed: complete)
                 }
+            }
+        }
+    }
+    
+    @objc private func eventDeleted(notification:NSNotification) {
+    
+        guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String else { return }
+        
+        if senderId != eventDisplayView.id {
+            calendar.deleteDateFromDataSource(dateString)
+            self.updateCalendarDataSource(dateString: dateString)
+            
+            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+                guard let date = DateHandler.dateFromDateString(dateString) else { return }
+                self.hideShowInfoForSelectedDate(date, show: true)
             }
         }
     }
@@ -331,19 +347,19 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 
 extension CalendarViewController: EventTableViewDelegate {
     
-    func dataSourceNeedsUpdate(dateString: String) {
-        
-        calendar.deleteDateFromDataSource(dateString)
-        self.updateCalendarDataSource(dateString: dateString)
+   // func dataSourceNeedsUpdate(dateString: String) {
+//        
+//        calendar.deleteDateFromDataSource(dateString)
+//        self.updateCalendarDataSource(dateString: dateString)
+//    
+//        //>>>> YOU ARE HERE
+//        if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+//            guard let date = DateHandler.dateFromDateString(dateString) else { return }
+//            self.hideShowInfoForSelectedDate(date, show: true)
+//        }
+//        
     
-        //>>>> YOU ARE HERE
-        if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
-            guard let date = DateHandler.dateFromDateString(dateString) else { return }
-            self.hideShowInfoForSelectedDate(date, show: true)
-        }
-        
-    
-    }
+    //}
 
     
     func didTouchEditEvent(event: Event) {
@@ -366,8 +382,12 @@ extension CalendarViewController: EventTableViewDelegate {
             if success {
                 print("successfully deleted event")
                 
-                let userInfo = ["EventDisplayViewId": eventDisplayView.id]
-                NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
+                
+                notificationDispatch.async {
+                    let userInfo = ["EventDisplayViewId": self.eventDisplayView.id]
+                    NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                }
                 
                 calendar.deleteDateFromDataSource(dateString)
                 self.updateCalendarDataSource(dateString: dateString)
