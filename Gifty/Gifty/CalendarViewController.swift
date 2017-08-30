@@ -52,8 +52,6 @@ class CalendarViewController: CustomViewController {
  
         let timer = ScheduledTimer()
         timer.delegate = self
-        
-        //SAMPLE COMMENT
     }
     
     

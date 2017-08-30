@@ -118,6 +118,7 @@ class CustomCalendarCell: JTAppleCell {
             self.dateLabel.textColor = staySelected ? Theme.colors.lightToneTwo.color : UIColor.white
         } else {
             self.dateLabel.textColor = UIColor.clear
+            self.selectedDateView.isHidden = true
         }
         
         actionSpot.isHidden = actionDateString == DateHandler.stringFromDate(cellState.date) ? false : true

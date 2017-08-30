@@ -79,7 +79,7 @@ class ManagedObjectBuilder: NSObject {
     }
     
     //MARK: EVENT MODEL
-    static func addNewEventToPerson(date: Date, type: String, gift: ActionSelectionStates, card: ActionSelectionStates, phone: ActionSelectionStates, person: Person, completion: (_ success: Bool, _ event: Event?) -> Void) {
+    static func addNewEventToPerson(date: Date, type: String, gift: ActionButton.SelectionStates, card: ActionButton.SelectionStates, phone: ActionButton.SelectionStates, person: Person, completion: (_ success: Bool, _ event: Event?) -> Void) {
         
         guard let moc = moc else {
             completion(false, nil)
@@ -103,7 +103,7 @@ class ManagedObjectBuilder: NSObject {
     }
     
     static func setEventComplete(_ event: Event) -> Bool {
-        if event.giftState == ActionSelectionStates.selected.rawValue || event.cardState == ActionSelectionStates.selected.rawValue || event.phoneState == ActionSelectionStates.selected.rawValue {
+        if event.giftState == ActionButton.SelectionStates.selected.rawValue || event.cardState == ActionButton.SelectionStates.selected.rawValue || event.phoneState == ActionButton.SelectionStates.selected.rawValue {
             event.isComplete = false
         } else {
             event.isComplete = true

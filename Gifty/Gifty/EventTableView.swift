@@ -11,7 +11,6 @@ import UIKit
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
-    //func dataSourceNeedsUpdate(dateString: String)
 }
 
 class EventTableView: UIView {
@@ -41,7 +40,7 @@ class EventTableView: UIView {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Theme.colors.lightToneTwo.color
-        label.text = "No upcoming events"
+        label.text = "You have no upcoming events"
         label.textAlignment = .left
         label.font = Theme.fonts.subtitleText.font
         label.isHidden = false
@@ -68,7 +67,6 @@ class EventTableView: UIView {
         
         //Register to listen for NSNotificationCenter
         NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,25 +74,12 @@ class EventTableView: UIView {
     }
     
     @objc private func actionStateChanged(notification: NSNotification) {
-        
         if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    
-//    @objc private func eventDeleted(notification: NSNotification) {
-//        
-//        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String, senderId != self.id {
-//            
-//            self.delegate?.dataSourceNeedsUpdate(dateString: dateString)
-//            
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
-//    }
 }
 
 
@@ -124,7 +109,6 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         CATransaction.begin()
         
         CATransaction.setCompletionBlock {
-            
             let cell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
             cell.showActionsButtonsView()
         }
@@ -151,38 +135,31 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             }
         }
         editAction.backgroundColor = Theme.colors.yellow.color
+        
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
             if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
                self.orderedEvents?.remove(at: indexPath.row)
                 self.delegate?.didTouchDeleteEvent(event: event)
             }
-            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
         return [deleteAction, editAction]
     }
-    
 }
 
 //MARK: Event Cell Delegate (Save change to event)
 extension EventTableView: EventTableViewCellDelegate {
-    func setAction(_ action: Actions, to state: ActionSelectionStates, for event: Event) {
+    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event) {
         
         let currentEvent = event
         
-        if action == Actions.gift {
-            
+        if action == ActionButton.Actions.gift {
             currentEvent.giftState = state.rawValue
-            
-        } else if action == Actions.card {
-            
+        } else if action == ActionButton.Actions.card {
             currentEvent.cardState = state.rawValue
-            
-        } else if action == Actions.phone {
-            
+        } else if action == ActionButton.Actions.phone {
             currentEvent.phoneState = state.rawValue
-            
         }
         print("\(currentEvent.type!): \(action) was changed to state: \(state.rawValue)")
         
@@ -193,6 +170,7 @@ extension EventTableView: EventTableViewCellDelegate {
             
             //send notification
             guard let dateString = event.dateString else { return }
+            
             let userInfo = ["EventDisplayViewId": self.id, "dateString": dateString]
             NotificationCenter.default.post(name: Notifications.Names.actionStateChanged.Name, object: nil, userInfo: userInfo)
             

@@ -12,7 +12,7 @@ final class CustomImageControl: UIControl {
     
     let imageView: UIImageView = UIImageView()
     var isImageSelected = false
-    var actionsSelectionState: ActionSelectionStates = ActionSelectionStates.unselected
+    var actionsSelectionState: ActionButton.SelectionStates = ActionButton.SelectionStates.unselected
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -43,9 +43,9 @@ class CreateEventViewController: CustomViewController {
         }
     }
     var isRecurringEvent = false
-    var addGift = ActionSelectionStates.unselected
-    var addCard = ActionSelectionStates.unselected
-    var addPhone = ActionSelectionStates.unselected
+    var addGift = ActionButton.SelectionStates.unselected
+    var addCard = ActionButton.SelectionStates.unselected
+    var addPhone = ActionButton.SelectionStates.unselected
     
     var dropDown: DropDownTextField!
     
@@ -53,9 +53,9 @@ class CreateEventViewController: CustomViewController {
     
     
     lazy var actionsButtonsView: ActionsButtonsView = {
-        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionTypes.selectDeselect)
-        //view.backgroundColor = UIColor.blue
-        //view.translatesAutoresizingMaskIntoConstraints = false
+        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.selectDeselect)
+        view.tintUnselected = Theme.colors.lightToneOne.color
+        view.tintSelected = UIColor.white
         view.delegate = self
         return view
     }()
@@ -202,15 +202,15 @@ extension CreateEventViewController: datePickerViewControllerDelegate {
 extension CreateEventViewController: ActionsButtonsViewDelegate {
     
 
-    func setAction(_ action: Actions, to state: ActionSelectionStates) {
+    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
         
-        if action == Actions.gift {
+        if action == ActionButton.Actions.gift {
             self.addGift = state
             print("Event gift state: \(self.addGift.rawValue)")
-        } else if action == Actions.card {
+        } else if action == ActionButton.Actions.card {
             self.addCard = state
             print("Event card state: \(self.addCard.rawValue)")
-        } else if action == Actions.phone {
+        } else if action == ActionButton.Actions.phone {
             self.addPhone = state
             print("Event phone state: \(self.addPhone.rawValue)")
         }

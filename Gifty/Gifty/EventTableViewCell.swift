@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EventTableViewCellDelegate {
-    func setAction(_ action: Actions, to state: ActionSelectionStates, for event: Event)
+    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event)
 }
 
 class EventTableViewCell: UITableViewCell {
@@ -56,7 +56,7 @@ class EventTableViewCell: UITableViewCell {
     }()
     
     lazy var actionsButtonsView: ActionsButtonsView = {
-        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionsSelectionTypes.checkList)
+        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.checkList)
         view.translatesAutoresizingMaskIntoConstraints = false
         //view.tintSelected = Theme.colors.lightToneTwo.color
         //view.tintCompleted = Theme.colors.yellow.color
@@ -192,15 +192,15 @@ class EventTableViewCell: UITableViewCell {
         
         var count = 0
         
-        if event.giftState == ActionSelectionStates.selected.rawValue {
+        if event.giftState == ActionButton.SelectionStates.selected.rawValue {
             count += 1
         }
 
-        if event.cardState == ActionSelectionStates.selected.rawValue {
+        if event.cardState == ActionButton.SelectionStates.selected.rawValue {
             count += 1
         }
         
-        if event.phoneState == ActionSelectionStates.selected.rawValue {
+        if event.phoneState == ActionButton.SelectionStates.selected.rawValue {
             count += 1
         }
         return count
@@ -211,7 +211,7 @@ class EventTableViewCell: UITableViewCell {
 //MARK: ActionsButtons Delegate
 extension EventTableViewCell: ActionsButtonsViewDelegate {
     
-    func setAction(_ action: Actions, to state: ActionSelectionStates) {
+    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
         
         if self.delegate != nil, self.event != nil {
             self.delegate!.setAction(action, to: state, for: self.event!)
