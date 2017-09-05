@@ -44,8 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settingsVC = UINavigationController.setupCustomNavigationController(SettingsViewController())
         
         tabBarController.viewControllers = [calendarVC, peopleVC, settingsVC]
-        
         tabBarController.tabBar.barTintColor = Theme.colors.darkPurple.color
+        tabBarController.tabBar.unselectedItemTintColor = Theme.colors.lightToneOne.color
+        tabBarController.tabBar.tintColor = UIColor.white
+        
+        let icons = [ImageNames.calendarIcon.rawValue, ImageNames.peopleIcon.rawValue, ImageNames.calendarIcon.rawValue]
+        for (index, item) in tabBarController.tabBar.items!.enumerated() {
+            item.title = ""
+            item.image = UIImage(named: icons[index])?.withRenderingMode(.alwaysTemplate)
+            item.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+            
+        }
         
         tabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
         tabBarController.tabBar.layer.shadowOffset = CGSize(width: 2, height: 5)

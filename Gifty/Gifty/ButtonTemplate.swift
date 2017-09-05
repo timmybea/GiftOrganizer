@@ -24,8 +24,6 @@ class ButtonTemplate: UIButton {
         self.backgroundColor = Theme.colors.buttonPurple.color
         
         self.layer.cornerRadius = 5
-//        self.layer.borderWidth = 2
-//        self.layer.borderColor = UIColor.white.cgColor
         
         self.addTarget(self, action: #selector(buttonWasTouchDown), for: .touchDown)
         self.addTarget(self, action: #selector(buttonWasTouchUpInside), for: .touchUpInside)
@@ -38,6 +36,11 @@ class ButtonTemplate: UIButton {
     func buttonWasTouchDown() {
 //        self.backgroundColor = Theme.colors.lightToneOne.color.cgColor
 //        self.layer.borderColor = Theme.colors.lightToneOne.color.cgColor
+    }
+    
+    func addBorder(with color: UIColor) {
+        self.layer.borderWidth = 2
+        self.layer.borderColor = color.cgColor
     }
     
     func buttonWasTouchUpInside() {

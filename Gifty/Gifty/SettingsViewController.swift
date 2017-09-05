@@ -15,8 +15,7 @@ class SettingsViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Settings"
-        
+        self.navigationItem.title = "Settings"
         
         setupButton()
     }

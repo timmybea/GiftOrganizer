@@ -64,7 +64,7 @@ class PeopleViewController: CustomViewController {
     
     private func setupNavigationBar() {
         
-        self.title = "People"
+        self.navigationItem.title = "People"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTouched))
     }

@@ -177,7 +177,7 @@ class CalendarViewController: CustomViewController {
 extension CalendarViewController: CustomCalendarDelegate {
     
     func monthYearLabelWasUpdated(_ string: String) {
-        self.title = string
+        self.navigationItem.title = string
         self.monthYearString = string
     }
 
@@ -285,12 +285,12 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
     func eventDisplayPosition(up: Bool) {
         if up {
             print("display view is up")
-            self.title = "Upcoming Events"
+            self.navigationItem.title = "Upcoming Events"
             navigationItem.rightBarButtonItem?.isEnabled = false
             navigationItem.rightBarButtonItem?.tintColor = UIColor.clear
         } else {
             print("display view is down")
-            self.title = monthYearString
+            self.navigationItem.title = monthYearString
             navigationItem.rightBarButtonItem?.isEnabled = true
             navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         }
