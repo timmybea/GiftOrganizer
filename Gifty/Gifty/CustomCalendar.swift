@@ -225,7 +225,7 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         
         if cellState.dateBelongsTo == .thisMonth {
             validCell.configureCellWith(cellState)
-            self.previouslySelectedDate = date
+            self.previouslySelectedDate = validCell.showInfo ? date : nil
             self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
             validCell.bounceAnimation()
         } else if let prevDate = previouslySelectedDate {
