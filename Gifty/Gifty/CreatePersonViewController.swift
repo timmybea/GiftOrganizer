@@ -257,7 +257,7 @@ class CreatePersonViewController: CustomViewController {
     
 }
 
-    //MARK: UPDATE PERSON SETUP
+//MARK: UPDATE PERSON SETUP
     
 extension CreatePersonViewController {
     func setupViewsForUpdatePerson() {
@@ -267,6 +267,8 @@ extension CreatePersonViewController {
             self.navigationController?.popViewController(animated: true)
             return
         }
+
+        self.navigationItem.title = currentPerson.fullName
         
         if currentPerson.profileImage != nil {
             self.profileImageView.imageView.image = UIImage(data: currentPerson.profileImage! as Data)

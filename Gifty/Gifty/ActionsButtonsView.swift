@@ -166,26 +166,42 @@ class ActionsButtonsView: UIView {
     
     //MARK: Handle imageControl touched
     func addGiftTouched() {
-        handleTouchesFor(imageControl: addGiftImageControl)
-        if self.delegate != nil {
-            delegate?.setAction(ActionButton.Actions.gift, to: addGiftImageControl.actionsSelectionState)
+        if shouldUpdate(imageControl: addGiftImageControl) {
+            handleTouchesFor(imageControl: addGiftImageControl)
+            if self.delegate != nil {
+                delegate?.setAction(ActionButton.Actions.gift, to: addGiftImageControl.actionsSelectionState)
+            }
+            addGiftImageControl.bounceAnimation()
         }
-        addGiftImageControl.bounceAnimation()
     }
     
     func addCardTouched() {
-        handleTouchesFor(imageControl: addCardImageControl)
-        if self.delegate != nil {
-            delegate?.setAction(ActionButton.Actions.card, to: addCardImageControl.actionsSelectionState)
+        if shouldUpdate(imageControl: addCardImageControl) {
+            handleTouchesFor(imageControl: addCardImageControl)
+            if self.delegate != nil {
+                delegate?.setAction(ActionButton.Actions.card, to: addCardImageControl.actionsSelectionState)
+            }
+            addCardImageControl.bounceAnimation()
         }
-        addCardImageControl.bounceAnimation()
     }
     
     func addPhoneTouched() {
-        handleTouchesFor(imageControl: addPhoneImageControl)
-        if self.delegate != nil {
-            delegate?.setAction(ActionButton.Actions.phone, to: addPhoneImageControl.actionsSelectionState)
+        if shouldUpdate(imageControl: addPhoneImageControl) {
+            handleTouchesFor(imageControl: addPhoneImageControl)
+            if self.delegate != nil {
+                delegate?.setAction(ActionButton.Actions.phone, to: addPhoneImageControl.actionsSelectionState)
+            }
+            addPhoneImageControl.bounceAnimation()
         }
-        addPhoneImageControl.bounceAnimation()
     }
+    
+    
+    private func shouldUpdate(imageControl: CustomImageControl) -> Bool {
+        if self.actionsSelectionType == .checkList && imageControl.actionsSelectionState == .unselected {
+            return false
+        } else {
+            return true
+        }
+    }
+
 }
