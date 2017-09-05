@@ -146,6 +146,7 @@ class CalendarViewController: CustomViewController {
         }
     }
     
+    //MARK: NOTIFICATION event deleted.
     @objc private func eventDeleted(notification:NSNotification) {
     
         guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String else { return }

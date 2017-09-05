@@ -201,29 +201,57 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-//    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-//        return frc?.sectionIndexTitles
-//    }
-    
     //MARK: Editing methods
     
-
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let context = self.frc?.managedObjectContext {
-                context.delete((self.frc?.object(at: indexPath))!)
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            
+            var person: Person
+            if self.isSearching {
+                person = self.filteredData[indexPath.row]
+            } else {
+                person = (self.frc?.object(at: indexPath))!
             }
             
+            for event in person.event?.allObjects as! [Event] {
+                
+                guard let dateString = event.dateString else { return }
+                
+                event.managedObjectContext?.delete(event)
+                
+                let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
+                
+                notificationDispatch.async {
+                    let userInfo = ["EventDisplayViewId": "none", "dateString": dateString]
+                    NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                }
+            }
+            
+            person.managedObjectContext?.delete(person)
+            
             ManagedObjectBuilder.saveChanges(completion: { (success) in
-                //do nothing
+                print("Deleted person and their events and saved changes.")
             })
         }
+        deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
+        return [deleteAction]
     }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            if let context = self.frc?.managedObjectContext {
+//                context.delete((self.frc?.object(at: indexPath))!)
+//            }
+//            
+//            ManagedObjectBuilder.saveChanges(completion: { (success) in
+//                //do nothing
+//            })
+//        }
+//    }
 }
 
 extension PeopleViewController {
