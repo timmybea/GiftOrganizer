@@ -78,11 +78,9 @@ class PeopleViewController: CustomViewController {
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navHeight).isActive = true
-        headerView.heightAnchor.constraint(equalToConstant: 88).isActive = true
-        
-        //pull out the height constraint from the header view
         headerViewHeightConstraint = NSLayoutConstraint(item: headerView, attribute: .height, relatedBy: .equal, toItem: headerView, attribute: .height, multiplier: 0, constant: 0)
         headerViewHeightConstraint.isActive = true
+        headerView.addConstraint(headerViewHeightConstraint)
         
         view.addSubview(tableView)
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -236,22 +234,6 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
         return [deleteAction]
     }
-    
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            if let context = self.frc?.managedObjectContext {
-//                context.delete((self.frc?.object(at: indexPath))!)
-//            }
-//            
-//            ManagedObjectBuilder.saveChanges(completion: { (success) in
-//                //do nothing
-//            })
-//        }
-//    }
 }
 
 extension PeopleViewController {

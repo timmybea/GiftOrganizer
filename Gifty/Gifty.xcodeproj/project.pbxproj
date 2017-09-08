@@ -53,6 +53,7 @@
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
+		B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayHeader.swift; sourceTree = "<group>"; };
 		CF30C550C51DFC2BA7982DFC /* Pods-GiftyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.release.xcconfig"; sourceTree = "<group>"; };
 		DFE808D0507F6B5715849CB5 /* Pods-Gifty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gifty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gifty/Pods-Gifty.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -348,6 +350,7 @@
 				B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */,
 				B013B5731EFF21E300107B64 /* CustomCalendar.swift */,
 				B013B5751EFF221000107B64 /* CustomCalendarCell.swift */,
+				B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
+				B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */,
 				B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */,
 				B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */,
 				B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */,
