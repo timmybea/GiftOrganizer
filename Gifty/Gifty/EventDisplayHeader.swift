@@ -64,22 +64,23 @@ class EventDisplayHeader: UIView {
     }
     
     func setFrame(appear: Bool) {
-        if appear {
-            self.frame = self.rectForHeaderAppear
-        } else {
-            self.frame = self.rectForHeaderDisappear
-        }
+        self.frame = appear ? self.rectForHeaderAppear : self.rectForHeaderDisappear
     }
     
-    func headerAppear() {
-        
+    func headerAppearAnimation() {
+        segmentedControl.alpha = 0
         segmentedControl.isHidden = false
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.segmentedControl.alpha = 100
+        }, completion: nil)
     }
     
-    func headerDisappear() {
-        
-        
-        segmentedControl.isHidden = true
+    func headerDisappearAnimation(completion: @escaping (_ success: Bool) -> Void) {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.segmentedControl.alpha = 0
+        }, completion: { (success) in
+            self.segmentedControl.isHidden = true
+            completion(true)
+        })
     }
-    
 }

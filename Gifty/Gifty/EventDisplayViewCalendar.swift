@@ -116,7 +116,7 @@ class EventDisplayViewCalendar: EventTableView {
         addSubview(tableView)
 //        tableView.backgroundColor = UIColor.darkGray
         tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: tableViewHeightDown)
-        header.frame = CGRect(x: 0, y: 0, width: self.frame.width - pad, height: 0)
+        header.setFrame(appear: false)
         tableView.tableHeaderView = header
     }
     
@@ -128,19 +128,12 @@ class EventDisplayViewCalendar: EventTableView {
             
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
             self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightUp)
+            self.header.setFrame(appear: true)
+            self.tableView.tableHeaderView = self.header
 
         }, completion: { (success) in
-            
-            self.header.headerAppear()
-            self.tableView.tableHeaderView = self.header
-            
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-
-            }, completion: nil)
+            self.header.headerAppearAnimation()
         })
-        
-        
-        
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
     }
     
@@ -153,24 +146,15 @@ class EventDisplayViewCalendar: EventTableView {
     
     private func eventDisplayDown() {
         
-        
-        
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-            self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
-            self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
-            
-        }, completion: { (success) in
-        
-            self.tableView.tableHeaderView = UIView()
-            self.header.headerDisappear()
-            self.tableView.tableHeaderView = self.header
-            
-            
-//            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-//                
-//            }, completion: nil)
-        })
-        
+        header.headerDisappearAnimation { (success) in
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+                self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
+                self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
+            }, completion: { (success) in
+                self.header.setFrame(appear: false)
+                self.tableView.tableHeaderView = self.header
+            })
+        }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
     }
 
