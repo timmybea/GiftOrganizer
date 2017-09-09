@@ -45,14 +45,8 @@ class EventDisplayViewCalendar: EventTableView {
         return view
     }()
     
-    var headerViewHeightConstraint: NSLayoutConstraint!
-    let maxHeaderHeight: CGFloat = 88
-    let minHeaderHeight: CGFloat = 0
-    
-    let header: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.blue
-        view.translatesAutoresizingMaskIntoConstraints = false
+    lazy var header: EventDisplayHeader = {
+        let view = EventDisplayHeader(with: self.frame.width - pad)
         return view
     }()
     
@@ -99,17 +93,9 @@ class EventDisplayViewCalendar: EventTableView {
         panGestureView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         panGestureView.bottomAnchor.constraint(equalTo: separatorView.bottomAnchor).isActive = true
         
-        //pan Gesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(panRecognizer:)))
         panGestureView.addGestureRecognizer(panGesture)
-        
-        self.addSubview(header)
-        header.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: smallPad).isActive = true
-        header.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        header.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
-        headerViewHeightConstraint = NSLayoutConstraint(item: header, attribute: .height, relatedBy: .equal, toItem: header, attribute: .height, multiplier: 0, constant: minHeaderHeight)
-        headerViewHeightConstraint.isActive = true
-        header.addConstraint(headerViewHeightConstraint)
+
     }
     
     //MARK: setup pan
@@ -124,17 +110,14 @@ class EventDisplayViewCalendar: EventTableView {
     func setTableViewFrame(with tabHeight: CGFloat, navHeight: CGFloat) {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableViewHeightDown = self.frame.height - self.frame.minY - smallPad - 34 - tabHeight - maxHeaderHeight - smallPad
-        self.tableViewHeightUp = self.frame.height - smallPad - 34 - tabHeight - pad - navHeight - maxHeaderHeight - smallPad
+        self.tableViewHeightDown = self.frame.height - self.frame.minY - 34 - tabHeight
+        self.tableViewHeightUp = self.frame.height - smallPad - 34 - tabHeight - pad - navHeight
             
         addSubview(tableView)
-//        tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: heightDown)
-        tableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: smallPad).isActive = true
-        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
-        tableViewHeightConstraint = NSLayoutConstraint(item: tableView, attribute: .height, relatedBy: .equal, toItem: tableView, attribute: .height, multiplier: 0, constant: tableViewHeightDown)
-        tableViewHeightConstraint.isActive = true
-        tableView.addConstraint(tableViewHeightConstraint)
+//        tableView.backgroundColor = UIColor.darkGray
+        tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: tableViewHeightDown)
+        header.frame = CGRect(x: 0, y: 0, width: self.frame.width - pad, height: 0)
+        tableView.tableHeaderView = header
     }
     
     func eventDisplaySnapped() {
@@ -144,17 +127,15 @@ class EventDisplayViewCalendar: EventTableView {
         UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: { 
             
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
-            
+            self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightUp)
+
         }, completion: { (success) in
             
-            self.header.layoutIfNeeded()
-            self.tableView.layoutIfNeeded()
-            self.headerViewHeightConstraint.constant = self.maxHeaderHeight
-            self.tableViewHeightConstraint.constant = self.tableViewHeightUp
+            self.header.headerAppear()
+            self.tableView.tableHeaderView = self.header
             
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-                self.header.layoutIfNeeded()
-                self.tableView.layoutIfNeeded()
+
             }, completion: nil)
         })
         
@@ -173,24 +154,24 @@ class EventDisplayViewCalendar: EventTableView {
     private func eventDisplayDown() {
         
         
+        
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
+            self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
             
         }, completion: { (success) in
         
-            self.header.layoutIfNeeded()
-            self.tableView.layoutIfNeeded()
-            self.headerViewHeightConstraint.constant = self.minHeaderHeight
-            self.tableViewHeightConstraint.constant = self.tableViewHeightDown
+            self.tableView.tableHeaderView = UIView()
+            self.header.headerDisappear()
+            self.tableView.tableHeaderView = self.header
             
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: { 
-                
-                self.header.layoutIfNeeded()
-                self.tableView.layoutIfNeeded()
-                
-            }, completion: nil)
+            
+//            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+//                
+//            }, completion: nil)
         })
         
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
     }
+
 }
