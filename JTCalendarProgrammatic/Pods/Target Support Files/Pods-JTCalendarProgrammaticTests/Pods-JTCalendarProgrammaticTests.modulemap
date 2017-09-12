@@ -1,6 +1,0 @@
-framework module Pods_JTCalendarProgrammaticTests {
-  umbrella header "Pods-JTCalendarProgrammaticTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
