@@ -36,6 +36,8 @@ class CalendarViewController: CustomViewController {
     var isDragging = false
     var previousPosition: CGPoint?
     var isViewSnapped = false
+    
+    var customTransitionDelegate = CustomTransitionDelegate()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,6 +167,16 @@ class CalendarViewController: CustomViewController {
     
     func pushToCreateEvent() {
         print("push to create event")
+        
+        //TEMPORARY: Example for presentation controller instantiation
+        
+        let overlayVC = OverlayViewController()
+        
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.modalPresentationStyle = .custom
+        
+        self.present(overlayVC, animated: true, completion: nil)
     }
 
     //MARK: Orientation change methods
@@ -347,21 +359,6 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension CalendarViewController: EventTableViewDelegate {
-    
-   // func dataSourceNeedsUpdate(dateString: String) {
-//        
-//        calendar.deleteDateFromDataSource(dateString)
-//        self.updateCalendarDataSource(dateString: dateString)
-//    
-//        //>>>> YOU ARE HERE
-//        if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
-//            guard let date = DateHandler.dateFromDateString(dateString) else { return }
-//            self.hideShowInfoForSelectedDate(date, show: true)
-//        }
-//        
-    
-    //}
-
     
     func didTouchEditEvent(event: Event) {
         

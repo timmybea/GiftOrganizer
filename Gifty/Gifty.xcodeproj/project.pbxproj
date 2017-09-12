@@ -40,6 +40,9 @@
 		B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */; };
 		B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070420B1F0D50DE00D6A027 /* AddDateView.swift */; };
 		B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */; };
+		B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */; };
+		B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E21F677D5A004BD772 /* PresentationController.swift */; };
+		B07A55E51F677DE4004BD772 /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E41F677DE4004BD772 /* OverlayViewController.swift */; };
 		B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
 		B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
@@ -117,6 +120,9 @@
 		B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		B070420B1F0D50DE00D6A027 /* AddDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDateView.swift; sourceTree = "<group>"; };
 		B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletePerson.swift; sourceTree = "<group>"; };
+		B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		B07A55E21F677D5A004BD772 /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		B07A55E41F677DE4004BD772 /* OverlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		B0C205761F22D2C200C3E7ED /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		B0CA63231F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonEventModel.xcdatamodel; sourceTree = "<group>"; };
@@ -254,6 +260,16 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		B07A55DF1F677CC7004BD772 /* PresentationController */ = {
+			isa = PBXGroup;
+			children = (
+				B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */,
+				B07A55E21F677D5A004BD772 /* PresentationController.swift */,
+				B07A55E41F677DE4004BD772 /* OverlayViewController.swift */,
+			);
+			name = PresentationController;
+			sourceTree = "<group>";
+		};
 		B0D514FB1F378000008A88A4 /* CalendarTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +284,7 @@
 		B0D514FC1F37803D008A88A4 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				B07A55DF1F677CC7004BD772 /* PresentationController */,
 				B0D515001F378212008A88A4 /* AppDelegate */,
 				B0D514FF1F3780A5008A88A4 /* Controller */,
 				B0D514FD1F378092008A88A4 /* Model */,
@@ -724,6 +741,7 @@
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
+				B07A55E51F677DE4004BD772 /* OverlayViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
@@ -738,10 +756,12 @@
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
+				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
 				B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */,
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,
 				B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */,
 				B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */,
+				B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */,
 				B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,

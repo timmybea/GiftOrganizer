@@ -11,7 +11,7 @@ import UIKit
 class EventDisplayHeader: UIView {
 
     private var frameWidth: CGFloat = 0.0
-    private let maxHeaderHeight: CGFloat = 88
+    private let maxHeaderHeight: CGFloat = 44
     private let minHeaderHeight: CGFloat = 0
     
     private var rectForHeaderAppear: CGRect {
