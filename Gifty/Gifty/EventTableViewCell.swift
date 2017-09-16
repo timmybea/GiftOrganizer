@@ -58,8 +58,6 @@ class EventTableViewCell: UITableViewCell {
     lazy var actionsButtonsView: ActionsButtonsView = {
         let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.checkList)
         view.translatesAutoresizingMaskIntoConstraints = false
-        //view.tintSelected = Theme.colors.lightToneTwo.color
-        //view.tintCompleted = Theme.colors.yellow.color
         view.delegate = self
         return view
     }()

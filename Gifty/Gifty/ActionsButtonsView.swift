@@ -39,6 +39,7 @@ class ActionsButtonsView: UIView {
     var addGiftImageControl: CustomImageControl!
     var addCardImageControl: CustomImageControl!
     var addPhoneImageControl: CustomImageControl!
+    var budgetImageControl: CustomImageControl?
     
     var tintUnselected = Theme.colors.lightToneOne.color
     var tintSelected = Theme.colors.lightToneTwo.color
@@ -71,10 +72,18 @@ class ActionsButtonsView: UIView {
             subview.removeFromSuperview()
         }
         
-        let imageNames: [ImageNames] = [ImageNames.addGift, ImageNames.addGreetingCard, ImageNames.addPhoneCall]
-        var imageControls = [CustomImageControl]()
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.distribution = .equalSpacing
         
-        for (index, name) in imageNames.enumerated() {
+        var imageNames: [ImageNames] = [ImageNames.addGift, ImageNames.addGreetingCard, ImageNames.addPhoneCall]
+        if self.actionsSelectionType == .checkList {
+            imageNames.insert(ImageNames.calendarIcon, at: 0)
+        }
+        
+        for name in imageNames {
             
             let imageControl = CustomImageControl()
             imageControl.translatesAutoresizingMaskIntoConstraints = false
@@ -83,26 +92,36 @@ class ActionsButtonsView: UIView {
             imageControl.imageView.tintColor = Theme.colors.lightToneOne.color
             imageControl.actionsSelectionState = ActionButton.SelectionStates.unselected
             
-            self.addSubview(imageControl)
-            imageControl.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            imageControl.widthAnchor.constraint(equalToConstant: self.imageSize).isActive = true
             imageControl.heightAnchor.constraint(equalToConstant: self.imageSize).isActive = true
+            imageControl.widthAnchor.constraint(equalToConstant: self.imageSize).isActive = true
             
-            if index == 0 {
-                imageControl.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-            } else if index == 1 {
-                imageControl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-            } else if index == 2 {
-                imageControl.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            switch name {
+            case .addGift:
+                addGiftImageControl = imageControl
+                stackView.addArrangedSubview(addGiftImageControl)
+            case .addGreetingCard:
+                addCardImageControl = imageControl
+                stackView.addArrangedSubview(addCardImageControl)
+            case .addPhoneCall:
+                addPhoneImageControl = imageControl
+                stackView.addArrangedSubview(addPhoneImageControl)
+            case .calendarIcon:
+                budgetImageControl = imageControl
+                stackView.addArrangedSubview(budgetImageControl!)
+            default:
+                print("error setting up stackview")
             }
-        
-            imageControls.append(imageControl)
+
+            addSubview(stackView)
+            stackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+            stackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+            stackView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         }
         
-        self.addGiftImageControl = imageControls[0]
-        self.addCardImageControl = imageControls[1]
-        self.addPhoneImageControl = imageControls[2]
-        
+        if self.budgetImageControl != nil {
+            self.budgetImageControl?.addTarget(self, action: #selector(budgetButtonTouched(sender:)), for: .touchUpInside)
+        }
         addGiftImageControl.addTarget(self, action: #selector(addGiftTouched), for: .touchUpInside)
         addCardImageControl.addTarget(self, action: #selector(addCardTouched), for: .touchUpInside)
         addPhoneImageControl.addTarget(self, action: #selector(addPhoneTouched), for: .touchUpInside)
@@ -165,7 +184,7 @@ class ActionsButtonsView: UIView {
     }
     
     //MARK: Handle imageControl touched
-    func addGiftTouched() {
+    @objc private func addGiftTouched(sender: CustomImageControl) {
         if shouldUpdate(imageControl: addGiftImageControl) {
             handleTouchesFor(imageControl: addGiftImageControl)
             if self.delegate != nil {
@@ -175,7 +194,7 @@ class ActionsButtonsView: UIView {
         }
     }
     
-    func addCardTouched() {
+    @objc private func addCardTouched(sender: CustomImageControl) {
         if shouldUpdate(imageControl: addCardImageControl) {
             handleTouchesFor(imageControl: addCardImageControl)
             if self.delegate != nil {
@@ -185,7 +204,7 @@ class ActionsButtonsView: UIView {
         }
     }
     
-    func addPhoneTouched() {
+    @objc private func addPhoneTouched(sender: CustomImageControl) {
         if shouldUpdate(imageControl: addPhoneImageControl) {
             handleTouchesFor(imageControl: addPhoneImageControl)
             if self.delegate != nil {
@@ -195,7 +214,6 @@ class ActionsButtonsView: UIView {
         }
     }
     
-    
     private func shouldUpdate(imageControl: CustomImageControl) -> Bool {
         if self.actionsSelectionType == .checkList && imageControl.actionsSelectionState == .unselected {
             return false
@@ -203,5 +221,9 @@ class ActionsButtonsView: UIView {
             return true
         }
     }
+    
+    @objc private func budgetButtonTouched(sender: CustomImageControl) {
+        print("BUDGET BUTTON TOUCHED")
 
+    }
 }
