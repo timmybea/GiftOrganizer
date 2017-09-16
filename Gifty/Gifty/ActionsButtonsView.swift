@@ -80,7 +80,7 @@ class ActionsButtonsView: UIView {
         
         var imageNames: [ImageNames] = [ImageNames.addGift, ImageNames.addGreetingCard, ImageNames.addPhoneCall]
         if self.actionsSelectionType == .checkList {
-            imageNames.insert(ImageNames.calendarIcon, at: 0)
+            imageNames.insert(ImageNames.budget, at: 0)
         }
         
         for name in imageNames {
@@ -105,8 +105,9 @@ class ActionsButtonsView: UIView {
             case .addPhoneCall:
                 addPhoneImageControl = imageControl
                 stackView.addArrangedSubview(addPhoneImageControl)
-            case .calendarIcon:
+            case .budget:
                 budgetImageControl = imageControl
+                budgetImageControl?.imageView.tintColor = Theme.colors.yellow.color
                 stackView.addArrangedSubview(budgetImageControl!)
             default:
                 print("error setting up stackview")

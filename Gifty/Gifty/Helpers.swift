@@ -34,6 +34,7 @@ enum ImageNames: String {
     case incompleteIcon = "incomplete_icon"
     case swipeIcon = "swipe_icon"
     case calendarSpot = "cal_spot"
+    case budget = "budget"
 }
 
 struct Notifications {
