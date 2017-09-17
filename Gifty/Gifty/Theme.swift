@@ -53,6 +53,15 @@ struct Theme {
             }
         }
     }
+    
+    static func createMediumLabel() -> UILabel {
+        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.white
+        label.font = Theme.fonts.mediumText.font
+        label.textAlignment = .left
+        return label
+    }
 }
 
 extension UIColor {
@@ -64,3 +73,5 @@ extension UIColor {
         return UIColor(colorLiteralRed: red, green: green , blue: blue, alpha: 1)
     }
 }
+
+

@@ -97,7 +97,7 @@ class CreateEventViewController: CustomViewController {
     func basicSubviewLayout() {
         
         self.backgroundView.isUserInteractionEnabled = true
-        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground)))
+        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:))))
         
         var yVal: CGFloat = 0
         
@@ -115,12 +115,31 @@ class CreateEventViewController: CustomViewController {
         addDateView.delegate = self
         view.addSubview(addDateView)
         
-        yVal += addDateView.frame.height + pad + pad
+        yVal += addDateView.frame.height + pad
+        
+        let actionsLabel = Theme.createMediumLabel()
+        actionsLabel.frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 25)
+        actionsLabel.text = "Select Actions"
+        view.addSubview(actionsLabel)
+
+        yVal += actionsLabel.frame.height + smallPad
         
         actionsButtonsView.frame = CGRect(x: self.view.frame.width / 4, y: yVal, width: self.view.frame.width / 2, height: actionsButtonsView.imageSize)
         view.addSubview(actionsButtonsView)
         actionsButtonsView.setupSubviews()
         
+        //set budget
+        yVal += actionsButtonsView.frame.height + pad
+        
+        let budgetLabel = Theme.createMediumLabel()
+        budgetLabel.frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 25)
+        budgetLabel.text = "Set Budget"
+        view.addSubview(budgetLabel)
+        
+        yVal += budgetLabel.frame.height + smallPad
+        
+        self.budgetView = BudgetView(frame: CGRect(x: pad, y: yVal, width: self.view.frame.width - pad - pad, height: 60))
+        view.addSubview(budgetView)
 
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
@@ -131,7 +150,7 @@ class CreateEventViewController: CustomViewController {
         view.addSubview(saveButton)
     }
     
-    func didTapBackground() {
+    func didTapBackground(sender: UITapGestureRecognizer) {
         dropDown.finishEditingTextField()
     }
 }
