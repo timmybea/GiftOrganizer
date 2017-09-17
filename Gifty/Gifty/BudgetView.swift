@@ -11,7 +11,7 @@ import UIKit
 class BudgetView: UIView {
 
 
-    let budgetLabel: UILabel = {
+    private let budgetLabel: UILabel = {
         let label = Theme.createMediumLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "$0.00"
@@ -19,19 +19,20 @@ class BudgetView: UIView {
         return label
     }()
     
-    let slider: UISlider = {
+    lazy var slider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minimumTrackTintColor = Theme.colors.lightToneOne.color
         slider.maximumTrackTintColor = UIColor.white
         slider.maximumValue = 100.00
+        slider.addTarget(self, action: #selector(sliderChangedValue(sender:)), for: .valueChanged)
         return slider
     }()
     
+
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.backgroundColor = UIColor.blue
         
         setupViews()
     }
@@ -40,7 +41,7 @@ class BudgetView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupViews() {
+    private func setupViews() {
      
         addSubview(slider)
         slider.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -50,8 +51,18 @@ class BudgetView: UIView {
         addSubview(budgetLabel)
         budgetLabel.topAnchor.constraint(equalTo: slider.bottomAnchor, constant: smallPad).isActive = true
         budgetLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        
     }
+    
+    @objc private func sliderChangedValue(sender: UISlider) {
+        
+        let amount = sender.value
+        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.25)
+        let formattedString = CurrencyHandler.formattedString(for: roundedAmount)
+        self.budgetLabel.text = "$\(formattedString)"
+    }
+    
+
+    
 }
 
 

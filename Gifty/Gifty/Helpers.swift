@@ -121,3 +121,11 @@ extension UITextField {
         self.attributedPlaceholder = placeHolder
     }
 }
+
+extension Float {
+ 
+    var dollarString:String {
+        return String(format: "$%.2f", self)
+    }
+
+}
