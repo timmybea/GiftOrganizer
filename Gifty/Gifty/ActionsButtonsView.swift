@@ -30,6 +30,7 @@ struct ActionButton {
 
 protocol ActionsButtonsViewDelegate {
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates)
+    func budgetButtonTouched()
 }
 
 class ActionsButtonsView: UIView {
@@ -198,9 +199,9 @@ class ActionsButtonsView: UIView {
     @objc private func addCardTouched(sender: CustomImageControl) {
         if shouldUpdate(imageControl: addCardImageControl) {
             handleTouchesFor(imageControl: addCardImageControl)
-            if self.delegate != nil {
-                delegate?.setAction(ActionButton.Actions.card, to: addCardImageControl.actionsSelectionState)
-            }
+            
+            self.delegate?.setAction(ActionButton.Actions.card, to: addCardImageControl.actionsSelectionState)
+            
             addCardImageControl.bounceAnimation()
         }
     }
@@ -208,9 +209,9 @@ class ActionsButtonsView: UIView {
     @objc private func addPhoneTouched(sender: CustomImageControl) {
         if shouldUpdate(imageControl: addPhoneImageControl) {
             handleTouchesFor(imageControl: addPhoneImageControl)
-            if self.delegate != nil {
-                delegate?.setAction(ActionButton.Actions.phone, to: addPhoneImageControl.actionsSelectionState)
-            }
+            
+            self.delegate?.setAction(ActionButton.Actions.phone, to: addPhoneImageControl.actionsSelectionState)
+            
             addPhoneImageControl.bounceAnimation()
         }
     }
@@ -225,6 +226,7 @@ class ActionsButtonsView: UIView {
     
     @objc private func budgetButtonTouched(sender: CustomImageControl) {
         print("BUDGET BUTTON TOUCHED")
-
+        
+        self.delegate?.budgetButtonTouched()
     }
 }

@@ -61,6 +61,14 @@ class BudgetView: UIView {
         self.budgetLabel.text = "$\(formattedString)"
     }
     
+    public func getBudgetAmount() -> Float {
+        
+        let amount = slider.value
+        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.25)
+        return roundedAmount
+
+    }
+    
 
     
 }

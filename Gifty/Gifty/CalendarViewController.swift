@@ -170,13 +170,13 @@ class CalendarViewController: CustomViewController {
         
         //TEMPORARY: Example for presentation controller instantiation
         
-        let overlayVC = OverlayViewController()
-        
-        self.transitioningDelegate = self.customTransitionDelegate
-        overlayVC.transitioningDelegate = self.customTransitionDelegate
-        overlayVC.modalPresentationStyle = .custom
-        
-        self.present(overlayVC, animated: true, completion: nil)
+//        let overlayVC = OverlayViewController()
+//        
+//        self.transitioningDelegate = self.customTransitionDelegate
+//        overlayVC.transitioningDelegate = self.customTransitionDelegate
+//        overlayVC.modalPresentationStyle = .custom
+//        
+//        self.present(overlayVC, animated: true, completion: nil)
     }
 
     //MARK: Orientation change methods
@@ -359,6 +359,19 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
 }
 
 extension CalendarViewController: EventTableViewDelegate {
+    
+    func showBudgetInfo(for event: Event) {
+        
+        let overlayVC = OverlayViewController()
+        
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.modalPresentationStyle = .custom
+        
+        self.present(overlayVC, animated: true, completion: nil)
+        
+    }
+
     
     func didTouchEditEvent(event: Event) {
         

@@ -26,6 +26,8 @@ class CreatePersonViewController: CustomViewController {
     var lastName: String?
     var group: String?
     var dob: DateComponents?
+    
+    var customTransitionDelegate = CustomTransitionDelegate()
 
     var orderedEvents: [Event]?
     
@@ -489,6 +491,20 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
+    
+    
+    func showBudgetInfo(for event: Event) {
+        
+        let overlayVC = OverlayViewController()
+        
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.modalPresentationStyle = .custom
+        
+        self.present(overlayVC, animated: true, completion: nil)
+        
+    }
+
 
     func didTouchEditEvent(event: Event) {
         

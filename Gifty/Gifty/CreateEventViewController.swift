@@ -128,7 +128,7 @@ class CreateEventViewController: CustomViewController {
         view.addSubview(actionsButtonsView)
         actionsButtonsView.setupSubviews()
         
-        //set budget
+        //budget view layout
         yVal += actionsButtonsView.frame.height + pad
         
         let budgetLabel = Theme.createMediumLabel()
@@ -141,6 +141,7 @@ class CreateEventViewController: CustomViewController {
         self.budgetView = BudgetView(frame: CGRect(x: pad, y: yVal, width: self.view.frame.width - pad - pad, height: 60))
         view.addSubview(budgetView)
 
+        //save button layout
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
@@ -221,6 +222,9 @@ extension CreateEventViewController: datePickerViewControllerDelegate {
 //MARK: ACTIONS SELECTOR DELEGATE METHODS
 extension CreateEventViewController: ActionsButtonsViewDelegate {
     
+    func budgetButtonTouched() {
+        //do nothing
+    }
 
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
         
@@ -247,21 +251,25 @@ extension CreateEventViewController {
 
             checkSufficientInformationToCreateEvent(completion: { (success) in
                 
-                ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!) { (success, event) in
+                if success {
                     
-                    print("successfully added event")
+                    let budgetAmt = self.budgetView.getBudgetAmount()
                     
-                    //send notification
-                    guard let dateString = event?.dateString else { return }
-                    let userInfo = ["dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.Names.newEventCreated.Name, object: nil, userInfo: userInfo)
-                    
-                    if self.delegate != nil {
-                        self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
+                    ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
+                        
+                        print("successfully added event")
+                        
+                        //send notification
+                        guard let dateString = event?.dateString else { return }
+                        let userInfo = ["dateString": dateString]
+                        NotificationCenter.default.post(name: Notifications.Names.newEventCreated.Name, object: nil, userInfo: userInfo)
+                        
+                        if self.delegate != nil {
+                            self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
+                        }
+                        self.navigationController?.popViewController(animated: true)
                     }
-                    self.navigationController?.popViewController(animated: true)
                 }
-                
             })
         }
         

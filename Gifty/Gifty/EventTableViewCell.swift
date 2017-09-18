@@ -10,6 +10,7 @@ import UIKit
 
 protocol EventTableViewCellDelegate {
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event)
+    func budgetButtonTouched(for event: Event)
 }
 
 class EventTableViewCell: UITableViewCell {
@@ -175,9 +176,9 @@ class EventTableViewCell: UITableViewCell {
                 completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
             } else if count > 0 {
                 if count == 1 {
-                    self.summaryLabel.text = "You have 1 incomplete action"
+                    self.summaryLabel.text = "1 incomplete action"
                 } else {
-                    self.summaryLabel.text = "You have \(count) incomplete actions"
+                    self.summaryLabel.text = "\(count) incomplete actions"
                 }
                 completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
             }
@@ -208,6 +209,13 @@ class EventTableViewCell: UITableViewCell {
 
 //MARK: ActionsButtons Delegate
 extension EventTableViewCell: ActionsButtonsViewDelegate {
+    
+    func budgetButtonTouched() {
+    
+        if self.delegate != nil, self.event != nil {
+            self.delegate!.budgetButtonTouched(for: self.event!)
+        }
+    }
     
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
         

@@ -11,6 +11,7 @@ import UIKit
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
+    func showBudgetInfo(for event: Event)
 }
 
 class EventTableView: UIView {
@@ -150,6 +151,16 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: Event Cell Delegate (Save change to event)
 extension EventTableView: EventTableViewCellDelegate {
+    
+    func budgetButtonTouched(for event: Event) {
+        
+        if self.delegate != nil {
+            self.delegate?.showBudgetInfo(for: event)
+        }
+
+    }
+    
+    
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event) {
         
         let currentEvent = event
@@ -180,4 +191,6 @@ extension EventTableView: EventTableViewCellDelegate {
             }
         }
     }
+    
+    
 }
