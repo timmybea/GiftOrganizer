@@ -225,7 +225,7 @@ class ActionsButtonsView: UIView {
     }
     
     @objc private func budgetButtonTouched(sender: CustomImageControl) {
-        print("BUDGET BUTTON TOUCHED")
+        print("budget button touched")
         
         self.delegate?.budgetButtonTouched()
     }

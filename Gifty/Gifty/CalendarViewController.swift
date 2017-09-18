@@ -362,10 +362,10 @@ extension CalendarViewController: EventTableViewDelegate {
     
     func showBudgetInfo(for event: Event) {
         
-        let overlayVC = OverlayViewController()
-        
+        let overlayVC = OverlayEventBudgetViewController()
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.event = event
         overlayVC.modalPresentationStyle = .custom
         
         self.present(overlayVC, animated: true, completion: nil)

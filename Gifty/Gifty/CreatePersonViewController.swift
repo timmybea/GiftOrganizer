@@ -495,11 +495,11 @@ extension CreatePersonViewController: EventTableViewDelegate {
     
     func showBudgetInfo(for event: Event) {
         
-        let overlayVC = OverlayViewController()
-        
+        let overlayVC = OverlayEventBudgetViewController()
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
         overlayVC.modalPresentationStyle = .custom
+        overlayVC.event = event
         
         self.present(overlayVC, animated: true, completion: nil)
         
