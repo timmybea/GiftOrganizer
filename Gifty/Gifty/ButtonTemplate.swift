@@ -13,12 +13,13 @@ protocol ButtonTemplateDelegate {
 }
 class ButtonTemplate: UIButton {
     
+    let defaultHeight: CGFloat = 35
+    
     var delegate: ButtonTemplateDelegate?
     
-    init(frame: CGRect, title: String) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.setTitle(title, for: .normal)
         self.setTitleColor(UIColor.white, for: .normal)
         self.setTitleColor(Theme.colors.lightToneOne.color, for: .highlighted)
         self.backgroundColor = Theme.colors.buttonPurple.color
@@ -27,6 +28,10 @@ class ButtonTemplate: UIButton {
         
         self.addTarget(self, action: #selector(buttonWasTouchDown), for: .touchDown)
         self.addTarget(self, action: #selector(buttonWasTouchUpInside), for: .touchUpInside)
+    }
+    
+    func setTitle(_ title: String) {
+        self.setTitle(title, for: .normal)
     }
     
     required init?(coder aDecoder: NSCoder) {

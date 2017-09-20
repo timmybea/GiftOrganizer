@@ -145,7 +145,8 @@ class CreateEventViewController: CustomViewController {
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
         let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
-        saveButton = ButtonTemplate(frame: buttonframe, title: "ADD EVENT")
+        saveButton = ButtonTemplate(frame: buttonframe)
+        saveButton.setTitle("ADD EVENT")
         saveButton.addBorder(with: UIColor.white)
         saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
         view.addSubview(saveButton)

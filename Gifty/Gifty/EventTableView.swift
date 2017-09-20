@@ -20,33 +20,33 @@ class EventTableView: UIView {
     
     var orderedEvents: [Event]? {
         didSet {
-            updateEventLabelForEventsCount()
+            //updateEventLabelForEventsCount()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
 
-    func updateEventLabelForEventsCount() {
-        if let events = orderedEvents, events.count > 0 {
-            eventLabel.text = "Upcoming events"
-        } else {
-            eventLabel.text = "You have no upcoming events"
-        }
-    }
+//    func updateEventLabelForEventsCount() {
+//        if let events = orderedEvents, events.count > 0 {
+//            eventLabel.text = "Upcoming events"
+//        } else {
+//            eventLabel.text = "You have no upcoming events"
+//        }
+//    }
     
     var displayDateString: String? = nil
     
-    var eventLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = Theme.colors.lightToneTwo.color
-        label.text = "You have no upcoming events"
-        label.textAlignment = .left
-        label.font = Theme.fonts.subtitleText.font
-        label.isHidden = false
-        return label
-    }()
+//    var eventLabel: UILabel = {
+//        var label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.textColor = Theme.colors.lightToneTwo.color
+//        label.text = "You have no upcoming events"
+//        label.textAlignment = .left
+//        label.font = Theme.fonts.subtitleText.font
+//        label.isHidden = false
+//        return label
+//    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()

@@ -20,16 +20,9 @@ class EventDisplayViewCreatePerson: EventTableView {
         set { self.eventDisplayViewPersonDelegate = newValue as! EventDisplayViewPersonDelegate? }
     }
     
-    override internal func updateEventLabelForEventsCount() {
-        if let events = orderedEvents, events.count > 0 {
-            eventLabel.text = "Upcoming events"
-        } else {
-            eventLabel.text = "You have no upcoming events"
-        }
-    }
-    
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
+        add.translatesAutoresizingMaskIntoConstraints = false
         add.imageView.image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate)
         add.imageView.contentMode = .scaleAspectFit
         add.imageView.tintColor = Theme.colors.lightToneTwo.color
@@ -37,6 +30,16 @@ class EventDisplayViewCreatePerson: EventTableView {
         add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
         return add
     }()
+    
+    private let segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: ["Upcoming", "Overdue"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.tintColor = Theme.colors.lightToneTwo.color
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        return segmentedControl
+    }()
+    
+    var saveButton: ButtonTemplate = ButtonTemplate()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,14 +57,40 @@ class EventDisplayViewCreatePerson: EventTableView {
         
         addSubview(addButton)
         let addSize: CGFloat = 22
-        addButton.frame = CGRect(x: self.bounds.width - pad - addSize, y: smallPad, width: addSize, height: addSize)
+        addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: addSize).isActive = true
+        addButton.widthAnchor.constraint(equalToConstant: addSize).isActive = true
+        
+        addSubview(segmentedControl)
+        segmentedControl.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
+        segmentedControl.rightAnchor.constraint(equalTo: addButton.leftAnchor, constant: -pad).isActive  = true
+        segmentedControl.topAnchor.constraint(equalTo: self.topAnchor, constant: smallPad).isActive = true
+
+        addButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
+        
+        addSubview(saveButton)
+        saveButton.setTitle("SAVE")
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
+        saveButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+        saveButton.heightAnchor.constraint(equalToConstant: saveButton.defaultHeight).isActive = true
+        saveButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -smallPad).isActive = true
+//        saveButton.delegate = self
         
         addSubview(tableView)
-        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
+        tableView.backgroundColor = UIColor.red
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: smallPad).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -smallPad).isActive = true
+        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
+        tableView.rightAnchor.constraint(lessThanOrEqualTo: self.rightAnchor, constant: -pad).isActive = true
         
-        addSubview(eventLabel)
-        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
-        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
+//        addSubview(tableView)
+//        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
+        
+//        addSubview(eventLabel)
+//        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
+//        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
     }
     
 }

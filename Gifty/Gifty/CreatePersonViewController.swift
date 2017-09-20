@@ -50,7 +50,9 @@ class CreatePersonViewController: CustomViewController {
     var dropDown: DropDownTextField!
     
     lazy var addFromContactLabel: ButtonTemplate = {
-        var button = ButtonTemplate(frame: .zero, title: "+ add from contacts")
+        var button = ButtonTemplate(frame: .zero)
+        button.setTitle("+ add from contacts")
+            //ButtonTemplate(frame: .zero, title: "+ add from contacts")
         button.titleLabel?.font = Theme.fonts.mediumText.font
         button.addTarget(self, action: #selector(didTapAddFromContactsLabel), for: .touchUpInside)
         button.backgroundColor = UIColor.clear
@@ -58,7 +60,7 @@ class CreatePersonViewController: CustomViewController {
         return button
     }()
     
-    var saveButton: ButtonTemplate!
+    //var saveButton: ButtonTemplate!
     
     var eventTableView: EventDisplayViewCreatePerson!
     
@@ -230,13 +232,13 @@ class CreatePersonViewController: CustomViewController {
         
         view.addSubview(eventTableView)
         
-        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+        //let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
         
-        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
-        
-        saveButton.delegate = self
-        
-        view.addSubview(saveButton)
+//        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
+//        
+//        saveButton.delegate = self
+//        
+//        view.addSubview(saveButton)
         
         if isUpdatePerson {
         

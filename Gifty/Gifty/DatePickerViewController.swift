@@ -62,7 +62,9 @@ class DatePickerViewController: CustomViewController {
         yVal += calendar.frame.height + pad
         
         let buttonframe = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 35)
-        addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD DATE")
+        //addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD DATE")
+        addDateToEventButton = ButtonTemplate(frame: buttonframe)
+        addDateToEventButton.setTitle("ADD DATE")
         addDateToEventButton.delegate = self
         view.addSubview(addDateToEventButton)
     }
