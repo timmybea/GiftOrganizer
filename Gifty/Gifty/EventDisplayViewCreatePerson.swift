@@ -10,6 +10,7 @@ import UIKit
 
 protocol EventDisplayViewPersonDelegate: EventTableViewDelegate {
     func didTouchAddEventButton()
+    func didTouchSaveButton()
 }
 
 class EventDisplayViewCreatePerson: EventTableView {
@@ -75,7 +76,7 @@ class EventDisplayViewCreatePerson: EventTableView {
         saveButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
         saveButton.heightAnchor.constraint(equalToConstant: saveButton.defaultHeight).isActive = true
         saveButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -smallPad).isActive = true
-//        saveButton.delegate = self
+        saveButton.delegate = self
         
         addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,3 +100,11 @@ extension EventDisplayViewCreatePerson {
     }
 }
 
+
+extension EventDisplayViewCreatePerson: ButtonTemplateDelegate {
+    
+    func buttonWasTouched() {
+        self.eventDisplayViewPersonDelegate?.didTouchSaveButton()
+        
+    }
+}

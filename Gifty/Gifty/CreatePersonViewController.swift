@@ -549,6 +549,92 @@ extension CreatePersonViewController: EventTableViewDelegate {
 //MARK: Add Button Delegate
 
 extension CreatePersonViewController: EventDisplayViewPersonDelegate {
+    
+    func didTouchSaveButton() {
+        
+        print("Save touched")
+        
+        checkSufficientInformationToSave { (success) in
+            if success {
+                //UPDATE EXISTING PERSON
+                if self.person != nil {
+                    
+                    ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
+                        
+                        if success {
+                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                                if !success {
+                                    print("Error occured during save")
+                                }
+                                if self.delegate != nil {
+                                    self.delegate?.didSaveChanges()
+                                }
+                                navigationController?.popViewController(animated: true)
+                            })
+                        } else {
+                            print("Could not update managed object")
+                        }
+                    })
+                } else {
+                    
+                    //SAVE NEW PERSON (No event added)
+                    ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
+                        if success {
+                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                                if success {
+                                    print("Saved new person successfully")
+                                    if self.delegate != nil {
+                                        self.delegate?.didSaveChanges()
+                                    }
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        }
+        
+        //SAVE TEMP PERSON (event added)
+    }
+    
+    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
+        guard firstName != nil && firstName != "" else {
+            completion(false)
+            insufficientInfoAlert(message: "Please add a first name")
+            return
+        }
+        
+        guard group != nil && group != "" else {
+            completion(false)
+            insufficientInfoAlert(message: "Please add a group")
+            return
+        }
+        
+        if isUpdatePerson {
+            guard self.person != nil else {
+                completion(false)
+                print("No person to update")
+                return
+            }
+        }
+        
+        completion(true)
+    }
+    
+    private func insufficientInfoAlert(message: String) {
+        
+        let alertController = UIAlertController(title: "Insufficient Information", message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            //do nothing
+        })
+        
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
 
     func didTouchAddEventButton() {
         print("Add new event!")
@@ -604,92 +690,92 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
 
 
 //MARK: SAVE BUTTON
-extension CreatePersonViewController: ButtonTemplateDelegate {
-    
-    func buttonWasTouched() {
-        
-        print("Save touched")
-
-        checkSufficientInformationToSave { (success) in
-            if success {
-                //UPDATE EXISTING PERSON
-                if self.person != nil {
-                    
-                    ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
-                        
-                        if success {
-                            ManagedObjectBuilder.saveChanges(completion: { (success) in
-                                if !success {
-                                    print("Error occured during save")
-                                }
-                                if self.delegate != nil {
-                                    self.delegate?.didSaveChanges()
-                                }
-                                navigationController?.popViewController(animated: true)
-                            })
-                        } else {
-                            print("Could not update managed object")
-                        }
-                    })
-                } else {
-                    
-                    //SAVE NEW PERSON (No event added)
-                    ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
-                        if success {
-                            ManagedObjectBuilder.saveChanges(completion: { (success) in
-                                if success {
-                                    print("Saved new person successfully")
-                                    if self.delegate != nil {
-                                        self.delegate?.didSaveChanges()
-                                    }
-                                    self.navigationController?.popViewController(animated: true)
-                                }
-                            })
-                        }
-                    })
-                }
-            }
-        }
-    
-        //SAVE TEMP PERSON (event added)
-    }
-    
-    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
-        guard firstName != nil && firstName != "" else {
-            completion(false)
-            insufficientInfoAlert(message: "Please add a first name")
-            return
-        }
-        
-        guard group != nil && group != "" else {
-            completion(false)
-            insufficientInfoAlert(message: "Please add a group")
-            return
-        }
-        
-        if isUpdatePerson {
-            guard self.person != nil else {
-                completion(false)
-                print("No person to update")
-                return
-            }
-        }
-        
-        completion(true)
-    }
-    
-    private func insufficientInfoAlert(message: String) {
-        
-        let alertController = UIAlertController(title: "Insufficient Information", message: message, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            //do nothing
-        })
-        
-        alertController.addAction(okAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
-    
-}
+//extension CreatePersonViewController: ButtonTemplateDelegate {
+//    
+//    func buttonWasTouched() {
+//        
+//        print("Save touched")
+//
+//        checkSufficientInformationToSave { (success) in
+//            if success {
+//                //UPDATE EXISTING PERSON
+//                if self.person != nil {
+//                    
+//                    ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
+//                        
+//                        if success {
+//                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+//                                if !success {
+//                                    print("Error occured during save")
+//                                }
+//                                if self.delegate != nil {
+//                                    self.delegate?.didSaveChanges()
+//                                }
+//                                navigationController?.popViewController(animated: true)
+//                            })
+//                        } else {
+//                            print("Could not update managed object")
+//                        }
+//                    })
+//                } else {
+//                    
+//                    //SAVE NEW PERSON (No event added)
+//                    ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
+//                        if success {
+//                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+//                                if success {
+//                                    print("Saved new person successfully")
+//                                    if self.delegate != nil {
+//                                        self.delegate?.didSaveChanges()
+//                                    }
+//                                    self.navigationController?.popViewController(animated: true)
+//                                }
+//                            })
+//                        }
+//                    })
+//                }
+//            }
+//        }
+//    
+//        //SAVE TEMP PERSON (event added)
+//    }
+//    
+//    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
+//        guard firstName != nil && firstName != "" else {
+//            completion(false)
+//            insufficientInfoAlert(message: "Please add a first name")
+//            return
+//        }
+//        
+//        guard group != nil && group != "" else {
+//            completion(false)
+//            insufficientInfoAlert(message: "Please add a group")
+//            return
+//        }
+//        
+//        if isUpdatePerson {
+//            guard self.person != nil else {
+//                completion(false)
+//                print("No person to update")
+//                return
+//            }
+//        }
+//        
+//        completion(true)
+//    }
+//    
+//    private func insufficientInfoAlert(message: String) {
+//        
+//        let alertController = UIAlertController(title: "Insufficient Information", message: message, preferredStyle: .alert)
+//        
+//        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+//            //do nothing
+//        })
+//        
+//        alertController.addAction(okAction)
+//        
+//        self.present(alertController, animated: true, completion: nil)
+//        
+//    }
+//    
+//}
