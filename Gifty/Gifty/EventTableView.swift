@@ -20,13 +20,14 @@ class EventTableView: UIView {
     
     var orderedEvents: [Event]? {
         didSet {
-            //updateEventLabelForEventsCount()
+            setupDataSources()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-
+    
+    
 //    func updateEventLabelForEventsCount() {
 //        if let events = orderedEvents, events.count > 0 {
 //            eventLabel.text = "Upcoming events"
@@ -80,6 +81,17 @@ class EventTableView: UIView {
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    
+    private func setupDataSources() {
+        
+        EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!) { (upcoming, overdue) in
+            
+            
+            
+        }
+        
     }
 }
 

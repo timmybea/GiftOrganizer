@@ -66,5 +66,26 @@ class EventFRC: NSObject {
             print(error.localizedDescription)
         }
     }
+    
+    static func sortEventsIntoUpcomingAndOverdue(events: [Event], completion: (_ upcomingEvents: [Event]?, _ overdueEvents: [Event]?) -> ()) {
+        
+        var upcoming = [Event]()
+        var overdue = [Event]()
+        
+        let now = DateHandler.localTimeFromUTC(Date())
+        let todayString = DateHandler.stringFromDate(now)
+        guard let today = DateHandler.dateFromDateString(todayString) else { completion(nil, nil); return }
+    
+        for event in events {
+            if let eventDate = event.date as Date? {
+                if eventDate < today && !event.isComplete {
+                    overdue.append(event)
+                } else {
+                    upcoming.append(event)
+                }
+            }
+        }
+        completion(upcoming, overdue)
+    }
 }
 

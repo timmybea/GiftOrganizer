@@ -67,5 +67,4 @@ class DateHandler: NSObject {
         let secondsFromGMT = Calendar.current.timeZone.secondsFromGMT()
         return date.addingTimeInterval(TimeInterval(secondsFromGMT * -1))
     }
-    
 }

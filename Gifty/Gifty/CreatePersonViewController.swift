@@ -52,15 +52,12 @@ class CreatePersonViewController: CustomViewController {
     lazy var addFromContactLabel: ButtonTemplate = {
         var button = ButtonTemplate(frame: .zero)
         button.setTitle("+ add from contacts")
-            //ButtonTemplate(frame: .zero, title: "+ add from contacts")
         button.titleLabel?.font = Theme.fonts.mediumText.font
         button.addTarget(self, action: #selector(didTapAddFromContactsLabel), for: .touchUpInside)
         button.backgroundColor = UIColor.clear
         button.layer.borderWidth = 0
         return button
     }()
-    
-    //var saveButton: ButtonTemplate!
     
     var eventTableView: EventDisplayViewCreatePerson!
     
@@ -147,27 +144,19 @@ class CreatePersonViewController: CustomViewController {
     private func variablesWereSet() -> Bool {
         
         guard self.firstName == nil else {
-     
             return true
-        
         }
 
         guard self.lastName == nil else {
-         
             return true
-        
         }
         
         guard self.group == nil else {
-         
             return true
-        
         }
         
         guard self.profileImage == nil else {
-         
             return true
-        
         }
         
         return false
@@ -213,7 +202,7 @@ class CreatePersonViewController: CustomViewController {
         
         view.addSubview(dropDown)
 
-        currMaxY += profileImageView.bounds.height * 0.3333 + pad
+        currMaxY += profileImageView.bounds.height / 3 + pad
         
         view.addSubview(addFromContactLabel)
         
@@ -232,14 +221,6 @@ class CreatePersonViewController: CustomViewController {
         
         view.addSubview(eventTableView)
         
-        //let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
-        
-//        saveButton = ButtonTemplate(frame: buttonframe, title: "SAVE")
-//        
-//        saveButton.delegate = self
-//        
-//        view.addSubview(saveButton)
-        
         if isUpdatePerson {
         
             setupViewsForUpdatePerson()
@@ -251,7 +232,6 @@ class CreatePersonViewController: CustomViewController {
         if let unorderedEvents = self.person?.event?.allObjects as? [Event] {
 
             //correctly order the events by date
-
             let orderedEvents = unorderedEvents.sorted(by: { (eventA, eventB) -> Bool in
                 eventA.date?.compare(eventB.date! as Date) == ComparisonResult.orderedAscending
             })
@@ -687,95 +667,3 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
     
     
 }
-
-
-//MARK: SAVE BUTTON
-//extension CreatePersonViewController: ButtonTemplateDelegate {
-//    
-//    func buttonWasTouched() {
-//        
-//        print("Save touched")
-//
-//        checkSufficientInformationToSave { (success) in
-//            if success {
-//                //UPDATE EXISTING PERSON
-//                if self.person != nil {
-//                    
-//                    ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
-//                        
-//                        if success {
-//                            ManagedObjectBuilder.saveChanges(completion: { (success) in
-//                                if !success {
-//                                    print("Error occured during save")
-//                                }
-//                                if self.delegate != nil {
-//                                    self.delegate?.didSaveChanges()
-//                                }
-//                                navigationController?.popViewController(animated: true)
-//                            })
-//                        } else {
-//                            print("Could not update managed object")
-//                        }
-//                    })
-//                } else {
-//                    
-//                    //SAVE NEW PERSON (No event added)
-//                    ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
-//                        if success {
-//                            ManagedObjectBuilder.saveChanges(completion: { (success) in
-//                                if success {
-//                                    print("Saved new person successfully")
-//                                    if self.delegate != nil {
-//                                        self.delegate?.didSaveChanges()
-//                                    }
-//                                    self.navigationController?.popViewController(animated: true)
-//                                }
-//                            })
-//                        }
-//                    })
-//                }
-//            }
-//        }
-//    
-//        //SAVE TEMP PERSON (event added)
-//    }
-//    
-//    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
-//        guard firstName != nil && firstName != "" else {
-//            completion(false)
-//            insufficientInfoAlert(message: "Please add a first name")
-//            return
-//        }
-//        
-//        guard group != nil && group != "" else {
-//            completion(false)
-//            insufficientInfoAlert(message: "Please add a group")
-//            return
-//        }
-//        
-//        if isUpdatePerson {
-//            guard self.person != nil else {
-//                completion(false)
-//                print("No person to update")
-//                return
-//            }
-//        }
-//        
-//        completion(true)
-//    }
-//    
-//    private func insufficientInfoAlert(message: String) {
-//        
-//        let alertController = UIAlertController(title: "Insufficient Information", message: message, preferredStyle: .alert)
-//        
-//        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-//            //do nothing
-//        })
-//        
-//        alertController.addAction(okAction)
-//        
-//        self.present(alertController, animated: true, completion: nil)
-//        
-//    }
-//    
-//}

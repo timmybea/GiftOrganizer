@@ -97,7 +97,9 @@ extension DatePickerViewController: CustomCalendarDelegate {
     
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool) {
         if show {
-            self.selectedDate = date
+            let dateString = DateHandler.stringFromDate(date)
+            let dateNoTime = DateHandler.dateFromDateString(dateString)
+            self.selectedDate = dateNoTime
         } else {
             self.selectedDate = nil
         }
