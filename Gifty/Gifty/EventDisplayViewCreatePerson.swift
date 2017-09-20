@@ -78,19 +78,11 @@ class EventDisplayViewCreatePerson: EventTableView {
 //        saveButton.delegate = self
         
         addSubview(tableView)
-        tableView.backgroundColor = UIColor.red
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: smallPad).isActive = true
         tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -smallPad).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        tableView.rightAnchor.constraint(lessThanOrEqualTo: self.rightAnchor, constant: -pad).isActive = true
-        
-//        addSubview(tableView)
-//        tableView.frame = CGRect(x: pad, y: smallPad + addButton.frame.height + smallPad, width: self.bounds.width - pad, height: self.bounds.height - (4 * smallPad) - addButton.frame.height - 35 - pad)
-        
-//        addSubview(eventLabel)
-//        eventLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor).isActive  = true
-//        eventLabel.bottomAnchor.constraint(equalTo: addButton.bottomAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
 }
