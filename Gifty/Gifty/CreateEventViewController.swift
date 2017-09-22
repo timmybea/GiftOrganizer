@@ -152,7 +152,7 @@ class CreateEventViewController: CustomViewController {
         view.addSubview(saveButton)
     }
     
-    func didTapBackground(sender: UITapGestureRecognizer) {
+    @objc func didTapBackground(sender: UITapGestureRecognizer) {
         dropDown.finishEditingTextField()
     }
 }
@@ -177,7 +177,7 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
 
 extension CreateEventViewController {
     
-    func backButtonTouched() {
+    @objc func backButtonTouched() {
         
         //check if there are changes and send alert
         self.navigationController?.popViewController(animated: true)
@@ -245,7 +245,7 @@ extension CreateEventViewController: ActionsButtonsViewDelegate {
 //MARK: ADD EVENT TO PERSON
 extension CreateEventViewController {
     
-    func addEventToPersonTouched() {
+    @objc func addEventToPersonTouched() {
         
         if self.createEventState == CreateEventState.newEventForPerson {
             //Create New Event For Person

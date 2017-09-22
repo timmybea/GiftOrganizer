@@ -89,7 +89,7 @@ class PeopleViewController: CustomViewController {
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
     }
     
-    func addButtonTouched() {
+    @objc func addButtonTouched() {
         pushToCreatePerson(person: nil)
     }
 
@@ -109,7 +109,7 @@ class PeopleViewController: CustomViewController {
     }
     
     //MARK: segmented Controller
-    func didChangeSortBy(sender: UISegmentedControl) {
+    @objc func didChangeSortBy(sender: UISegmentedControl) {
         self.frc = nil
         if sender.selectedSegmentIndex == 0 {
             self.frc = PersonFRC.frc(byGroup: false)

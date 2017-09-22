@@ -99,7 +99,7 @@ class EventDisplayViewCalendar: EventTableView {
     }
     
     //MARK: setup pan
-    func handlePan(panRecognizer: UIPanGestureRecognizer) {
+    @objc func handlePan(panRecognizer: UIPanGestureRecognizer) {
             self.eventDisplayViewDelegate?.stackViewPan(panRecognizer: panRecognizer)
     }
     

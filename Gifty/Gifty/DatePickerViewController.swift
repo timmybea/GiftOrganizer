@@ -73,7 +73,7 @@ class DatePickerViewController: CustomViewController {
 //MARK: Back button method
 extension DatePickerViewController {
 
-    func backButtonTouched() {
+    @objc func backButtonTouched() {
         
         let alertController = UIAlertController(title: "Are you sure?", message: "continuing this action will return you to your event without assigning a date", preferredStyle: .alert)
         let continueAction = UIAlertAction(title: "Continue", style: .default) { (action) in

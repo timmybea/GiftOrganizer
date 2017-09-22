@@ -65,7 +65,7 @@ extension UINavigationController {
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.tintColor = UIColor.white
         navigationController.view.addSubview(viewController.titleLabel)
-        navigationController.navigationBar.titleTextAttributes = [NSFontAttributeName: Theme.fonts.titleText.font, NSForegroundColorAttributeName: UIColor.white]
+        navigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: Theme.fonts.titleText.font, NSAttributedStringKey.foregroundColor: UIColor.white]
         
         return navigationController
     }
@@ -112,10 +112,10 @@ extension UITextField {
         let text = string
         
         // Set the Font
-        placeHolder = NSMutableAttributedString(string:text, attributes: [NSFontAttributeName:font])
+        placeHolder = NSMutableAttributedString(string:text, attributes: [NSAttributedStringKey.font:font])
         
         // Set the color
-        placeHolder.addAttribute(NSForegroundColorAttributeName, value: color, range:NSRange(location:0,length:text.characters.count))
+        placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range:NSRange(location:0,length:text.characters.count))
         
         // Add attribute
         self.attributedPlaceholder = placeHolder

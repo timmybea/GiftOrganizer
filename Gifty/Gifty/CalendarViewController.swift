@@ -165,7 +165,7 @@ class CalendarViewController: CustomViewController {
     }
     
     
-    func pushToCreateEvent() {
+    @objc func pushToCreateEvent() {
         print("push to create event")
         
         //TEMPORARY: Example for presentation controller instantiation

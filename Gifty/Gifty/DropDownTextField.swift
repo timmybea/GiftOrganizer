@@ -136,7 +136,7 @@ class DropDownTextField: UIView {
         textField.isHidden = true
     }
     
-    func menuDropDown() {
+    @objc func menuDropDown() {
     
         let downFrame = animatedView.frame
         let upFrame = CGRect(x: 0, y: self.originalHeight, width: self.bounds.width, height: 0)

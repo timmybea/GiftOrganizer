@@ -79,7 +79,7 @@ class CreatePersonViewController: CustomViewController {
     }
     
     //MARK: BACK BUTTON
-    func backButtonTouched() {
+    @objc func backButtonTouched() {
         
         if let currentPerson = self.person, currentPerson.hasChanges {
             
@@ -272,7 +272,7 @@ extension CreatePersonViewController {
         updateEventDisplayViewWithOrderedEvents()
     }
     
-    func didTapBackgroundView() {
+    @objc func didTapBackgroundView() {
         textFieldTV.finishEditing()
         dropDown.finishEditingTextField()
     }
@@ -282,7 +282,7 @@ extension CreatePersonViewController {
 //MARK: ADD FROM CONTACTS
 extension CreatePersonViewController {
     
-    func didTapAddFromContactsLabel() {
+    @objc func didTapAddFromContactsLabel() {
         
         if isUpdatePerson {
             let alertControntroller = UIAlertController(title: "Are you sure?", message: "This action could change the name of your person", preferredStyle: .alert)
@@ -363,13 +363,13 @@ extension CreatePersonViewController: CNContactPickerDelegate {
 //MARK: ImagePicker delegate methods
 extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func profileImageTouchDown() {
+    @objc func profileImageTouchDown() {
         if self.profileImageView.isImageSelected == false {
             self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolderTouched.rawValue)
         }
     }
     
-    func profileImageTouchUpInside() {
+    @objc func profileImageTouchUpInside() {
         
         if self.profileImageView.isImageSelected == false {
             self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)

@@ -90,11 +90,11 @@ class EventDisplayViewCreatePerson: EventTableView {
 
 extension EventDisplayViewCreatePerson {
     
-    func addButtonTouchedDown() {
+    @objc func addButtonTouchedDown() {
         addButton.imageView.tintColor = Theme.colors.lightToneOne.color
     }
     
-    func addButtonTouchedUpInside() {
+    @objc func addButtonTouchedUpInside() {
         addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
         self.eventDisplayViewPersonDelegate?.didTouchAddEventButton()
     }

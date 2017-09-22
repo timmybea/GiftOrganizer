@@ -38,7 +38,7 @@ class ButtonTemplate: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func buttonWasTouchDown() {
+    @objc func buttonWasTouchDown() {
 //        self.backgroundColor = Theme.colors.lightToneOne.color.cgColor
 //        self.layer.borderColor = Theme.colors.lightToneOne.color.cgColor
     }
@@ -48,7 +48,7 @@ class ButtonTemplate: UIButton {
         self.layer.borderColor = color.cgColor
     }
     
-    func buttonWasTouchUpInside() {
+    @objc func buttonWasTouchUpInside() {
         
         //self.layer.borderColor = UIColor.white.cgColor
         if self.delegate != nil {

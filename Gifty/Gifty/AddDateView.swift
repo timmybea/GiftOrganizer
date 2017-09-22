@@ -118,7 +118,7 @@ class AddDateView: UIView {
 //MARK: switch changed value (protocol method called)
 extension AddDateView {
     
-    func switchDidChange(_ sender: UISwitch) {
+    @objc func switchDidChange(_ sender: UISwitch) {
         
         if let delegate = self.delegate {
             if sender.isOn {
@@ -134,13 +134,13 @@ extension AddDateView {
 //MARK: touchViewtouched (protocol method called)
 extension AddDateView {
     
-    func didTouchDownSelf() {
+    @objc func didTouchDownSelf() {
         
         self.calendarImage.tintColor = Theme.colors.lightToneOne.color
         self.label.textColor = Theme.colors.lightToneOne.color
     }
     
-    func didTouchUpSelf() {
+    @objc func didTouchUpSelf() {
         self.calendarImage.tintColor = UIColor.white
         self.label.textColor = UIColor.white
         
