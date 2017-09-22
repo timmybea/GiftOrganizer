@@ -32,7 +32,7 @@ class PeopleViewController: CustomViewController {
     }()
     
     var headerViewHeightConstraint: NSLayoutConstraint!
-    let maxHeaderHeight: CGFloat = 88
+    let maxHeaderHeight: CGFloat = 100
     let minHeaderHeight: CGFloat = 0
     
     var previousScrollOffset: CGFloat = 0

@@ -67,10 +67,10 @@ struct Theme {
 extension UIColor {
     
     static func colorWithVals(r: Int, g: Int, b: Int) -> UIColor {
-        let red = Float(r) / 255
-        let green = Float(g) / 255
-        let blue = Float(b) / 255
-        return UIColor(colorLiteralRed: red, green: green , blue: blue, alpha: 1)
+        let red = CGFloat(r) / 255
+        let green = CGFloat(g) / 255
+        let blue = CGFloat(b) / 255
+        return UIColor(red: red, green: green, blue: blue, alpha: 1)
     }
 }
 
