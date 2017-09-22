@@ -20,13 +20,14 @@ class EventTableView: UIView {
     
     var orderedEvents: [Event]? {
         didSet {
-            setupDataSources()
+            datasource = orderedEvents
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    
+
+    var datasource: [Event]?
     
 //    func updateEventLabelForEventsCount() {
 //        if let events = orderedEvents, events.count > 0 {
@@ -82,30 +83,19 @@ class EventTableView: UIView {
             }
         }
     }
-    
-    
-    private func setupDataSources() {
-        
-        EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!) { (upcoming, overdue) in
-            
-            
-            
-        }
-        
-    }
 }
 
 
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderedEvents?.count ?? 0
+        return datasource?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
         cell.delegate = self
-        cell.configureWith(event: (orderedEvents?[indexPath.row])!)
+        cell.configureWith(event: (datasource?[indexPath.row])!)
         return cell
     }
     
@@ -143,15 +133,15 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
-            if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
+            if self.delegate != nil, let event = self.datasource?[indexPath.row] {
                 self.delegate?.didTouchEditEvent(event: event)
             }
         }
         editAction.backgroundColor = Theme.colors.yellow.color
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
-            if self.delegate != nil, let event = self.orderedEvents?[indexPath.row] {
-               self.orderedEvents?.remove(at: indexPath.row)
+            if self.delegate != nil, let event = self.datasource?[indexPath.row] {
+               self.datasource?.remove(at: indexPath.row)
                 self.delegate?.didTouchDeleteEvent(event: event)
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -199,7 +189,7 @@ extension EventTableView: EventTableViewCellDelegate {
             
             //update cell subviews according to checklist completion
             if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {
-                cell.configureWith(event: orderedEvents![self.selectedIndexPath!.row])
+                cell.configureWith(event: datasource![self.selectedIndexPath!.row])
             }
         }
     }

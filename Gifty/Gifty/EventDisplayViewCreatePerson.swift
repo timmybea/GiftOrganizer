@@ -21,6 +21,18 @@ class EventDisplayViewCreatePerson: EventTableView {
         set { self.eventDisplayViewPersonDelegate = newValue as! EventDisplayViewPersonDelegate? }
     }
     
+    override var orderedEvents: [Event]? {
+        didSet {
+            setupDataSources()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    private var upcomingEvents: [Event]?
+    private var overdueEvents: [Event]?
+    
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
         add.translatesAutoresizingMaskIntoConstraints = false
@@ -32,10 +44,11 @@ class EventDisplayViewCreatePerson: EventTableView {
         return add
     }()
     
-    private let segmentedControl: UISegmentedControl = {
+    private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Upcoming", "Overdue"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.tintColor = Theme.colors.lightToneTwo.color
+        segmentedControl.addTarget(self, action: #selector(valueChangedFor(sender:)), for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
     }()
@@ -86,6 +99,23 @@ class EventDisplayViewCreatePerson: EventTableView {
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
+    private func setupDataSources() {
+        EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!) { (upcoming, overdue) in
+            upcomingEvents = upcoming
+            overdueEvents = overdue
+            
+            datasource = segmentedControl.selectedSegmentIndex == 0 ? upcomingEvents : overdueEvents
+        }
+    }
+    
+    @objc private func valueChangedFor(sender: UISegmentedControl) {
+        
+        datasource = sender.selectedSegmentIndex == 0 ? upcomingEvents : overdueEvents
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension EventDisplayViewCreatePerson {

@@ -78,8 +78,10 @@ class EventFRC: NSObject {
     
         for event in events {
             if let eventDate = event.date as Date? {
-                if eventDate < today && !event.isComplete {
-                    overdue.append(event)
+                if eventDate < today {
+                    if !event.isComplete {
+                        overdue.append(event)
+                    }
                 } else {
                     upcoming.append(event)
                 }
