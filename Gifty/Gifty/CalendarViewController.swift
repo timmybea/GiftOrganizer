@@ -43,9 +43,9 @@ class CalendarViewController: CustomViewController {
         super.viewDidLoad()
         
         //Register to listen for NSNotificationCenter
-        NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(newEventCreated(notification:)), name: Notifications.Names.newEventCreated.Name, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.names.actionStateChanged.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(newEventCreated(notification:)), name: Notifications.names.newEventCreated.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.names.eventDeleted.name, object: nil)
         
         self.frc?.delegate = self
         setupNavigationBar()
@@ -397,7 +397,7 @@ extension CalendarViewController: EventTableViewDelegate {
                 
                 notificationDispatch.async {
                     let userInfo = ["EventDisplayViewId": self.eventDisplayView.id]
-                    NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
                 
                 calendar.deleteDateFromDataSource(dateString)

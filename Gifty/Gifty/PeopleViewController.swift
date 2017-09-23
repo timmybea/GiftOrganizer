@@ -221,7 +221,7 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 notificationDispatch.async {
                     let userInfo = ["EventDisplayViewId": "none", "dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
             }
             

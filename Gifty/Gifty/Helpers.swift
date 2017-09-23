@@ -39,12 +39,12 @@ enum ImageNames: String {
 
 struct Notifications {
     
-    enum Names {
+    enum names {
         case actionStateChanged
         case newEventCreated
         case eventDeleted
     
-        var Name: NSNotification.Name {
+        var name: NSNotification.Name {
             switch self {
             case .actionStateChanged: return NSNotification.Name.init("actionStateChanged")
             case .newEventCreated: return NSNotification.Name.init("newEventCreated")
@@ -52,6 +52,25 @@ struct Notifications {
             }
         }
     }
+}
+
+struct CustomErrors {
+    
+    enum createEvent {
+        case noDate
+        case noEventType
+        case noActionsSelected
+        case personIsNil
+        
+        var description: String {
+            switch self {
+            case .noDate: return "Please select a date for your event."
+            case .noEventType: return "Please select an event type from the drop down menu."
+            case .noActionsSelected: return "Please select at least one action to complete."
+            case .personIsNil: return "There has been a problem. Please go back and try again."
+            }
+        }
+    }    
 }
 
 

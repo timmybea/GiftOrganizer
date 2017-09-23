@@ -35,6 +35,11 @@ class DateHandler: NSObject {
         return date
     }
     
+    static func describeDate(_ date: Date) -> String {
+        dateFormatter.dateStyle = .long
+        return dateFormatter.string(from: date)
+    }
+    
     static func stringFromDate(_ date: Date) -> String {
         dateFormatter.dateFormat = "yyyy MM dd"
         return dateFormatter.string(from: date)

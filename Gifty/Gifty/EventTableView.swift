@@ -69,7 +69,7 @@ class EventTableView: UIView {
         super.init(frame: frame)
         
         //Register to listen for NSNotificationCenter
-        NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.Names.actionStateChanged.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(actionStateChanged(notification:)), name: Notifications.names.actionStateChanged.name, object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -185,7 +185,7 @@ extension EventTableView: EventTableViewCellDelegate {
             guard let dateString = event.dateString else { return }
             
             let userInfo = ["EventDisplayViewId": self.id, "dateString": dateString]
-            NotificationCenter.default.post(name: Notifications.Names.actionStateChanged.Name, object: nil, userInfo: userInfo)
+            NotificationCenter.default.post(name: Notifications.names.actionStateChanged.name, object: nil, userInfo: userInfo)
             
             //update cell subviews according to checklist completion
             if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {

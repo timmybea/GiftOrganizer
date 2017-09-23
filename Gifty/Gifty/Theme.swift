@@ -56,7 +56,6 @@ struct Theme {
     
     static func createMediumLabel() -> UILabel {
         let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
         label.font = Theme.fonts.mediumText.font
         label.textAlignment = .left

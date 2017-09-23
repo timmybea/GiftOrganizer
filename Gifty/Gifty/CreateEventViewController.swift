@@ -155,6 +155,15 @@ class CreateEventViewController: CustomViewController {
     @objc func didTapBackground(sender: UITapGestureRecognizer) {
         dropDown.finishEditingTextField()
     }
+    
+    private func createAlertForError(_ error: CustomErrors.createEvent) {
+        
+        let alertController = UIAlertController(title: "Incomplete event", message: error.description, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(action)
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
 }
 
 //MARK: Drop down textfield delegate
@@ -184,10 +193,7 @@ extension CreateEventViewController {
     }
 }
 
-
-
-
-//MARK: ADD DATE VIEW DELEGATE
+//MARK: ADD_DATE_VIEW DELEGATE
 extension CreateEventViewController: AddDateViewDelegate {
     
     func addDateViewWasTouched() {
@@ -211,7 +217,7 @@ extension CreateEventViewController: AddDateViewDelegate {
     }
 }
 
-//MARK: DATE PICKER VC DELEGATE
+//MARK: DATE_PICKER_VC DELEGATE
 extension CreateEventViewController: datePickerViewControllerDelegate {
     
     func didSetDate(_ date: Date?) {
@@ -220,7 +226,7 @@ extension CreateEventViewController: datePickerViewControllerDelegate {
     
 }
 
-//MARK: ACTIONS SELECTOR DELEGATE METHODS
+//MARK: ACTIONS_SELECTOR_DELEGATE METHODS
 extension CreateEventViewController: ActionsButtonsViewDelegate {
     
     func budgetButtonTouched() {
@@ -242,7 +248,7 @@ extension CreateEventViewController: ActionsButtonsViewDelegate {
     }
 }
 
-//MARK: ADD EVENT TO PERSON
+//MARK: ADD EVENT BUTTON
 extension CreateEventViewController {
     
     @objc func addEventToPersonTouched() {
@@ -250,7 +256,7 @@ extension CreateEventViewController {
         if self.createEventState == CreateEventState.newEventForPerson {
             //Create New Event For Person
 
-            checkSufficientInformationToCreateEvent(completion: { (success) in
+            checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 
                 if success {
                     
@@ -263,12 +269,16 @@ extension CreateEventViewController {
                         //send notification
                         guard let dateString = event?.dateString else { return }
                         let userInfo = ["dateString": dateString]
-                        NotificationCenter.default.post(name: Notifications.Names.newEventCreated.Name, object: nil, userInfo: userInfo)
+                        NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo)
                         
                         if self.delegate != nil {
                             self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
                         }
                         self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    if error != nil {
+                        createAlertForError(error!)
                     }
                 }
             })
@@ -283,23 +293,23 @@ extension CreateEventViewController {
         
     }
     
-    func checkSufficientInformationToCreateEvent(completion: (_ success: Bool) -> Void) {
-        
-        guard self.eventDate != nil else {
-            completion(false)
-            return
-        }
+    func checkSufficientInformationToCreateEvent(completion: (_ success: Bool, _ error: CustomErrors.createEvent?) -> Void) {
         
         guard self.eventType != nil else {
-            completion(false)
-            return
-        }
-
-        guard self.person != nil else {
-            completion(false)
+            completion(false, CustomErrors.createEvent.noEventType)
             return
         }
         
-        completion(true)
+        guard self.eventDate != nil else {
+            completion(false, CustomErrors.createEvent.noDate)
+            return
+        }
+        
+        guard self.person != nil else {
+            completion(false, CustomErrors.createEvent.personIsNil)
+            return
+        }
+        
+        completion(true, nil)
     }
 }

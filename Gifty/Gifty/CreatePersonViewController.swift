@@ -64,7 +64,7 @@ class CreatePersonViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.Names.eventDeleted.Name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.names.eventDeleted.name, object: nil)
         
         self.title = "Add Person"
         
@@ -517,7 +517,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
                 
                 notificationDispatch.async {
                     let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.Names.eventDeleted.Name, object: nil, userInfo: userInfo)
+                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
             }
         }

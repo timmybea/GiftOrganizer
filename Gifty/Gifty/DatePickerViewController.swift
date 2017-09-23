@@ -62,9 +62,9 @@ class DatePickerViewController: CustomViewController {
         yVal += calendar.frame.height + pad
         
         let buttonframe = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 35)
-        //addDateToEventButton = ButtonTemplate(frame: buttonframe, title: "ADD DATE")
         addDateToEventButton = ButtonTemplate(frame: buttonframe)
         addDateToEventButton.setTitle("ADD DATE")
+        addDateToEventButton.addBorder(with: UIColor.white)
         addDateToEventButton.delegate = self
         view.addSubview(addDateToEventButton)
     }
@@ -75,7 +75,7 @@ extension DatePickerViewController {
 
     @objc func backButtonTouched() {
         
-        let alertController = UIAlertController(title: "Are you sure?", message: "continuing this action will return you to your event without assigning a date", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Are you sure?", message: "Continuing this action will return you to your event without assigning a date", preferredStyle: .alert)
         let continueAction = UIAlertAction(title: "Continue", style: .default) { (action) in
             if self.delegate != nil {
                 self.delegate?.didSetDate(nil)
@@ -120,7 +120,7 @@ extension DatePickerViewController: ButtonTemplateDelegate {
             self.navigationController?.popViewController(animated: true)
 
         } else {
-            let alertController = UIAlertController(title: "No date selected", message: "please select a date before adding it to your event", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "No date selected", message: "Please select a date before adding it to your event", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                 //do nothing
             })

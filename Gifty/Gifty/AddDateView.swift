@@ -108,7 +108,7 @@ class AddDateView: UIView {
     func updateLabel(with date: Date?) {
         
         if date != nil {
-            self.label.text = DateHandler.stringFromDate(date!)
+            self.label.text = DateHandler.describeDate(date!)
         } else {
             self.label.text = "Select date"
         }
