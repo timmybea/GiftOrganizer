@@ -52,7 +52,6 @@ class CustomCalendar: UIView {
         return monthYearLabel
     }()
     
-    
     private let dayStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,11 +150,6 @@ class CustomCalendar: UIView {
     func setDataSource(stringDateCompleteDict: Dictionary<String, CalendarEventData>) {
         
         self.dataSource = stringDateCompleteDict
-        
-        DispatchQueue.main.async {
-            self.calendarView.reloadData()
-        }
-        
     }
     
     func deleteDateFromDataSource(_ dateString: String) {
@@ -204,8 +198,7 @@ extension CustomCalendar: JTAppleCalendarViewDataSource {
 extension CustomCalendar: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
-        let currentCell = cell as! CustomCalendarCell
-        sharedFunctionToConfigureCell(currentCell, cellState: cellState, date: date)
+        //Do nothing!
     }
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
@@ -215,7 +208,7 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
     }
     
     func sharedFunctionToConfigureCell(_ cell: CustomCalendarCell, cellState: CellState, date: Date) {
-
+        
         cell.configureCellWith(cellState)
         
         let dateString = DateHandler.stringFromDate(date)
