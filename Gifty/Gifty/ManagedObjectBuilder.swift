@@ -58,8 +58,8 @@ class ManagedObjectBuilder: NSObject {
             person.fullName = firstName
         }
         
-        var upperCase = person.alphabetisedName?.uppercased()
-        if let character = upperCase?.characters.popFirst() {
+        let upperCase = person.alphabetisedName?.uppercased()
+        if let character = upperCase?.first {
             let string: String = "\(character)"
             person.alphabetisedSection = string
         }
@@ -67,14 +67,14 @@ class ManagedObjectBuilder: NSObject {
         person.group = group
         
         if let image = profileImage {
-            person.profileImage = NSData(data: UIImageJPEGRepresentation(image, 0.3)!)
+            person.profileImage = NSData(data: UIImageJPEGRepresentation(image, 0.3)!) as Data
         }
         completion(true, person)
     }
     
     private func getUpperCasedCharFromString(string: String) -> Character {
-        var upperCase = string.uppercased()
-        let first = upperCase.characters.popFirst()
+        let upperCase = string.uppercased()
+        let first = upperCase.first
         return first!
     }
     
@@ -88,7 +88,7 @@ class ManagedObjectBuilder: NSObject {
         
         let event = Event(context: moc)
         event.id = UUID().uuidString
-        event.date = date as NSDate
+        event.date = date
         event.dateString = DateHandler.stringFromDate(date)
         event.type = type
         event.giftState = gift.rawValue

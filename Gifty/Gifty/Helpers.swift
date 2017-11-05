@@ -134,7 +134,7 @@ extension UITextField {
         placeHolder = NSMutableAttributedString(string:text, attributes: [NSAttributedStringKey.font:font])
         
         // Set the color
-        placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range:NSRange(location:0,length:text.characters.count))
+        placeHolder.addAttribute(NSAttributedStringKey.foregroundColor, value: color, range:NSRange(location:0,length:text.count))
         
         // Add attribute
         self.attributedPlaceholder = placeHolder

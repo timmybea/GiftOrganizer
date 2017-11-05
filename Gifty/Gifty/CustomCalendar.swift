@@ -203,8 +203,19 @@ extension CustomCalendar: JTAppleCalendarViewDataSource {
 
 extension CustomCalendar: JTAppleCalendarViewDelegate {
     
+    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+        let currentCell = cell as! CustomCalendarCell
+        sharedFunctionToConfigureCell(currentCell, cellState: cellState, date: date)
+    }
+    
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "CustomCalendarCell", for: indexPath) as! CustomCalendarCell
+        sharedFunctionToConfigureCell(cell, cellState: cellState, date: date)
+        return cell
+    }
+    
+    func sharedFunctionToConfigureCell(_ cell: CustomCalendarCell, cellState: CellState, date: Date) {
+
         cell.configureCellWith(cellState)
         
         let dateString = DateHandler.stringFromDate(date)
@@ -214,8 +225,6 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
         } else {
             cell.action(for: dateString, complete: nil)
         }
-
-        return cell
     }
     
     //handle date selection

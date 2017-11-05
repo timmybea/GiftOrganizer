@@ -95,7 +95,9 @@ class CalendarViewController: CustomViewController {
                 }
             }
         }
-        self.calendar.setDataSource(stringDateCompleteDict: eventDateCompleteDict)
+        if !eventDateCompleteDict.isEmpty {
+            self.calendar.setDataSource(stringDateCompleteDict: eventDateCompleteDict)
+        }
     }
     
     fileprivate func checkActionsComplete(events: [Event]) -> Bool {
