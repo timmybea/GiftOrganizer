@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.unselectedItemTintColor = Theme.colors.lightToneOne.color
         tabBarController.tabBar.tintColor = UIColor.white
         
-        let icons = [ImageNames.calendarIcon.rawValue, ImageNames.peopleIcon.rawValue, ImageNames.calendarIcon.rawValue]
+        let icons = [ImageNames.calendarIcon.rawValue, ImageNames.peopleIcon.rawValue, ImageNames.settingsIcon.rawValue]
         for (index, item) in tabBarController.tabBar.items!.enumerated() {
             item.title = ""
             item.image = UIImage(named: icons[index])?.withRenderingMode(.alwaysTemplate)
