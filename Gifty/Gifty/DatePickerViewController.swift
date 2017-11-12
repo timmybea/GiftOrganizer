@@ -63,6 +63,7 @@ class DatePickerViewController: CustomViewController {
         
         let buttonframe = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 35)
         addDateToEventButton = ButtonTemplate(frame: buttonframe)
+        addDateToEventButton.backgroundColor = UIColor.clear
         addDateToEventButton.setTitle("ADD DATE")
         addDateToEventButton.addBorder(with: UIColor.white)
         addDateToEventButton.delegate = self

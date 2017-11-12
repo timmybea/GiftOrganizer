@@ -12,14 +12,6 @@ class PersonCell: UITableViewCell {
 
     var person: Person?
     
-//    let whiteView: UIView = {
-//        let view = UIView()
-//        view.layer.cornerRadius = 8
-//        view.backgroundColor = UIColor.white
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
-    
     let profileImageView: CircleView = {
         let view = CircleView(image: UIImage(named: ImageNames.defaultProfileBlock.rawValue))
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +23,7 @@ class PersonCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = Theme.colors.lightToneTwo.color
+        label.textColor = Theme.colors.charcoal.color
         label.font = Theme.fonts.subtitleText.font
         return label
     }()
@@ -57,11 +49,10 @@ class PersonCell: UITableViewCell {
     
     let budgetSummaryLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Theme.colors.lightToneTwo.color
+        label.textColor = UIColor.lightGray
         label.textAlignment = .left
         label.font = Theme.fonts.smallText.font
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Total budget: $0, Spent: $0"
         return label
     }()
     
@@ -101,6 +92,10 @@ class PersonCell: UITableViewCell {
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: medPad).isActive = true
         nameLabel.topAnchor.constraint(equalTo: profileImageView.topAnchor).isActive = true
         
+        self.addSubview(budgetSummaryLabel)
+        budgetSummaryLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: medPad).isActive = true
+        budgetSummaryLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: smallPad).isActive = true
+        
         self.addSubview(eventCountLabel)
         eventCountLabel.leftAnchor.constraint(equalTo: self.rightAnchor, constant: -40).isActive = true
         eventCountLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -medPad).isActive = true
@@ -111,10 +106,6 @@ class PersonCell: UITableViewCell {
         eventIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
         eventIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
         eventIcon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        self.addSubview(budgetSummaryLabel)
-        budgetSummaryLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: medPad).isActive = true
-        budgetSummaryLabel.bottomAnchor.constraint(equalTo: profileImageView.bottomAnchor).isActive = true
         
     }
     
@@ -134,13 +125,18 @@ class PersonCell: UITableViewCell {
             
             let eventCount = events.count
             var completedCount = 0
+            var budgetAmt: Float = 0.0
+            var actualAmt: Float = 0.0
             
             for event in events {
                 if event.isComplete {
                     completedCount += 1
                 }
+                budgetAmt += event.budgetAmt
+                actualAmt += event.actualAmt
             }
             eventCountLabel.text = "\(completedCount)/\(eventCount)"
+            budgetSummaryLabel.text = "Budgetted $\(String(format: "%.2f", budgetAmt)) • Spent $\(String(format: "%.2f", actualAmt))"
         }
     }
 }

@@ -407,7 +407,6 @@ extension PeopleViewController: UISearchBarDelegate {
 
 extension PeopleViewController: CreatePersonViewControllerDelegate {
     
-    
     func didSaveChanges() {
         
         do {

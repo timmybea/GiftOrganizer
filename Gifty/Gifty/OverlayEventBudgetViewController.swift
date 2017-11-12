@@ -92,14 +92,11 @@ class OverlayEventBudgetViewController: UIViewController {
         textView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-//        self.budgetView = BudgetView()
-//        budgetView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(budgetView)
         budgetView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: pad).isActive = true
         budgetView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -pad).isActive = true
         budgetView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: smallPad).isActive = true
         budgetView.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        
         
         view.addSubview(closeButton)
         closeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
