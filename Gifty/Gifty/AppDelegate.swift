@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         let calendarVC = UINavigationController.setupCustomNavigationController(CalendarViewController())
         let peopleVC = UINavigationController.setupCustomNavigationController(PeopleViewController())
-        let settingsVC = UINavigationController.setupCustomNavigationController(SettingsViewController())
-        
+        let settings = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "settings") as! SettingsViewController
+        let settingsVC = UINavigationController.setupCustomNavigationController(settings)
         tabBarController.viewControllers = [calendarVC, peopleVC, settingsVC]
         tabBarController.tabBar.barTintColor = Theme.colors.darkPurple.color
         tabBarController.tabBar.unselectedItemTintColor = Theme.colors.lightToneOne.color

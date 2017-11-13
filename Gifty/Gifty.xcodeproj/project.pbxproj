@@ -43,6 +43,8 @@
 		B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */; };
 		B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E21F677D5A004BD772 /* PresentationController.swift */; };
 		B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */; };
+		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
+		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
 		B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
 		B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
@@ -124,6 +126,8 @@
 		B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		B07A55E21F677D5A004BD772 /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayEventBudgetViewController.swift; sourceTree = "<group>"; };
+		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
 		B0C205761F22D2C200C3E7ED /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		B0CA63231F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonEventModel.xcdatamodel; sourceTree = "<group>"; };
@@ -272,6 +276,14 @@
 			name = PresentationController;
 			sourceTree = "<group>";
 		};
+		B0AFD7951FBA31D1002F89FF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B0AFD7911FBA302D002F89FF /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		B0D514FB1F378000008A88A4 /* CalendarTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +320,7 @@
 				B0CA63271F0D7D3200C1A2B1 /* UIImage + Scale.swift */,
 				B0C205761F22D2C200C3E7ED /* Theme.swift */,
 				B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */,
+				B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -432,6 +445,7 @@
 		B0D5150F1F378A63008A88A4 /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
+				B0AFD7951FBA31D1002F89FF /* View */,
 				B041F7941EF89A0800A3E332 /* Controller */,
 				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
 			);
@@ -573,6 +587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */,
+				B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */,
 				B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */,
 				B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */,
 				B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */,
@@ -750,6 +765,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */,
 				B013B5781EFF233200107B64 /* DateHandler.swift in Sources */,
 				B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */,
 				B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */,

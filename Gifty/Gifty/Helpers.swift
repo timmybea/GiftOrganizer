@@ -77,14 +77,16 @@ struct CustomErrors {
 
 extension UINavigationController {
     
-    static func setupCustomNavigationController(_ viewController: CustomViewController) -> UINavigationController {
+    static func setupCustomNavigationController(_ viewController: UIViewController) -> UINavigationController {
         
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.tintColor = UIColor.white
-        navigationController.view.addSubview(viewController.titleLabel)
+        if let customController = viewController as? CustomViewController  {
+            navigationController.view.addSubview(customController.titleLabel)
+        }
         navigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: Theme.fonts.titleText.font, NSAttributedStringKey.foregroundColor: UIColor.white]
         
         return navigationController

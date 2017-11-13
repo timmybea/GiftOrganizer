@@ -10,7 +10,6 @@ import UIKit
 
 class CustomViewController: UIViewController {
     
-    
     override func viewDidLoad() {
         setupBackgroundView()
     }
@@ -61,19 +60,19 @@ class CustomViewController: UIViewController {
     //MARK: turn off autorotate
     
     override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         
-        return [.portrait, .landscape]
+        return [.portrait]
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        self.setTitleLabelPosition(withSize: size)
-        
-        backgroundView.image =  size.width < size.height ? UIImage(named: ImageNames.verticalBGGradient.rawValue) : UIImage(named: ImageNames.horizontalBGGradient.rawValue)
-    }
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        self.setTitleLabelPosition(withSize: size)
+//        
+//        backgroundView.image =  size.width < size.height ? UIImage(named: ImageNames.verticalBGGradient.rawValue) : UIImage(named: ImageNames.horizontalBGGradient.rawValue)
+//    }
 
  
 }
