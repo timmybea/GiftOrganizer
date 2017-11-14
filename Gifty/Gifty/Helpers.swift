@@ -77,18 +77,14 @@ struct CustomErrors {
 
 extension UINavigationController {
     
-    static func setupCustomNavigationController(_ viewController: UIViewController) -> UINavigationController {
-        
+    static func setupCustomNavigationController(_ viewController: CustomViewController) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController.navigationBar.shadowImage = UIImage()
         navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.tintColor = UIColor.white
-        if let customController = viewController as? CustomViewController  {
-            navigationController.view.addSubview(customController.titleLabel)
-        }
+        navigationController.view.addSubview(viewController.titleLabel)
         navigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.font: Theme.fonts.titleText.font, NSAttributedStringKey.foregroundColor: UIColor.white]
-        
         return navigationController
     }
 }
@@ -96,13 +92,11 @@ extension UINavigationController {
 extension UIView {
     
     func dropShadow() {
-        
         self.layer.masksToBounds = false
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.16
         self.layer.shadowOffset = CGSize(width: 4, height: 4)
         self.layer.shadowRadius = 2
-        
     }
     
     func bounceAnimation() {

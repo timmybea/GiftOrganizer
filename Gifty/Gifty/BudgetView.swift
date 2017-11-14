@@ -24,7 +24,7 @@ class BudgetView: UIView {
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minimumTrackTintColor = Theme.colors.lightToneOne.color
         slider.maximumTrackTintColor = UIColor.white
-        slider.maximumValue = 100.00
+        slider.maximumValue = Float(SettingsHandler.shared.maxBudget)
         slider.addTarget(self, action: #selector(sliderChangedValue(sender:)), for: .valueChanged)
         return slider
     }()
@@ -56,7 +56,7 @@ class BudgetView: UIView {
     @objc private func sliderChangedValue(sender: UISlider) {
         
         let amount = sender.value
-        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.25)
+        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.50)
         let formattedString = CurrencyHandler.formattedString(for: roundedAmount)
         self.budgetLabel.text = "$\(formattedString)"
     }

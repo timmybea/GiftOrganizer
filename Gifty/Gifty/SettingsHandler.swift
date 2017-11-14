@@ -10,12 +10,25 @@ import UIKit
 
 class SettingsHandler {
     
-    static func getSettings() {
-        
-        
-        
+    static let shared = SettingsHandler()
+    
+    var maxBudget: Int = 0 {
+        willSet {
+            UserDefaults.standard.set(newValue, forKey: key.maxBudget.rawValue)
+        }
     }
     
+    func getSettings() {
+        if let amt = UserDefaults.standard.object(forKey: key.maxBudget.rawValue) {
+            maxBudget = amt as! Int
+        } else {
+            maxBudget = 100
+        }
+    }    
+    
+    enum key: String {
+        case maxBudget
+    }
     
     
 }
