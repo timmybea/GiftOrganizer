@@ -23,10 +23,21 @@ class OverlayEventBudgetViewController: UIViewController {
         return view
     }()
     
-    lazy var closeButton: UIButton = {
+    lazy var okButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("OK", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(Theme.colors.lightToneOne.color, for: .highlighted)
+        button.addTarget(self, action: #selector(okButtonTouched(sender:)), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Cancel", for: .normal)
+        button.setTitleColor(Theme.colors.lightToneOne.color, for: .highlighted)
         button.setTitleColor(UIColor.white, for: .normal)
         button.addTarget(self, action: #selector(closeButtonTouched(sender:)), for: .touchUpInside)
         return button
@@ -98,14 +109,24 @@ class OverlayEventBudgetViewController: UIViewController {
         budgetView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: smallPad).isActive = true
         budgetView.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
-        view.addSubview(closeButton)
-        closeButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        closeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -8).isActive = true
-
+        let stackView = UIStackView()
+        stackView.backgroundColor = UIColor.blue
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        stackView.distribution = .equalSpacing
         
+        view.addSubview(stackView)
+        stackView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        stackView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -8).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
+        okButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width / 2).isActive = true
+        cancelButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width / 2).isActive = true
         
-        
+        stackView.addArrangedSubview(okButton)
+        stackView.addArrangedSubview(cancelButton)
     }
     
     func setText() {
@@ -120,6 +141,12 @@ class OverlayEventBudgetViewController: UIViewController {
         print("close button touched")
         
         presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
+    @objc private func okButtonTouched(sender: UIButton) {
+        print("ok button touched")
+        
+        //set the value to the event...
     }
     
 }

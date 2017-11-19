@@ -39,7 +39,6 @@ enum ImageNames: String {
 }
 
 struct Notifications {
-    
     enum names {
         case actionStateChanged
         case newEventCreated
@@ -56,7 +55,6 @@ struct Notifications {
 }
 
 struct CustomErrors {
-    
     enum createEvent {
         case noDate
         case noEventType

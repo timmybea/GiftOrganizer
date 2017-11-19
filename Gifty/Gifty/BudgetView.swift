@@ -10,7 +10,6 @@ import UIKit
 
 class BudgetView: UIView {
 
-
     private let budgetLabel: UILabel = {
         let label = Theme.createMediumLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +63,7 @@ class BudgetView: UIView {
     public func getBudgetAmount() -> Float {
         
         let amount = slider.value
-        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.25)
+        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.50)
         return roundedAmount
 
     }

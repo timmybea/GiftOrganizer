@@ -19,16 +19,10 @@ class CurrencyHandler: NSObject {
     }()
     
     static func round(_ value: Float, toNearest: Float) -> Float {
-    
         return Darwin.round(value / toNearest) * toNearest
-    
     }
     
     static func formattedString(for value: Float) -> String {
-
         return numberFormatter.string(from: value as NSNumber)!
-    
     }
-    
-    
 }
