@@ -54,20 +54,25 @@ class BudgetView: UIView {
     
     @objc private func sliderChangedValue(sender: UISlider) {
         
-        let amount = sender.value
+        self.setTo(amount: sender.value)
+    }
+    
+    private func setLabel(for amount: Float) {
         let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.50)
         let formattedString = CurrencyHandler.formattedString(for: roundedAmount)
         self.budgetLabel.text = "$\(formattedString)"
     }
     
     public func getBudgetAmount() -> Float {
-        
         let amount = slider.value
         let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.50)
         return roundedAmount
-
     }
     
+    public func setTo(amount: Float) {
+        self.slider.setValue(amount, animated: false)
+        self.setLabel(for: amount)
+    }
 
     
 }

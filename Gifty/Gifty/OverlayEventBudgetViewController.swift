@@ -108,6 +108,10 @@ class OverlayEventBudgetViewController: UIViewController {
         budgetView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -pad).isActive = true
         budgetView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: smallPad).isActive = true
         budgetView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        if event?.actualAmt != nil {
+            budgetView.setTo(amount: (event?.actualAmt)!)
+        }
         
         let stackView = UIStackView()
         stackView.backgroundColor = UIColor.blue
@@ -139,14 +143,16 @@ class OverlayEventBudgetViewController: UIViewController {
     
     @objc private func closeButtonTouched(sender: UIButton) {
         print("close button touched")
-        
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
     @objc private func okButtonTouched(sender: UIButton) {
         print("ok button touched")
-        
-        //set the value to the event...
+        event?.actualAmt = self.budgetView.getBudgetAmount()
+        ManagedObjectBuilder.saveChanges { (success) in
+            print("Saving spent amount success: \(success)")
+            presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
