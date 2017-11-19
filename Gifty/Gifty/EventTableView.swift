@@ -12,6 +12,7 @@ protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
     func showBudgetInfo(for event: Event)
+    func didTouchBegin()
 }
 
 class EventTableView: UIView {
@@ -29,26 +30,7 @@ class EventTableView: UIView {
 
     var datasource: [Event]?
     
-//    func updateEventLabelForEventsCount() {
-//        if let events = orderedEvents, events.count > 0 {
-//            eventLabel.text = "Upcoming events"
-//        } else {
-//            eventLabel.text = "You have no upcoming events"
-//        }
-//    }
-    
     var displayDateString: String? = nil
-    
-//    var eventLabel: UILabel = {
-//        var label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textColor = Theme.colors.lightToneTwo.color
-//        label.text = "You have no upcoming events"
-//        label.textAlignment = .left
-//        label.font = Theme.fonts.subtitleText.font
-//        label.isHidden = false
-//        return label
-//    }()
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -58,6 +40,9 @@ class EventTableView: UIView {
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor.clear
         tableView.bounces = false
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchesInTV(sender:)))
+        tapGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapGesture)
         return tableView
     }()
     
@@ -74,6 +59,15 @@ class EventTableView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //drop down keyboard if textfield is editing.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.delegate?.didTouchBegin()
+    }
+
+    @objc func touchesInTV(sender: UITapGestureRecognizer) {
+        self.delegate?.didTouchBegin()
     }
     
     @objc private func actionStateChanged(notification: NSNotification) {

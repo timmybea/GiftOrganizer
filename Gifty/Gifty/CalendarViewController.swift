@@ -406,6 +406,10 @@ extension CalendarViewController: EventTableViewDelegate {
             }
         }
     }
+    
+    func didTouchBegin() {
+        //DO NOTHING
+    }
 }
 
 

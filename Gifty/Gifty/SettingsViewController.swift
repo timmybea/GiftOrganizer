@@ -27,10 +27,7 @@ class SettingsViewController: CustomViewController {
     }
     
     private func addSavedSettings() {
-        
         budgetTextField.text = "$\(SettingsHandler.shared.maxBudget)"
-        
-        
     }
     
     

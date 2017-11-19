@@ -138,7 +138,6 @@ class CreatePersonViewController: CustomViewController {
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
-    
     }
     
     private func variablesWereSet() -> Bool {
@@ -242,6 +241,11 @@ class CreatePersonViewController: CustomViewController {
     
     @objc func eventDeleted(notification: NSNotification) {
         self.updateEventDisplayViewWithOrderedEvents()
+    }
+
+    //drop keyboard if editing textfield
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 }
@@ -481,7 +485,6 @@ extension CreatePersonViewController: EventTableViewDelegate {
     
     
     func showBudgetInfo(for event: Event) {
-        
         let overlayVC = OverlayEventBudgetViewController()
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
@@ -489,7 +492,6 @@ extension CreatePersonViewController: EventTableViewDelegate {
         overlayVC.event = event
         
         self.present(overlayVC, animated: true, completion: nil)
-        
     }
 
 
@@ -653,6 +655,12 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
         }
         return newPerson
     }
+    
+    //drop down keyboard if textfield is editing.
+    func didTouchBegin() {
+        self.view.endEditing(true)
+    }
+    
 }
 
 //MARK: Create Event Delegate
