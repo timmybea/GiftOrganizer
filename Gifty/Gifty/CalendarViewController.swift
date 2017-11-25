@@ -149,7 +149,8 @@ class CalendarViewController: CustomViewController {
     }
     
     //MARK: NOTIFICATION event deleted.
-    @objc private func eventDeleted(notification:NSNotification) {
+    @objc
+    private func eventDeleted(notification:NSNotification) {
     
         guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String else { return }
         
@@ -165,7 +166,8 @@ class CalendarViewController: CustomViewController {
     }
     
     
-    @objc func pushToCreateEvent() {
+    @objc
+    func pushToCreateEvent() {
         print("push to create event")
         
         //TEMPORARY: Example for presentation controller instantiation

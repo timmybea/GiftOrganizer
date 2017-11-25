@@ -33,7 +33,7 @@ class EventTableView: UIView {
         }
     }
     
-    var displayDateString: String? = nil
+    var displayDateString: String? = nil //>>>>
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()

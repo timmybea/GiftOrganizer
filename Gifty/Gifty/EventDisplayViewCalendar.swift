@@ -24,8 +24,9 @@ class EventDisplayViewCalendar: EventTableView {
     
     var isSnapped = false
     
-    var upcomingEvents = [Event]()
-    var overdueEvents = [Event]()
+    private var upcomingEvents = [Event]()
+    private var overdueEvents = [Event]()
+    private var tempEventHolder: [Event]?
         
     let swipeIcon: UIImageView = {
         let swipeIcon = UIImage(named: ImageNames.swipeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
@@ -68,7 +69,6 @@ class EventDisplayViewCalendar: EventTableView {
     }
 
     func currentlyDisplaying(dateString: String) -> Bool {
-        
         if let currentDate = self.displayDateString {
             return currentDate == dateString
         } else {
@@ -103,18 +103,15 @@ class EventDisplayViewCalendar: EventTableView {
 
     }
     //MARK: Set datasource
-    private func setDatasource() {
-        print("SET DATASOURCE")
-        
+    private func setDatasourceForOverview() {
+        print("SET DATASOURCE FOR OVERVIEW")
         guard let allEvents = EventFRC.frc()?.fetchedObjects else { return }
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents) { (upcoming, overdue) in
             self.upcomingEvents = upcoming
             self.overdueEvents = overdue
-            
+            self.tempEventHolder = self.datasource
             self.datasource = upcoming
         }
-        
-        
     }
     
     
@@ -155,7 +152,7 @@ class EventDisplayViewCalendar: EventTableView {
         })
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
         self.header.resetSegControl()
-        self.setDatasource()
+        self.setDatasourceForOverview()
     }
     
     func eventDisplayTouchedBoundary() {
@@ -177,21 +174,24 @@ class EventDisplayViewCalendar: EventTableView {
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
+        self.datasource = self.tempEventHolder
     }
 }
 
 //MARK: EVENT DISPLAY HEADER DELEGATE
 extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
    
-    func segControlChanged(to index: Int, title: String) {
-        self.eventDisplayViewDelegate?.segControllerChanged(to: title)
+    func segControlChanged(to index: Int) {
         
+        var navTitle: String = ""
         if index == 0 {
             self.datasource = self.upcomingEvents
+            navTitle = "Upcoming Events"
         } else if index == 1 {
             self.datasource = self.overdueEvents
+            navTitle = "Overdue Events"
         }
-        
+        self.eventDisplayViewDelegate?.segControllerChanged(to: navTitle)
     }
     
 }

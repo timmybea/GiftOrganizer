@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EventDisplayViewHeaderDelegate {
-    func segControlChanged(to index: Int, title: String) //???
+    func segControlChanged(to index: Int)
 }
 
 class EventDisplayHeader: UIView {
@@ -32,9 +32,9 @@ class EventDisplayHeader: UIView {
         case upcomingEvents = 0, overdueEvents, budgetChart
         var title: String {
             switch self {
-            case .upcomingEvents: return "Upcoming Events"
-            case .overdueEvents: return "Overdue Events"
-            case .budgetChart: return "Budget Overview"
+            case .upcomingEvents: return "Upcoming"
+            case .overdueEvents: return "Overdue"
+            case .budgetChart: return "Spending"
             }
         }
     }
@@ -113,7 +113,7 @@ class EventDisplayHeader: UIView {
     private func segmentedControllerChanged(sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
         if let title = sender.titleForSegment(at: index) {
-            self.delegate?.segControlChanged(to: index, title: title)
+            self.delegate?.segControlChanged(to: index)
         }
     }
 }
