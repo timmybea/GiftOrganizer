@@ -24,9 +24,6 @@ class EventDisplayViewCreatePerson: EventTableView {
     override var orderedEvents: [Event]? {
         didSet {
             setupDataSources()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
         }
     }
     

@@ -22,13 +22,16 @@ class EventTableView: UIView {
     var orderedEvents: [Event]? {
         didSet {
             datasource = orderedEvents
+        }
+    }
+
+    var datasource: [Event]? {
+        didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-
-    var datasource: [Event]?
     
     var displayDateString: String? = nil
     

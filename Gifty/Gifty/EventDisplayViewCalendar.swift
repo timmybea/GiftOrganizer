@@ -23,6 +23,9 @@ class EventDisplayViewCalendar: EventTableView {
     }
     
     var isSnapped = false
+    
+    var upcomingEvents = [Event]()
+    var overdueEvents = [Event]()
         
     let swipeIcon: UIImageView = {
         let swipeIcon = UIImage(named: ImageNames.swipeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
@@ -99,6 +102,21 @@ class EventDisplayViewCalendar: EventTableView {
         panGestureView.addGestureRecognizer(panGesture)
 
     }
+    //MARK: Set datasource
+    private func setDatasource() {
+        print("SET DATASOURCE")
+        
+        guard let allEvents = EventFRC.frc()?.fetchedObjects else { return }
+        EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents) { (upcoming, overdue) in
+            self.upcomingEvents = upcoming
+            self.overdueEvents = overdue
+            
+            self.datasource = upcoming
+        }
+        
+        
+    }
+    
     
     //MARK: setup pan
     @objc func handlePan(panRecognizer: UIPanGestureRecognizer) {
@@ -137,6 +155,7 @@ class EventDisplayViewCalendar: EventTableView {
         })
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
         self.header.resetSegControl()
+        self.setDatasource()
     }
     
     func eventDisplayTouchedBoundary() {
@@ -164,8 +183,15 @@ class EventDisplayViewCalendar: EventTableView {
 //MARK: EVENT DISPLAY HEADER DELEGATE
 extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
    
-    func segControlChanged(to string: String) {
-        self.eventDisplayViewDelegate?.segControllerChanged(to: string)
+    func segControlChanged(to index: Int, title: String) {
+        self.eventDisplayViewDelegate?.segControllerChanged(to: title)
+        
+        if index == 0 {
+            self.datasource = self.upcomingEvents
+        } else if index == 1 {
+            self.datasource = self.overdueEvents
+        }
+        
     }
     
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol EventDisplayViewHeaderDelegate {
-    func segControlChanged(to string: String)
+    func segControlChanged(to index: Int, title: String) //???
 }
 
 class EventDisplayHeader: UIView {
@@ -28,9 +28,22 @@ class EventDisplayHeader: UIView {
         return CGRect(x: 0, y: 0, width: frameWidth, height: minHeaderHeight)
     }
     
+    enum SegmentIndex: Int {
+        case upcomingEvents = 0, overdueEvents, budgetChart
+        var title: String {
+            switch self {
+            case .upcomingEvents: return "Upcoming Events"
+            case .overdueEvents: return "Overdue Events"
+            case .budgetChart: return "Budget Overview"
+            }
+        }
+    }
+    
     private let segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["Upcoming Events", "Two", "Three"])
-        segmentedControl.selectedSegmentIndex = 0
+        let segmentedControl = UISegmentedControl(items: [SegmentIndex.upcomingEvents.title,
+                                                          SegmentIndex.overdueEvents.title,
+                                                          SegmentIndex.budgetChart.title])
+        segmentedControl.selectedSegmentIndex = SegmentIndex.upcomingEvents.rawValue
         segmentedControl.tintColor = Theme.colors.lightToneTwo.color
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         return segmentedControl
@@ -100,7 +113,7 @@ class EventDisplayHeader: UIView {
     private func segmentedControllerChanged(sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
         if let title = sender.titleForSegment(at: index) {
-            self.delegate?.segControlChanged(to: title)
+            self.delegate?.segControlChanged(to: index, title: title)
         }
     }
 }
