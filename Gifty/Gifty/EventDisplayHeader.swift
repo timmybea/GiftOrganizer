@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol EventDisplayViewHeaderDelegate {
+    func segControlChanged(to string: String)
+}
+
 class EventDisplayHeader: UIView {
+    
+    var delegate: EventDisplayViewHeaderDelegate?
 
     private var frameWidth: CGFloat = 0.0
     private let maxHeaderHeight: CGFloat = 44
@@ -23,7 +29,7 @@ class EventDisplayHeader: UIView {
     }
     
     private let segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: ["One", "Two", "Three"])
+        let segmentedControl = UISegmentedControl(items: ["Upcoming Events", "Two", "Three"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.tintColor = Theme.colors.lightToneTwo.color
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +45,7 @@ class EventDisplayHeader: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        //
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -61,6 +67,8 @@ class EventDisplayHeader: UIView {
         segmentedControl.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
         segmentedControl.topAnchor.constraint(equalTo: self.topAnchor, constant: smallPad).isActive = true
         segmentedControl.isHidden = true
+        
+        segmentedControl.addTarget(self, action: #selector(segmentedControllerChanged(sender:)), for: .valueChanged)
     }
     
     func setFrame(appear: Bool) {
@@ -82,5 +90,17 @@ class EventDisplayHeader: UIView {
             self.segmentedControl.isHidden = true
             completion(true)
         })
+    }
+    
+    func resetSegControl() {
+        self.segmentedControl.selectedSegmentIndex = 0
+    }
+    
+    @objc
+    private func segmentedControllerChanged(sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex
+        if let title = sender.titleForSegment(at: index) {
+            self.delegate?.segControlChanged(to: title)
+        }
     }
 }

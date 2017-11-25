@@ -336,6 +336,10 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
             }
         }
     }
+    
+    func segControllerChanged(to title: String) {
+        self.navigationItem.title = title
+    }
 }
 
 //MARK: Event FRC delegate methods (update the calendar datasource)

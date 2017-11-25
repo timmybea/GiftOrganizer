@@ -11,6 +11,7 @@ import UIKit
 protocol EventDisplayViewCalendarDelegate: EventTableViewDelegate {
     func eventDisplayPosition(up: Bool)
     func stackViewPan(panRecognizer: UIPanGestureRecognizer)
+    func segControllerChanged(to title: String)
 }
 
 class EventDisplayViewCalendar: EventTableView {
@@ -47,6 +48,7 @@ class EventDisplayViewCalendar: EventTableView {
     
     lazy var header: EventDisplayHeader = {
         let view = EventDisplayHeader(with: self.frame.width - pad)
+        view.delegate = self
         return view
     }()
     
@@ -114,7 +116,6 @@ class EventDisplayViewCalendar: EventTableView {
         self.tableViewHeightUp = self.frame.height - smallPad - 34 - tabHeight - pad - navHeight
             
         addSubview(tableView)
-//        tableView.backgroundColor = UIColor.darkGray
         tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: tableViewHeightDown)
         header.setFrame(appear: false)
         tableView.tableHeaderView = header
@@ -135,6 +136,7 @@ class EventDisplayViewCalendar: EventTableView {
             self.header.headerAppearAnimation()
         })
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
+        self.header.resetSegControl()
     }
     
     func eventDisplayTouchedBoundary() {
@@ -157,5 +159,13 @@ class EventDisplayViewCalendar: EventTableView {
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
     }
+}
 
+//MARK: EVENT DISPLAY HEADER DELEGATE
+extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
+   
+    func segControlChanged(to string: String) {
+        self.eventDisplayViewDelegate?.segControllerChanged(to: string)
+    }
+    
 }
