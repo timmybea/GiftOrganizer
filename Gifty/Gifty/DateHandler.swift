@@ -60,6 +60,11 @@ class DateHandler: NSObject {
         return dateFormatter.string(from: date)
     }
     
+    static func weekNum(from date: Date) -> Int {
+        let calendar = Calendar.current
+        return calendar.component(.weekOfYear, from: date)
+    }
+    
 
     //MARK: Handle time zone
     static func localTimeFromUTC(_ date: Date) -> Date {

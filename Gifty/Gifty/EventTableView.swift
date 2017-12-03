@@ -21,17 +21,21 @@ class EventTableView: UIView {
     
     var orderedEvents: [Event]? {
         didSet {
-            datasource = orderedEvents
+            if orderedEvents != nil {
+                datasource = [TableSectionEvent(header: nil, events: orderedEvents!)]
+            }
         }
     }
 
-    var datasource: [Event]? {
+    var datasource: [TableSectionEvent]? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
+    
+    var showSections = false
     
     var displayDateString: String? = nil //>>>>
     
@@ -85,14 +89,23 @@ class EventTableView: UIView {
 
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard showSections && datasource != nil else { return 1 }
+        var count = 0
+        for section in datasource! where section.events.count > 0 {
+            count += 1
+        }
+        return count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource?.count ?? 0
+        return datasource?[section].events.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
         cell.delegate = self
-        cell.configureWith(event: (datasource?[indexPath.row])!)
+        cell.configureWith(event: (datasource?[indexPath.section].events[indexPath.row])!)
         return cell
     }
     
@@ -130,14 +143,14 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
-            if self.delegate != nil, let event = self.datasource?[indexPath.row] {
+            if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
                 self.delegate?.didTouchEditEvent(event: event)
             }
         }
         editAction.backgroundColor = Theme.colors.yellow.color
         
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
-            if self.delegate != nil, let event = self.datasource?[indexPath.row] {
+            if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
                self.datasource?.remove(at: indexPath.row)
                 self.delegate?.didTouchDeleteEvent(event: event)
             }
@@ -186,7 +199,8 @@ extension EventTableView: EventTableViewCellDelegate {
             
             //update cell subviews according to checklist completion
             if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {
-                cell.configureWith(event: datasource![self.selectedIndexPath!.row])
+                let event = self.datasource![(selectedIndexPath?.section)!].events[(selectedIndexPath?.row)!]
+                cell.configureWith(event: event)
             }
         }
     }

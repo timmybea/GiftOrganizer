@@ -67,11 +67,12 @@ class EventFRC: NSObject {
         }
     }
     
-    static func sortEventsIntoUpcomingAndOverdue(events: [Event], completion: (_ upcomingEvents: [Event], _ overdueEvents: [Event]) -> ()) {
+    static func sortEventsIntoUpcomingAndOverdue(events: [Event], completion: (_ upcomingEvents: [TableSectionEvent], _ overdueEvents: [TableSectionEvent]) -> ()) {
         
-        var upcoming = [Event]()
-        var overdue = [Event]()
-        
+        var overdue: [TableSectionEvent] = [TableSectionEvent(header: nil, events: [Event]())]
+        var upcoming: [TableSectionEvent] = [TableSectionEvent(header: "This Week", events: [Event]()),
+                                             TableSectionEvent(header: "This Month", events: [Event]()),
+                                             TableSectionEvent(header: "Later", events: [Event]())]
         let now = DateHandler.localTimeFromUTC(Date())
         let todayString = DateHandler.stringFromDate(now)
         guard let today = DateHandler.dateFromDateString(todayString) else { completion(upcoming, overdue); return }
@@ -80,14 +81,21 @@ class EventFRC: NSObject {
             if let eventDate = event.date as Date? {
                 if eventDate < today {
                     if !event.isComplete {
-                        overdue.append(event)
+                        overdue[0].events.append(event)
                     }
                 } else {
-                    upcoming.append(event)
+                    if DateHandler.weekNum(from: eventDate) == DateHandler.weekNum(from: Date()) {
+                        upcoming[0].events.append(event)
+                    }
                 }
             }
         }
         completion(upcoming, overdue)
     }
+}
+
+struct TableSectionEvent {
+    let header: String?
+    var events: [Event]
 }
 

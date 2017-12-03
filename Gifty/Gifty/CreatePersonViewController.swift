@@ -234,7 +234,6 @@ class CreatePersonViewController: CustomViewController {
             let orderedEvents = unorderedEvents.sorted(by: { (eventA, eventB) -> Bool in
                 eventA.date?.compare(eventB.date! as Date) == ComparisonResult.orderedAscending
             })
-            
             self.eventTableView.orderedEvents = orderedEvents
         }
     }

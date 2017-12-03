@@ -24,9 +24,9 @@ class EventDisplayViewCalendar: EventTableView {
     
     var isSnapped = false
     
-    private var upcomingEvents = [Event]()
-    private var overdueEvents = [Event]()
-    private var tempEventHolder: [Event]?
+    private var upcomingEvents = [TableSectionEvent]()
+    private var overdueEvents = [TableSectionEvent]()
+    private var tempEventHolder: [TableSectionEvent]?
         
     let swipeIcon: UIImageView = {
         let swipeIcon = UIImage(named: ImageNames.swipeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
@@ -185,6 +185,7 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
         
         var navTitle: String = ""
         if index == 0 {
+            showSections = true
             self.datasource = self.upcomingEvents
             navTitle = "Upcoming Events"
         } else if index == 1 {

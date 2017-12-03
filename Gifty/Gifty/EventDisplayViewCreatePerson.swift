@@ -27,8 +27,8 @@ class EventDisplayViewCreatePerson: EventTableView {
         }
     }
     
-    private var upcomingEvents = [Event]()
-    private var overdueEvents = [Event]()
+    private var upcomingEvents = [TableSectionEvent]()
+    private var overdueEvents = [TableSectionEvent]()
     
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
@@ -98,10 +98,12 @@ class EventDisplayViewCreatePerson: EventTableView {
     
     private func setupDataSources() {
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!) { (upcoming, overdue) in
+            
+            
             upcomingEvents = upcoming
             overdueEvents = overdue
             
-            if overdueEvents.count > 0 {
+            if overdueEvents[0].events.count > 0 {
                 segmentedControl.setTitle("Overdue (\(overdueEvents.count))", forSegmentAt: 1)
             }
             datasource = segmentedControl.selectedSegmentIndex == 0 ? upcomingEvents : overdueEvents
