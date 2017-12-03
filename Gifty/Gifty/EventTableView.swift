@@ -40,7 +40,7 @@ class EventTableView: UIView {
     var displayDateString: String? = nil //>>>>
     
     lazy var tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
@@ -114,6 +114,29 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             return 100
         } else {
             return 62
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if showSections {
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = UIColor.clear
+            let label = UILabel(frame: CGRect(x: pad, y: 8, width: 200, height: 20))
+            label.font = Theme.fonts.subtitleText.font
+            label.textColor = UIColor.darkGray
+            label.text = datasource![section].header
+            backgroundView.addSubview(label)
+            return backgroundView
+        } else {
+            return nil
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if showSections {
+            return 34
+        } else {
+            return 0
         }
     }
     

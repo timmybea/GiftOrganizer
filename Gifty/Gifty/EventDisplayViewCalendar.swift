@@ -110,6 +110,7 @@ class EventDisplayViewCalendar: EventTableView {
             self.upcomingEvents = upcoming
             self.overdueEvents = overdue
             self.tempEventHolder = self.datasource
+            self.showSections = true
             self.datasource = upcoming
         }
     }
@@ -174,6 +175,7 @@ class EventDisplayViewCalendar: EventTableView {
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
+        self.showSections = false
         self.datasource = self.tempEventHolder
     }
 }
@@ -189,6 +191,7 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
             self.datasource = self.upcomingEvents
             navTitle = "Upcoming Events"
         } else if index == 1 {
+            showSections = false
             self.datasource = self.overdueEvents
             navTitle = "Overdue Events"
         }
