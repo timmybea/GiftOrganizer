@@ -60,11 +60,15 @@ class DateHandler: NSObject {
         return dateFormatter.string(from: date)
     }
     
-    static func weekNum(from date: Date) -> Int {
+    static func sameComponent(_ component: Calendar.Component, date1: Date, date2: Date) -> Bool {
         let calendar = Calendar.current
-        return calendar.component(.weekOfYear, from: date)
-    }
-    
+        if calendar.component(.year, from: date1) == calendar.component(.year, from: date2) {
+            if calendar.component(component, from: date1) == calendar.component(component, from: date2) {
+                return true
+            }
+        }
+        return false
+    }    
 
     //MARK: Handle time zone
     static func localTimeFromUTC(_ date: Date) -> Date {

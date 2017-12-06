@@ -84,8 +84,12 @@ class EventFRC: NSObject {
                         overdue[0].events.append(event)
                     }
                 } else {
-                    if DateHandler.weekNum(from: eventDate) == DateHandler.weekNum(from: Date()) {
+                    if DateHandler.sameComponent(.weekOfYear, date1: eventDate, date2: today) {
                         upcoming[0].events.append(event)
+                    } else if DateHandler.sameComponent(.month, date1: eventDate, date2: today) {
+                        upcoming[1].events.append(event)
+                    } else {
+                        upcoming[2].events.append(event)
                     }
                 }
             }
