@@ -52,6 +52,7 @@ class EventDisplayHeader: UIView {
     
     convenience init(with width: CGFloat) {
         self.init()
+        self.backgroundColor = UIColor.clear
         setup(with: width)
     }
     

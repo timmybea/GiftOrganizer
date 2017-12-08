@@ -106,11 +106,11 @@ class EventDisplayViewCalendar: EventTableView {
     private func setDatasourceForOverview() {
         print("SET DATASOURCE FOR OVERVIEW")
         guard let allEvents = EventFRC.frc()?.fetchedObjects else { return }
-        EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents) { (upcoming, overdue) in
+        EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents, sectionHeaders: true) { (upcoming, overdue) in
             self.upcomingEvents = upcoming
             self.overdueEvents = overdue
             self.tempEventHolder = self.datasource
-            self.showSections = true
+            self.displayMode = .sectionHeader
             self.datasource = upcoming
         }
     }
@@ -175,7 +175,7 @@ class EventDisplayViewCalendar: EventTableView {
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
-        self.showSections = false
+        self.displayMode = .sectionHeader //<<<<<
         self.datasource = self.tempEventHolder
     }
 }
@@ -187,15 +187,20 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
         
         var navTitle: String = ""
         if index == 0 {
-            showSections = true
+            self.displayMode = .sectionHeader
             self.datasource = self.upcomingEvents
             navTitle = "Upcoming Events"
         } else if index == 1 {
-            showSections = false
+            self.displayMode = .normal
             self.datasource = self.overdueEvents
             navTitle = "Overdue Events"
+        } else if index == 2 {
+            self.displayMode = .pieChart
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            navTitle = "Budget Summary"
         }
         self.eventDisplayViewDelegate?.segControllerChanged(to: navTitle)
     }
-    
 }

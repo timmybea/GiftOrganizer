@@ -97,26 +97,20 @@ class EventDisplayViewCreatePerson: EventTableView {
     }
     
     private func setupDataSources() {
-        EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!) { (upcoming, overdue) in
-            
+        EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!, sectionHeaders: false) { (upcoming, overdue) in
             
             upcomingEvents = upcoming
             overdueEvents = overdue
             
             if overdueEvents[0].events.count > 0 {
-                segmentedControl.setTitle("Overdue (\(overdueEvents.count))", forSegmentAt: 1)
+                segmentedControl.setTitle("Overdue (\(overdueEvents[0].events.count))", forSegmentAt: 1)
             }
             datasource = segmentedControl.selectedSegmentIndex == 0 ? upcomingEvents : overdueEvents
         }
     }
     
     @objc private func valueChangedFor(sender: UISegmentedControl) {
-        
         datasource = sender.selectedSegmentIndex == 0 ? upcomingEvents : overdueEvents
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
     }
 }
 
@@ -134,7 +128,6 @@ extension EventDisplayViewCreatePerson {
 
 
 extension EventDisplayViewCreatePerson: ButtonTemplateDelegate {
-    
     func buttonWasTouched() {
         self.eventDisplayViewPersonDelegate?.didTouchSaveButton()
         

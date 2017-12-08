@@ -67,23 +67,31 @@ class EventFRC: NSObject {
         }
     }
     
-    static func sortEventsIntoUpcomingAndOverdue(events: [Event], completion: (_ upcomingEvents: [TableSectionEvent], _ overdueEvents: [TableSectionEvent]) -> ()) {
+    static func sortEventsIntoUpcomingAndOverdue(events: [Event], sectionHeaders: Bool, completion: (_ upcomingEvents: [TableSectionEvent], _ overdueEvents: [TableSectionEvent]) -> ()) {
         
         var overdue: [TableSectionEvent] = [TableSectionEvent(header: nil, events: [Event]())]
-        var upcoming: [TableSectionEvent] = [TableSectionEvent(header: "This Week", events: [Event]()),
-                                             TableSectionEvent(header: "This Month", events: [Event]()),
-                                             TableSectionEvent(header: "Later", events: [Event]())]
+        
+        var upcoming: [TableSectionEvent]
+        if sectionHeaders {
+            upcoming = [TableSectionEvent(header: "This Week", events: [Event]()),
+                         TableSectionEvent(header: "This Month", events: [Event]()),
+                         TableSectionEvent(header: "Later", events: [Event]())]
+        } else {
+            upcoming = [TableSectionEvent(header: nil, events: [Event]())]
+        }
+        
         let now = DateHandler.localTimeFromUTC(Date())
         let todayString = DateHandler.stringFromDate(now)
         guard let today = DateHandler.dateFromDateString(todayString) else { completion(upcoming, overdue); return }
     
         for event in events {
-            if let eventDate = event.date as Date? {
-                if eventDate < today {
-                    if !event.isComplete {
-                        overdue[0].events.append(event)
-                    }
-                } else {
+            guard let eventDate = event.date as Date? else { continue }
+            if eventDate < today {
+                if !event.isComplete {
+                    overdue[0].events.append(event)
+                }
+            } else {
+                if sectionHeaders {
                     if DateHandler.sameComponent(.weekOfYear, date1: eventDate, date2: today) {
                         upcoming[0].events.append(event)
                     } else if DateHandler.sameComponent(.month, date1: eventDate, date2: today) {
@@ -91,6 +99,8 @@ class EventFRC: NSObject {
                     } else {
                         upcoming[2].events.append(event)
                     }
+                } else {
+                    upcoming[0].events.append(event)
                 }
             }
         }

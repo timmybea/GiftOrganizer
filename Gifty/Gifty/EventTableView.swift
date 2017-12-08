@@ -35,16 +35,23 @@ class EventTableView: UIView {
         }
     }
     
-    var showSections = false
+    enum Mode {
+        case normal
+        case sectionHeader
+        case pieChart
+    }
     
-    var displayDateString: String? = nil //>>>>
+    var displayMode: Mode = .normal
+    
+    var displayDateString: String? = nil
     
     lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
-        tableView.backgroundColor = UIColor.clear
+        tableView.register(PieChartCell.self, forCellReuseIdentifier: "PieChartCell")
+        tableView.backgroundColor = UIColor.blue
         tableView.separatorColor = UIColor.clear
         tableView.bounces = false
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchesInTV(sender:)))
@@ -90,40 +97,42 @@ class EventTableView: UIView {
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard showSections && datasource != nil else { return 1 }
-        var count = 0
-        for section in datasource! where section.events.count > 0 {
-            count += 1
-        }
-        return count
+        guard displayMode == .sectionHeader && datasource != nil else { return 1 }
+        return (datasource?.reduce(0) { $1.events.count > 0 ? $0 + 1 : $0 })!
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource?[section].events.count ?? 0
+        return displayMode == .pieChart ? 1 : datasource?[section].events.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
-        cell.delegate = self
-        cell.configureWith(event: (datasource?[indexPath.section].events[indexPath.row])!)
-        return cell
+        if displayMode  == .pieChart {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PieChartCell") as! PieChartCell
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
+            cell.delegate = self
+            cell.configureWith(event: (datasource?[indexPath.section].events[indexPath.row])!)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath == selectedIndexPath {
             return 100
         } else {
-            return 62
+            return displayMode == .pieChart ? tableView.bounds.height : 62 //REMOVE STATIC VAL FOR PIE CHART
         }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if showSections {
+        guard datasource != nil else { return nil }
+        if displayMode == .sectionHeader {
             let backgroundView = UIView()
             backgroundView.backgroundColor = UIColor.clear
             let label = UILabel(frame: CGRect(x: pad, y: 8, width: 200, height: 20))
             label.font = Theme.fonts.subtitleText.font
-            label.textColor = UIColor.darkGray
+            label.textColor = Theme.colors.lightToneTwo.color
             label.text = datasource![section].header
             backgroundView.addSubview(label)
             return backgroundView
@@ -133,7 +142,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if showSections {
+        if displayMode == .sectionHeader {
             return 34
         } else {
             return 0
@@ -141,46 +150,51 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        CATransaction.begin()
-        
-        CATransaction.setCompletionBlock {
-            let cell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
-            cell.showActionsButtonsView()
+        if displayMode != .pieChart {
+            CATransaction.begin()
+            
+            CATransaction.setCompletionBlock {
+                let cell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
+                cell.showActionsButtonsView()
+            }
+            
+            tableView.beginUpdates()
+            if selectedIndexPath != nil, let prevCell = tableView.cellForRow(at: selectedIndexPath!) as? EventTableViewCell {
+                prevCell.hideActionsButtonsView()
+            }
+            
+            if indexPath == selectedIndexPath {
+                selectedIndexPath = nil
+            } else {
+                selectedIndexPath = indexPath
+            }
+            tableView.endUpdates()
+            
+            CATransaction.commit()
         }
-        
-        tableView.beginUpdates()
-        if selectedIndexPath != nil, let prevCell = tableView.cellForRow(at: selectedIndexPath!) as? EventTableViewCell {
-            prevCell.hideActionsButtonsView()
-        }
-        
-        if indexPath == selectedIndexPath {
-            selectedIndexPath = nil
-        } else {
-            selectedIndexPath = indexPath
-        }
-        tableView.endUpdates()
-        
-        CATransaction.commit()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
-            if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                self.delegate?.didTouchEditEvent(event: event)
+        if displayMode != .pieChart {
+            let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
+                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
+                    self.delegate?.didTouchEditEvent(event: event)
+                }
             }
-        }
-        editAction.backgroundColor = Theme.colors.yellow.color
-        
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
-            if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-               self.datasource?.remove(at: indexPath.row)
-                self.delegate?.didTouchDeleteEvent(event: event)
+            editAction.backgroundColor = Theme.colors.yellow.color
+            
+            let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
+                    self.datasource?.remove(at: indexPath.row)
+                    self.delegate?.didTouchDeleteEvent(event: event)
+                }
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
+            return [deleteAction, editAction]
+        } else {
+            return nil
         }
-        deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
-        return [deleteAction, editAction]
     }
 }
 
@@ -188,11 +202,9 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
 extension EventTableView: EventTableViewCellDelegate {
     
     func budgetButtonTouched(for event: Event) {
-        
         if self.delegate != nil {
             self.delegate?.showBudgetInfo(for: event)
         }
-
     }
     
     
@@ -227,6 +239,4 @@ extension EventTableView: EventTableViewCellDelegate {
             }
         }
     }
-    
-    
 }
