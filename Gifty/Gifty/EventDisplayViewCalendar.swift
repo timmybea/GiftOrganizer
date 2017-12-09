@@ -199,7 +199,7 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            navTitle = "Budget Summary"
+            navTitle = "Spending \(DateHandler.stringYear())"
         }
         self.eventDisplayViewDelegate?.segControllerChanged(to: navTitle)
     }

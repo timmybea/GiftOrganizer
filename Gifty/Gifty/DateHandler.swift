@@ -35,6 +35,11 @@ class DateHandler: NSObject {
         return date
     }
     
+    static func stringYear() -> String {
+        dateFormatter.dateFormat = "YYYY"
+        return dateFormatter.string(from: Date())
+    }
+    
     static func describeDate(_ date: Date) -> String {
         dateFormatter.dateStyle = .long
         return dateFormatter.string(from: date)

@@ -263,14 +263,15 @@ extension CalendarViewController {
     
     func snap(dragView: UIView) {
         
-        let viewHasNearedSnapPosition = dragView.frame.origin.y < 130
+        let viewHasNearedSnapPosition = dragView.frame.origin.y < self.view.bounds.height / 3
         
-        if viewHasNearedSnapPosition {
-            if !isViewSnapped {
+        if !isViewSnapped {
+            if viewHasNearedSnapPosition {
                 var snapPosition = view.center
                 snapPosition.y += UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!
                 
                 snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
+                snap?.damping = 1
                 dynamicAnimator.addBehavior(snap!)
                 eventDisplayView.eventDisplaySnapped()
                 isViewSnapped = true
@@ -281,6 +282,24 @@ extension CalendarViewController {
                 isViewSnapped = false
             }
         }
+        
+        
+//        if viewHasNearedSnapPosition {
+//            if !isViewSnapped {
+//                var snapPosition = view.center
+//                snapPosition.y += UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!
+//
+//                snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
+//                dynamicAnimator.addBehavior(snap!)
+//                eventDisplayView.eventDisplaySnapped()
+//                isViewSnapped = true
+//            }
+//        } else {
+//            if isViewSnapped {
+//                dynamicAnimator.removeBehavior(snap!)
+//                isViewSnapped = false
+//            }
+//        }
     }
 }
 

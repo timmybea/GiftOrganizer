@@ -11,6 +11,9 @@ import RKPieChart
 
 class PieChartCell: UITableViewCell {
     
+    //How many gifts per group
+    //How much spent per group // with average cost
+    
     private var chartWidth: CGFloat {
             return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - (2 * pad) - (2 * chartPad)
     }
