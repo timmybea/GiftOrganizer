@@ -99,6 +99,7 @@ class EventFRC: NSObject {
                     } else {
                         upcoming[2].events.append(event)
                     }
+                    upcoming = upcoming.filter() { $0.events.count > 0 }
                 } else {
                     upcoming[0].events.append(event)
                 }
