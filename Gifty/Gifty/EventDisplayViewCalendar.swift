@@ -172,11 +172,12 @@ class EventDisplayViewCalendar: EventTableView {
             }, completion: { (success) in
                 self.header.setFrame(appear: false)
                 self.displayMode = .normal
-                self.tableView.reloadData() // tableView needs to redraw with no header
+                self.datasource = self.tempEventHolder
+                self.tableView.reloadData()
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
-        self.datasource = self.tempEventHolder
+        
     }
 }
 

@@ -282,24 +282,6 @@ extension CalendarViewController {
                 isViewSnapped = false
             }
         }
-        
-        
-//        if viewHasNearedSnapPosition {
-//            if !isViewSnapped {
-//                var snapPosition = view.center
-//                snapPosition.y += UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!
-//
-//                snap = UISnapBehavior(item: dragView, snapTo: snapPosition)
-//                dynamicAnimator.addBehavior(snap!)
-//                eventDisplayView.eventDisplaySnapped()
-//                isViewSnapped = true
-//            }
-//        } else {
-//            if isViewSnapped {
-//                dynamicAnimator.removeBehavior(snap!)
-//                isViewSnapped = false
-//            }
-//        }
     }
 }
 
