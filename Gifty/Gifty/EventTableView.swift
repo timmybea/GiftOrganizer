@@ -101,6 +101,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard datasource?.isEmpty == false else { return 0 }
         return displayMode == .pieChart ? 1 : datasource?[section].events.count ?? 0
     }
     
