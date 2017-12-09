@@ -108,6 +108,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if displayMode  == .pieChart {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PieChartCell") as! PieChartCell
+            cell.createDataForChart()
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
