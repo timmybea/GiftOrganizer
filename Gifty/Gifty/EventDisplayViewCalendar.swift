@@ -60,7 +60,6 @@ class EventDisplayViewCalendar: EventTableView {
         super.init(frame: frame)
         
         self.backgroundColor = Theme.colors.offWhite.color
-        
         setupSubviews(in: superView)
     }
     
@@ -134,7 +133,8 @@ class EventDisplayViewCalendar: EventTableView {
         addSubview(tableView)
         tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: tableViewHeightDown)
         header.setFrame(appear: false)
-        tableView.tableHeaderView = header  //<<<<HERE
+        tableView.tableHeaderView = header
+
     }
     
     func eventDisplaySnapped() {
@@ -171,11 +171,11 @@ class EventDisplayViewCalendar: EventTableView {
                 self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
             }, completion: { (success) in
                 self.header.setFrame(appear: false)
-                self.tableView.reloadData() // tableView needs to redraw with no header                
+                self.displayMode = .normal
+                self.tableView.reloadData() // tableView needs to redraw with no header
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
-        self.displayMode = .sectionHeader
         self.datasource = self.tempEventHolder
     }
 }

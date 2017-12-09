@@ -51,7 +51,7 @@ class EventTableView: UIView {
         tableView.delegate = self
         tableView.register(EventTableViewCell.self, forCellReuseIdentifier: "EventCell")
         tableView.register(PieChartCell.self, forCellReuseIdentifier: "PieChartCell")
-        tableView.backgroundColor = UIColor.blue
+        tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor.clear
         tableView.bounces = false
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchesInTV(sender:)))
@@ -93,7 +93,6 @@ class EventTableView: UIView {
     }
 }
 
-
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -121,7 +120,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         if indexPath == selectedIndexPath {
             return 100
         } else {
-            return displayMode == .pieChart ? tableView.bounds.height : 62 //REMOVE STATIC VAL FOR PIE CHART
+            return displayMode == .pieChart ? tableView.bounds.height : 62
         }
     }
     
@@ -206,7 +205,6 @@ extension EventTableView: EventTableViewCellDelegate {
             self.delegate?.showBudgetInfo(for: event)
         }
     }
-    
     
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event) {
         
