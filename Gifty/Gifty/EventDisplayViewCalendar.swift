@@ -134,14 +134,14 @@ class EventDisplayViewCalendar: EventTableView {
         addSubview(tableView)
         tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: tableViewHeightDown)
         header.setFrame(appear: false)
-        tableView.tableHeaderView = header
+        tableView.tableHeaderView = header  //<<<<HERE
     }
     
     func eventDisplaySnapped() {
         
         isSnapped = true
         
-        UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: { 
+        UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: {
             
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
             self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightUp)
@@ -171,11 +171,11 @@ class EventDisplayViewCalendar: EventTableView {
                 self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
             }, completion: { (success) in
                 self.header.setFrame(appear: false)
-                self.tableView.tableHeaderView = self.header
+                self.tableView.reloadData() // tableView needs to redraw with no header                
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
-        self.displayMode = .sectionHeader //<<<<<
+        self.displayMode = .sectionHeader
         self.datasource = self.tempEventHolder
     }
 }
