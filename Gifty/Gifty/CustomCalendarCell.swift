@@ -146,7 +146,6 @@ class CustomCalendarCell: JTAppleCell {
             self.actionDateString = dateString
             self.actionSpot.tintColor = complete! ? Theme.colors.completedGreen.color : Theme.colors.lightToneOne.color
         }
-
     }
     
 }

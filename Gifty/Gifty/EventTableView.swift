@@ -31,13 +31,11 @@ class EventTableView: UIView {
 
     var pieChartDatasource: [PieData]? {
         didSet {
-            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
-    
     
     var datasource: [TableSectionEvent]? {
         didSet {
@@ -132,10 +130,10 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath == selectedIndexPath {
-            return 100
+        if displayMode == .pieChart {
+            return tableView.bounds.height
         } else {
-            return displayMode == .pieChart ? tableView.bounds.height : 62
+            return indexPath == selectedIndexPath ? 100 : 62
         }
     }
     

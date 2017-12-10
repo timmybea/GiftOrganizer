@@ -11,13 +11,28 @@ import RKPieChart
 
 class PieChartCell: UITableViewCell {
     
+    private var cellWidth: CGFloat {
+        return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - pad
+    }
+    
     private var chartWidth: CGFloat {
-            return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - (2 * pad) - (2 * chartPad)
+            return  cellWidth - (1 * pad) - (2 * chartPad)
     }
     
     private let chartPad: CGFloat = 70
     
     var chartView: RKPieChartView?
+    
+    private lazy var tableView: UITableView = {
+        let tv = UITableView(frame: .zero, style: .plain)
+        tv.delegate = self
+        tv.dataSource = self
+        tv.backgroundColor = UIColor.green
+        tv.bounces = false
+        tv.isScrollEnabled = false
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        return tv
+    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,9 +79,42 @@ class PieChartCell: UITableViewCell {
         layoutChart()
     }
     
-    private func layoutChart() {
+    @objc
+    func layoutChart() {
+        
         guard let chartView = self.chartView else { return }
-        chartView.frame = CGRect(x: chartPad, y: pad, width: chartWidth, height: chartWidth)
+        
         self.addSubview(chartView)
+        chartView.heightAnchor.constraint(equalToConstant: chartWidth).isActive = true
+        chartView.widthAnchor.constraint(equalToConstant: chartWidth).isActive = true
+        chartView.topAnchor.constraint(equalTo: self.topAnchor, constant: pad).isActive = true
+        chartView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -pad).isActive = true
+        
+        self.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: pad).isActive = true
+        tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+    }
+    
+}
+
+extension PieChartCell: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
