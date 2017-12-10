@@ -23,6 +23,8 @@ class EventTableView: UIView {
         didSet {
             if orderedEvents != nil {
                 datasource = [TableSectionEvent(header: nil, events: orderedEvents!)]
+            } else {
+                datasource = nil //<<<HERE
             }
         }
     }
