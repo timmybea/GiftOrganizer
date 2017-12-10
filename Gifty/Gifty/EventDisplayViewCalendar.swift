@@ -108,6 +108,8 @@ class EventDisplayViewCalendar: EventTableView {
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents, sectionHeaders: true) { (upcoming, overdue) in
             self.upcomingEvents = upcoming
             self.overdueEvents = overdue
+            let overdueCount = overdueEvents[0].events.count
+            header.updateOverdue(count: overdueCount)
             self.tempEventHolder = self.datasource
             self.displayMode = .sectionHeader
             self.datasource = upcoming

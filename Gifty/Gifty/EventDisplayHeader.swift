@@ -110,10 +110,18 @@ class EventDisplayHeader: UIView {
         self.segmentedControl.selectedSegmentIndex = 0
     }
     
+    func updateOverdue(count: Int) {
+        if count > 0 {
+            self.segmentedControl.setTitle("Overdue (\(count))", forSegmentAt: 1)
+        } else {
+            self.segmentedControl.setTitle("Overdue", forSegmentAt: 1)
+        }
+    }
+    
     @objc
     private func segmentedControllerChanged(sender: UISegmentedControl) {
         let index = sender.selectedSegmentIndex
-        if let title = sender.titleForSegment(at: index) {
+        if sender.titleForSegment(at: index) != nil {
             self.delegate?.segControlChanged(to: index)
         }
     }

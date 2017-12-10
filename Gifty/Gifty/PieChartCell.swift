@@ -15,7 +15,7 @@ class PieChartCell: UITableViewCell {
             return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - (2 * pad) - (2 * chartPad)
     }
     
-    private let chartPad: CGFloat = 20
+    private let chartPad: CGFloat = 70
     
     var chartView: RKPieChartView?
     
@@ -46,11 +46,6 @@ class PieChartCell: UITableViewCell {
             let item = RKPieChartItem(ratio: uint(datum.amtSpent), color: colors[index % colors.count], title: datum.group)
             items.append(item)
         }
-        
-//        let firstItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.buttonPurple.color, title: "1st Item ")
-//        let secondItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.lightToneTwo.color, title: "2nd Item")
-//        let thirdItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.lightToneOne.color, title: "3rd Item")
-        
         self.chartView = RKPieChartView(items: items)
         configureChartView()
     }
@@ -71,7 +66,7 @@ class PieChartCell: UITableViewCell {
     
     private func layoutChart() {
         guard let chartView = self.chartView else { return }
-        chartView.frame = CGRect(x: chartPad, y: chartPad, width: chartWidth, height: chartWidth)
+        chartView.frame = CGRect(x: chartPad, y: pad, width: chartWidth, height: chartWidth)
         self.addSubview(chartView)
     }
 }
