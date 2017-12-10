@@ -27,7 +27,7 @@ class EventDisplayViewCalendar: EventTableView {
     private var upcomingEvents = [TableSectionEvent]()
     private var overdueEvents = [TableSectionEvent]()
     private var tempEventHolder: [TableSectionEvent]?
-        
+    
     let swipeIcon: UIImageView = {
         let swipeIcon = UIImage(named: ImageNames.swipeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: swipeIcon)
@@ -197,9 +197,6 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
             navTitle = "Overdue Events"
         } else if index == 2 {
             self.displayMode = .pieChart
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
             navTitle = "Spending \(DateHandler.stringYear())"
         }
         self.eventDisplayViewDelegate?.segControllerChanged(to: navTitle)

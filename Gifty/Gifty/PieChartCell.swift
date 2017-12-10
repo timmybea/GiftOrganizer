@@ -11,9 +11,6 @@ import RKPieChart
 
 class PieChartCell: UITableViewCell {
     
-    //How many gifts per group
-    //How much spent per group // with average cost
-    
     private var chartWidth: CGFloat {
             return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - (2 * pad) - (2 * chartPad)
     }
@@ -33,17 +30,28 @@ class PieChartCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createDataForChart() {
+    private let colors = [Theme.colors.buttonPurple.color,
+                          Theme.colors.lightToneTwo.color,
+                          Theme.colors.lightToneOne.color]
+    
+    func setDataForChart(pieData: [PieData]) {
         
         if self.chartView != nil {
             self.chartView?.removeFromSuperview()
         }
         
-        let firstItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.buttonPurple.color, title: "1st Item ")
-        let secondItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.lightToneTwo.color, title: "2nd Item")
-        let thirdItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.lightToneOne.color, title: "3rd Item")
+        var items = [RKPieChartItem]()
+        for (index, datum) in pieData.enumerated() {
+            
+            let item = RKPieChartItem(ratio: uint(datum.amtSpent), color: colors[index % colors.count], title: datum.group)
+            items.append(item)
+        }
         
-        self.chartView = RKPieChartView(items: [firstItem, secondItem, thirdItem])
+//        let firstItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.buttonPurple.color, title: "1st Item ")
+//        let secondItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.lightToneTwo.color, title: "2nd Item")
+//        let thirdItem: RKPieChartItem = RKPieChartItem(ratio: 20, color: Theme.colors.lightToneOne.color, title: "3rd Item")
+        
+        self.chartView = RKPieChartView(items: items)
         configureChartView()
     }
     

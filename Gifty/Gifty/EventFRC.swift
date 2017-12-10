@@ -18,7 +18,6 @@ class EventFRC: NSObject {
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
         let dateDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        //let personNameDescriptor = NSSortDescriptor(key: "person.fullname", ascending: true)
         fetchRequest.sortDescriptors = [dateDescriptor]
         frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "dateString", cacheName: nil)
   

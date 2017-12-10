@@ -24,11 +24,21 @@ class EventTableView: UIView {
             if orderedEvents != nil {
                 datasource = [TableSectionEvent(header: nil, events: orderedEvents!)]
             } else {
-                datasource = nil //<<<HERE
+                datasource = nil
             }
         }
     }
 
+    var pieChartDatasource: [PieData]? {
+        didSet {
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    
     var datasource: [TableSectionEvent]? {
         didSet {
             DispatchQueue.main.async {
@@ -110,7 +120,8 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if displayMode  == .pieChart {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PieChartCell") as! PieChartCell
-            cell.createDataForChart()
+            guard let data = pieChartDatasource else { return cell }
+            cell.setDataForChart(pieData: data)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
