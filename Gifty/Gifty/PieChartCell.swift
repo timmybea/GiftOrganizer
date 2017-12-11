@@ -23,13 +23,18 @@ class PieChartCell: UITableViewCell {
     
     var chartView: RKPieChartView?
     
+    var tableDatasource: [ChartReportItem]?
+    
     private lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.delegate = self
         tv.dataSource = self
-        tv.backgroundColor = UIColor.green
+        tv.backgroundColor = UIColor.clear
+        tv.separatorColor = UIColor.clear
         tv.bounces = false
         tv.isScrollEnabled = false
+        tv.allowsSelection = false
+        tv.register(ChartReportCell.self, forCellReuseIdentifier: "ChartReportCell")
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
@@ -55,13 +60,20 @@ class PieChartCell: UITableViewCell {
             self.chartView?.removeFromSuperview()
         }
         
-        var items = [RKPieChartItem]()
+        var chartItems = [RKPieChartItem]()
+        var reportItems = [ChartReportItem]()
         for (index, datum) in pieData.enumerated() {
             
-            let item = RKPieChartItem(ratio: uint(datum.amtSpent), color: colors[index % colors.count], title: datum.group)
-            items.append(item)
+            let color = colors[index % colors.count]
+            
+            let chartItem = RKPieChartItem(ratio: uint(datum.amtSpent), color: color, title: datum.group)
+            chartItems.append(chartItem)
+            
+            let reportItem = ChartReportItem(color: color, group: datum.group, numberGifts: datum.numberOfGifts, totalSpent: datum.amtSpent)
+            reportItems.append(reportItem)
         }
-        self.chartView = RKPieChartView(items: items)
+        self.chartView = RKPieChartView(items: chartItems)
+        self.tableDatasource = reportItems
         configureChartView()
     }
     
@@ -95,6 +107,10 @@ class PieChartCell: UITableViewCell {
         tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
 }
@@ -102,19 +118,27 @@ class PieChartCell: UITableViewCell {
 extension PieChartCell: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return tableDatasource?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ChartReportCell") as? ChartReportCell
+        cell?.configureWith(chartReportItem: (tableDatasource?[indexPath.row])!)
+        return cell!
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 20
+        return 30
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+}
+
+struct ChartReportItem {
+    var color: UIColor
+    var group: String
+    var numberGifts: Int
+    var totalSpent: Float
 }
