@@ -8,26 +8,36 @@
 
 import UIKit
 
-class SettingsHandler {
+class SettingsHandler: NSObject {
+    
+    override private init() {}
     
     static let shared = SettingsHandler()
     
     var maxBudget: Int = 0 {
         willSet {
-            UserDefaults.standard.set(newValue, forKey: key.maxBudget.rawValue)
+            udStandard.set(newValue, forKey: key.maxBudget.rawValue)
         }
     }
     
-    func getSettings() {
-        if let amt = UserDefaults.standard.object(forKey: key.maxBudget.rawValue) {
-            maxBudget = amt as! Int
-        } else {
-            maxBudget = 100
+    var groups = [String]() {
+        willSet {
+            udStandard.set(newValue, forKey: key.groups.rawValue)
         }
+    }
+    
+    private let udStandard = UserDefaults.standard
+    
+    func getSettings() {
+        
+        maxBudget = udStandard.object(forKey: key.maxBudget.rawValue) as? Int ?? 100
+        groups = udStandard.object(forKey: key.groups.rawValue) as? [String] ?? ["Family", "Friends", "Colleagues"]
+        
     }    
     
     enum key: String {
         case maxBudget
+        case groups
     }
     
     

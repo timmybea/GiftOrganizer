@@ -195,7 +195,7 @@ class CreatePersonViewController: CustomViewController {
         
         let dropDownFrame = CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.3333)
         
-        dropDown = DropDownTextField(frame: dropDownFrame, title: "Group", options: ["Family", "Friends", "Colleagues"])
+        dropDown = DropDownTextField(frame: dropDownFrame, title: "Group", options: SettingsHandler.shared.groups)
         
         dropDown.delegate = self
         
