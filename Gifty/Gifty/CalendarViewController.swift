@@ -170,15 +170,13 @@ class CalendarViewController: CustomViewController {
     func pushToCreateEvent() {
         print("push to create event")
         
-        //TEMPORARY: Example for presentation controller instantiation
+        self.titleLabel.isHidden = true
         
-//        let overlayVC = OverlayViewController()
-//        
-//        self.transitioningDelegate = self.customTransitionDelegate
-//        overlayVC.transitioningDelegate = self.customTransitionDelegate
-//        overlayVC.modalPresentationStyle = .custom
-//        
-//        self.present(overlayVC, animated: true, completion: nil)
+        let destination = CustomTableViewController()
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
     }
 
     //MARK: Orientation change methods

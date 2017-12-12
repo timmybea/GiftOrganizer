@@ -45,6 +45,7 @@
 		B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */; };
 		B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08695AA1FDA2D6F00080855 /* PieChartCell.swift */; };
 		B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08AD7231FDCB89100537A42 /* PieChartService.swift */; };
+		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
@@ -131,6 +132,7 @@
 		B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayEventBudgetViewController.swift; sourceTree = "<group>"; };
 		B08695AA1FDA2D6F00080855 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
 		B08AD7231FDCB89100537A42 /* PieChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartService.swift; sourceTree = "<group>"; };
+		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
 		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */,
+				B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */,
 				B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */,
+				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,

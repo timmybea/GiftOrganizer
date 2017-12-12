@@ -67,12 +67,4 @@ class CustomViewController: UIViewController {
         
         return [.portrait]
     }
-    
-//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-//        self.setTitleLabelPosition(withSize: size)
-//        
-//        backgroundView.image =  size.width < size.height ? UIImage(named: ImageNames.verticalBGGradient.rawValue) : UIImage(named: ImageNames.horizontalBGGradient.rawValue)
-//    }
-
- 
 }
