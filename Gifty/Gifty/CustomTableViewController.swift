@@ -35,11 +35,10 @@ class CustomTableViewController: CustomViewController {
         tf.translatesAutoresizingMaskIntoConstraints = false
         tf.borderStyle = .roundedRect
         tf.returnKeyType = .done
-        tf.placeholder = "Enter gift idea"
         return tf
     }()
     
-    var datasource: [String]? = SettingsHandler.shared.groups.sorted()
+    var datasource: [String]?
     
     var bottomConstraint: NSLayoutConstraint?
     
@@ -47,8 +46,46 @@ class CustomTableViewController: CustomViewController {
         return tabBarController?.tabBar.bounds.height ?? 48
     }
     
+    var useCase: UseCase! {
+        didSet {
+            self.inputTextField.placeholder = self.useCase.placeholderText
+            self.title = self.useCase.title
+            getDatasource()
+        }
+    }
+    
+    func getDatasource() {
+        switch useCase {
+        case .celebration: datasource = SettingsHandler.shared.celebrations
+        case .group: datasource = SettingsHandler.shared.groups
+        default: print("reached end of switch")
+        }
+    }
+    
+    enum UseCase {
+        case group
+        case celebration
+        
+        var title: String {
+            switch self {
+            case .group: return "Group"
+            case .celebration: return "Celebration"
+            }
+        }
+        
+        var placeholderText: String {
+            switch self {
+            case .celebration: return "Please enter celebration"
+            case .group: return "Please enter group"
+            }
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.useCase = .celebration
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -66,7 +103,6 @@ class CustomTableViewController: CustomViewController {
     }
     
     private func setupNavigationBar() {
-        self.title = "Groups"
         navigationItem.hidesBackButton = true
         let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
             , style: .plain, target: self, action: #selector(backButtonTouched))
@@ -146,14 +182,19 @@ extension CustomTableViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         handleText:
-        if let newInput = textField.text?.capitalized {
+        if textField.text != "", let newInput = textField.text?.capitalized {
             guard var tempDatasource = self.datasource else { break handleText }
             tempDatasource.append(newInput)
             guard let index = tempDatasource.sorted().index(of: newInput) else { break handleText }
             self.datasource?.insert(newInput, at: index)
-            SettingsHandler.shared.groups = datasource!
+            
+            switch useCase {
+            case .celebration: SettingsHandler.shared.celebrations = datasource!
+            case .group: SettingsHandler.shared.groups = datasource!
+            default: print("reached end of switch")
+            }
+            
             DispatchQueue.main.async {
                 self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
@@ -185,7 +226,11 @@ extension CustomTableViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
             self.datasource?.remove(at: indexPath.row)
-            SettingsHandler.shared.groups = self.datasource!
+            switch self.useCase {
+            case .celebration: SettingsHandler.shared.celebrations = self.datasource!
+            case .group: SettingsHandler.shared.groups = self.datasource!
+            default: print("reached end of switch")
+            }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color

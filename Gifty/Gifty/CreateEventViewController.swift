@@ -104,8 +104,7 @@ class CreateEventViewController: CustomViewController {
         if let navHeight = navigationController?.navigationBar.frame.height {
             yVal = navHeight + UIApplication.shared.statusBarFrame.height + pad
             let frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 40)
-            let options = ["Birthday", "Graduation", "Wedding", "Baby Shower"]
-            dropDown = DropDownTextField(frame: frame, title: "Celebration Type", options: options)
+            dropDown = DropDownTextField(frame: frame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
             dropDown.delegate = self
             view.addSubview(dropDown)
         }
