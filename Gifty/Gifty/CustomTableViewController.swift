@@ -10,10 +10,17 @@ import UIKit
 
 class CustomTableViewController: CustomViewController {
 
-//    var tableView: UITableView = {
-//        let tv = UITableView()
-//        return tv
-//    }()
+    lazy var tableView: UITableView = {
+        let tv = UITableView(frame: .zero, style: .plain)
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = Theme.colors.offWhite.color
+        tv.allowsSelection = false
+        tv.separatorStyle = .singleLine
+        tv.separatorColor = Theme.colors.lightToneTwo.color
+        tv.delegate = self
+        tv.dataSource = self
+        return tv
+    }()
     
     var inputContainerView: UIView = {
         let view = UIView()
@@ -32,6 +39,8 @@ class CustomTableViewController: CustomViewController {
         return tf
     }()
     
+    var datasource: [String]? = SettingsHandler.shared.groups.sorted()
+    
     var bottomConstraint: NSLayoutConstraint?
     
     var tabBarHeight: CGFloat! {
@@ -45,13 +54,23 @@ class CustomTableViewController: CustomViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
+        //temporary
         self.backgroundView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTouchView))
         self.backgroundView.addGestureRecognizer(tapGesture)
         
+        setupNavigationBar()
         setupSubviews()
         
         
+    }
+    
+    private func setupNavigationBar() {
+        self.title = "Groups"
+        navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
+            , style: .plain, target: self, action: #selector(backButtonTouched))
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     func setupSubviews() {
@@ -74,9 +93,11 @@ class CustomTableViewController: CustomViewController {
         inputTextField.rightAnchor.constraint(equalTo: inputContainerView.rightAnchor, constant: -pad).isActive = true
         inputTextField.centerYAnchor.constraint(equalTo: inputContainerView.centerYAnchor).isActive = true
         
-        
-
-        
+        backgroundView.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: inputContainerView.topAnchor).isActive = true
         
     }
 
@@ -109,21 +130,65 @@ class CustomTableViewController: CustomViewController {
         self.inputTextField.endEditing(true)
         
     }
+    
+    @objc
+    func backButtonTouched() {
+        navigationController?.popViewController(animated: true)
+    }
 }
 
 extension CustomTableViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.text = nil
         resignFirstResponder()
         
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
+        handleText:
+        if let newInput = textField.text?.capitalized {
+            guard var tempDatasource = self.datasource else { break handleText }
+            tempDatasource.append(newInput)
+            guard let index = tempDatasource.sorted().index(of: newInput) else { break handleText }
+            self.datasource?.insert(newInput, at: index)
+            SettingsHandler.shared.groups = datasource!
+            DispatchQueue.main.async {
+                self.tableView.insertRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+            }
+        }
         textField.endEditing(true)
-        
         return true
     }
+}
+
+extension CustomTableViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datasource?.count ?? 0
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = datasource?[indexPath.row]
+        cell.textLabel?.font = Theme.fonts.subtitleText.font
+        cell.textLabel?.textColor = Theme.colors.charcoal.color
+        cell.backgroundColor = UIColor.clear
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            self.datasource?.remove(at: indexPath.row)
+            SettingsHandler.shared.groups = self.datasource!
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
+        return [deleteAction]
+    }
 }
