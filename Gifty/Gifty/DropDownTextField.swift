@@ -281,8 +281,4 @@ class DropDownCell: UITableViewCell {
         whiteView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         whiteView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
-
-    
-    
-    
 }

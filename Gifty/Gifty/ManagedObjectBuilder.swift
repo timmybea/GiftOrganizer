@@ -182,6 +182,4 @@ class ManagedObjectBuilder: NSObject {
         }
         PersonFRC.updateMoc()
     }
-    
-
 }
