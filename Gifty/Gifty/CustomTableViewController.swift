@@ -85,7 +85,7 @@ class CustomTableViewController: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.useCase = .celebration
+        //self.useCase = .celebration
 
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         

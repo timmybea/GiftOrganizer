@@ -115,7 +115,17 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        if let cell = tableView.cellForRow(at: indexPath) as? SegueSettingsTableViewCell {
+            let destination = CustomTableViewController()
+            if cell.identifier == "Groups" {
+                destination.useCase = CustomTableViewController.UseCase.group
+            } else if cell.identifier == "Celebrations" {
+                destination.useCase = CustomTableViewController.UseCase.celebration
+            }
+            self.navigationController?.pushViewController(destination, animated: true)
+        } else if let _ = tableView.cellForRow(at: indexPath) {
+            print("Hells yeah!")
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -134,7 +144,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return 55
     }
     
 }
