@@ -37,6 +37,7 @@ struct Theme {
     enum fonts {
      case titleText
         case subtitleText
+        case boldSubtitleText
         case mediumText
         case smallText
         case dateDay
@@ -45,6 +46,7 @@ struct Theme {
         var font: UIFont {
             switch self {
             case .titleText: return UIFont.systemFont(ofSize: 24)
+            case .boldSubtitleText: return UIFont.boldSystemFont(ofSize: 18)
             case .subtitleText: return UIFont.systemFont(ofSize: 18)
             case .mediumText: return UIFont.systemFont(ofSize: 16)
             case .smallText: return UIFont.systemFont(ofSize: 13)

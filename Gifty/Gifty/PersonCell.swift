@@ -77,8 +77,6 @@ class PersonCell: UITableViewCell {
     func setupViews() {
         self.backgroundColor = Theme.colors.offWhite.color
         
-        self.selectionStyle = .none
-        
         let medPad: CGFloat = 8
         let smallPad: CGFloat = 4
 

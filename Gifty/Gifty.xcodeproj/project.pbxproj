@@ -44,6 +44,8 @@
 		B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E21F677D5A004BD772 /* PresentationController.swift */; };
 		B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */; };
 		B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08695AA1FDA2D6F00080855 /* PieChartCell.swift */; };
+		B088330A1FE48E110085BBD9 /* SettingCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08833091FE48E110085BBD9 /* SettingCellType.swift */; };
+		B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */; };
 		B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08AD7231FDCB89100537A42 /* PieChartService.swift */; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
@@ -131,6 +133,8 @@
 		B07A55E21F677D5A004BD772 /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayEventBudgetViewController.swift; sourceTree = "<group>"; };
 		B08695AA1FDA2D6F00080855 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
+		B08833091FE48E110085BBD9 /* SettingCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellType.swift; sourceTree = "<group>"; };
+		B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		B08AD7231FDCB89100537A42 /* PieChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartService.swift; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
@@ -284,10 +288,19 @@
 			name = PresentationController;
 			sourceTree = "<group>";
 		};
+		B08833081FE48C570085BBD9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B08833091FE48E110085BBD9 /* SettingCellType.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		B0AFD7951FBA31D1002F89FF /* View */ = {
 			isa = PBXGroup;
 			children = (
 				B0AFD7911FBA302D002F89FF /* Main.storyboard */,
+				B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -457,6 +470,7 @@
 		B0D5150F1F378A63008A88A4 /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
+				B08833081FE48C570085BBD9 /* Model */,
 				B0AFD7951FBA31D1002F89FF /* View */,
 				B041F7941EF89A0800A3E332 /* Controller */,
 				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
@@ -783,6 +797,7 @@
 				B013B5781EFF233200107B64 /* DateHandler.swift in Sources */,
 				B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */,
 				B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */,
+				B088330A1FE48E110085BBD9 /* SettingCellType.swift in Sources */,
 				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
 				B044D1FC1F2CE9B600214CE5 /* EventFRC.swift in Sources */,
@@ -792,6 +807,7 @@
 				B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */,
 				B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
+				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
