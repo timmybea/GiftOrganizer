@@ -26,15 +26,6 @@ class SettingsViewController: CustomViewController {
         return container
     }()
     
-//    var returnButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Return", for: .normal)
-//        button.setTitleColor(Theme.colors.charcoal.color, for: .normal)
-//        button.backgroundColor = UIColor.red
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
-    
     var datasource: [SettingData] = SettingData.getSettingDatasource()
     
     var tabBarHeight: CGFloat! {
@@ -74,6 +65,7 @@ class SettingsViewController: CustomViewController {
                                                             multiplier: 1,
                                                             constant: -tabBarHeight + 40)
         containerBottomConstraint.isActive = true
+        returnContainer.delegate = self
         
         view.addSubview(tableView)
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -200,6 +192,19 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
+}
+
+extension SettingsViewController: ReturnContainerViewDelegate {
+    
+    func buttonTouched(save: Bool) {
+        print("Save textfield input: \(save)")
+        
+        
+    }
+    
+    
+    
+    
     
 }
 
