@@ -18,20 +18,22 @@ struct SettingData {
                                   settingCells: [SettingCellType(type: .segue, args: ["Groups"]),
                                                  SettingCellType(type: .segue, args: ["Celebrations"])]),
                       SettingData(section: "Budget & Spending",
-                                  settingCells: [SettingCellType(type: .textfield, args: ["BudgetAmt"])])]
+                                  settingCells: [SettingCellType(type: .textfield,
+                                                                 args: [TFSettingsCellID.budgetAmt.rawValue])])]
         return output
     }
 }
 
 struct SettingCellType {
-    
+
     var type: CellType
-    
+
     var args: [String]
-    
+
     enum CellType {
         case segue
         case textfield
         case scrollview
     }
 }
+

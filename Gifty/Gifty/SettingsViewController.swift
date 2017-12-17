@@ -33,6 +33,8 @@ class SettingsViewController: CustomViewController {
     }
     
     var containerBottomConstraint: NSLayoutConstraint!
+    
+    var editingTextField: TFSettingsCellID?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,6 +155,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         case .textfield:
             let cell = tableView.dequeueReusableCell(withIdentifier: "textfieldSettingsCell") as? TextfieldSettingsTableViewCell
+            cell?.delegate = self
             cell?.args = cellType.args
             return cell!
             
@@ -199,12 +202,14 @@ extension SettingsViewController: ReturnContainerViewDelegate {
     func buttonTouched(save: Bool) {
         print("Save textfield input: \(save)")
         
-        
+        resignFirstResponder()
     }
+}
+
+extension SettingsViewController: TextFieldSettingsCellDelegate {
     
-    
-    
-    
-    
+    func beganEditingCell(with id: TFSettingsCellID) {
+        self.editingTextField = id
+    }
 }
 

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol TextFieldSettingsCellDelegate {
+    func beganEditingCell(with id: TFSettingsCellID)
+}
+
 class TextfieldSettingsTableViewCell: UITableViewCell {
 
     let textfield: UITextField = {
@@ -18,6 +22,14 @@ class TextfieldSettingsTableViewCell: UITableViewCell {
         tf.keyboardType = .numberPad
         return tf
     }()
+    
+    var delegate: TextFieldSettingsCellDelegate?
+    
+//    var textFieldDelegate: UITextFieldDelegate? {
+//        didSet {
+//            self.textfield.delegate = textFieldDelegate
+//        }
+//    }
     
     var args: [String]? {
         didSet {
@@ -50,7 +62,7 @@ class TextfieldSettingsTableViewCell: UITableViewCell {
         
         guard let use = args?.first else { return }
         
-        if use == "BudgetAmt" {
+        if use == TFSettingsCellID.budgetAmt.rawValue {
             
             self.textLabel?.text = "Max budget amount"
             self.textLabel?.textColor = Theme.colors.charcoal.color
@@ -66,9 +78,11 @@ extension TextfieldSettingsTableViewCell: UITextFieldDelegate {
         
         guard let use = args?.first else { return }
         
-        if use == "BudgetAmt" {
+        if use == TFSettingsCellID.budgetAmt.rawValue {
             if var userInput = textField.text {
-                userInput.remove(at: userInput.startIndex)
+                if userInput.hasPrefix("$") {
+                    userInput.remove(at: userInput.startIndex)
+                }
                 if let newValue = Int(userInput) {
                     SettingsHandler.shared.maxBudget = newValue
                 }
@@ -79,13 +93,24 @@ extension TextfieldSettingsTableViewCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         guard let use = args?.first else { return true }
-        
-        if use == "BudgetAmt" {
+        if let id = TFSettingsCellID.init(rawValue: use) {
+            self.delegate?.beganEditingCell(with: id)
+        }
+        if use == TFSettingsCellID.budgetAmt.rawValue {
             
             textField.text = "$"
         }
         return true
     }
-    
-    
 }
+
+enum TFSettingsCellID: String {
+    case budgetAmt
+    
+    var indexPath: IndexPath {
+        switch self {
+        case .budgetAmt: return IndexPath(row: 1, section: 1)
+        }
+    }
+}
+
