@@ -17,7 +17,8 @@ struct SettingData {
         let output = [SettingData(section: "Categories",
                                   settingCells: [SettingCellType(type: .segue, args: ["Groups"]),
                                                  SettingCellType(type: .segue, args: ["Celebrations"])]),
-                      SettingData(section: "Budget & Spending", settingCells: [])]
+                      SettingData(section: "Budget & Spending",
+                                  settingCells: [SettingCellType(type: .textfield, args: ["BudgetAmt"])])]
         return output
     }
 }

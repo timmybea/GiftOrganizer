@@ -34,6 +34,7 @@
 		B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */; };
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
 		B044D1FC1F2CE9B600214CE5 /* EventFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */; };
+		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
 		B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042071F06DAE000D6A027 /* EventTableView.swift */; };
@@ -46,6 +47,7 @@
 		B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08695AA1FDA2D6F00080855 /* PieChartCell.swift */; };
 		B088330A1FE48E110085BBD9 /* SettingCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08833091FE48E110085BBD9 /* SettingCellType.swift */; };
 		B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */; };
+		B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088330D1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift */; };
 		B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08AD7231FDCB89100537A42 /* PieChartService.swift */; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
@@ -123,6 +125,7 @@
 		B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B041F7A21EF8A74A00A3E332 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventFRC.swift; sourceTree = "<group>"; };
+		B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnContainerView.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
 		B07042051F06CC6200D6A027 /* CustomImageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageControl.swift; sourceTree = "<group>"; };
 		B07042071F06DAE000D6A027 /* EventTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableView.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 		B08695AA1FDA2D6F00080855 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
 		B08833091FE48E110085BBD9 /* SettingCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellType.swift; sourceTree = "<group>"; };
 		B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		B088330D1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		B08AD7231FDCB89100537A42 /* PieChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartService.swift; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
@@ -301,6 +305,8 @@
 			children = (
 				B0AFD7911FBA302D002F89FF /* Main.storyboard */,
 				B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */,
+				B088330D1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift */,
+				B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -805,6 +811,7 @@
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */,
+				B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */,
 				B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
@@ -836,6 +843,7 @@
 				B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */,
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */,
+				B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */,
 				B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */,
 				B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */,
 				B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */,

@@ -20,74 +20,124 @@ class SettingsViewController: CustomViewController {
         return tv
     }()
     
+    let returnContainer: ReturnContainerView = {
+        let container = ReturnContainerView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        return container
+    }()
+    
+//    var returnButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("Return", for: .normal)
+//        button.setTitleColor(Theme.colors.charcoal.color, for: .normal)
+//        button.backgroundColor = UIColor.red
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
+    
     var datasource: [SettingData] = SettingData.getSettingDatasource()
     
     var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
     }
+    
+    var containerBottomConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationItem.title = "Settings"
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         self.tableView.register(SegueSettingsTableViewCell.self, forCellReuseIdentifier: "segueSettingsCell")
+        self.tableView.register(TextfieldSettingsTableViewCell.self, forCellReuseIdentifier: "textfieldSettingsCell")
         
+//        self.returnButton.addTarget(self, action: #selector(returnKeyTouched(sender:)), for: .touchUpInside)
         
-//        view.sendSubview(toBack: self.backgroundView)
-//        budgetTextField.delegate = self
-//
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(scrollViewTouched(sender:)))
-//        scrollView.addGestureRecognizer(tapGesture)
         setupSubviews()
-        addSavedSettings()
     }
     
     
     func setupSubviews() {
+        view.addSubview(returnContainer)
+        returnContainer.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        returnContainer.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        returnContainer.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        self.containerBottomConstraint = NSLayoutConstraint(item: returnContainer,
+                                                            attribute: .bottom,
+                                                            relatedBy: .equal,
+                                                            toItem: view,
+                                                            attribute: .bottom,
+                                                            multiplier: 1,
+                                                            constant: -tabBarHeight + 40)
+        containerBottomConstraint.isActive = true
+        
         view.addSubview(tableView)
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: returnContainer.topAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
-        
-        
-        
-    }
-    
-    private func addSavedSettings() {
-//        budgetTextField.text = "$\(SettingsHandler.shared.maxBudget)"
     }
     
     
-    @objc func scrollViewTouched(sender: UITapGestureRecognizer) {
-//        if budgetTextField.isEditing {
-//            budgetTextField.endEditing(true)
-//        }
-    }
+//    @objc func scrollViewTouched(sender: UITapGestureRecognizer) {
+//
+//        resignFirstResponder()
+//
+//    }
     
+    //MARK: Return Key work around
+//    @objc
+//    func returnKeyTouched(sender: UIButton) {
+//
+//
+//        print("Return touched")
+//
+//
+//    }
+    
+    @objc
+    func handleKeyboardNotification(sender: Notification) {
+
+        print("Keyboard will show")
+        
+        if let userInfo = sender.userInfo {
+           guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            let keyboardUp = sender.name == Notification.Name.UIKeyboardWillShow
+            containerBottomConstraint.constant = keyboardUp ? CGFloat(-keyboardFrame.height) : -tabBarHeight + 40
+            UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { (success) in
+                
+            })
+        }
+    }
 }
 
-extension SettingsViewController: UITextFieldDelegate {
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 1 {
-            if var userInput = textField.text {
-                userInput.remove(at: userInput.startIndex)
-                if let newValue = Int(userInput) {
-                    SettingsHandler.shared.maxBudget = newValue
-                }
-            }
-        }
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField.tag == 1 { //budgetTextfield
-            textField.text = "$"
-        }
-        return true
-    }
-}
+//extension SettingsViewController: UITextFieldDelegate {
+//    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if textField.tag == 1 {
+//            if var userInput = textField.text {
+//                userInput.remove(at: userInput.startIndex)
+//                if let newValue = Int(userInput) {
+//                    SettingsHandler.shared.maxBudget = newValue
+//                }
+//            }
+//        }
+//    }
+//    
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        if textField.tag == 1 { //budgetTextfield
+//            textField.text = "$"
+//        }
+//        return true
+//    }
+//}
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -104,26 +154,30 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let cellType = datasource[indexPath.section].settingCells[indexPath.row]
         switch cellType.type {
         case .segue:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "segueSettingsCell") as? SegueSettingsTableViewCell else { return UITableViewCell() }
-            cell.args = cellType.args
-            return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "segueSettingsCell") as? SegueSettingsTableViewCell
+            cell?.args = cellType.args
+            return cell!
         case .scrollview:
             return UITableViewCell()
         case .textfield:
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "textfieldSettingsCell") as? TextfieldSettingsTableViewCell
+            cell?.args = cellType.args
+            return cell!
+            
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? SegueSettingsTableViewCell {
+        let cell = tableView.cellForRow(at: indexPath)
+        if let segueCell = cell as? SegueSettingsTableViewCell {
             let destination = CustomTableViewController()
-            if cell.identifier == "Groups" {
+            if segueCell.identifier == "Groups" {
                 destination.useCase = CustomTableViewController.UseCase.group
-            } else if cell.identifier == "Celebrations" {
+            } else if segueCell.identifier == "Celebrations" {
                 destination.useCase = CustomTableViewController.UseCase.celebration
             }
             self.navigationController?.pushViewController(destination, animated: true)
-        } else if let _ = tableView.cellForRow(at: indexPath) {
+            } else if let _ = tableView.cellForRow(at: indexPath) {
             print("Hells yeah!")
         }
     }
