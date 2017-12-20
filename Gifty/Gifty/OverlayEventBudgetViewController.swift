@@ -101,7 +101,7 @@ class OverlayEventBudgetViewController: UIViewController {
         textView.topAnchor.constraint(equalTo: headingLabel.bottomAnchor, constant: smallPad).isActive = true
         textView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        textView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        textView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         view.addSubview(budgetView)
         budgetView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: pad).isActive = true
@@ -137,6 +137,7 @@ class OverlayEventBudgetViewController: UIViewController {
         if let currentEvent = self.event {
             let budget = CurrencyHandler.formattedString(for: currentEvent.budgetAmt)
             textView.text = "You have set a budget of $\(budget) for the event, \(currentEvent.type!)"
+            textView.font = Theme.fonts.mediumText.font //<<<
         }
     }
     

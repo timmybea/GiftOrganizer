@@ -180,8 +180,14 @@ extension SettingsViewController: TextFieldSettingsCellDelegate {
 
 extension SettingsViewController: ScrollingSettingsCellDelegate {
     func optionChanged(to option: String) {
+        var temp = option
         
-        print("Option changed to: \(option)")
+        if temp.first == "$" {
+            _ = temp.removeFirst()
+        }
+        print("STRING REP IS: \(temp)")
+        SettingsHandler.shared.rounding = Float(temp)!
+        
         
     }
     

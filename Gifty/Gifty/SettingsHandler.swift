@@ -32,6 +32,12 @@ class SettingsHandler: NSObject {
         }
     }
     
+    var rounding: Float = 0 {
+        willSet {
+            udStandard.set(newValue, forKey: key.rounding.rawValue)
+        }
+    }
+    
     private let udStandard = UserDefaults.standard
     
     func getSettings() {
@@ -39,8 +45,7 @@ class SettingsHandler: NSObject {
         maxBudget = udStandard.object(forKey: key.maxBudget.rawValue) as? Int ?? 100
         groups = udStandard.object(forKey: key.groups.rawValue) as? [String] ?? ["Family", "Friends", "Colleagues"]
         celebrations = udStandard.object(forKey: key.celebrations.rawValue) as? [String] ?? ["Baby Shower", "Birthday", "Graduation", "Wedding"]
-    
-    
+        rounding = udStandard.object(forKey: key.rounding.rawValue) as? Float ?? 0.50
     }
     
     
@@ -48,6 +53,7 @@ class SettingsHandler: NSObject {
         case maxBudget
         case groups
         case celebrations
+        case rounding
     }
     
     

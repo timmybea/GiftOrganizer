@@ -51,7 +51,6 @@ class ScrollSettingsTableViewCell: UITableViewCell {
     
     var selectedOption: String! {
         didSet {
-            print("SELECTED: \(selectedOption)")
             self.delegate?.optionChanged(to: selectedOption)
         }
     }
@@ -68,11 +67,6 @@ class ScrollSettingsTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
 
     private func setupCell() {
         
@@ -119,9 +113,18 @@ class ScrollSettingsTableViewCell: UITableViewCell {
             label.text = self.input![i]
             self.scrollView.addSubview(label)
         }
-        let index = 0 //datasource?.index(of: "option two") ?? <<<LOAD IN EXISTING SETTING
+        let index = getIndexForUse()
         scrollView.contentOffset = CGPoint(x: (scrollView.frame.width * CGFloat(index + 1)), y: 0)
         self.selectedOption = datasource![index]
+    }
+    
+    private func getIndexForUse() -> Int {
+        var index = 0
+        if use == CellUse.rounding {
+            let input = "$" + String(format: "%.2f", SettingsHandler.shared.rounding)
+            index = datasource?.index(of: input) ?? 0
+        }
+        return index
     }
     
     @objc

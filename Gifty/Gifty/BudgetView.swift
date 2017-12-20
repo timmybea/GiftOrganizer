@@ -58,14 +58,14 @@ class BudgetView: UIView {
     }
     
     private func setLabel(for amount: Float) {
-        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.50)
+        let roundedAmount = CurrencyHandler.round(amount, toNearest: SettingsHandler.shared.rounding)
         let formattedString = CurrencyHandler.formattedString(for: roundedAmount)
         self.budgetLabel.text = "$\(formattedString)"
     }
     
     public func getBudgetAmount() -> Float {
         let amount = slider.value
-        let roundedAmount = CurrencyHandler.round(amount, toNearest: 0.50)
+        let roundedAmount = CurrencyHandler.round(amount, toNearest: SettingsHandler.shared.rounding)
         return roundedAmount
     }
     
