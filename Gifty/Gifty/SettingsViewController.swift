@@ -47,8 +47,7 @@ class SettingsViewController: CustomViewController {
         
         self.tableView.register(SegueSettingsTableViewCell.self, forCellReuseIdentifier: "segueSettingsCell")
         self.tableView.register(TextfieldSettingsTableViewCell.self, forCellReuseIdentifier: "textfieldSettingsCell")
-        
-//        self.returnButton.addTarget(self, action: #selector(returnKeyTouched(sender:)), for: .touchUpInside)
+        self.tableView.register(ScrollSettingsTableViewCell.self, forCellReuseIdentifier: "scrollSettingsCell")
         
         setupSubviews()
     }
@@ -76,23 +75,6 @@ class SettingsViewController: CustomViewController {
         tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
     }
     
-    
-//    @objc func scrollViewTouched(sender: UITapGestureRecognizer) {
-//
-//        resignFirstResponder()
-//
-//    }
-    
-    //MARK: Return Key work around
-//    @objc
-//    func returnKeyTouched(sender: UIButton) {
-//
-//
-//        print("Return touched")
-//
-//
-//    }
-    
     @objc
     func handleKeyboardNotification(sender: Notification) {
 
@@ -111,27 +93,6 @@ class SettingsViewController: CustomViewController {
         }
     }
 }
-
-//extension SettingsViewController: UITextFieldDelegate {
-//    
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        if textField.tag == 1 {
-//            if var userInput = textField.text {
-//                userInput.remove(at: userInput.startIndex)
-//                if let newValue = Int(userInput) {
-//                    SettingsHandler.shared.maxBudget = newValue
-//                }
-//            }
-//        }
-//    }
-//    
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        if textField.tag == 1 { //budgetTextfield
-//            textField.text = "$"
-//        }
-//        return true
-//    }
-//}
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -152,7 +113,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.args = cellType.args
             return cell!
         case .scrollview:
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "scrollSettingsCell") as? ScrollSettingsTableViewCell
+            cell?.args = cellType.args
+            cell?.delegate = self
+            return cell!
         case .textfield:
             let cell = tableView.dequeueReusableCell(withIdentifier: "textfieldSettingsCell") as? TextfieldSettingsTableViewCell
             cell?.delegate = self
@@ -201,8 +165,9 @@ extension SettingsViewController: ReturnContainerViewDelegate {
     
     func buttonTouched(save: Bool) {
         print("Save textfield input: \(save)")
-        
-        resignFirstResponder()
+        guard let textfieldID = self.editingTextField else { return }
+        let cell = tableView.cellForRow(at: textfieldID.indexPath) as? TextfieldSettingsTableViewCell
+        cell?.endEditing(save: save)
     }
 }
 
@@ -211,5 +176,15 @@ extension SettingsViewController: TextFieldSettingsCellDelegate {
     func beganEditingCell(with id: TFSettingsCellID) {
         self.editingTextField = id
     }
+}
+
+extension SettingsViewController: ScrollingSettingsCellDelegate {
+    func optionChanged(to option: String) {
+        
+        print("Option changed to: \(option)")
+        
+    }
+    
+    
 }
 

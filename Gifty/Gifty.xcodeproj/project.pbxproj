@@ -61,6 +61,7 @@
 		B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */; };
 		B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */; };
 		B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */; };
+		B0CEC1F11FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CEC1F01FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
@@ -152,6 +153,7 @@
 		B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonFRC.swift; sourceTree = "<group>"; };
 		B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
 		B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		B0CEC1F01FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 				B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */,
 				B088330D1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift */,
 				B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */,
+				B0CEC1F01FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */,
 				B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */,
 				B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */,
+				B0CEC1F11FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift in Sources */,
 				B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */,
 				B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */,
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,

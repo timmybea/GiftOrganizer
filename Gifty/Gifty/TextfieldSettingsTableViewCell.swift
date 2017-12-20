@@ -25,17 +25,13 @@ class TextfieldSettingsTableViewCell: UITableViewCell {
     
     var delegate: TextFieldSettingsCellDelegate?
     
-//    var textFieldDelegate: UITextFieldDelegate? {
-//        didSet {
-//            self.textfield.delegate = textFieldDelegate
-//        }
-//    }
-    
     var args: [String]? {
         didSet {
             setupCellLogic()
         }
     }
+    
+    private var save: Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,6 +65,11 @@ class TextfieldSettingsTableViewCell: UITableViewCell {
             self.textfield.text = "$\(SettingsHandler.shared.maxBudget)"
         }
     }
+    
+    func endEditing(save: Bool) {
+        self.save = save
+        self.textfield.endEditing(true)
+    }
 }
 
 
@@ -77,15 +78,16 @@ extension TextfieldSettingsTableViewCell: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         guard let use = args?.first else { return }
+        guard let tfText = textField.text else { return }
         
         if use == TFSettingsCellID.budgetAmt.rawValue {
-            if var userInput = textField.text {
-                if userInput.hasPrefix("$") {
-                    userInput.remove(at: userInput.startIndex)
-                }
+            if save {
+                let userInput = tfText.hasPrefix("$") ? String(tfText.dropFirst()) : tfText
                 if let newValue = Int(userInput) {
                     SettingsHandler.shared.maxBudget = newValue
                 }
+            } else {
+                self.textfield.text = "$\(SettingsHandler.shared.maxBudget)"
             }
         }
     }
@@ -109,7 +111,7 @@ enum TFSettingsCellID: String {
     
     var indexPath: IndexPath {
         switch self {
-        case .budgetAmt: return IndexPath(row: 1, section: 1)
+        case .budgetAmt: return IndexPath(row: 0, section: 1)
         }
     }
 }

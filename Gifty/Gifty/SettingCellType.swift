@@ -19,7 +19,8 @@ struct SettingData {
                                                  SettingCellType(type: .segue, args: ["Celebrations"])]),
                       SettingData(section: "Budget & Spending",
                                   settingCells: [SettingCellType(type: .textfield,
-                                                                 args: [TFSettingsCellID.budgetAmt.rawValue])])]
+                                                                 args: [TFSettingsCellID.budgetAmt.rawValue]),
+                                                 SettingCellType(type: .scrollview, args: ["rounding"])])]
         return output
     }
 }
