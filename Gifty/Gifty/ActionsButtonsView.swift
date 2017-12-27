@@ -157,7 +157,7 @@ class ActionsButtonsView: UIView {
             }
         } else {
             //setup for select/Deselect
-            if imageControl.actionsSelectionState == ActionButton.SelectionStates.selected {
+            if imageControl.actionsSelectionState == ActionButton.SelectionStates.selected || imageControl.actionsSelectionState == ActionButton.SelectionStates.completed {
                 //go to unselected
                 configure(imageControl: imageControl, for: ActionButton.SelectionStates.unselected)
             } else if imageControl.actionsSelectionState == ActionButton.SelectionStates.unselected {

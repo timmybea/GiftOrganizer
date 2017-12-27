@@ -48,7 +48,11 @@ class CreateEventViewController: CustomViewController {
             addDateView.updateLabel(with: eventDate)
         }
     }
-    var isRecurringEvent = false
+    var isRecurringEvent = false {
+        didSet {
+            addDateView.recurringEventSwitch.setOn(isRecurringEvent, animated: true)
+        }
+    }
     var addGift = ActionButton.SelectionStates.unselected
     var addCard = ActionButton.SelectionStates.unselected
     var addPhone = ActionButton.SelectionStates.unselected
@@ -170,20 +174,37 @@ class CreateEventViewController: CustomViewController {
             return
         }
         
-        self.navigationItem.title = "Edit Event"
+        self.navigationItem.title = "Event for \(currentEvent.person!.firstName!)"
         
         self.dropDown.setTitle(text: currentEvent.type!)
         self.eventType = currentEvent.type!
         
         self.eventDate = currentEvent.date!
         
-        //self.isRecurringEvent = currentEvent
+        self.isRecurringEvent = true //<<<<PULL THIS OUT OF EVENT
         
         actionsButtonsView.configureButtonStatesFor(event: currentEvent)
+        self.addGift = getActionState(for: currentEvent.giftState!)
+        self.addCard = getActionState(for: currentEvent.cardState!)
+        self.addPhone = getActionState(for: currentEvent.phoneState!)
         
+        budgetView.setTo(amount: currentEvent.budgetAmt)
         
+        self.saveButton.setTitle("UPDATE EVENT")
     }
     
+    private func getActionState(for action: String) -> ActionButton.SelectionStates {
+        switch action {
+        case "unselected":
+            return ActionButton.SelectionStates.unselected
+        case "selected":
+            return ActionButton.SelectionStates.selected
+        case "complete":
+            return ActionButton.SelectionStates.completed
+        default:
+            return ActionButton.SelectionStates.unselected
+        }
+    }
     
     @objc func didTapBackground(sender: UITapGestureRecognizer) {
         dropDown.finishEditingTextField()
@@ -220,7 +241,6 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
 extension CreateEventViewController {
     
     @objc func backButtonTouched() {
-        
         //check if there are changes and send alert
         self.navigationController?.popViewController(animated: true)
     }
