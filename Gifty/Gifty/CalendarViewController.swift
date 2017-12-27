@@ -387,9 +387,8 @@ extension CalendarViewController: EventTableViewDelegate {
         
         print("Edit existing event")
         let destination = CreateEventViewController()
+        destination.EventToBeEdited = event
         //destination.delegate = self
-        destination.createEventState = CreateEventState.updateEventForPerson
-        
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
         }

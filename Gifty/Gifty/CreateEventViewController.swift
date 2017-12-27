@@ -21,7 +21,13 @@ enum CreateEventState {
 class CreateEventViewController: CustomViewController {
     
     var createEventState: CreateEventState?
-
+    
+    var EventToBeEdited: Event? {
+        didSet {
+            createEventState = .updateEventForPerson
+        }
+    }
+    
     var delegate: CreateEventViewControllerDelegate?
     
     var person: Person? {
@@ -149,7 +155,35 @@ class CreateEventViewController: CustomViewController {
         saveButton.addBorder(with: UIColor.white)
         saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
         view.addSubview(saveButton)
+        
+        
+        if createEventState == .updateEventForPerson {
+            setupEventDataForEdit()
+        }
     }
+    
+    private func setupEventDataForEdit() {
+        
+        guard let currentEvent = self.EventToBeEdited else {
+            print("No event to update")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        
+        self.navigationItem.title = "Edit Event"
+        
+        self.dropDown.setTitle(text: currentEvent.type!)
+        self.eventType = currentEvent.type!
+        
+        self.eventDate = currentEvent.date!
+        
+        //self.isRecurringEvent = currentEvent
+        
+        actionsButtonsView.configureButtonStatesFor(event: currentEvent)
+        
+        
+    }
+    
     
     @objc func didTapBackground(sender: UITapGestureRecognizer) {
         dropDown.finishEditingTextField()

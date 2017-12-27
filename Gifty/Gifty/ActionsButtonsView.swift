@@ -132,8 +132,10 @@ class ActionsButtonsView: UIView {
     private func configure(imageControl: CustomImageControl, for selectionState: ActionButton.SelectionStates) {
         
         imageControl.actionsSelectionState = selectionState
-        if selectionState == ActionButton.SelectionStates.completed {
+        if selectionState == ActionButton.SelectionStates.completed && actionsSelectionType == .checkList {
             imageControl.imageView.tintColor = self.tintCompleted
+        } else if selectionState == ActionButton.SelectionStates.completed && actionsSelectionType == .selectDeselect {
+            imageControl.imageView.tintColor = tintSelected
         } else if selectionState == ActionButton.SelectionStates.selected {
             imageControl.imageView.tintColor = tintSelected
         } else if selectionState == ActionButton.SelectionStates.unselected {

@@ -57,6 +57,8 @@ class OverlayEventBudgetViewController: UIViewController {
         textView.textColor = Theme.colors.lightToneOne.color
         textView.backgroundColor = UIColor.clear
         textView.textAlignment = .center
+        textView.isScrollEnabled = false
+        textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -75,7 +77,7 @@ class OverlayEventBudgetViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: 200)
+        self.view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: 220)
         self.view.layer.cornerRadius = 8.0
         self.view.layer.masksToBounds = true
     }
@@ -98,23 +100,22 @@ class OverlayEventBudgetViewController: UIViewController {
         headingLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         
         view.addSubview(textView)
-        textView.topAnchor.constraint(equalTo: headingLabel.bottomAnchor, constant: smallPad).isActive = true
+        textView.topAnchor.constraint(equalTo: headingLabel.bottomAnchor, constant: 0).isActive = true
         textView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         textView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        textView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        textView.heightAnchor.constraint(equalToConstant: 55).isActive = true
         
         view.addSubview(budgetView)
         budgetView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: pad).isActive = true
         budgetView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -pad).isActive = true
         budgetView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: smallPad).isActive = true
-        budgetView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        budgetView.heightAnchor.constraint(equalToConstant: 70).isActive = true
 
         if event?.actualAmt != nil {
             budgetView.setTo(amount: (event?.actualAmt)!)
         }
         
         let stackView = UIStackView()
-        stackView.backgroundColor = UIColor.blue
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.spacing = 0
@@ -137,7 +138,7 @@ class OverlayEventBudgetViewController: UIViewController {
         if let currentEvent = self.event {
             let budget = CurrencyHandler.formattedString(for: currentEvent.budgetAmt)
             textView.text = "You have set a budget of $\(budget) for the event, \(currentEvent.type!)"
-            textView.font = Theme.fonts.mediumText.font //<<<
+            textView.font = Theme.fonts.mediumText.font
         }
     }
     
