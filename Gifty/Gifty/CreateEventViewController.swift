@@ -22,7 +22,7 @@ class CreateEventViewController: CustomViewController {
     
     var createEventState: CreateEventState?
     
-    var EventToBeEdited: Event? {
+    var eventToBeEdited: Event? {
         didSet {
             createEventState = .updateEventForPerson
         }
@@ -70,7 +70,7 @@ class CreateEventViewController: CustomViewController {
         return view
     }()
     
-    var autoCompletePerson: AutoCompletePerson!
+    var autoCompletePerson: AutoCompletePerson?
     
     var budgetView: BudgetView!
     
@@ -85,24 +85,23 @@ class CreateEventViewController: CustomViewController {
         let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue), style: .plain, target: self, action: #selector(backButtonTouched))
         self.navigationItem.leftBarButtonItem = backButton
         
-        if let state = self.createEventState {
-            layoutSubviews(for: state)
-        }
+
+        basicSubviewLayout()
     }
     
-    //MARK: LAYOUT SUBVIEWS
-    func layoutSubviews(for createEventState: CreateEventState) {
-        
-        if createEventState == CreateEventState.newEventForPerson || createEventState == CreateEventState.updateEventForPerson {
-            
-            basicSubviewLayout()
-            
-        } else if self.createEventState == CreateEventState.newEventToBeAssigned {
-            
-
-            
-        }
-    }
+//    //MARK: LAYOUT SUBVIEWS
+//    func layoutSubviews(for createEventState: CreateEventState) {
+//
+//        if createEventState == CreateEventState.newEventForPerson || createEventState == CreateEventState.updateEventForPerson {
+//
+//            basicSubviewLayout()
+//
+//        } else if self.createEventState == CreateEventState.newEventToBeAssigned {
+//
+//
+//
+//        }
+//    }
     
     func basicSubviewLayout() {
         
@@ -163,12 +162,15 @@ class CreateEventViewController: CustomViewController {
         
         if createEventState == .updateEventForPerson {
             setupEventDataForEdit()
+        } else if createEventState == .newEventToBeAssigned {
+            self.autoCompletePerson = AutoCompletePerson(frame: CGRect(x: pad, y: budgetView.frame.maxY + smallPad, width: self.view.frame.width - pad - pad, height: 100))
+            view.addSubview(autoCompletePerson!)
         }
     }
     
     private func setupEventDataForEdit() {
         
-        guard let currentEvent = self.EventToBeEdited else {
+        guard let currentEvent = self.eventToBeEdited else {
             print("No event to update")
             self.navigationController?.popViewController(animated: true)
             return
@@ -300,6 +302,7 @@ extension CreateEventViewController: ActionsButtonsViewDelegate {
         }
     }
 }
+
 
 //MARK: ADD EVENT BUTTON
 extension CreateEventViewController {

@@ -107,7 +107,7 @@ class CalendarViewController: CustomViewController {
         return true
     }
     
-    //MARK: NOTIFICATION action state changed (sent by event display view cell)
+    //MARK: INTERNAL NOTIFICATION action state changed (sent by event display view cell)
 
     @objc private func actionStateChanged(notification: NSNotification) {
         
@@ -116,7 +116,7 @@ class CalendarViewController: CustomViewController {
         updateCalendarDataSource(dateString: dateString)
     }
     
-    //MARK: NOTIFICATION new event created. Update the display view and the calendar action view.
+    //MARK: INTERNAL NOTIFICATION new event created. Update the display view and the calendar action view.
     @objc private func newEventCreated(notification: NSNotification) {
     
         guard let dateString = notification.userInfo?["dateString"] as? String else { return }
@@ -172,7 +172,8 @@ class CalendarViewController: CustomViewController {
         
         self.titleLabel.isHidden = true
         
-        let destination = CustomTableViewController()
+        let destination = CreateEventViewController()
+        destination.createEventState = .newEventToBeAssigned
         
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
@@ -351,8 +352,6 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
 //MARK: Event FRC delegate methods (update the calendar datasource)
 extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
-
-    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         //nothing?
     }
@@ -387,7 +386,7 @@ extension CalendarViewController: EventTableViewDelegate {
         
         print("Edit existing event")
         let destination = CreateEventViewController()
-        destination.EventToBeEdited = event
+        destination.eventToBeEdited = event
         //destination.delegate = self
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)

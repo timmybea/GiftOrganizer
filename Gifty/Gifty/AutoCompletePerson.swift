@@ -17,8 +17,8 @@ class AutoCompletePerson: UIView {
         return imageView
     }()
     
-    let autoCompleteTF: UITextField = {
-        let textfield = UITextField()
+    let autoCompleteTF: MLPAutoCompleteTextField = {
+        let textfield = MLPAutoCompleteTextField()
         textfield.font = Theme.fonts.mediumText.font
         textfield.placeholderWith(string: "Person's name", color: UIColor.white)
         return textfield
@@ -53,7 +53,52 @@ class AutoCompletePerson: UIView {
         addSubview(whiteView)
         whiteView.frame = CGRect(x: autoCompleteTF.frame.origin.x, y: self.bounds.height - 2, width: autoCompleteTF.frame.width, height: 2)
     }
-    
-    
-    
 }
+
+//func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!) -> [Any]! {
+//    //provide complete list of person names
+//
+//    var persons = [Person]()
+//    let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
+//
+//    do {
+//        persons = try moc.fetch(fetchRequest)
+//    } catch {
+//        print(error)
+//    }
+//
+//    var nameArray = [String]()
+//
+//    for person in persons {
+//        if let name = person.name {
+//            nameArray.append(name)
+//        }
+//    }
+//
+//    return nameArray
+//}
+//
+//func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, didSelectAutoComplete selectedString: String!, withAutoComplete selectedObject: MLPAutoCompletionObject!, forRowAt indexPath: IndexPath!) {
+//
+//    let predicate = NSPredicate(format: "name == %@", selectedString)
+//    let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
+//    fetchRequest.predicate = predicate
+//
+//    var person: Person?
+//
+//    do {
+//        person = try moc.fetch(fetchRequest).first
+//    } catch {
+//        print(error)
+//    }
+//
+//    if let person = person {
+//        if let imageData = person.image as? Data {
+//            personImageView.image = UIImage(data: imageData)
+//        }
+//
+//        if let name = person.name {
+//            personNameTF.text = name
+//        }
+//    }
+
