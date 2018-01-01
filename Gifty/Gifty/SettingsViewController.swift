@@ -26,13 +26,13 @@ class SettingsViewController: CustomViewController {
         return container
     }()
     
+    var containerBottomConstraint: NSLayoutConstraint!
+
     var datasource: [SettingData] = SettingData.getSettingDatasource()
     
     var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
     }
-    
-    var containerBottomConstraint: NSLayoutConstraint!
     
     var editingTextField: TFSettingsCellID?
 
@@ -136,8 +136,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                 destination.useCase = CustomTableViewController.UseCase.celebration
             }
             self.navigationController?.pushViewController(destination, animated: true)
-            } else if let _ = tableView.cellForRow(at: indexPath) {
-            print("Hells yeah!")
+            
+        } else if let tfCell = cell as? TextfieldSettingsTableViewCell {
+            tfCell.textfield.becomeFirstResponder()
         }
     }
     
@@ -161,8 +162,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+//MARK: ReturnContainerViewDelegate Methods
 extension SettingsViewController: ReturnContainerViewDelegate {
-    
     func buttonTouched(save: Bool) {
         print("Save textfield input: \(save)")
         guard let textfieldID = self.editingTextField else { return }
@@ -171,13 +172,14 @@ extension SettingsViewController: ReturnContainerViewDelegate {
     }
 }
 
+//MARK: TextFieldSettingsCellDelegate Methods
 extension SettingsViewController: TextFieldSettingsCellDelegate {
-    
     func beganEditingCell(with id: TFSettingsCellID) {
         self.editingTextField = id
     }
 }
 
+//MARK: ScrollingSettingsCellDelegate Methods
 extension SettingsViewController: ScrollingSettingsCellDelegate {
     func optionChanged(to option: String) {
         var temp = option
@@ -185,12 +187,7 @@ extension SettingsViewController: ScrollingSettingsCellDelegate {
         if temp.first == "$" {
             _ = temp.removeFirst()
         }
-        print("STRING REP IS: \(temp)")
         SettingsHandler.shared.rounding = Float(temp)!
-        
-        
     }
-    
-    
 }
 

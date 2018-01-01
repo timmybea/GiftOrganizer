@@ -43,7 +43,7 @@ class SettingsHandler: NSObject {
     func getSettings() {
         
         maxBudget = udStandard.object(forKey: key.maxBudget.rawValue) as? Int ?? 100
-        groups = udStandard.object(forKey: key.groups.rawValue) as? [String] ?? ["Family", "Friends", "Colleagues"]
+        groups = udStandard.object(forKey: key.groups.rawValue) as? [String] ?? ["Colleagues", "Family", "Friends"]
         celebrations = udStandard.object(forKey: key.celebrations.rawValue) as? [String] ?? ["Baby Shower", "Birthday", "Graduation", "Wedding"]
         rounding = udStandard.object(forKey: key.rounding.rawValue) as? Float ?? 0.50
     }

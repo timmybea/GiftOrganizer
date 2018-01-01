@@ -20,6 +20,7 @@ enum CreateEventState {
 
 class CreateEventViewController: CustomViewController {
     
+    //MARK: Logic properties
     var createEventState: CreateEventState?
     
     var eventToBeEdited: Event? {
@@ -57,10 +58,30 @@ class CreateEventViewController: CustomViewController {
     var addCard = ActionButton.SelectionStates.unselected
     var addPhone = ActionButton.SelectionStates.unselected
     
+    var tabBarHeight: CGFloat! {
+        return tabBarController?.tabBar.bounds.height ?? 48
+    }
+    
+    var navHeight: CGFloat! {
+        return navigationController?.navigationBar.frame.height
+    }
+    
+    let statusHeight = UIApplication.shared.statusBarFrame.height
+    
+    //MARK: UI Objects
+    var scrollView: UIScrollView = {
+        let sv = UIScrollView()
+        sv.layer.masksToBounds = false
+        sv.backgroundColor = UIColor.blue
+        sv.isPagingEnabled = false
+        return sv
+    }()
+    
+    var scrollViewFrame: CGRect!
+    
     var dropDown: DropDownTextField!
     
     var addDateView: AddDateView!
-    
     
     lazy var actionsButtonsView: ActionsButtonsView = {
         let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.selectDeselect)
@@ -76,96 +97,109 @@ class CreateEventViewController: CustomViewController {
     
     var saveButton: ButtonTemplate!
     
+    //MARK: VC Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Add Event"
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        self.title = createEventState == .newEventToBeAssigned ? createEventState == .updateEventForPerson ? "Edit Event" : "Quick Add Event" : "Add Event"
         
         navigationItem.hidesBackButton = true
         let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue), style: .plain, target: self, action: #selector(backButtonTouched))
         self.navigationItem.leftBarButtonItem = backButton
         
+        self.backgroundView.isUserInteractionEnabled = true
+        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:))))
 
         basicSubviewLayout()
     }
     
-//    //MARK: LAYOUT SUBVIEWS
-//    func layoutSubviews(for createEventState: CreateEventState) {
-//
-//        if createEventState == CreateEventState.newEventForPerson || createEventState == CreateEventState.updateEventForPerson {
-//
-//            basicSubviewLayout()
-//
-//        } else if self.createEventState == CreateEventState.newEventToBeAssigned {
-//
-//
-//
-//        }
-//    }
-
-    func basicSubviewLayout() {
-        
-        self.backgroundView.isUserInteractionEnabled = true
-        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:))))
-        
-        var yVal: CGFloat = 0
-        
-        if let navHeight = navigationController?.navigationBar.frame.height {
-            yVal = navHeight + UIApplication.shared.statusBarFrame.height + pad
-            let frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 40)
-            dropDown = DropDownTextField(frame: frame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
-            dropDown.delegate = self
-            view.addSubview(dropDown)
-        }
-        
-        yVal += 40 + pad + pad
-        addDateView = AddDateView(frame: CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 25))
-        addDateView.delegate = self
-        view.addSubview(addDateView)
-        
-        yVal += addDateView.frame.height + pad
-        
-        let actionsLabel = Theme.createMediumLabel()
-        actionsLabel.frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 25)
-        actionsLabel.text = "Select Actions"
-        view.addSubview(actionsLabel)
-
-        yVal += actionsLabel.frame.height + smallPad
-        
-        actionsButtonsView.frame = CGRect(x: self.view.frame.width / 4, y: yVal, width: self.view.frame.width / 2, height: actionsButtonsView.imageSize)
-        view.addSubview(actionsButtonsView)
-        actionsButtonsView.setupSubviews()
-        
-        //budget view layout
-        yVal += actionsButtonsView.frame.height + pad
-        
-        let budgetLabel = Theme.createMediumLabel()
-        budgetLabel.frame = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 25)
-        budgetLabel.text = "Set Budget"
-        view.addSubview(budgetLabel)
-        
-        yVal += budgetLabel.frame.height + smallPad
-        
-        self.budgetView = BudgetView(frame: CGRect(x: pad, y: yVal, width: self.view.frame.width - pad - pad, height: 60))
-        view.addSubview(budgetView)
-
-        //save button layout
-        guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
-        
-        let buttonframe = CGRect(x: pad, y: view.bounds.height - tabBarHeight - pad - 35, width: view.bounds.width - pad - pad, height: 35)
+    private func basicSubviewLayout() {
+        //saveButton
+        let buttonframe = CGRect(x: pad,
+                                 y: view.bounds.height - tabBarHeight - pad - 35,
+                                 width: view.bounds.width - pad - pad,
+                                 height: 35)
         saveButton = ButtonTemplate(frame: buttonframe)
         saveButton.setTitle("ADD EVENT")
         saveButton.addBorder(with: UIColor.white)
         saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
         view.addSubview(saveButton)
         
+        //scrollView
+        scrollViewFrame = CGRect(x: pad,
+                                 y: navHeight + statusHeight + pad,
+                                 width: view.bounds.width - pad - pad,
+                                 height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - 35)
+        
+        scrollView.frame = scrollViewFrame
+        view.addSubview(scrollView)
+        
+        //dropDown
+        let dropDownFrame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: 40)
+        dropDown = DropDownTextField(frame: dropDownFrame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
+        dropDown.delegate = self
+        scrollView.addSubview(dropDown)
+
+        //addDateView
+        addDateView = AddDateView(frame: CGRect(x: 0,
+                                                y: 40 + pad,
+                                                width: scrollView.bounds.width,
+                                                height: 25))
+        addDateView.delegate = self
+        scrollView.addSubview(addDateView)
+
+        //actionsLabel
+        let actionsLabel = Theme.createMediumLabel()
+        actionsLabel.frame = CGRect(x: 0,
+                                    y: addDateView.frame.maxY + pad,
+                                    width: scrollView.bounds.width,
+                                    height: 25)
+        actionsLabel.text = "Select Actions"
+        scrollView.addSubview(actionsLabel)
+
+        //actionsButtonsView
+        actionsButtonsView.frame = CGRect(x: 30,
+                                          y: actionsLabel.frame.maxY + pad,
+                                          width: self.scrollView.bounds.width - 60,
+                                          height: actionsButtonsView.imageSize)
+        scrollView.addSubview(actionsButtonsView)
+        actionsButtonsView.setupSubviews()
+        
+        //budgetLabel
+        let budgetLabel = Theme.createMediumLabel()
+        budgetLabel.frame = CGRect(x: 0,
+                                   y: actionsButtonsView.frame.maxY + pad,
+                                   width: scrollView.bounds.width,
+                                   height: 25)
+        budgetLabel.text = "Set Budget"
+        scrollView.addSubview(budgetLabel)
+
+        //budgetView
+        budgetView = BudgetView(frame: CGRect(x: 0,
+                                              y: budgetLabel.frame.maxY + pad,
+                                              width: scrollView.bounds.width,
+                                              height: 60))
+        scrollView.addSubview(budgetView)
+
+        var contentHeight = budgetView.frame.maxY + pad
         
         if createEventState == .updateEventForPerson {
             setupEventDataForEdit()
         } else if createEventState == .newEventToBeAssigned {
-            self.autoCompletePerson = AutoCompletePerson(frame: CGRect(x: pad, y: budgetView.frame.maxY + smallPad, width: self.view.frame.width - pad - pad, height: 100))
-            view.addSubview(autoCompletePerson!)
+            //autoCompletePerson
+            autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
+                                                                  y: budgetView.frame.maxY + smallPad,
+                                                                  width: scrollView.bounds.width,
+                                                                  height: 100))
+            scrollView.addSubview(autoCompletePerson!)
+            contentHeight = autoCompletePerson!.frame.maxY + pad
         }
+        //set content size for scrollView
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
     
     private func setupEventDataForEdit() {
@@ -220,6 +254,26 @@ class CreateEventViewController: CustomViewController {
         self.present(alertController, animated: true, completion: nil)
         
     }
+    
+    @objc
+    func handleKeyboardNotification(sender: Notification) {
+        
+        print("Keyboard will show")
+        
+        if let userInfo = sender.userInfo {
+            guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            if sender.name == Notification.Name.UIKeyboardWillShow {
+                //keyboard up
+                scrollView.frame = CGRect(x: pad,
+                                          y: navHeight + statusHeight + pad,
+                                          width: view.bounds.width - pad - pad,
+                                          height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
+            } else {
+                scrollView.frame = scrollViewFrame
+            }
+        }
+    }
 }
 
 //MARK: Drop down textfield delegate
@@ -228,9 +282,9 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
     
     func dropDownWillAnimate(down: Bool) {
         if down {
-            view.bringSubview(toFront: dropDown)
+            scrollView.bringSubview(toFront: dropDown)
         } else {
-            view.insertSubview(dropDown, aboveSubview: backgroundView)
+            scrollView.sendSubview(toBack: dropDown)
         }
     }
     
@@ -248,11 +302,10 @@ extension CreateEventViewController {
     }
 }
 
-//MARK: ADD_DATE_VIEW DELEGATE
+//MARK: AddDateViewDelegate Methods
 extension CreateEventViewController: AddDateViewDelegate {
     
     func addDateViewWasTouched() {
-
         let destination = DatePickerViewController()
         destination.delegate = self
         if self.eventDate != nil {
@@ -272,8 +325,8 @@ extension CreateEventViewController: AddDateViewDelegate {
     }
 }
 
-//MARK: DATE_PICKER_VC DELEGATE
-extension CreateEventViewController: datePickerViewControllerDelegate {
+//MARK: DatePickerViewControllerDelegate Methods
+extension CreateEventViewController: DatePickerViewControllerDelegate {
     
     func didSetDate(_ date: Date?) {
         self.eventDate = date
@@ -281,7 +334,7 @@ extension CreateEventViewController: datePickerViewControllerDelegate {
     
 }
 
-//MARK: ACTIONS_SELECTOR_DELEGATE METHODS
+//MARK: ActionsButtonsViewDelegate Methods
 extension CreateEventViewController: ActionsButtonsViewDelegate {
     
     func budgetButtonTouched() {
@@ -304,7 +357,7 @@ extension CreateEventViewController: ActionsButtonsViewDelegate {
 }
 
 
-//MARK: ADD EVENT BUTTON
+//MARK: AddEventButton Method
 extension CreateEventViewController {
     
     @objc func addEventToPersonTouched() {

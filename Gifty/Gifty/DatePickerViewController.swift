@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol datePickerViewControllerDelegate {
+protocol DatePickerViewControllerDelegate {
     func didSetDate(_ date: Date?)
 }
 
 class DatePickerViewController: CustomViewController {
 
-    var delegate: datePickerViewControllerDelegate?
+    var delegate: DatePickerViewControllerDelegate?
     
 //    var monthYearLabel: UILabel = {
 //        let label = UILabel()

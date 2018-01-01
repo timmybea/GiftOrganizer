@@ -59,7 +59,7 @@ struct Theme {
     static func createMediumLabel() -> UILabel {
         let label = UILabel()
         label.textColor = UIColor.white
-        label.font = Theme.fonts.mediumText.font
+        label.font = Theme.fonts.boldSubtitleText.font
         label.textAlignment = .left
         return label
     }

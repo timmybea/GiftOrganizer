@@ -62,7 +62,7 @@ class TextfieldSettingsTableViewCell: UITableViewCell {
             
             self.textLabel?.text = "Max budget amount"
             self.textLabel?.textColor = Theme.colors.charcoal.color
-            self.textfield.text = "$\(SettingsHandler.shared.maxBudget)"
+            self.textfield.text = "$\(SettingsHandler.shared.maxBudget).00"
         }
     }
     
@@ -85,10 +85,10 @@ extension TextfieldSettingsTableViewCell: UITextFieldDelegate {
                 let userInput = tfText.hasPrefix("$") ? String(tfText.dropFirst()) : tfText
                 if let newValue = Int(userInput) {
                     SettingsHandler.shared.maxBudget = newValue
+                    
                 }
-            } else {
-                self.textfield.text = "$\(SettingsHandler.shared.maxBudget)"
             }
+            self.textfield.text = "$\(SettingsHandler.shared.maxBudget).00"
         }
     }
     
