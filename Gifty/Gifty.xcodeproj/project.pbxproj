@@ -10,8 +10,6 @@
 		775F83FD437CBFAE67612986 /* Pods_GiftyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373C8160F0EABC34750BBAAE /* Pods_GiftyUITests.framework */; };
 		842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */; };
 		9395BA95A74AB8402D9BAFC8 /* Pods_GiftyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C30F863C942B547F235266 /* Pods_GiftyTests.framework */; };
-		B00EE8221FF47601005FC817 /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = B00EE81C1FF47601005FC817 /* NSString+Levenshtein.m */; };
-		B00EE8231FF47601005FC817 /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B00EE8201FF47601005FC817 /* MLPAutoCompleteTextField.m */; };
 		B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5731EFF21E300107B64 /* CustomCalendar.swift */; };
 		B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5751EFF221000107B64 /* CustomCalendarCell.swift */; };
 		B013B5781EFF233200107B64 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
@@ -46,6 +44,7 @@
 		B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */; };
 		B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E21F677D5A004BD772 /* PresentationController.swift */; };
 		B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */; };
+		B07D34E61FF9C0A700626C36 /* AutoCompleteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07D34E51FF9C0A700626C36 /* AutoCompleteTextField.swift */; };
 		B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08695AA1FDA2D6F00080855 /* PieChartCell.swift */; };
 		B088330A1FE48E110085BBD9 /* SettingCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08833091FE48E110085BBD9 /* SettingCellType.swift */; };
 		B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */; };
@@ -98,13 +97,6 @@
 		46C30F863C942B547F235266 /* Pods_GiftyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiftyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gifty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840BF037763567376C3007C0 /* Pods-GiftyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B00EE81B1FF47601005FC817 /* MLPAutoCompleteTextFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDelegate.h; sourceTree = "<group>"; };
-		B00EE81C1FF47601005FC817 /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
-		B00EE81D1FF47601005FC817 /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
-		B00EE81E1FF47601005FC817 /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
-		B00EE81F1FF47601005FC817 /* MLPAutoCompleteTextFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDataSource.h; sourceTree = "<group>"; };
-		B00EE8201FF47601005FC817 /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
-		B00EE8211FF47601005FC817 /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
 		B00EE8281FF48035005FC817 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B013B5751EFF221000107B64 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -146,6 +138,7 @@
 		B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		B07A55E21F677D5A004BD772 /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayEventBudgetViewController.swift; sourceTree = "<group>"; };
+		B07D34E51FF9C0A700626C36 /* AutoCompleteTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompleteTextField.swift; sourceTree = "<group>"; };
 		B08695AA1FDA2D6F00080855 /* PieChartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartCell.swift; sourceTree = "<group>"; };
 		B08833091FE48E110085BBD9 /* SettingCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCellType.swift; sourceTree = "<group>"; };
 		B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueSettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,20 +211,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		B00EE81A1FF475E0005FC817 /* MLPAutoCompleteTextField */ = {
-			isa = PBXGroup;
-			children = (
-				B00EE81E1FF47601005FC817 /* MLPAutoCompleteTextField.h */,
-				B00EE8201FF47601005FC817 /* MLPAutoCompleteTextField.m */,
-				B00EE81F1FF47601005FC817 /* MLPAutoCompleteTextFieldDataSource.h */,
-				B00EE81B1FF47601005FC817 /* MLPAutoCompleteTextFieldDelegate.h */,
-				B00EE8211FF47601005FC817 /* MLPAutoCompletionObject.h */,
-				B00EE81D1FF47601005FC817 /* NSString+Levenshtein.h */,
-				B00EE81C1FF47601005FC817 /* NSString+Levenshtein.m */,
-			);
-			name = MLPAutoCompleteTextField;
-			sourceTree = "<group>";
-		};
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +272,7 @@
 		B041F7951EF89A0A00A3E332 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B07D34E51FF9C0A700626C36 /* AutoCompleteTextField.swift */,
 				B070420B1F0D50DE00D6A027 /* AddDateView.swift */,
 				B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */,
 				B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */,
@@ -383,7 +363,6 @@
 		B0D514FE1F37809F008A88A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B00EE81A1FF475E0005FC817 /* MLPAutoCompleteTextField */,
 				B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */,
 				B07042071F06DAE000D6A027 /* EventTableView.swift */,
 				B02866771F143590003F5E22 /* EventTableViewCell.swift */,
@@ -837,7 +816,6 @@
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
 				B044D1FC1F2CE9B600214CE5 /* EventFRC.swift in Sources */,
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
-				B00EE8231FF47601005FC817 /* MLPAutoCompleteTextField.m in Sources */,
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */,
@@ -853,7 +831,6 @@
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
 				B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */,
-				B00EE8221FF47601005FC817 /* NSString+Levenshtein.m in Sources */,
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
@@ -872,6 +849,7 @@
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
+				B07D34E61FF9C0A700626C36 /* AutoCompleteTextField.swift in Sources */,
 				B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */,
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */,

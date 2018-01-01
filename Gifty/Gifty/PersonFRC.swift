@@ -48,4 +48,22 @@ class PersonFRC: NSObject {
             print(error.localizedDescription)
         }
     }
+    
+    static func person(with name: String) -> Person? {
+        let predicate = NSPredicate(format: "fullName == %@", name)
+        let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
+        fetchRequest.predicate = predicate
+        
+        var person: Person?
+        
+        guard let moc = moc else { return nil }
+        
+        do {
+            person = try moc.fetch(fetchRequest).first
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
+        return person!
+    }
 }

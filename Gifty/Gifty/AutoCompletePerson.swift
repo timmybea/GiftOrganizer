@@ -17,10 +17,12 @@ class AutoCompletePerson: UIView {
         return imageView
     }()
     
-    let autoCompleteTF: MLPAutoCompleteTextField = {
-        let textfield = MLPAutoCompleteTextField()
+    let autoCompleteTF: AutoCompleteTextField = {
+        let textfield = AutoCompleteTextField()
         textfield.font = Theme.fonts.mediumText.font
-        textfield.placeholderWith(string: "Person's name", color: UIColor.white)
+        textfield.placeholderWith(string: "Person's name", color: Theme.colors.lightToneOne.color)
+        textfield.boldTextColor = UIColor.white
+        textfield.highlightTextColor = Theme.colors.lightToneOne.color
         return textfield
     }()
     
@@ -32,7 +34,8 @@ class AutoCompletePerson: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-   
+        
+        autoCompleteTF.autocompleteDelegate = self
         setupViews()
     }
     
@@ -55,50 +58,27 @@ class AutoCompletePerson: UIView {
     }
 }
 
-//func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, possibleCompletionsFor string: String!) -> [Any]! {
-//    //provide complete list of person names
-//
-//    var persons = [Person]()
-//    let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-//
-//    do {
-//        persons = try moc.fetch(fetchRequest)
-//    } catch {
-//        print(error)
-//    }
-//
-//    var nameArray = [String]()
-//
-//    for person in persons {
-//        if let name = person.name {
-//            nameArray.append(name)
-//        }
-//    }
-//
-//    return nameArray
-//}
-//
-//func autoCompleteTextField(_ textField: MLPAutoCompleteTextField!, didSelectAutoComplete selectedString: String!, withAutoComplete selectedObject: MLPAutoCompletionObject!, forRowAt indexPath: IndexPath!) {
-//
-//    let predicate = NSPredicate(format: "name == %@", selectedString)
-//    let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
-//    fetchRequest.predicate = predicate
-//
-//    var person: Person?
-//
-//    do {
-//        person = try moc.fetch(fetchRequest).first
-//    } catch {
-//        print(error)
-//    }
-//
-//    if let person = person {
-//        if let imageData = person.image as? Data {
-//            personImageView.image = UIImage(data: imageData)
-//        }
-//
-//        if let name = person.name {
-//            personNameTF.text = name
-//        }
-//    }
+extension AutoCompletePerson: AutoCompleteTextFieldDelegate {
+    
+    func provideDatasource() {
+        //provide complete list of person names
+        guard let allPeople = PersonFRC.frc(byGroup: false)?.fetchedObjects else { return }
+        var nameArray = [String]()
+        for person in allPeople {
+            nameArray.append(person.fullName!)
+        }
+        autoCompleteTF.datasource = nameArray
+    }
+    
+    
+    func returned(with selection: String) {
+
+        print("SELECTED: \(selection)")
+        
+    }
+    
+}
+
+
+
 

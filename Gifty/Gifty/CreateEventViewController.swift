@@ -102,7 +102,7 @@ class CreateEventViewController: CustomViewController {
 //
 //        }
 //    }
-    
+
     func basicSubviewLayout() {
         
         self.backgroundView.isUserInteractionEnabled = true
