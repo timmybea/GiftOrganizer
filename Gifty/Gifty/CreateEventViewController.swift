@@ -119,7 +119,7 @@ class CreateEventViewController: CustomViewController {
                                                name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
         
-        self.title = createEventState == .newEventToBeAssigned ? createEventState == .updateEventForPerson ? "Edit Event" : "Quick Add Event" : "Add Event"
+        self.title = createEventState == .updateEventForPerson ? "Edit Event" : "Add Event"
         
         navigationItem.hidesBackButton = true
         let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue),
@@ -340,7 +340,7 @@ extension CreateEventViewController {
             self.present(alert, animated: true, completion: nil)
         } else {
             self.navigationController?.popViewController(animated: true)
-        }        
+        }
     }
 }
 
@@ -404,24 +404,41 @@ extension CreateEventViewController {
     
     @objc func addEventToPersonTouched() {
         
-        
         if self.createEventState == CreateEventState.updateEventForPerson {
-        
-        
+            //update existing event and save
+            guard let currEvent = self.eventToBeEdited else { return }
+            checkSufficientInformationToCreateEvent(completion: { (success, error) in
+                if success {
+                    currEvent.type = self.eventType
+                    
+                    let currDateString = DateHandler.stringFromDate(self.eventDate!)
+                    if currEvent.dateString != currDateString {
+                        let userInfo = ["EventDisplayViewId": "none", "dateString": currDateString]
+                        NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
+                    }
+                    currEvent.date = self.eventDate
+                    currEvent.dateString = currDateString
+                    currEvent.budgetAmt = self.budgetView.getBudgetAmount()
+                    currEvent.giftState = self.addGift.rawValue
+                    EventFRC.updateMoc()
+                    
+                    guard let dateString = currEvent.dateString else { return }
+                    let userInfo = ["dateString": dateString]
+                    NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo)
+                } else if error != nil {
+                    createAlertForError(error!)
+                }
+            })
+            self.navigationController?.popViewController(animated: true)
         } else {
         
             //Create new event for existing person
-            
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
-                
                 if success {
-                    
                     let budgetAmt = self.budgetView.getBudgetAmount()
-                    
                     ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
                         
                         print("successfully added event")
-                        
                         //send notification
                         guard let dateString = event?.dateString else { return }
                         let userInfo = ["dateString": dateString]
@@ -438,6 +455,9 @@ extension CreateEventViewController {
                     }
                 }
             })
+            if createEventState == CreateEventState.newEventToBeAssigned {
+                EventFRC.updateMoc()
+            }
         }
     }
     
@@ -453,11 +473,12 @@ extension CreateEventViewController {
             return
         }
         
-        guard self.person != nil else {
-            completion(false, CustomErrors.createEvent.personIsNil)
-            return
+        if createEventState != CreateEventState.updateEventForPerson {
+            guard self.person != nil else {
+                completion(false, CustomErrors.createEvent.personIsNil)
+                return
+            }
         }
-        
         completion(true, nil)
     }
     

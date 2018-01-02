@@ -159,7 +159,6 @@ class CustomCalendar: UIView {
         DispatchQueue.main.async {
             self.calendarView.reloadData()
         }
-        
     }
     
     func updateDataSource(dateString: String, count: Int, completed: Bool) {
