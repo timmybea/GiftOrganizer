@@ -409,22 +409,24 @@ extension CreateEventViewController {
             guard let currEvent = self.eventToBeEdited else { return }
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 if success {
-                    currEvent.type = self.eventType
                     
-                    let currDateString = DateHandler.stringFromDate(self.eventDate!)
-                    if currEvent.dateString != currDateString {
-                        let userInfo = ["EventDisplayViewId": "none", "dateString": currDateString]
-                        NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
-                    }
+                    let dateChanged = DateHandler.stringFromDate(self.eventDate!) != currEvent.dateString
+                    let oldDate = currEvent.dateString
+                    
+                    currEvent.type = self.eventType
                     currEvent.date = self.eventDate
-                    currEvent.dateString = currDateString
+                    currEvent.dateString = DateHandler.stringFromDate(self.eventDate!)
                     currEvent.budgetAmt = self.budgetView.getBudgetAmount()
                     currEvent.giftState = self.addGift.rawValue
                     EventFRC.updateMoc()
                     
                     guard let dateString = currEvent.dateString else { return }
-                    let userInfo = ["dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo)
+                    let createUserInfo = ["dateString": dateString]
+                    NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: createUserInfo as! [String: String])
+                    
+                    let deleteUserInfo = ["EventDisplayViewId": "none", "dateString": oldDate]
+                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: deleteUserInfo as! [String: String])
+                    
                 } else if error != nil {
                     createAlertForError(error!)
                 }
