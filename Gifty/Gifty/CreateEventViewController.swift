@@ -129,10 +129,10 @@ class CreateEventViewController: CustomViewController {
         
         self.navigationItem.leftBarButtonItem = backButton
 
-        basicSubviewLayout()
+        subviewLayout()
     }
     
-    private func basicSubviewLayout() {
+    private func subviewLayout() {
         //saveButton
         let buttonframe = CGRect(x: pad,
                                  y: view.bounds.height - tabBarHeight - pad - 35,
@@ -161,7 +161,7 @@ class CreateEventViewController: CustomViewController {
 
         //addDateView
         addDateView = AddDateView(frame: CGRect(x: 0,
-                                                y: 40 + pad,
+                                                y: 50 + pad,
                                                 width: scrollView.bounds.width,
                                                 height: 25))
         addDateView.delegate = self
@@ -206,8 +206,16 @@ class CreateEventViewController: CustomViewController {
             setupEventDataForEdit()
         } else if createEventState == .newEventToBeAssigned {
             //autoCompletePerson
+            let personLabel = Theme.createMediumLabel()
+            personLabel.frame = CGRect(x: 0,
+                                       y: budgetView.frame.maxY + pad,
+                                       width: scrollView.bounds.width,
+                                       height: 25)
+            personLabel.text = "Set Person"
+            scrollView.addSubview(personLabel)
+            
             autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
-                                                                  y: budgetView.frame.maxY + smallPad,
+                                                                  y: personLabel.frame.maxY + pad,
                                                                   width: scrollView.bounds.width,
                                                                   height: 100))
             self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
@@ -319,7 +327,20 @@ extension CreateEventViewController {
     
     @objc func backButtonTouched() {
         //check if there are changes and send alert
-        self.navigationController?.popViewController(animated: true)
+        if changesMade() {
+            let alert = UIAlertController(title: "Are you sure?", message: CustomErrors.createEvent.changesMade.description, preferredStyle: .alert)
+            let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+                self.navigationController?.popViewController(animated: true)
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                //do nothing
+            })
+            alert.addAction(continueAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }        
     }
 }
 
@@ -383,9 +404,14 @@ extension CreateEventViewController {
     
     @objc func addEventToPersonTouched() {
         
-        if self.createEventState == CreateEventState.newEventForPerson {
+        
+        if self.createEventState == CreateEventState.updateEventForPerson {
+        
+        
+        } else {
+        
+            //Create new event for existing person
             
-            //Create New Event For Person
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 
                 if success {
@@ -413,17 +439,9 @@ extension CreateEventViewController {
                 }
             })
         }
-        
-        
-        //update existing event for person
-        
-        
-        
-        //create new event and assign to person
-        
     }
     
-    func checkSufficientInformationToCreateEvent(completion: (_ success: Bool, _ error: CustomErrors.createEvent?) -> Void) {
+    private func checkSufficientInformationToCreateEvent(completion: (_ success: Bool, _ error: CustomErrors.createEvent?) -> Void) {
         
         guard self.eventType != nil else {
             completion(false, CustomErrors.createEvent.noEventType)
@@ -441,6 +459,14 @@ extension CreateEventViewController {
         }
         
         completion(true, nil)
+    }
+    
+    private func changesMade() -> Bool {
+        guard self.eventType == nil else { return true }
+        guard self.eventDate == nil else { return true }
+        guard self.person == nil else { return true }
+        guard self.budgetView.getBudgetAmount() == 0 else { return true }
+        return false
     }
 }
 

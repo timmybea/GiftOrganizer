@@ -61,6 +61,7 @@ struct CustomErrors {
         case noEventType
         case noActionsSelected
         case personIsNil
+        case changesMade
         
         var description: String {
             switch self {
@@ -68,6 +69,7 @@ struct CustomErrors {
             case .noEventType: return "Please select an event type from the drop down menu."
             case .noActionsSelected: return "Please select at least one action to complete."
             case .personIsNil: return "There has been a problem. Please go back and try again."
+            case .changesMade: return "If you continue with this action, you will lose changes you have made"
             }
         }
     }    
