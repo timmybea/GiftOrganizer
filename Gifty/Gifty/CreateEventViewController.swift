@@ -274,23 +274,20 @@ class CreateEventViewController: CustomViewController {
     
     @objc
     func handleKeyboardNotification(sender: Notification) {
-        
-        print("Keyboard will show")
-        
-        if let userInfo = sender.userInfo {
-            guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        guard tabBarController?.selectedIndex == 0 else { return }
+        guard let userInfo = sender.userInfo else { return }
+        guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
             
-            if sender.name == Notification.Name.UIKeyboardWillShow {
-                //keyboard up
-                scrollView.frame = CGRect(x: pad,
-                                          y: navHeight + statusHeight + pad,
-                                          width: view.bounds.width - pad - pad,
-                                          height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
-                scrollView.addGestureRecognizer(tapGesture)
-            } else {
-                scrollView.frame = scrollViewFrame
-                scrollView.removeGestureRecognizer(tapGesture)
-            }
+        if sender.name == Notification.Name.UIKeyboardWillShow {
+            //keyboard up
+            scrollView.frame = CGRect(x: pad,
+                                      y: navHeight + statusHeight + pad,
+                                      width: view.bounds.width - pad - pad,
+                                      height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
+            scrollView.addGestureRecognizer(tapGesture)
+        } else {
+            scrollView.frame = scrollViewFrame
+            scrollView.removeGestureRecognizer(tapGesture)
         }
     }
 }
