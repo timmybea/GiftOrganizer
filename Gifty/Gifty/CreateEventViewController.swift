@@ -379,8 +379,8 @@ extension CreateEventViewController {
     @objc func addEventToPersonTouched() {
         
         if self.createEventState == CreateEventState.newEventForPerson {
+            
             //Create New Event For Person
-
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 
                 if success {

@@ -11,7 +11,7 @@ import UIKit
 class AutoCompletePerson: UIView {
 
     let profileImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: ImageNames.profileImagePlaceHolder.rawValue))
+        let imageView = UIImageView(image: UIImage(named: ImageNames.defaultProfileBlock.rawValue))
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
@@ -48,13 +48,13 @@ class AutoCompletePerson: UIView {
         
         addSubview(profileImage)
         profileImage.frame = CGRect(x: 0, y: 0, width: self.bounds.height, height: self.bounds.height)
-        profileImage.layer.cornerRadius = profileImage.frame.width / 2
+        //profileImage.layer.cornerRadius = profileImage.frame.width / 2
 
         addSubview(autoCompleteTF)
-        autoCompleteTF.frame = CGRect(x: profileImage.frame.width + pad, y: self.bounds.height - 20, width: self.bounds.width - profileImage.frame.width - pad, height: 22)
+        autoCompleteTF.frame = CGRect(x: profileImage.frame.width + pad, y: self.bounds.height / 2 - 11, width: self.bounds.width - profileImage.frame.width - pad, height: 22)
         
         addSubview(whiteView)
-        whiteView.frame = CGRect(x: autoCompleteTF.frame.origin.x, y: self.bounds.height - 2, width: autoCompleteTF.frame.width, height: 2)
+        whiteView.frame = CGRect(x: autoCompleteTF.frame.origin.x, y: autoCompleteTF.frame.maxY + 4, width: autoCompleteTF.frame.width, height: 2)
     }
 }
 
@@ -74,7 +74,9 @@ extension AutoCompletePerson: AutoCompleteTextFieldDelegate {
     func returned(with selection: String) {
 
         print("SELECTED: \(selection)")
-        
+        //Use name to get Person object
+        //assign it to property in VC
+        //tell view to update picture
     }
     
 }

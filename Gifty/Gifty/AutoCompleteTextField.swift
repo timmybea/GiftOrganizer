@@ -17,7 +17,7 @@ class AutoCompleteTextField: UITextField {
     var datasource: [String]?
     var currInput: String = ""
     var autocompleteDelegate: AutoCompleteTextFieldDelegate?
-    var hasReturned: Bool = false
+    var isReturned: Bool = false
     
     var highlightTextColor: UIColor = UIColor.gray {
         didSet {
@@ -44,12 +44,13 @@ extension AutoCompleteTextField: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.autocompleteDelegate?.provideDatasource()
         self.currInput = ""
-        self.hasReturned = false
+        self.isReturned = false
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+
+        textField.textColor = highlightTextColor
         self.currInput += string
         textField.text = self.currInput
         
@@ -62,9 +63,11 @@ extension AutoCompleteTextField: UITextFieldDelegate {
                 textField.text = ""
             }
         }
+        
         //select option from datasource and color the text
         if let allOptions = datasource?.filter({ $0.hasPrefix(self.currInput) }) {
-            let fullName = allOptions.first ?? self.currInput
+            let exactMatch = allOptions.filter() { $0 == self.currInput }
+            let fullName = exactMatch.count > 0 ? exactMatch.first! : allOptions.first ?? self.currInput
             if let range = fullName.range(of: self.currInput) {
                 let nsRange = fullName.nsRange(from: range)
                 let attribute = NSMutableAttributedString.init(string: fullName as String)
@@ -82,15 +85,17 @@ extension AutoCompleteTextField: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         resignFirstResponder()
-        if !hasReturned {
+        if !isReturned {
             textField.text = ""
             self.currInput = ""
+        } else {
+            textField.textColor = boldTextColor
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.autocompleteDelegate?.returned(with: textField.text!)
-        self.hasReturned = true
+        self.isReturned = true
         self.endEditing(true)
         return true
     }
