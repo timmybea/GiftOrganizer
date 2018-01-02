@@ -9,13 +9,17 @@
 import UIKit
 
 protocol CreateEventViewControllerDelegate {
+    
     func eventAddedToPerson(uuid: String)
+    
 }
 
 enum CreateEventState {
+    
     case newEventForPerson
     case updateEventForPerson
     case newEventToBeAssigned
+    
 }
 
 class CreateEventViewController: CustomViewController {
@@ -37,51 +41,55 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-    var eventType: String? {
+    private var eventType: String? {
         didSet {
             print("update event type to \(String(describing: eventType))")
         }
     }
     
-    var eventDate: Date? {
+    private var eventDate: Date? {
         didSet {
             print("event date changed to \(String(describing: eventDate))")
             addDateView.updateLabel(with: eventDate)
         }
     }
-    var isRecurringEvent = false {
+    
+    private var isRecurringEvent = false {
         didSet {
             addDateView.recurringEventSwitch.setOn(isRecurringEvent, animated: true)
         }
     }
-    var addGift = ActionButton.SelectionStates.unselected
-    var addCard = ActionButton.SelectionStates.unselected
-    var addPhone = ActionButton.SelectionStates.unselected
     
-    var tabBarHeight: CGFloat! {
+    private var addGift = ActionButton.SelectionStates.unselected
+    private var addCard = ActionButton.SelectionStates.unselected
+    private var addPhone = ActionButton.SelectionStates.unselected
+    
+    private var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
     }
     
-    var navHeight: CGFloat! {
+    private var navHeight: CGFloat! {
         return navigationController?.navigationBar.frame.height
     }
     
-    let statusHeight = UIApplication.shared.statusBarFrame.height
+    private let statusHeight = UIApplication.shared.statusBarFrame.height
+    
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:)))
     
     //MARK: UI Objects
-    var scrollView: UIScrollView = {
+    private var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.layer.masksToBounds = false
-        sv.backgroundColor = UIColor.blue
+        sv.backgroundColor = UIColor.clear
         sv.isPagingEnabled = false
         return sv
     }()
     
-    var scrollViewFrame: CGRect!
+    private var scrollViewFrame: CGRect!
     
-    var dropDown: DropDownTextField!
+    private var dropDown: DropDownTextField!
     
-    var addDateView: AddDateView!
+    private var addDateView: AddDateView!
     
     lazy var actionsButtonsView: ActionsButtonsView = {
         let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.selectDeselect)
@@ -91,28 +99,35 @@ class CreateEventViewController: CustomViewController {
         return view
     }()
     
-    var autoCompletePerson: AutoCompletePerson?
+    private var autoCompletePerson: AutoCompletePerson?
     
-    var budgetView: BudgetView!
+    private var budgetView: BudgetView!
     
-    var saveButton: ButtonTemplate!
+    private var saveButton: ButtonTemplate!
     
     //MARK: VC Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboardNotification(sender:)),
+                                               name: NSNotification.Name.UIKeyboardWillShow,
+                                               object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleKeyboardNotification(sender:)),
+                                               name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
         
         self.title = createEventState == .newEventToBeAssigned ? createEventState == .updateEventForPerson ? "Edit Event" : "Quick Add Event" : "Add Event"
         
         navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue), style: .plain, target: self, action: #selector(backButtonTouched))
-        self.navigationItem.leftBarButtonItem = backButton
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(backButtonTouched))
         
-        self.backgroundView.isUserInteractionEnabled = true
-        self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:))))
+        self.navigationItem.leftBarButtonItem = backButton
 
         basicSubviewLayout()
     }
@@ -242,17 +257,19 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-    @objc func didTapBackground(sender: UITapGestureRecognizer) {
-        dropDown.finishEditingTextField()
+    @objc
+    func didTapBackground(sender: UITapGestureRecognizer) {
+        guard let acPerson = autoCompletePerson else { return }
+        if acPerson.autoCompleteTF.isEditing {
+            autoCompletePerson?.endEditing(true)
+        }
     }
     
     private func createAlertForError(_ error: CustomErrors.createEvent) {
-        
         let alertController = UIAlertController(title: "Incomplete event", message: error.description, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)
         alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
     @objc
@@ -269,15 +286,16 @@ class CreateEventViewController: CustomViewController {
                                           y: navHeight + statusHeight + pad,
                                           width: view.bounds.width - pad - pad,
                                           height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
+                scrollView.addGestureRecognizer(tapGesture)
             } else {
                 scrollView.frame = scrollViewFrame
+                scrollView.removeGestureRecognizer(tapGesture)
             }
         }
     }
 }
 
 //MARK: Drop down textfield delegate
-
 extension CreateEventViewController: DropDownTextFieldDelegate {
     
     func dropDownWillAnimate(down: Bool) {
@@ -294,6 +312,7 @@ extension CreateEventViewController: DropDownTextFieldDelegate {
     }
 }
 
+//MARK: Back button touched
 extension CreateEventViewController {
     
     @objc func backButtonTouched() {

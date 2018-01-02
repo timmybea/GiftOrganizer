@@ -182,6 +182,7 @@ class DropDownTextField: UIView {
     
     func finishEditingTextField() {
         textField.resignFirstResponder()
+        //endEditing(true)
     }
     
     func setTitle(text: String) {
