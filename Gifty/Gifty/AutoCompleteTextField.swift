@@ -11,6 +11,7 @@ import UIKit
 protocol AutoCompleteTextFieldDelegate {
     func provideDatasource()
     func returned(with selection: String)
+    func textFieldCleared()
 }
 
 class AutoCompleteTextField: UITextField {
@@ -61,6 +62,7 @@ extension AutoCompleteTextField: UITextFieldDelegate {
             self.currInput = String(self.currInput.dropLast())
             if self.currInput == "" {
                 textField.text = ""
+                autocompleteDelegate?.textFieldCleared()
             }
         }
         

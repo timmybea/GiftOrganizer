@@ -99,7 +99,7 @@ class CreateEventViewController: CustomViewController {
         return view
     }()
     
-    private var autoCompletePerson: AutoCompletePerson?
+    var autoCompletePerson: AutoCompletePerson?
     
     private var budgetView: BudgetView!
     
@@ -210,6 +210,7 @@ class CreateEventViewController: CustomViewController {
                                                                   y: budgetView.frame.maxY + smallPad,
                                                                   width: scrollView.bounds.width,
                                                                   height: 100))
+            self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
             scrollView.addSubview(autoCompletePerson!)
             contentHeight = autoCompletePerson!.frame.maxY + pad
         }
@@ -284,11 +285,15 @@ class CreateEventViewController: CustomViewController {
                                       y: navHeight + statusHeight + pad,
                                       width: view.bounds.width - pad - pad,
                                       height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
+            //scroll to bottom
+            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height)
+            scrollView.setContentOffset(bottomOffset, animated: true)
             scrollView.addGestureRecognizer(tapGesture)
         } else {
             scrollView.frame = scrollViewFrame
             scrollView.removeGestureRecognizer(tapGesture)
         }
+        
     }
 }
 
@@ -438,3 +443,34 @@ extension CreateEventViewController {
         completion(true, nil)
     }
 }
+
+//MARK: AutoCompleteTextFieldDelegate
+extension CreateEventViewController: AutoCompleteTextFieldDelegate {
+    
+    func provideDatasource() {
+        //provide complete list of person names
+        guard let allPeople = PersonFRC.frc(byGroup: false)?.fetchedObjects else { return }
+        var nameArray = [String]()
+        for person in allPeople {
+            nameArray.append(person.fullName!)
+        }
+        autoCompletePerson?.autoCompleteTF.datasource = nameArray
+    }
+    
+    
+    func returned(with selection: String) {
+        
+        print("SELECTED: \(selection)")
+        self.person = PersonFRC.person(with: selection)
+        if self.person != nil {
+            autoCompletePerson?.updateImage(with: person!.profileImage)
+        }
+    }
+    
+    func textFieldCleared() {
+        autoCompletePerson?.resetProfileImage()
+        person = nil
+    }
+    
+}
+

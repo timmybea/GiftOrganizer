@@ -35,7 +35,6 @@ class AutoCompletePerson: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        autoCompleteTF.autocompleteDelegate = self
         setupViews()
     }
     
@@ -48,7 +47,7 @@ class AutoCompletePerson: UIView {
         
         addSubview(profileImage)
         profileImage.frame = CGRect(x: 0, y: 0, width: self.bounds.height, height: self.bounds.height)
-        //profileImage.layer.cornerRadius = profileImage.frame.width / 2
+        profileImage.layer.cornerRadius = profileImage.frame.width / 2
 
         addSubview(autoCompleteTF)
         autoCompleteTF.frame = CGRect(x: profileImage.frame.width + pad, y: self.bounds.height / 2 - 11, width: self.bounds.width - profileImage.frame.width - pad, height: 22)
@@ -56,31 +55,17 @@ class AutoCompletePerson: UIView {
         addSubview(whiteView)
         whiteView.frame = CGRect(x: autoCompleteTF.frame.origin.x, y: autoCompleteTF.frame.maxY + 4, width: autoCompleteTF.frame.width, height: 2)
     }
-}
-
-extension AutoCompletePerson: AutoCompleteTextFieldDelegate {
     
-    func provideDatasource() {
-        //provide complete list of person names
-        guard let allPeople = PersonFRC.frc(byGroup: false)?.fetchedObjects else { return }
-        var nameArray = [String]()
-        for person in allPeople {
-            nameArray.append(person.fullName!)
-        }
-        autoCompleteTF.datasource = nameArray
+    func updateImage(with data: Data?) {
+        guard let data = data else { return }
+        profileImage.image = UIImage(data: data)
     }
     
-    
-    func returned(with selection: String) {
-
-        print("SELECTED: \(selection)")
-        //Use name to get Person object
-        //assign it to property in VC
-        //tell view to update picture
+    func resetProfileImage() {
+        profileImage.image = UIImage(named: ImageNames.defaultProfileBlock.rawValue)
     }
     
 }
-
 
 
 
