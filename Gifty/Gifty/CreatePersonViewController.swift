@@ -498,9 +498,8 @@ extension CreatePersonViewController: EventTableViewDelegate {
         
         print("Edit existing event")
         let destination = CreateEventViewController()
-        destination.delegate = self
-        destination.createEventState = CreateEventState.updateEventForPerson
-        
+        destination.eventToBeEdited = event
+
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
         }
