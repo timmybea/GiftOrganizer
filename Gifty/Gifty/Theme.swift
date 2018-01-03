@@ -12,10 +12,13 @@ struct Theme {
     
     enum colors {
         case offWhite
+        case sand
         case darkPurple
         case buttonPurple
         case lightToneOne
         case lightToneTwo
+        case lightToneThree
+        case lightToneFour
         case yellow
         case charcoal
         case completedGreen
@@ -27,9 +30,12 @@ struct Theme {
             case .darkPurple: return UIColor.colorWithVals(r: 94, g: 5, b: 70)
             case .lightToneOne: return UIColor.colorWithVals(r: 249, g: 175, b: 186)
             case .lightToneTwo: return UIColor.colorWithVals(r: 206, g: 78, b: 120)
+            case .lightToneThree: return UIColor.colorWithVals(r: 166, g: 54, b: 83)
+            case .lightToneFour: return UIColor.colorWithVals(r: 235, g: 122, b: 144)
             case .yellow: return UIColor.colorWithVals(r: 255, g: 210, b: 92)
             case .charcoal: return UIColor.colorWithVals(r: 62, g: 62, b: 62)
             case .completedGreen: return UIColor.colorWithVals(r: 137, g: 219, b: 112)
+            case .sand: return UIColor.colorWithVals(r: 229, g: 180, b: 141)
             }
         }
     }

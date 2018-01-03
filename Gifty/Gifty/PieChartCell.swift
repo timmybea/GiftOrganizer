@@ -50,9 +50,16 @@ class PieChartCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let colors = [Theme.colors.buttonPurple.color,
-                          Theme.colors.lightToneTwo.color,
-                          Theme.colors.lightToneOne.color]
+    private let colors = [UIColor.colorWithVals(r: 206, g: 78, b: 120),
+                          UIColor.colorWithVals(r: 252, g: 158, b: 163),
+                          UIColor.colorWithVals(r: 139, g: 24, b: 91),
+                          UIColor.colorWithVals(r: 244, g: 197, b: 188),
+                          UIColor.colorWithVals(r: 106, g: 28, b: 74),
+                          UIColor.colorWithVals(r: 227, g: 105, b: 125),
+                          UIColor.colorWithVals(r: 94, g: 5, b: 70),
+                          UIColor.colorWithVals(r: 188, g: 70, b: 113),
+                          UIColor.colorWithVals(r: 252, g: 180, b: 177)
+    ]
     
     func setDataForChart(pieData: [PieData]) {
         
