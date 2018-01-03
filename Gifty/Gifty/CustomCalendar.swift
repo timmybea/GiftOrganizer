@@ -120,22 +120,28 @@ class CustomCalendar: UIView {
     
     private func scrollToThisMonth() {
         let today = DateHandler.localTimeFromUTC(Date())
+        scrollToDate(today)
+    }
+    
+    func scrollToSelectedDate(_ date: Date) {
+        let utcDate = DateHandler.UTCTimeFromLocal(date)
+        scrollToDate(utcDate)
+        self.calendarView.selectDates([utcDate])
+    }
+    
+    private func scrollToDate(_ date: Date) {
+        let value = (Calendar.current.component(.weekday, from: date) - 1) * -1
+        var scrollDate = gregorianCalendar.date(byAdding: .weekday, value: value, to: date)!
         
-        let value = (Calendar.current.component(.weekday, from: today) - 1) * -1
-        var scrollDate = gregorianCalendar.date(byAdding: .weekday, value: value, to: today)!
-        
-        let todayMonth = DateHandler.stringMonth(from: today)
+        let todayMonth = DateHandler.stringMonth(from: date)
         let scrollMonth = DateHandler.stringMonth(from: scrollDate)
-        
         
         if todayMonth != scrollMonth {
             scrollDate = gregorianCalendar.date(byAdding: .weekOfYear, value: 1, to: scrollDate)!
         }
-
         self.calendarView.scrollToDate(scrollDate, animateScroll: false)
-            
     }
-    
+
     fileprivate func setMonthYearLabel(from visibleDates: DateSegmentInfo) {
         if let date = visibleDates.monthDates.first?.date {
             dateFormatter.dateFormat = "MMMM YYYY"
@@ -143,7 +149,6 @@ class CustomCalendar: UIView {
             self.delegate?.monthYearLabelWasUpdated(monthYearLabel.text!)
         }
     }
-    
 
     //MARK: changes to datasource and refreshing calendar view
     
@@ -178,6 +183,11 @@ class CustomCalendar: UIView {
         DispatchQueue.main.async {
             self.calendarView.reloadData()
         }
+    }
+    
+    func selectDate(_ date: Date) {
+        self.calendarView.selectDates([])
+        
     }
 }
 

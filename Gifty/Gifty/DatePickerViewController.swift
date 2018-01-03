@@ -16,14 +16,6 @@ class DatePickerViewController: CustomViewController {
 
     var delegate: DatePickerViewControllerDelegate?
     
-//    var monthYearLabel: UILabel = {
-//        let label = UILabel()
-//        label.textAlignment = .center
-//        label.font = FontManager.titleText
-//        label.textColor = UIColor.white
-//        return label
-//    }()
-    
     var calendar: CustomCalendar!
     
     var initialDate: Date?
@@ -53,10 +45,6 @@ class DatePickerViewController: CustomViewController {
         calendar = CustomCalendar(frame: CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 300))
         calendar.delegate = self
         
-//        if self.initialDate != nil {
-//            calendar.initiallySelectedDate = initialDate
-//        }
-        
         view.addSubview(calendar)
         
         yVal += calendar.frame.height + pad
@@ -68,6 +56,12 @@ class DatePickerViewController: CustomViewController {
         addDateToEventButton.addBorder(with: UIColor.white)
         addDateToEventButton.delegate = self
         view.addSubview(addDateToEventButton)
+        
+        if selectedDate != nil {
+            DispatchQueue.main.async {
+                self.calendar.scrollToSelectedDate(self.selectedDate!)
+            }
+        }
     }
 }
 

@@ -352,7 +352,15 @@ extension CreateEventViewController: AddDateViewDelegate {
         destination.delegate = self
         if self.eventDate != nil {
             destination.initialDate = self.eventDate
+            destination.selectedDate = eventDate!
         }
+        
+//        if createEventState == CreateEventState.updateEventForPerson {
+//            if let showDate = eventToBeEdited?.date {
+//                destination.showDateSelected(showDate)
+//            }
+//        }
+        
         self.navigationController?.pushViewController(destination, animated: true)
     }
 
