@@ -65,13 +65,16 @@ class PieChartCell: UITableViewCell {
         for (index, datum) in pieData.enumerated() {
             
             let color = colors[index % colors.count]
-            
-            let chartItem = RKPieChartItem(ratio: uint(datum.amtSpent), color: color, title: datum.group)
-            chartItems.append(chartItem)
-            
-            let reportItem = ChartReportItem(color: color, group: datum.group, numberGifts: datum.numberOfGifts, totalSpent: datum.amtSpent)
-            reportItems.append(reportItem)
+            if datum.amtSpent != 0.0 {
+                let ratio: uint = pieData.count > 1 ? uint(datum.amtSpent * 100) : 999
+                let chartItem = RKPieChartItem(ratio: ratio, color: color, title: datum.group)
+                chartItems.append(chartItem)
+                
+                let reportItem = ChartReportItem(color: color, group: datum.group, numberGifts: datum.numberOfGifts, totalSpent: datum.amtSpent)
+                reportItems.append(reportItem)
+            }
         }
+        
         self.chartView = RKPieChartView(items: chartItems)
         self.tableDatasource = reportItems
         configureChartView()

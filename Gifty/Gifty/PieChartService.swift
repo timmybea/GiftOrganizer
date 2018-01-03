@@ -29,7 +29,7 @@ class PieChartService: NSObject {
             for person in people {
                 guard let events = person.event?.allObjects as? [Event] else { continue }
                 
-                for event in events where DateHandler.sameComponent(.year, date1: event.date!, date2: Date()){
+                for event in events where DateHandler.sameComponent(.year, date1: event.date!, date2: DateHandler.localTimeFromUTC(Date())){
                     if event.isComplete {
                         amtSpent += event.actualAmt
                         numGifts += 1

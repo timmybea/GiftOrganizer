@@ -139,7 +139,7 @@ class CreateEventViewController: CustomViewController {
                                  width: view.bounds.width - pad - pad,
                                  height: 35)
         saveButton = ButtonTemplate(frame: buttonframe)
-        saveButton.setTitle("ADD EVENT")
+        saveButton.setTitle("SAVE")
         saveButton.addBorder(with: UIColor.white)
         saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
         view.addSubview(saveButton)
@@ -255,11 +255,11 @@ class CreateEventViewController: CustomViewController {
     
     private func getActionState(for action: String) -> ActionButton.SelectionStates {
         switch action {
-        case "unselected":
+        case ActionButton.SelectionStates.unselected.rawValue:
             return ActionButton.SelectionStates.unselected
-        case "selected":
+        case ActionButton.SelectionStates.selected.rawValue:
             return ActionButton.SelectionStates.selected
-        case "complete":
+        case ActionButton.SelectionStates.completed.rawValue:
             return ActionButton.SelectionStates.completed
         default:
             return ActionButton.SelectionStates.unselected

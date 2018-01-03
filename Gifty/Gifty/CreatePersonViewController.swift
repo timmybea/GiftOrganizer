@@ -495,7 +495,6 @@ extension CreatePersonViewController: EventTableViewDelegate {
 
 
     func didTouchEditEvent(event: Event) {
-        
         print("Edit existing event")
         let destination = CreateEventViewController()
         destination.eventToBeEdited = event
