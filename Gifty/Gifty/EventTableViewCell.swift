@@ -83,8 +83,8 @@ class EventTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        //actionsButtonsView.isHidden = true
         self.selectionStyle = .none
-        
         setupSubviews()
     }
     

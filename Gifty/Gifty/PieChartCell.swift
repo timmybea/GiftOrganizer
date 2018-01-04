@@ -11,20 +11,44 @@ import RKPieChart
 
 class PieChartCell: UITableViewCell {
     
-    private var cellWidth: CGFloat {
+    //MARK: properties
+    private static var cellWidth: CGFloat {
         return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - pad
     }
     
-    private var chartWidth: CGFloat {
-            return  cellWidth - (1 * pad) - (2 * chartPad)
+    private static var chartWidth: CGFloat {
+            return  PieChartCell.cellWidth - (1 * pad) - (2 * chartPad)
     }
     
-    private let chartPad: CGFloat = 70
+    private static let chartPad: CGFloat = 70
     
+    static func heightForCell(for itemCount: Int) -> CGFloat {
+        let tvHeight = tvCellHeight * CGFloat(itemCount)
+        return PieChartCell.staticHeight + tvHeight
+    }
+    
+    private static let staticHeight: CGFloat = pad + chartWidth + pad + 20 + smallPad + 2 + smallPad
+    private static let tvCellHeight: CGFloat = 30
+
     var chartView: RKPieChartView?
     
     var tableDatasource: [ChartReportItem]?
     
+    var totalSpent: Float = 0
+    
+    var totalGifts: Int = 0
+    
+    private let colors = [UIColor.colorWithVals(r: 206, g: 78, b: 120),
+                          UIColor.colorWithVals(r: 252, g: 158, b: 163),
+                          UIColor.colorWithVals(r: 139, g: 24, b: 91),
+                          UIColor.colorWithVals(r: 244, g: 197, b: 188),
+                          UIColor.colorWithVals(r: 106, g: 28, b: 74),
+                          UIColor.colorWithVals(r: 227, g: 105, b: 125),
+                          UIColor.colorWithVals(r: 94, g: 5, b: 70),
+                          UIColor.colorWithVals(r: 188, g: 70, b: 113),
+                          UIColor.colorWithVals(r: 252, g: 180, b: 177)]
+    
+    //MARK: UI elements
     private lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.delegate = self
@@ -32,11 +56,25 @@ class PieChartCell: UITableViewCell {
         tv.backgroundColor = UIColor.clear
         tv.separatorColor = UIColor.clear
         tv.bounces = false
-        tv.isScrollEnabled = false
+        tv.isScrollEnabled = true
         tv.allowsSelection = false
         tv.register(ChartReportCell.self, forCellReuseIdentifier: "ChartReportCell")
-        tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
+    }()
+    
+    let summaryLabel: UILabel = {
+        let label =  Theme.createMediumLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = Theme.colors.charcoal.color
+        return label
+    }()
+    
+    let divider: UIView = {
+        let divider = UIView()
+        divider.backgroundColor = Theme.colors.lightToneOne.color
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        return divider
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -50,27 +88,18 @@ class PieChartCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let colors = [UIColor.colorWithVals(r: 206, g: 78, b: 120),
-                          UIColor.colorWithVals(r: 252, g: 158, b: 163),
-                          UIColor.colorWithVals(r: 139, g: 24, b: 91),
-                          UIColor.colorWithVals(r: 244, g: 197, b: 188),
-                          UIColor.colorWithVals(r: 106, g: 28, b: 74),
-                          UIColor.colorWithVals(r: 227, g: 105, b: 125),
-                          UIColor.colorWithVals(r: 94, g: 5, b: 70),
-                          UIColor.colorWithVals(r: 188, g: 70, b: 113),
-                          UIColor.colorWithVals(r: 252, g: 180, b: 177)
-    ]
-    
     func setDataForChart(pieData: [PieData]) {
         
         if self.chartView != nil {
             self.chartView?.removeFromSuperview()
         }
+        totalSpent = 0
+        totalGifts = 0
         
         var chartItems = [RKPieChartItem]()
         var reportItems = [ChartReportItem]()
+        
         for (index, datum) in pieData.enumerated() {
-            
             let color = colors[index % colors.count]
             if datum.amtSpent != 0.0 {
                 let ratio: uint = pieData.count > 1 ? uint(datum.amtSpent * 100) : 999
@@ -79,9 +108,11 @@ class PieChartCell: UITableViewCell {
                 
                 let reportItem = ChartReportItem(color: color, group: datum.group, numberGifts: datum.numberOfGifts, totalSpent: datum.amtSpent)
                 reportItems.append(reportItem)
+                
+                totalSpent += datum.amtSpent
+                totalGifts += datum.numberOfGifts
             }
         }
-        
         self.chartView = RKPieChartView(items: chartItems)
         self.tableDatasource = reportItems
         configureChartView()
@@ -92,7 +123,7 @@ class PieChartCell: UITableViewCell {
         chartView.backgroundColor = .clear
         chartView.circleColor = .clear
         chartView.translatesAutoresizingMaskIntoConstraints = false
-        chartView.arcWidth = chartWidth / 2
+        chartView.arcWidth = PieChartCell.chartWidth / 2
         chartView.isIntensityActivated = false
         chartView.style = .butt
         chartView.isTitleViewHidden = true //explains the sections
@@ -104,19 +135,36 @@ class PieChartCell: UITableViewCell {
     @objc
     func layoutChart() {
         
+        self.summaryLabel.removeFromSuperview()
+        self.divider.removeFromSuperview()
+        self.tableView.removeFromSuperview()
+        
         guard let chartView = self.chartView else { return }
         
         self.addSubview(chartView)
-        chartView.heightAnchor.constraint(equalToConstant: chartWidth).isActive = true
-        chartView.widthAnchor.constraint(equalToConstant: chartWidth).isActive = true
+        chartView.heightAnchor.constraint(equalToConstant: PieChartCell.chartWidth).isActive = true
+        chartView.widthAnchor.constraint(equalToConstant: PieChartCell.chartWidth).isActive = true
         chartView.topAnchor.constraint(equalTo: self.topAnchor, constant: pad).isActive = true
         chartView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -pad).isActive = true
         
+        summaryLabel.text = "You have spent $\(String(format: "%.0f", totalSpent)) on \(totalGifts) gifts."
+
+        self.addSubview(summaryLabel)
+        summaryLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        summaryLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+        summaryLabel.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: pad).isActive = true
+        
+        self.addSubview(divider)
+        divider.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        divider.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+        divider.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor, constant: smallPad).isActive = true
+        divider.heightAnchor.constraint(equalToConstant: 2).isActive = true
+
+        tableView.frame = CGRect(x: 0,
+                                 y: PieChartCell.staticHeight,
+                                 width: UIScreen.main.bounds.width - pad - pad,
+                                 height: PieChartCell.tvCellHeight * CGFloat(tableDatasource!.count))
         self.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: pad).isActive = true
-        tableView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -138,11 +186,7 @@ extension PieChartCell: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        return PieChartCell.tvCellHeight
     }
 }
 

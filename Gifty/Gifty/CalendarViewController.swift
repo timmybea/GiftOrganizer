@@ -340,7 +340,6 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
     }
     
     func segControllerChanged(to title: String) {
-        
         self.navigationItem.title = title
         //get data for piechart
         if title == "Spending \(DateHandler.stringYear())" {

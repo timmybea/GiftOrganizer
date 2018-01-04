@@ -36,8 +36,10 @@ class PieChartService: NSObject {
                     }
                 }
             }
-            let data = PieData(amtSpent: amtSpent, group: group, numberOfGifts: numGifts)
-            returnData.append(data)
+            if amtSpent > 0 {
+                let data = PieData(amtSpent: amtSpent, group: group, numberOfGifts: numGifts)
+                returnData.append(data)
+            }
         }
         return returnData.count > 0 ? returnData : nil
     }

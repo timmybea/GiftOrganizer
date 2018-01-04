@@ -123,6 +123,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
+            cell.actionsButtonsView.isHidden = true
             cell.delegate = self
             cell.configureWith(event: (datasource?[indexPath.section].events[indexPath.row])!)
             return cell
@@ -131,7 +132,11 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if displayMode == .pieChart {
-            return tableView.bounds.height
+            if let dataCount = self.pieChartDatasource?.count {
+                return CGFloat(PieChartCell.heightForCell(for: dataCount))
+            } else {
+                return 300
+            }
         } else {
             return indexPath == selectedIndexPath ? 100 : 62
         }
