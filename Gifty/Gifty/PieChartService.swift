@@ -14,7 +14,7 @@ class PieChartService: NSObject {
     
     static let shared = PieChartService()
     
-    func getGroupData() -> [PieData]? {
+    func getSpendingData() -> [PieData]? {
         //amount spent, group name, number of gifts, averageCost
         guard let frc = PersonFRC.frc(byGroup: true), let sections = frc.sections else { return nil }
         var returnData = [PieData]()
@@ -43,6 +43,39 @@ class PieChartService: NSObject {
         }
         return returnData.count > 0 ? returnData : nil
     }
+    
+    
+    func getBudgetData() -> [PieData]? {
+        //amount spent, group name, number of gifts, averageCost
+        guard let frc = PersonFRC.frc(byGroup: true), let sections = frc.sections else { return nil }
+        var returnData = [PieData]()
+        
+        for section in sections {
+            let group = section.name
+            
+            var amtBudgetted: Float = 0
+            var numGifts: Int = 0
+            guard let people = section.objects as? [Person] else { continue }
+            
+            for person in people {
+                guard let events = person.event?.allObjects as? [Event] else { continue }
+                
+                for event in events where DateHandler.sameComponent(.year, date1: event.date!, date2: DateHandler.localTimeFromUTC(Date())){
+                    
+                    if !event.isComplete && event.budgetAmt > 0 {
+                        amtBudgetted += event.budgetAmt
+                        numGifts += 1
+                    }
+                }
+            }
+            if amtBudgetted > 0 {
+                let data = PieData(amtSpent: amtBudgetted, group: group, numberOfGifts: numGifts)
+                returnData.append(data)
+            }
+        }
+        return returnData.count > 0 ? returnData : nil
+    }
+    
     
 }
 

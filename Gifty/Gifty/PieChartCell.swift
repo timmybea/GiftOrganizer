@@ -28,6 +28,7 @@ class PieChartCell: UITableViewCell {
     }
     
     private static let staticHeight: CGFloat = pad + chartWidth + pad + 20 + smallPad + 2 + smallPad
+    
     private static let tvCellHeight: CGFloat = 30
 
     var chartView: RKPieChartView?
@@ -37,6 +38,8 @@ class PieChartCell: UITableViewCell {
     var totalSpent: Float = 0
     
     var totalGifts: Int = 0
+    
+    var isShowBudget = false
     
     private let colors = [UIColor.colorWithVals(r: 206, g: 78, b: 120),
                           UIColor.colorWithVals(r: 252, g: 158, b: 163),
@@ -88,13 +91,14 @@ class PieChartCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataForChart(pieData: [PieData]) {
+    func setDataForChart(pieData: [PieData], budget: Bool) {
         
         if self.chartView != nil {
             self.chartView?.removeFromSuperview()
         }
         totalSpent = 0
         totalGifts = 0
+        isShowBudget = budget
         
         var chartItems = [RKPieChartItem]()
         var reportItems = [ChartReportItem]()
@@ -147,7 +151,9 @@ class PieChartCell: UITableViewCell {
         chartView.topAnchor.constraint(equalTo: self.topAnchor, constant: pad).isActive = true
         chartView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -pad).isActive = true
         
-        summaryLabel.text = "You have spent $\(String(format: "%.0f", totalSpent)) on \(totalGifts) gifts."
+        let action = isShowBudget ? "budgetted" : "spent"
+        let prep = isShowBudget ? "for" : "on"
+        summaryLabel.text = "You have \(action) $\(String(format: "%.0f", totalSpent)) \(prep) \(totalGifts) gifts."
 
         self.addSubview(summaryLabel)
         summaryLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true

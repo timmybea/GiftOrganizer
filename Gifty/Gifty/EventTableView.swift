@@ -36,6 +36,7 @@ class EventTableView: UIView {
             }
         }
     }
+    var isShowBudget = false
     
     var datasource: [TableSectionEvent]? {
         didSet {
@@ -119,7 +120,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         if displayMode  == .pieChart {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PieChartCell") as! PieChartCell
             guard let data = pieChartDatasource else { return cell }
-            cell.setDataForChart(pieData: data)
+            cell.setDataForChart(pieData: data, budget: isShowBudget)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell

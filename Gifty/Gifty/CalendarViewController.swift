@@ -343,7 +343,11 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
         self.navigationItem.title = title
         //get data for piechart
         if title == "Spending \(DateHandler.stringYear())" {
-            self.eventDisplayView.pieChartDatasource = PieChartService.shared.getGroupData()
+            self.eventDisplayView.pieChartDatasource = PieChartService.shared.getSpendingData()
+            self.eventDisplayView.isShowBudget = false
+        } else if title == "Budget \(DateHandler.stringYear())" {
+            self.eventDisplayView.pieChartDatasource = PieChartService.shared.getBudgetData()
+            self.eventDisplayView.isShowBudget = true
         }
     }
 }

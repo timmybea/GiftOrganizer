@@ -29,12 +29,13 @@ class EventDisplayHeader: UIView {
     }
     
     enum SegmentIndex: Int {
-        case upcomingEvents = 0, overdueEvents, budgetChart
+        case upcomingEvents = 0, overdueEvents, spendingChart, budgetChart
         var title: String {
             switch self {
             case .upcomingEvents: return "Upcoming"
             case .overdueEvents: return "Overdue"
-            case .budgetChart: return "Spending"
+            case .spendingChart: return "Spending"
+            case .budgetChart: return "Budget"
             }
         }
     }
@@ -42,6 +43,7 @@ class EventDisplayHeader: UIView {
     private let segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: [SegmentIndex.upcomingEvents.title,
                                                           SegmentIndex.overdueEvents.title,
+                                                          SegmentIndex.spendingChart.title,
                                                           SegmentIndex.budgetChart.title])
         segmentedControl.selectedSegmentIndex = SegmentIndex.upcomingEvents.rawValue
         segmentedControl.tintColor = Theme.colors.lightToneTwo.color

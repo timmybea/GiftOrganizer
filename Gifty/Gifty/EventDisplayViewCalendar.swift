@@ -200,6 +200,9 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
         } else if index == 2 {
             self.displayMode = .pieChart
             navTitle = "Spending \(DateHandler.stringYear())"
+        } else if index == 3 {
+            self.displayMode = .pieChart
+            navTitle = "Budget \(DateHandler.stringYear())"
         }
         self.eventDisplayViewDelegate?.segControllerChanged(to: navTitle)
     }
