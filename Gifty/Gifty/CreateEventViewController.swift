@@ -355,12 +355,6 @@ extension CreateEventViewController: AddDateViewDelegate {
             destination.selectedDate = eventDate!
         }
         
-//        if createEventState == CreateEventState.updateEventForPerson {
-//            if let showDate = eventToBeEdited?.date {
-//                destination.showDateSelected(showDate)
-//            }
-//        }
-        
         self.navigationController?.pushViewController(destination, animated: true)
     }
 
@@ -418,7 +412,7 @@ extension CreateEventViewController {
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 if success {
                     
-                    let dateChanged = DateHandler.stringFromDate(self.eventDate!) != currEvent.dateString
+//                    let dateChanged = DateHandler.stringFromDate(self.eventDate!) != currEvent.dateString
                     let oldDate = currEvent.dateString
                     
                     currEvent.type = self.eventType
@@ -430,7 +424,7 @@ extension CreateEventViewController {
                     
                     guard let dateString = currEvent.dateString else { return }
                     let createUserInfo = ["dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: createUserInfo as! [String: String])
+                    NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: createUserInfo)
                     
                     let deleteUserInfo = ["EventDisplayViewId": "none", "dateString": oldDate]
                     NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: deleteUserInfo as! [String: String])

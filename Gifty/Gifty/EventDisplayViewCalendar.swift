@@ -66,14 +66,6 @@ class EventDisplayViewCalendar: EventTableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-//    func currentlyDisplaying(dateString: String) -> Bool {
-//        if let currentDate = self.displayDateString {
-//            return currentDate == dateString
-//        } else {
-//            return false
-//        }
-//    }
     
     func setupSubviews(in superView: UIView) {
         
@@ -158,7 +150,6 @@ class EventDisplayViewCalendar: EventTableView {
         })
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
         self.header.resetSegControl()
-//        self.tempEventHolder = self.datasource
         self.setOverviewDatasource(for: 0)
     }
     
@@ -182,7 +173,6 @@ class EventDisplayViewCalendar: EventTableView {
             }, completion: { (success) in
                 self.header.setFrame(appear: false)
                 self.displayMode = .normal
-                //self.datasource = self.tempEventHolder //<<<
                 self.selectedIndexPath = nil
                 self.tableView.reloadData()
             })

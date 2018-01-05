@@ -160,10 +160,6 @@ class CalendarViewController: CustomViewController {
         guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String,
             let dateString = notification.userInfo?["dateString"] as? String else { return }
         
-//        guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String,
-//            let dateString = notification.userInfo?["dateString"] as? String,
-//            let eventId = notification.userInfo?["eventId"] as? String else { return }
-        
         if senderId != eventDisplayView.id {
             calendar.deleteDateFromDataSource(dateString)
             self.updateCalendarDataSource(dateString: dateString)
