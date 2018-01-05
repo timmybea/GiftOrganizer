@@ -506,16 +506,16 @@ extension CreatePersonViewController: EventTableViewDelegate {
     
     func didTouchDeleteEvent(event: Event) {
         guard let dateString = event.dateString else { return }
+        guard let eventId = event.id else { return }
         event.managedObjectContext?.delete(event)
         
         ManagedObjectBuilder.saveChanges { (success) in
             if success {
                 //send notification
-                
                 let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
                 
                 notificationDispatch.async {
-                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
+                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString, "eventId": eventId]
                     NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
             }

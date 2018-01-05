@@ -203,7 +203,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             
             let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
                 if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                    self.datasource?.remove(at: indexPath.row)
+                    self.datasource![indexPath.section].events.remove(at: indexPath.row)
                     self.delegate?.didTouchDeleteEvent(event: event)
                 }
                 tableView.deleteRows(at: [indexPath], with: .fade)

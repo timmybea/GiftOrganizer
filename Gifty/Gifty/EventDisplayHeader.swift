@@ -113,10 +113,12 @@ class EventDisplayHeader: UIView {
     }
     
     func updateOverdue(count: Int) {
+        var title: String = "Overdue"
         if count > 0 {
-            self.segmentedControl.setTitle("Overdue (\(count))", forSegmentAt: 1)
-        } else {
-            self.segmentedControl.setTitle("Overdue", forSegmentAt: 1)
+            title += " (\(count))"
+        }
+        DispatchQueue.main.async {
+            self.segmentedControl.setTitle(title, forSegmentAt: 1)
         }
     }
     
@@ -126,5 +128,13 @@ class EventDisplayHeader: UIView {
         if sender.titleForSegment(at: index) != nil {
             self.delegate?.segControlChanged(to: index)
         }
+    }
+    
+    func showingTableViewForSegment() -> Int {
+        var segment = 0
+        DispatchQueue.main.async {
+            segment = self.segmentedControl.selectedSegmentIndex
+        }
+        return segment
     }
 }

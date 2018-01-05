@@ -102,7 +102,7 @@ class EventDisplayViewCalendar: EventTableView {
 
     }
     //MARK: Set datasource
-    private func setDatasourceForOverview() {
+    func setOverviewDatasource(for segment: Int) {
         print("SET DATASOURCE FOR OVERVIEW")
         guard let allEvents = EventFRC.frc()?.fetchedObjects else { return }
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents, sectionHeaders: true) { (upcoming, overdue) in
@@ -110,12 +110,14 @@ class EventDisplayViewCalendar: EventTableView {
             self.overdueEvents = overdue
             let overdueCount = overdueEvents[0].events.count
             header.updateOverdue(count: overdueCount)
-            self.tempEventHolder = self.datasource
             self.displayMode = .sectionHeader
-            self.datasource = upcoming
+            switch segment {
+            case 0: self.datasource = upcoming
+            case 1: self.datasource = overdue
+            default: print("You entered an invalid section")
+            }
         }
     }
-    
     
     //MARK: setup pan
     @objc func handlePan(panRecognizer: UIPanGestureRecognizer) {
@@ -155,7 +157,8 @@ class EventDisplayViewCalendar: EventTableView {
         })
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
         self.header.resetSegControl()
-        self.setDatasourceForOverview()
+        self.tempEventHolder = self.datasource //<<< could be a problem
+        self.setOverviewDatasource(for: 0)
     }
     
     func eventDisplayTouchedBoundary() {
@@ -163,6 +166,10 @@ class EventDisplayViewCalendar: EventTableView {
             isSnapped = false
             eventDisplayDown()
         }
+    }
+    
+    func currentlyShowingSegment() -> Int {
+        return header.showingTableViewForSegment()
     }
     
     private func eventDisplayDown() {
@@ -179,8 +186,9 @@ class EventDisplayViewCalendar: EventTableView {
             })
         }
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
-        
     }
+    
+    
 }
 
 //MARK: EVENT DISPLAY HEADER DELEGATE

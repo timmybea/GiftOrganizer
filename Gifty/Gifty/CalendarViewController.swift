@@ -151,8 +151,10 @@ class CalendarViewController: CustomViewController {
     //MARK: NOTIFICATION event deleted.
     @objc
     private func eventDeleted(notification:NSNotification) {
-    
-        guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String, let dateString = notification.userInfo?["dateString"] as? String else { return }
+
+        guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String,
+            let dateString = notification.userInfo?["dateString"] as? String,
+            let eventId = notification.userInfo?["eventId"] as? String else { return }
         
         if senderId != eventDisplayView.id {
             calendar.deleteDateFromDataSource(dateString)
@@ -161,6 +163,12 @@ class CalendarViewController: CustomViewController {
             if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
                 guard let date = DateHandler.dateFromDateString(dateString) else { return }
                 self.hideShowInfoForSelectedDate(date, show: true)
+            } else if isViewSnapped {
+                let index = self.eventDisplayView.currentlyShowingSegment()
+                if index == 0 || index == 1 {
+                    //is showing events in table view
+                    self.eventDisplayView.setOverviewDatasource(for: index)
+                }
             }
         }
     }

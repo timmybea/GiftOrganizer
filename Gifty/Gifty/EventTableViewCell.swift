@@ -166,8 +166,10 @@ class EventTableViewCell: UITableViewCell {
             if let fullName = event.person?.fullName, let type = event.type {
                 eventTypeLabel.text = "\(fullName) • \(type)"
             }
-            self.dayLabel.text = DateHandler.stringDayNum(from: event.date! as Date)
-            self.monthLabel.text = DateHandler.stringMonthAbb(from: event.date! as Date).uppercased()
+            if let date = event.date {
+                self.dayLabel.text = DateHandler.stringDayNum(from: date)
+                self.monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
+            }
             
             let count = countIncompleteActions(event: event)
             
