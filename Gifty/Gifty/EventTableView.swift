@@ -214,6 +214,15 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
     }
+    
+    //Mark: ensure that editing is available for all cells except pieChartCll
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if let _ = tableView.cellForRow(at: indexPath) as? PieChartCell {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 //MARK: Event Cell Delegate (Save change to event)
