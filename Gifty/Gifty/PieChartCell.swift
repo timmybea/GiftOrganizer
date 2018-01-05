@@ -91,7 +91,7 @@ class PieChartCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataForChart(pieData: [PieData], budget: Bool) {
+    func setDataForChart(pieData: [PieData]?, budget: Bool) {
         
         if self.chartView != nil {
             self.chartView?.removeFromSuperview()
@@ -103,10 +103,10 @@ class PieChartCell: UITableViewCell {
         var chartItems = [RKPieChartItem]()
         var reportItems = [ChartReportItem]()
         
-        for (index, datum) in pieData.enumerated() {
+        if pieData != nil {
+            for (index, datum) in pieData!.enumerated() {
             let color = colors[index % colors.count]
-            if datum.amtSpent != 0.0 {
-                let ratio: uint = pieData.count > 1 ? uint(datum.amtSpent * 100) : 999
+                let ratio: uint = pieData!.count > 1 ? uint(datum.amtSpent * 100) : 999
                 let chartItem = RKPieChartItem(ratio: ratio, color: color, title: datum.group)
                 chartItems.append(chartItem)
                 
@@ -117,6 +117,7 @@ class PieChartCell: UITableViewCell {
                 totalGifts += datum.numberOfGifts
             }
         }
+
         self.chartView = RKPieChartView(items: chartItems)
         self.tableDatasource = reportItems
         configureChartView()

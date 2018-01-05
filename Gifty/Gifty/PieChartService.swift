@@ -46,7 +46,7 @@ class PieChartService: NSObject {
     
     
     func getBudgetData() -> [PieData]? {
-        //amount spent, group name, number of gifts, averageCost
+
         guard let frc = PersonFRC.frc(byGroup: true), let sections = frc.sections else { return nil }
         var returnData = [PieData]()
         

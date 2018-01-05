@@ -119,7 +119,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if displayMode  == .pieChart {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PieChartCell") as! PieChartCell
-            guard let data = pieChartDatasource else { return cell }
+            let data = pieChartDatasource
             cell.setDataForChart(pieData: data, budget: isShowBudget)
             return cell
         } else {
