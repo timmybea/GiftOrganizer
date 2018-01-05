@@ -67,13 +67,13 @@ class EventDisplayViewCalendar: EventTableView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func currentlyDisplaying(dateString: String) -> Bool {
-        if let currentDate = self.displayDateString {
-            return currentDate == dateString
-        } else {
-            return false
-        }
-    }
+//    func currentlyDisplaying(dateString: String) -> Bool {
+//        if let currentDate = self.displayDateString {
+//            return currentDate == dateString
+//        } else {
+//            return false
+//        }
+//    }
     
     func setupSubviews(in superView: UIView) {
         

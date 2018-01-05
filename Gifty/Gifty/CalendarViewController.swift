@@ -123,10 +123,15 @@ class CalendarViewController: CustomViewController {
         
         if let date = DateHandler.dateFromDateString(dateString) {
             
-            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
-                
+            if self.eventDisplayView.displayDateString == dateString {
                 self.hideShowInfoForSelectedDate(date, show: true)
+
             }
+            
+//            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+//                
+//                self.hideShowInfoForSelectedDate(date, show: true)
+//            }
         }
         
         updateCalendarDataSource(dateString: dateString)
@@ -153,14 +158,17 @@ class CalendarViewController: CustomViewController {
     private func eventDeleted(notification:NSNotification) {
 
         guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String,
-            let dateString = notification.userInfo?["dateString"] as? String,
-            let eventId = notification.userInfo?["eventId"] as? String else { return }
+            let dateString = notification.userInfo?["dateString"] as? String else { return }
+        
+//        guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String,
+//            let dateString = notification.userInfo?["dateString"] as? String,
+//            let eventId = notification.userInfo?["eventId"] as? String else { return }
         
         if senderId != eventDisplayView.id {
             calendar.deleteDateFromDataSource(dateString)
             self.updateCalendarDataSource(dateString: dateString)
             
-            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) && !isViewSnapped {
+            if self.eventDisplayView.displayDateString == dateString && !isViewSnapped {
                 guard let date = DateHandler.dateFromDateString(dateString) else { return }
                 self.hideShowInfoForSelectedDate(date, show: true)
             } else if isViewSnapped {

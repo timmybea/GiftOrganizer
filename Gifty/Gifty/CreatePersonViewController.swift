@@ -515,7 +515,9 @@ extension CreatePersonViewController: EventTableViewDelegate {
                 let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
                 
                 notificationDispatch.async {
-                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString, "eventId": eventId]
+                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
+                    
+                    //let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString, "eventId": eventId]
                     NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
             }
