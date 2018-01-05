@@ -151,13 +151,14 @@ class EventDisplayViewCalendar: EventTableView {
             self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightUp)
             self.header.setFrame(appear: true)
             self.tableView.tableHeaderView = self.header
+            self.selectedIndexPath = nil
 
         }, completion: { (success) in
             self.header.headerAppearAnimation()
         })
         self.eventDisplayViewDelegate?.eventDisplayPosition(up: true)
         self.header.resetSegControl()
-        self.tempEventHolder = self.datasource //<<< could be a problem
+//        self.tempEventHolder = self.datasource
         self.setOverviewDatasource(for: 0)
     }
     
@@ -181,7 +182,8 @@ class EventDisplayViewCalendar: EventTableView {
             }, completion: { (success) in
                 self.header.setFrame(appear: false)
                 self.displayMode = .normal
-                self.datasource = self.tempEventHolder
+                //self.datasource = self.tempEventHolder //<<<
+                self.selectedIndexPath = nil
                 self.tableView.reloadData()
             })
         }

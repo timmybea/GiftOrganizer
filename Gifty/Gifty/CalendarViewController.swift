@@ -160,7 +160,7 @@ class CalendarViewController: CustomViewController {
             calendar.deleteDateFromDataSource(dateString)
             self.updateCalendarDataSource(dateString: dateString)
             
-            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
+            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) && !isViewSnapped {
                 guard let date = DateHandler.dateFromDateString(dateString) else { return }
                 self.hideShowInfoForSelectedDate(date, show: true)
             } else if isViewSnapped {
@@ -210,6 +210,7 @@ extension CalendarViewController: CustomCalendarDelegate {
                 frc = EventFRC.frc(for: date)
                 frc?.delegate = self
                 eventDisplayView.displayDateString = DateHandler.stringFromDate(date)
+                eventDisplayView.selectedIndexPath = nil
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
                 print("Don't show info")
@@ -316,6 +317,9 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
             self.navigationItem.title = monthYearString
             navigationItem.rightBarButtonItem?.isEnabled = true
             navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            if let dateString = eventDisplayView.displayDateString, let showDate = DateHandler.dateFromDateString(dateString) {
+                hideShowInfoForSelectedDate(showDate, show: true)
+            }
         }
     }
     
