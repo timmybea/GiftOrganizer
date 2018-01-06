@@ -55,6 +55,7 @@
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
 		B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
+		B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
 		B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */; };
@@ -149,6 +150,7 @@
 		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
 		B0C205761F22D2C200C3E7ED /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueHandler.swift; sourceTree = "<group>"; };
 		B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		B0CA63231F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonEventModel.xcdatamodel; sourceTree = "<group>"; };
 		B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectBuilder.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				B0C205761F22D2C200C3E7ED /* Theme.swift */,
 				B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */,
 				B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */,
+				B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 				B044D1FC1F2CE9B600214CE5 /* EventFRC.swift in Sources */,
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
+				B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */,
 				B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */,

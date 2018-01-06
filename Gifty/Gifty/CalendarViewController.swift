@@ -386,6 +386,8 @@ extension CalendarViewController: NSFetchedResultsControllerDelegate {
     
 }
 
+
+//MARK: EventTableViewDelegate
 extension CalendarViewController: EventTableViewDelegate {
     
     func showBudgetInfo(for event: Event) {
@@ -420,10 +422,9 @@ extension CalendarViewController: EventTableViewDelegate {
             if success {
                 print("successfully deleted event")
                 
-                let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
+                let userInfo = ["EventDisplayViewId": self.eventDisplayView.id]
                 
-                notificationDispatch.async {
-                    let userInfo = ["EventDisplayViewId": self.eventDisplayView.id]
+                DispatchQueueHandler.notification.queue.async {
                     NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
                 

@@ -101,7 +101,7 @@ class PeopleViewController: CustomViewController {
 
         if person != nil {
             destination.person = person
-            destination.isUpdatePerson = true
+            //destination.isUpdatePerson = true
         }
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
@@ -217,11 +217,12 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 event.managedObjectContext?.delete(event)
                 
-                let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
+                let userInfo = ["EventDisplayViewId": "none", "dateString": dateString]
                 
-                notificationDispatch.async {
-                    let userInfo = ["EventDisplayViewId": "none", "dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
+                DispatchQueueHandler.notification.queue.async {
+                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name,
+                                                    object: nil,
+                                                    userInfo: userInfo)
                 }
             }
             

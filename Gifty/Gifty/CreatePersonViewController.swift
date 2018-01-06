@@ -18,7 +18,7 @@ class CreatePersonViewController: CustomViewController {
 
     var delegate: CreatePersonViewControllerDelegate?
     
-    var person: Person? = nil
+    var person: Person?
 
     var isUpdatePerson = false
     
@@ -70,9 +70,11 @@ class CreatePersonViewController: CustomViewController {
         
         navigationItem.hidesBackButton = true
         
-        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue)
-            , style: .plain, target: self, action: #selector(backButtonTouched))
-        
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(backButtonTouched))
+    
         self.navigationItem.leftBarButtonItem = backButton
 
         layoutSubviews()
@@ -85,7 +87,7 @@ class CreatePersonViewController: CustomViewController {
             
             backButtonAlert(for: currentPerson)
             
-        } else if variablesWereSet() && !isUpdatePerson {
+        } else if variablesWereSet() && self.person == nil {
             
             backButtonAlert(for: nil)
             
@@ -129,13 +131,10 @@ class CreatePersonViewController: CustomViewController {
             self.navigationController?.popViewController(animated: true)
         })
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
-            //do nothing
-        })
-        
-        alertController.addAction(continueAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         alertController.addAction(cancelAction)
+        alertController.addAction(continueAction)
         
         self.present(alertController, animated: true, completion: nil)
     }
@@ -220,16 +219,15 @@ class CreatePersonViewController: CustomViewController {
         
         view.addSubview(eventTableView)
         
-        if isUpdatePerson {
-        
+        if self.person != nil {
             setupViewsForUpdatePerson()
-        
         }
+        
     }
     
     func updateEventDisplayViewWithOrderedEvents() {
         if let unorderedEvents = self.person?.event?.allObjects as? [Event] {
-
+            
             //correctly order the events by date
             let orderedEvents = unorderedEvents.sorted(by: { (eventA, eventB) -> Bool in
                 eventA.date?.compare(eventB.date! as Date) == ComparisonResult.orderedAscending
@@ -252,6 +250,7 @@ class CreatePersonViewController: CustomViewController {
 //MARK: UPDATE PERSON SETUP
     
 extension CreatePersonViewController {
+    
     func setupViewsForUpdatePerson() {
         
         guard let currentPerson = self.person else {
@@ -286,8 +285,8 @@ extension CreatePersonViewController {
 extension CreatePersonViewController {
     
     @objc func didTapAddFromContactsLabel() {
-        
-        if isUpdatePerson {
+
+        if person != nil {
             let alertControntroller = UIAlertController(title: "Are you sure?", message: "This action could change the name of your person", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
                 self.dismiss(animated: true, completion: nil)
@@ -428,8 +427,7 @@ extension CreatePersonViewController: DropDownTextFieldDelegate {
 //MARK: TextFieldTableView delegate methods
 extension CreatePersonViewController: PersonTFTableViewDelegate {
     func didUpdateFirstName(string: String) {
-
-        if isUpdatePerson {
+        if person != nil {
             if self.firstName == nil {
                 self.firstName = string
             } else if self.firstName != string {
@@ -442,8 +440,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     }
     
     func didUpdateLastName(string: String) {
-        
-        if isUpdatePerson {
+        if self.person != nil {
             if self.lastName == nil {
                 self.lastName = string
             } else if self.lastName != string {
@@ -506,19 +503,17 @@ extension CreatePersonViewController: EventTableViewDelegate {
     
     func didTouchDeleteEvent(event: Event) {
         guard let dateString = event.dateString else { return }
-        guard let eventId = event.id else { return }
+        //guard let eventId = event.id else { return }
         event.managedObjectContext?.delete(event)
         
         ManagedObjectBuilder.saveChanges { (success) in
             if success {
                 //send notification
-                let notificationDispatch = DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
-                
-                notificationDispatch.async {
-                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
-                    
-                    //let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString, "eventId": eventId]
-                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
+                let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
+                DispatchQueueHandler.notification.queue.async {
+                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name,
+                                                    object: nil,
+                                                    userInfo: userInfo)
                 }
             }
         }
@@ -579,7 +574,7 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
         //SAVE TEMP PERSON (event added)
     }
     
-    func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
+    private func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
         guard firstName != nil && firstName != "" else {
             completion(false)
             insufficientInfoAlert(message: "Please add a first name")
@@ -624,22 +619,25 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
         destination.delegate = self
         destination.createEventState = CreateEventState.newEventForPerson
         
-        if isUpdatePerson {
-            //create vc and assign person
-            destination.person = self.person
-        } else {
-            //create 'unsaved' person then create vc and assign
-            let newPerson = createPersonEntity()
-            self.person = newPerson
-            destination.person = newPerson
-        }
+        self.person = self.person != nil ? self.person : createPersonEntity() //<<<
+        destination.person = self.person
+        
+//        if isUpdatePerson {
+//            //create vc and assign person
+//            destination.person = self.person
+//        } else {
+//            //create 'unsaved' person then create vc and assign
+//            let newPerson = createPersonEntity()
+//            self.person = newPerson
+//            destination.person = newPerson
+//        }
         
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
         }
     }
     
-    func createPersonEntity() -> Person? {
+    private func createPersonEntity() -> Person? {
         
         var newPerson: Person?
         

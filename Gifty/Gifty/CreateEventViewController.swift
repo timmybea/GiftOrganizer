@@ -412,7 +412,6 @@ extension CreateEventViewController {
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 if success {
                     
-//                    let dateChanged = DateHandler.stringFromDate(self.eventDate!) != currEvent.dateString
                     let oldDate = currEvent.dateString
                     
                     currEvent.type = self.eventType
@@ -424,10 +423,15 @@ extension CreateEventViewController {
                     
                     guard let dateString = currEvent.dateString else { return }
                     let createUserInfo = ["dateString": dateString]
-                    NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: createUserInfo)
+                    DispatchQueueHandler.notification.queue.async {
+                        NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: createUserInfo)
+                    }
                     
+                    //Tell calendar view to remove events for the date and then reload them.
                     let deleteUserInfo = ["EventDisplayViewId": "none", "dateString": oldDate]
-                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: deleteUserInfo as! [String: String])
+                    DispatchQueueHandler.notification.queue.async {
+                        NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: deleteUserInfo as! [String: String])
+                    }
                     
                 } else if error != nil {
                     createAlertForError(error!)
@@ -446,7 +450,10 @@ extension CreateEventViewController {
                         //send notification
                         guard let dateString = event?.dateString else { return }
                         let userInfo = ["dateString": dateString]
-                        NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo)
+                    
+                        DispatchQueueHandler.notification.queue.async {
+                            NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo)
+                        }
                         
                         if self.delegate != nil {
                             self.delegate?.eventAddedToPerson(uuid: (event?.id)!)

@@ -256,7 +256,10 @@ extension EventTableView: EventTableViewCellDelegate {
             guard let dateString = event.dateString else { return }
             
             let userInfo = ["EventDisplayViewId": self.id, "dateString": dateString]
-            NotificationCenter.default.post(name: Notifications.names.actionStateChanged.name, object: nil, userInfo: userInfo)
+            
+            DispatchQueueHandler.notification.queue.async {
+                NotificationCenter.default.post(name: Notifications.names.actionStateChanged.name, object: nil, userInfo: userInfo)
+            }
             
             //update cell subviews according to checklist completion
             if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {

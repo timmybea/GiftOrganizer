@@ -102,10 +102,13 @@ class EventDisplayViewCreatePerson: EventTableView {
             upcomingEvents = upcoming
             overdueEvents = overdue
             
-            if overdueEvents[0].events.count > 0 {
+            if overdueEvents.count > 0 {
+//            if overdueEvents[0].events.count > 0 {
                 segmentedControl.setTitle("Overdue (\(overdueEvents[0].events.count))", forSegmentAt: 1)
             }
-            datasource = segmentedControl.selectedSegmentIndex == 0 ? upcomingEvents : overdueEvents
+            DispatchQueue.main.async {
+                self.datasource = self.segmentedControl.selectedSegmentIndex == 0 ? self.upcomingEvents : self.overdueEvents
+            }
         }
     }
     

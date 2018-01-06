@@ -103,6 +103,7 @@ class EventFRC: NSObject {
                 }
             }
         }
+        overdue = overdue.filter() { $0.events.count > 0 }
         upcoming = upcoming.filter() { $0.events.count > 0 }
         completion(upcoming, overdue)
     }
