@@ -47,7 +47,7 @@ class CalendarViewController: CustomViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(newEventCreated(notification:)), name: Notifications.names.newEventCreated.name, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.names.eventDeleted.name, object: nil)
         
-        self.frc?.delegate = self
+        //self.frc?.delegate = self
         setupNavigationBar()
         setupSubviews()
         passCalendarDataSource()
@@ -214,7 +214,7 @@ extension CalendarViewController: CustomCalendarDelegate {
             if show {
                 print(date)
                 frc = EventFRC.frc(for: date)
-                frc?.delegate = self
+                //frc?.delegate = self
                 eventDisplayView.displayDateString = DateHandler.stringFromDate(date)
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
@@ -325,7 +325,10 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
             navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             if let dateString = eventDisplayView.displayDateString, let showDate = DateHandler.dateFromDateString(dateString) {
                 hideShowInfoForSelectedDate(showDate, show: true)
+            } else {
+                eventDisplayView.orderedEvents = nil
             }
+            
         }
     }
     
@@ -368,24 +371,6 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
             self.eventDisplayView.isShowBudget = true
         }
     }
-}
-
-//MARK: Event FRC delegate methods (update the calendar datasource)
-extension CalendarViewController: NSFetchedResultsControllerDelegate {
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //nothing?
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //nothing?
-    }
-    
 }
 
 

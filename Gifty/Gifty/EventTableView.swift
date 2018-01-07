@@ -107,12 +107,14 @@ class EventTableView: UIView {
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        //guard displayMode == .sectionHeader && datasource != nil else { return 1 }
-        return datasource?.reduce(0) { $1.events.count > 0 ? $0 + 1 : $0 } ?? 0
+        if displayMode == .pieChart {
+            return 1
+        } else {
+            return datasource?.reduce(0) { $1.events.count > 0 ? $0 + 1 : $0 } ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard datasource?.isEmpty == false else { return 0 }
         return displayMode == .pieChart ? 1 : datasource?[section].events.count ?? 0
     }
     
