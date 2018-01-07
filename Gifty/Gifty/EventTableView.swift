@@ -107,8 +107,7 @@ class EventTableView: UIView {
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard displayMode == .sectionHeader && datasource != nil else { return 1 }
-        return (datasource?.reduce(0) { $1.events.count > 0 ? $0 + 1 : $0 })!
+        return datasource?.reduce(0) { $1.events.count > 0 ? $0 + 1 : $0 } ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -203,10 +202,18 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             
             let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
                 if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                    self.datasource![indexPath.section].events.remove(at: indexPath.row)
+                    tableView.beginUpdates()
+                    if self.datasource![indexPath.section].events.count > 1 {
+                        self.datasource![indexPath.section].events.remove(at: indexPath.row)
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                    } else {
+                        self.datasource!.remove(at: indexPath.section)
+                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+                    }
+                    tableView.endUpdates()
                     self.delegate?.didTouchDeleteEvent(event: event)
                 }
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                
             }
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
             return [deleteAction, editAction]

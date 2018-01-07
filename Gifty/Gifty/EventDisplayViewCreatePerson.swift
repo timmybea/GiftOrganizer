@@ -103,7 +103,7 @@ class EventDisplayViewCreatePerson: EventTableView {
             overdueEvents = overdue
             
             if overdueEvents.count > 0 {
-//            if overdueEvents[0].events.count > 0 {
+
                 segmentedControl.setTitle("Overdue (\(overdueEvents[0].events.count))", forSegmentAt: 1)
             }
             DispatchQueue.main.async {

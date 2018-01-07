@@ -28,6 +28,8 @@ class EventDisplayViewCalendar: EventTableView {
     private var overdueEvents = [TableSectionEvent]()
     private var tempEventHolder: [TableSectionEvent]?
     
+    var showingIndex = 0
+    
     let swipeIcon: UIImageView = {
         let swipeIcon = UIImage(named: ImageNames.swipeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: swipeIcon)
@@ -101,9 +103,6 @@ class EventDisplayViewCalendar: EventTableView {
             self.upcomingEvents = upcoming
             self.overdueEvents = overdue
             var overdueCount = overdueEvents.first?.events.count ?? 0
-//            if overdueEvents.count > 0 {
-//                 = overdueEvents[0].events.count
-//            }
             header.updateOverdue(count: overdueCount)
             self.displayMode = .sectionHeader
             switch segment {
@@ -113,6 +112,18 @@ class EventDisplayViewCalendar: EventTableView {
             }
         }
     }
+    
+    func dataSourceDidChange() {
+        guard let datasource = datasource else { return }
+        //datasource changed so update upcoming or overdue
+        if showingIndex == 0 {
+            upcomingEvents = datasource
+        } else if showingIndex == 1 {
+            overdueEvents = datasource
+            self.header.updateOverdue(count: overdueEvents.count)
+        }
+    }
+    
     
     //MARK: setup pan
     @objc func handlePan(panRecognizer: UIPanGestureRecognizer) {
@@ -195,16 +206,20 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
         if index == 0 {
             self.displayMode = .sectionHeader
             self.datasource = self.upcomingEvents
+            self.showingIndex = 0
             navTitle = "Upcoming Events"
         } else if index == 1 {
             self.displayMode = .normal
             self.datasource = self.overdueEvents
+            self.showingIndex = 1
             navTitle = "Overdue Events"
         } else if index == 2 {
             self.displayMode = .pieChart
+            self.showingIndex = 2
             navTitle = "Spending \(DateHandler.stringYear())"
         } else if index == 3 {
             self.displayMode = .pieChart
+            self.showingIndex = 3
             navTitle = "Budget \(DateHandler.stringYear())"
         }
         self.eventDisplayViewDelegate?.segControllerChanged(to: navTitle)

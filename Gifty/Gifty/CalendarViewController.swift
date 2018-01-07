@@ -160,21 +160,23 @@ class CalendarViewController: CustomViewController {
         guard let senderId = notification.userInfo?["EventDisplayViewId"] as? String,
             let dateString = notification.userInfo?["dateString"] as? String else { return }
         
-        if senderId != eventDisplayView.id {
             calendar.deleteDateFromDataSource(dateString)
             self.updateCalendarDataSource(dateString: dateString)
-            
+        
+        if senderId != eventDisplayView.id {
             if self.eventDisplayView.displayDateString == dateString && !isViewSnapped {
                 guard let date = DateHandler.dateFromDateString(dateString) else { return }
                 self.hideShowInfoForSelectedDate(date, show: true)
-            } else if isViewSnapped {
-                let index = self.eventDisplayView.currentlyShowingSegment()
-                if index == 0 || index == 1 {
-                    //is showing events in table view
-                    self.eventDisplayView.setOverviewDatasource(for: index)
-                }
             }
         }
+        
+//        if isViewSnapped {
+//            let index = self.eventDisplayView.currentlyShowingSegment()
+//            if index == 0 || index == 1 {
+//                //is showing events in table view
+//                self.eventDisplayView.setOverviewDatasource(for: index)
+//            }
+//        }
     }
     
     
@@ -415,6 +417,7 @@ extension CalendarViewController: EventTableViewDelegate {
     }
     
     func didTouchDeleteEvent(event: Event) {
+        
         guard let dateString = event.dateString else { return }
         event.managedObjectContext?.delete(event)
         
@@ -422,15 +425,12 @@ extension CalendarViewController: EventTableViewDelegate {
             if success {
                 print("successfully deleted event")
                 
-                let userInfo = ["EventDisplayViewId": self.eventDisplayView.id]
+                eventDisplayView.dataSourceDidChange()
                 
+                let userInfo = ["EventDisplayViewId": self.eventDisplayView.id, "dateString": dateString]
                 DispatchQueueHandler.notification.queue.async {
                     NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: userInfo)
                 }
-                
-                calendar.deleteDateFromDataSource(dateString)
-                self.updateCalendarDataSource(dateString: dateString)
-
             }
         }
     }
