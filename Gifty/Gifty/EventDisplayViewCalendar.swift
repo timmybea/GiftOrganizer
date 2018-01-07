@@ -24,8 +24,8 @@ class EventDisplayViewCalendar: EventTableView {
     
     var isSnapped = false
     
-    private var upcomingEvents = [TableSectionEvent]()
-    private var overdueEvents = [TableSectionEvent]()
+    private var upcomingEvents: [TableSectionEvent]?
+    private var overdueEvents: [TableSectionEvent]?
     private var tempEventHolder: [TableSectionEvent]?
     
     var showingIndex = 0
@@ -102,8 +102,10 @@ class EventDisplayViewCalendar: EventTableView {
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents, sectionHeaders: true) { (upcoming, overdue) in
             self.upcomingEvents = upcoming
             self.overdueEvents = overdue
-            var overdueCount = overdueEvents.first?.events.count ?? 0
+            
+            let overdueCount = overdueEvents?.first?.events.count ?? 0
             header.updateOverdue(count: overdueCount)
+            
             self.displayMode = .sectionHeader
             switch segment {
             case 0: self.datasource = upcoming
@@ -120,7 +122,9 @@ class EventDisplayViewCalendar: EventTableView {
             upcomingEvents = datasource
         } else if showingIndex == 1 {
             overdueEvents = datasource
-            self.header.updateOverdue(count: overdueEvents.count)
+            if let overdue = overdueEvents {
+                self.header.updateOverdue(count: overdue[0].events.count)
+            }
         }
     }
     

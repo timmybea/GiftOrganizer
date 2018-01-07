@@ -107,6 +107,7 @@ class EventTableView: UIView {
 extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        //guard displayMode == .sectionHeader && datasource != nil else { return 1 }
         return datasource?.reduce(0) { $1.events.count > 0 ? $0 + 1 : $0 } ?? 0
     }
     
@@ -125,7 +126,10 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
             cell.actionsButtonsView.isHidden = true
             cell.delegate = self
-            cell.configureWith(event: (datasource?[indexPath.section].events[indexPath.row])!)
+            print("IndexPath is: \(indexPath)")
+            if let event = datasource?[indexPath.section].events[indexPath.row] {
+                cell.configureWith(event: event)
+            }
             return cell
         }
     }

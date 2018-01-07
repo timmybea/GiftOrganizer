@@ -66,11 +66,11 @@ class EventFRC: NSObject {
         }
     }
     
-    static func sortEventsIntoUpcomingAndOverdue(events: [Event], sectionHeaders: Bool, completion: (_ upcomingEvents: [TableSectionEvent], _ overdueEvents: [TableSectionEvent]) -> ()) {
+    static func sortEventsIntoUpcomingAndOverdue(events: [Event], sectionHeaders: Bool, completion: (_ upcomingEvents: [TableSectionEvent]?, _ overdueEvents: [TableSectionEvent]?) -> ()) {
         
-        var overdue: [TableSectionEvent] = [TableSectionEvent(header: nil, events: [Event]())]
+        var overdue: [TableSectionEvent]? = [TableSectionEvent(header: nil, events: [Event]())]
         
-        var upcoming: [TableSectionEvent]
+        var upcoming: [TableSectionEvent]?
         if sectionHeaders {
             upcoming = [TableSectionEvent(header: "This Week", events: [Event]()),
                          TableSectionEvent(header: "This Month", events: [Event]()),
@@ -87,24 +87,26 @@ class EventFRC: NSObject {
             guard let eventDate = event.date as Date? else { continue }
             if eventDate < today {
                 if !event.isComplete {
-                    overdue[0].events.append(event)
+                    overdue![0].events.append(event)
                 }
             } else {
                 if sectionHeaders {
                     if DateHandler.sameComponent(.weekOfYear, date1: eventDate, date2: today) {
-                        upcoming[0].events.append(event)
+                        upcoming![0].events.append(event)
                     } else if DateHandler.sameComponent(.month, date1: eventDate, date2: today) {
-                        upcoming[1].events.append(event)
+                        upcoming![1].events.append(event)
                     } else {
-                        upcoming[2].events.append(event)
+                        upcoming![2].events.append(event)
                     }
                 } else {
-                    upcoming[0].events.append(event)
+                    upcoming![0].events.append(event)
                 }
             }
         }
-        overdue = overdue.filter() { $0.events.count > 0 }
-        upcoming = upcoming.filter() { $0.events.count > 0 }
+        overdue = overdue!.filter() { $0.events.count > 0 }
+        upcoming = upcoming!.filter() { $0.events.count > 0 }
+        overdue = overdue!.count > 0 ? overdue : nil
+        upcoming = upcoming!.count > 0 ? upcoming : nil
         completion(upcoming, overdue)
     }
 }

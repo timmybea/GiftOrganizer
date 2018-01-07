@@ -27,8 +27,8 @@ class EventDisplayViewCreatePerson: EventTableView {
         }
     }
     
-    private var upcomingEvents = [TableSectionEvent]()
-    private var overdueEvents = [TableSectionEvent]()
+    private var upcomingEvents: [TableSectionEvent]?
+    private var overdueEvents: [TableSectionEvent]?
     
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
@@ -102,10 +102,10 @@ class EventDisplayViewCreatePerson: EventTableView {
             upcomingEvents = upcoming
             overdueEvents = overdue
             
-            if overdueEvents.count > 0 {
-
-                segmentedControl.setTitle("Overdue (\(overdueEvents[0].events.count))", forSegmentAt: 1)
+            if let overdueCount = overdueEvents?[0].events.count, overdueCount > 0 {
+                segmentedControl.setTitle("Overdue (\(overdueCount))", forSegmentAt: 1)
             }
+            
             DispatchQueue.main.async {
                 self.datasource = self.segmentedControl.selectedSegmentIndex == 0 ? self.upcomingEvents : self.overdueEvents
             }
