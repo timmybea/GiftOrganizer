@@ -21,12 +21,6 @@ class EventDisplayViewCreatePerson: EventTableView {
         set { self.eventDisplayViewPersonDelegate = newValue as! EventDisplayViewPersonDelegate? }
     }
     
-    override var orderedEvents: [Event]? {
-        didSet {
-            setupDataSources()
-        }
-    }
-    
     private var upcomingEvents: [TableSectionEvent]?
     private var overdueEvents: [TableSectionEvent]?
     
@@ -96,8 +90,8 @@ class EventDisplayViewCreatePerson: EventTableView {
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
-    private func setupDataSources() {
-        EventFRC.sortEventsIntoUpcomingAndOverdue(events: self.orderedEvents!, sectionHeaders: false) { (upcoming, overdue) in
+    func setupDataSources(for orderedEvents: [Event]) {
+        EventFRC.sortEventsIntoUpcomingAndOverdue(events: orderedEvents, sectionHeaders: false) { (upcoming, overdue) in
             
             upcomingEvents = upcoming
             overdueEvents = overdue
