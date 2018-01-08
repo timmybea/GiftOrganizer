@@ -65,6 +65,7 @@ class CreatePersonViewController: CustomViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.names.eventDeleted.name, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(eventCreated(notification:)), name: Notifications.names.newEventCreated.name, object: nil)
         
         self.title = "Add Person"
         
@@ -236,8 +237,19 @@ class CreatePersonViewController: CustomViewController {
         }
     }
     
-    @objc func eventDeleted(notification: NSNotification) {
+    @objc
+    func eventDeleted(notification: NSNotification) {
         self.updateEventDisplayViewWithOrderedEvents()
+    }
+    
+    //MARK: Update views if notification received from Quick Add Event
+    @objc
+    func eventCreated(notification: NSNotification) {
+        guard let personId = notification.userInfo?["personId"] as? String else { return }
+        guard let createEventState = notification.userInfo?["createEventState"] as? String else { return }
+        if createEventState == "newEventToBeAssigned" && personId == self.person?.id {
+            self.updateEventDisplayViewWithOrderedEvents()
+        }
     }
 
     //drop keyboard if editing textfield

@@ -96,13 +96,15 @@ class EventDisplayViewCreatePerson: EventTableView {
             upcomingEvents = upcoming
             overdueEvents = overdue
             
+            var title = "Overdue"
             if let overdueCount = overdueEvents?[0].events.count, overdueCount > 0 {
-                segmentedControl.setTitle("Overdue (\(overdueCount))", forSegmentAt: 1)
+                title = "Overdue (\(overdueCount))"
             }
-            
             DispatchQueue.main.async {
+                self.segmentedControl.setTitle(title, forSegmentAt: 1)
                 self.datasource = self.segmentedControl.selectedSegmentIndex == 0 ? self.upcomingEvents : self.overdueEvents
             }
+            
         }
     }
     

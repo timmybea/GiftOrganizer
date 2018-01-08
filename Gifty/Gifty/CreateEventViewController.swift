@@ -14,7 +14,7 @@ protocol CreateEventViewControllerDelegate {
     
 }
 
-enum CreateEventState {
+enum CreateEventState: String {
     
     case newEventForPerson
     case updateEventForPerson
@@ -449,10 +449,10 @@ extension CreateEventViewController {
                         print("successfully added event")
                         //send notification
                         guard let dateString = event?.dateString else { return }
-                        let userInfo = ["dateString": dateString]
+                        let userInfo = ["dateString": dateString, "personId": person?.id!, "createEventState": self.createEventState?.rawValue]
                     
                         DispatchQueueHandler.notification.queue.async {
-                            NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo)
+                            NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo as! [String : String])
                         }
                         
                         if self.delegate != nil {

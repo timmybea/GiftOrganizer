@@ -127,11 +127,6 @@ class CalendarViewController: CustomViewController {
                 self.hideShowInfoForSelectedDate(date, show: true)
 
             }
-            
-//            if self.eventDisplayView.currentlyDisplaying(dateString: dateString) {
-//                
-//                self.hideShowInfoForSelectedDate(date, show: true)
-//            }
         }
         
         updateCalendarDataSource(dateString: dateString)
