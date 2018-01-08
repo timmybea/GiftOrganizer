@@ -82,11 +82,6 @@ class OverlayEventBudgetViewController: UIViewController {
         self.view.layer.masksToBounds = true
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     private func setupSubviews() {
         
         view.addSubview(bgView)

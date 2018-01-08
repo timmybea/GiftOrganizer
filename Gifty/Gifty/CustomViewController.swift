@@ -55,16 +55,6 @@ class CustomViewController: UIViewController {
         backgroundView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         backgroundView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    //MARK: turn off autorotate
-    
-    override var shouldAutorotate: Bool {
-        return false
-    }
-    
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         
-        return [.portrait]
     }
 }

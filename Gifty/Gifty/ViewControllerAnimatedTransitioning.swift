@@ -16,7 +16,6 @@ class AnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
         return 0.5
     }
     
-    
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let fromVC = transitionContext.viewController(forKey: .from)
         let fromView = fromVC?.view!
@@ -73,7 +72,6 @@ class CustomTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate 
         animationController.isPresentation = true
         return animationController
     }
-    
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animationController = AnimatedTransitioning()

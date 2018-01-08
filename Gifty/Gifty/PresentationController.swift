@@ -24,7 +24,6 @@ class CustomPresentationController: UIPresentationController, UIAdaptivePresenta
         
     }
     
-    
     override func presentationTransitionWillBegin() {
         dimmingView.frame = self.containerView!.bounds
         dimmingView.alpha = 0

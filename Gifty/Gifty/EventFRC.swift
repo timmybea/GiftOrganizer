@@ -91,7 +91,9 @@ class EventFRC: NSObject {
                 }
             } else {
                 if sectionHeaders {
-                    if DateHandler.sameComponent(.weekOfYear, date1: eventDate, date2: today) {
+                    
+                    if eventDate < Date(timeInterval: 60 * 60 * 24 * 7, since: today) {
+                    //if DateHandler.sameComponent(.weekOfYear, date1: eventDate, date2: today) {
                         upcoming![0].events.append(event)
                     } else if DateHandler.sameComponent(.month, date1: eventDate, date2: today) {
                         upcoming![1].events.append(event)

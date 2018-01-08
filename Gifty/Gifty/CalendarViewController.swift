@@ -189,11 +189,6 @@ class CalendarViewController: CustomViewController {
         }
     }
 
-    //MARK: Orientation change methods
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        
-    }
 }
 
 //MARK: Calendar Delegate (update month label)
