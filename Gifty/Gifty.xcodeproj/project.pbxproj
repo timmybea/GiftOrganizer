@@ -69,6 +69,11 @@
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
+		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
+		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
+		B0F0046620054BC900D9B6D0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */; };
+		B0F0046A20054BC900D9B6D0 /* GiftyTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B0F004702005553900D9B6D0 /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046F2005553900D9B6D0 /* DemoTableViewCell.swift */; };
 		B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */; };
 		B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */; };
 /* End PBXBuildFile section */
@@ -88,7 +93,28 @@
 			remoteGlobalIDString = B041F7621EF899F500A3E332;
 			remoteInfo = Gifty;
 		};
+		B0F0046820054BC900D9B6D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B041F75B1EF899F500A3E332 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0F0045D20054BC900D9B6D0;
+			remoteInfo = GiftyTodayExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B0F0046E20054BC900D9B6D0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B0F0046A20054BC900D9B6D0 /* GiftyTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		168833BE887AA8C64532C8D8 /* Pods-Gifty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gifty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gifty/Pods-Gifty.release.xcconfig"; sourceTree = "<group>"; };
@@ -164,6 +190,12 @@
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
+		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		B0F0046220054BC900D9B6D0 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		B0F0046520054BC900D9B6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		B0F0046720054BC900D9B6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0F0046F2005553900D9B6D0 /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
 		B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyHandler.swift; sourceTree = "<group>"; };
 		B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayHeader.swift; sourceTree = "<group>"; };
 		CF30C550C51DFC2BA7982DFC /* Pods-GiftyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -197,6 +229,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0F0045B20054BC900D9B6D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -219,6 +259,7 @@
 				B041F7651EF899F500A3E332 /* Gifty */,
 				B041F77A1EF899F500A3E332 /* GiftyTests */,
 				B041F7851EF899F500A3E332 /* GiftyUITests */,
+				B0F0046120054BC900D9B6D0 /* GiftyTodayExtension */,
 				B041F7641EF899F500A3E332 /* Products */,
 				6C2773900C716396941BDDAA /* Pods */,
 				D97FE7C96A58FFBC09172875 /* Frameworks */,
@@ -231,6 +272,7 @@
 				B041F7631EF899F500A3E332 /* Gifty.app */,
 				B041F7771EF899F500A3E332 /* GiftyTests.xctest */,
 				B041F7821EF899F500A3E332 /* GiftyUITests.xctest */,
+				B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -495,6 +537,17 @@
 			name = SettingsTab;
 			sourceTree = "<group>";
 		};
+		B0F0046120054BC900D9B6D0 /* GiftyTodayExtension */ = {
+			isa = PBXGroup;
+			children = (
+				B0F0046220054BC900D9B6D0 /* TodayViewController.swift */,
+				B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */,
+				B0F0046720054BC900D9B6D0 /* Info.plist */,
+				B0F0046F2005553900D9B6D0 /* DemoTableViewCell.swift */,
+			);
+			path = GiftyTodayExtension;
+			sourceTree = "<group>";
+		};
 		D97FE7C96A58FFBC09172875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +556,7 @@
 				66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */,
 				46C30F863C942B547F235266 /* Pods_GiftyTests.framework */,
 				373C8160F0EABC34750BBAAE /* Pods_GiftyUITests.framework */,
+				B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -520,10 +574,12 @@
 				B041F7611EF899F500A3E332 /* Resources */,
 				7CCFF5A522DD2BA77A04BC9B /* [CP] Embed Pods Frameworks */,
 				17912AD8F988054A4664DA57 /* [CP] Copy Pods Resources */,
+				B0F0046E20054BC900D9B6D0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B0F0046920054BC900D9B6D0 /* PBXTargetDependency */,
 			);
 			name = Gifty;
 			productName = Gifty;
@@ -572,13 +628,30 @@
 			productReference = B041F7821EF899F500A3E332 /* GiftyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		B0F0045D20054BC900D9B6D0 /* GiftyTodayExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0F0046D20054BC900D9B6D0 /* Build configuration list for PBXNativeTarget "GiftyTodayExtension" */;
+			buildPhases = (
+				B0F0045A20054BC900D9B6D0 /* Sources */,
+				B0F0045B20054BC900D9B6D0 /* Frameworks */,
+				B0F0045C20054BC900D9B6D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GiftyTodayExtension;
+			productName = GiftyTodayExtension;
+			productReference = B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		B041F75B1EF899F500A3E332 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Tim Beals";
 				TargetAttributes = {
@@ -602,6 +675,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = B041F7621EF899F500A3E332;
 					};
+					B0F0045D20054BC900D9B6D0 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 2733C6P24Y;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = B041F75E1EF899F500A3E332 /* Build configuration list for PBXProject "Gifty" */;
@@ -620,6 +698,7 @@
 				B041F7621EF899F500A3E332 /* Gifty */,
 				B041F7761EF899F500A3E332 /* GiftyTests */,
 				B041F7811EF899F500A3E332 /* GiftyUITests */,
+				B0F0045D20054BC900D9B6D0 /* GiftyTodayExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -648,6 +727,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0F0045C20054BC900D9B6D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0F0046620054BC900D9B6D0 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -881,6 +968,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0F0045A20054BC900D9B6D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0F004702005553900D9B6D0 /* DemoTableViewCell.swift in Sources */,
+				B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -894,6 +990,11 @@
 			target = B041F7621EF899F500A3E332 /* Gifty */;
 			targetProxy = B041F7831EF899F500A3E332 /* PBXContainerItemProxy */;
 		};
+		B0F0046920054BC900D9B6D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0F0045D20054BC900D9B6D0 /* GiftyTodayExtension */;
+			targetProxy = B0F0046820054BC900D9B6D0 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -903,6 +1004,14 @@
 				B041F7701EF899F500A3E332 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0F0046520054BC900D9B6D0 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1019,7 +1128,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DFE808D0507F6B5715849CB5 /* Pods-Gifty.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
 				INFOPLIST_FILE = Gifty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1035,7 +1146,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 168833BE887AA8C64532C8D8 /* Pods-Gifty.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
 				INFOPLIST_FILE = Gifty/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1113,6 +1226,46 @@
 			};
 			name = Release;
 		};
+		B0F0046B20054BC900D9B6D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2733C6P24Y;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GiftyTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.GiftyTodayExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B0F0046C20054BC900D9B6D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2733C6P24Y;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GiftyTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.GiftyTodayExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1148,6 +1301,15 @@
 			buildConfigurations = (
 				B041F7921EF899F500A3E332 /* Debug */,
 				B041F7931EF899F500A3E332 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0F0046D20054BC900D9B6D0 /* Build configuration list for PBXNativeTarget "GiftyTodayExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0F0046B20054BC900D9B6D0 /* Debug */,
+				B0F0046C20054BC900D9B6D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
