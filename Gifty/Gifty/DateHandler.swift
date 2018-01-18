@@ -11,22 +11,25 @@ import UIKit
 class DateHandler: NSObject {
    
     //MARK: String to date and viceversa
-    private static var dateFormatter: DateFormatter = {
+    //NOTE: There were threading issues with having date formatter as a property, so changed to func
+    private static func dateFormatter() -> DateFormatter {
         let df = DateFormatter()
         df.calendar = Calendar.current
         df.timeZone = TimeZone(abbreviation: "UTC")
         df.locale = Calendar.current.locale
         return df
-    }()
+    }
     
     static func dateWith(dd: String, MM: String, yyyy: String) -> Date? {
-        dateFormatter.dateFormat = "yyyy MM dd"
-        return dateFormatter.date(from: "\(yyyy) \(MM) \(dd)")
+        let df = dateFormatter()
+        df.dateFormat = "yyyy MM dd"
+        return df.date(from: "\(yyyy) \(MM) \(dd)")
     }
     
     static func dateWith(yyyy: String, MM: String, dd: String, HH: String, mm: String, ss: String) -> Date? {
-        dateFormatter.dateFormat = "yyyy MM dd HH:mm:ss"
-        return dateFormatter.date(from: "\(yyyy) \(MM) \(dd) \(HH)-\(mm)-\(ss)")
+        let df = dateFormatter()
+        df.dateFormat = "yyyy MM dd HH:mm:ss"
+        return df.date(from: "\(yyyy) \(MM) \(dd) \(HH)-\(mm)-\(ss)")
     }
     
     static func dateFromDateString(_ dateString: String) -> Date? {
@@ -36,33 +39,39 @@ class DateHandler: NSObject {
     }
     
     static func stringYear() -> String {
-        dateFormatter.dateFormat = "YYYY"
-        return dateFormatter.string(from: Date())
+        let df = dateFormatter()
+        df.dateFormat = "YYYY"
+        return df.string(from: Date())
     }
     
     static func describeDate(_ date: Date) -> String {
-        dateFormatter.dateStyle = .long
-        return dateFormatter.string(from: date)
+        let df = dateFormatter()
+        df.dateStyle = .long
+        return df.string(from: date)
     }
     
     static func stringFromDate(_ date: Date) -> String {
-        dateFormatter.dateFormat = "yyyy MM dd"
-        return dateFormatter.string(from: date)
+        let df = dateFormatter()
+        df.dateFormat = "yyyy MM dd"
+        return df.string(from: date)
     }
     
     static func stringMonthAbb(from date: Date) -> String {
-        dateFormatter.dateFormat = "MMM"
-        return dateFormatter.string(from: date)
+        let df = dateFormatter()
+        df.dateFormat = "MMM"
+        return df.string(from: date)
     }
     
     static func stringMonth(from date: Date) -> String {
-        dateFormatter.dateFormat = "MM"
-        return dateFormatter.string(from: date)
+        let df = dateFormatter()
+        df.dateFormat = "MM"
+        return df.string(from: date)
     }
     
     static func stringDayNum(from date: Date) -> String {
-        dateFormatter.dateFormat = "dd"
-        return dateFormatter.string(from: date)
+        let df = dateFormatter()
+        df.dateFormat = "dd"
+        return df.string(from: date)
     }
     
     static func sameComponent(_ component: Calendar.Component, date1: Date, date2: Date) -> Bool {
