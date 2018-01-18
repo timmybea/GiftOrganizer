@@ -67,6 +67,10 @@
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
+		B0DBFB80201127F6009442F4 /* GiftyBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = B0DBFB7E201127F6009442F4 /* GiftyBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
+		B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
@@ -93,6 +97,13 @@
 			remoteGlobalIDString = B041F7621EF899F500A3E332;
 			remoteInfo = Gifty;
 		};
+		B0DBFB81201127F6009442F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B041F75B1EF899F500A3E332 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0DBFB7B201127F6009442F4;
+			remoteInfo = GiftyBridge;
+		};
 		B0F0046820054BC900D9B6D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B041F75B1EF899F500A3E332 /* Project object */;
@@ -103,6 +114,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		B0DBFB88201127F6009442F4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0F0046E20054BC900D9B6D0 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,6 +146,8 @@
 		46C30F863C942B547F235266 /* Pods_GiftyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiftyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gifty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840BF037763567376C3007C0 /* Pods-GiftyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B00B53E520112E8000A2301F /* Gifty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gifty.entitlements; sourceTree = "<group>"; };
+		B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftyTodayExtension.entitlements; sourceTree = "<group>"; };
 		B00EE8281FF48035005FC817 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B013B5751EFF221000107B64 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -188,6 +212,10 @@
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiftyBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0DBFB7E201127F6009442F4 /* GiftyBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftyBridge.h; sourceTree = "<group>"; };
+		B0DBFB7F201127F6009442F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */,
+				B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */,
 				B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */,
 				842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */,
 			);
@@ -226,6 +255,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				775F83FD437CBFAE67612986 /* Pods_GiftyUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0DBFB78201127F6009442F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,10 +292,12 @@
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
+				B0DBFB8920112813009442F4 /* Shared */,
 				B041F7651EF899F500A3E332 /* Gifty */,
 				B041F77A1EF899F500A3E332 /* GiftyTests */,
 				B041F7851EF899F500A3E332 /* GiftyUITests */,
 				B0F0046120054BC900D9B6D0 /* GiftyTodayExtension */,
+				B0DBFB7D201127F6009442F4 /* GiftyBridge */,
 				B041F7641EF899F500A3E332 /* Products */,
 				6C2773900C716396941BDDAA /* Pods */,
 				D97FE7C96A58FFBC09172875 /* Frameworks */,
@@ -273,6 +311,7 @@
 				B041F7771EF899F500A3E332 /* GiftyTests.xctest */,
 				B041F7821EF899F500A3E332 /* GiftyUITests.xctest */,
 				B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */,
+				B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,6 +319,7 @@
 		B041F7651EF899F500A3E332 /* Gifty */ = {
 			isa = PBXGroup;
 			children = (
+				B00B53E520112E8000A2301F /* Gifty.entitlements */,
 				B0D514FC1F37803D008A88A4 /* App */,
 				B0D514FB1F378000008A88A4 /* CalendarTab */,
 				B0D5150B1F37890C008A88A4 /* PersonTab */,
@@ -537,9 +577,27 @@
 			name = SettingsTab;
 			sourceTree = "<group>";
 		};
+		B0DBFB7D201127F6009442F4 /* GiftyBridge */ = {
+			isa = PBXGroup;
+			children = (
+				B0DBFB7E201127F6009442F4 /* GiftyBridge.h */,
+				B0DBFB7F201127F6009442F4 /* Info.plist */,
+			);
+			path = GiftyBridge;
+			sourceTree = "<group>";
+		};
+		B0DBFB8920112813009442F4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		B0F0046120054BC900D9B6D0 /* GiftyTodayExtension */ = {
 			isa = PBXGroup;
 			children = (
+				B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */,
 				B0F0046220054BC900D9B6D0 /* TodayViewController.swift */,
 				B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */,
 				B0F0046720054BC900D9B6D0 /* Info.plist */,
@@ -563,6 +621,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		B0DBFB79201127F6009442F4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0DBFB80201127F6009442F4 /* GiftyBridge.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		B041F7621EF899F500A3E332 /* Gifty */ = {
 			isa = PBXNativeTarget;
@@ -575,11 +644,13 @@
 				7CCFF5A522DD2BA77A04BC9B /* [CP] Embed Pods Frameworks */,
 				17912AD8F988054A4664DA57 /* [CP] Copy Pods Resources */,
 				B0F0046E20054BC900D9B6D0 /* Embed App Extensions */,
+				B0DBFB88201127F6009442F4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				B0F0046920054BC900D9B6D0 /* PBXTargetDependency */,
+				B0DBFB82201127F6009442F4 /* PBXTargetDependency */,
 			);
 			name = Gifty;
 			productName = Gifty;
@@ -628,6 +699,24 @@
 			productReference = B041F7821EF899F500A3E332 /* GiftyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		B0DBFB7B201127F6009442F4 /* GiftyBridge */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0DBFB85201127F6009442F4 /* Build configuration list for PBXNativeTarget "GiftyBridge" */;
+			buildPhases = (
+				B0DBFB77201127F6009442F4 /* Sources */,
+				B0DBFB78201127F6009442F4 /* Frameworks */,
+				B0DBFB79201127F6009442F4 /* Headers */,
+				B0DBFB7A201127F6009442F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GiftyBridge;
+			productName = GiftyBridge;
+			productReference = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		B0F0045D20054BC900D9B6D0 /* GiftyTodayExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0F0046D20054BC900D9B6D0 /* Build configuration list for PBXNativeTarget "GiftyTodayExtension" */;
@@ -652,7 +741,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Tim Beals";
 				TargetAttributes = {
 					B041F7621EF899F500A3E332 = {
@@ -660,6 +749,11 @@
 						DevelopmentTeam = 2733C6P24Y;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					B041F7761EF899F500A3E332 = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -675,10 +769,20 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = B041F7621EF899F500A3E332;
 					};
+					B0DBFB7B201127F6009442F4 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 2733C6P24Y;
+						ProvisioningStyle = Automatic;
+					};
 					B0F0045D20054BC900D9B6D0 = {
 						CreatedOnToolsVersion = 9.2;
 						DevelopmentTeam = 2733C6P24Y;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -699,6 +803,7 @@
 				B041F7761EF899F500A3E332 /* GiftyTests */,
 				B041F7811EF899F500A3E332 /* GiftyUITests */,
 				B0F0045D20054BC900D9B6D0 /* GiftyTodayExtension */,
+				B0DBFB7B201127F6009442F4 /* GiftyBridge */,
 			);
 		};
 /* End PBXProject section */
@@ -724,6 +829,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B041F7801EF899F500A3E332 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0DBFB7A201127F6009442F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -968,6 +1080,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B0DBFB77201127F6009442F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B0F0045A20054BC900D9B6D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -989,6 +1109,11 @@
 			isa = PBXTargetDependency;
 			target = B041F7621EF899F500A3E332 /* Gifty */;
 			targetProxy = B041F7831EF899F500A3E332 /* PBXContainerItemProxy */;
+		};
+		B0DBFB82201127F6009442F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0DBFB7B201127F6009442F4 /* GiftyBridge */;
+			targetProxy = B0DBFB81201127F6009442F4 /* PBXContainerItemProxy */;
 		};
 		B0F0046920054BC900D9B6D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1064,7 +1189,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1115,7 +1240,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1129,7 +1254,9 @@
 			baseConfigurationReference = DFE808D0507F6B5715849CB5 /* Pods-Gifty.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gifty/Gifty.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
 				INFOPLIST_FILE = Gifty/Info.plist;
@@ -1137,7 +1264,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Gifty/BridgingHeader.h;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -1147,7 +1274,9 @@
 			baseConfigurationReference = 168833BE887AA8C64532C8D8 /* Pods-Gifty.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gifty/Gifty.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
 				INFOPLIST_FILE = Gifty/Info.plist;
@@ -1155,7 +1284,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Gifty/BridgingHeader.h;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -1171,7 +1300,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.GiftyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gifty.app/Gifty";
 			};
@@ -1188,7 +1317,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.GiftyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gifty.app/Gifty";
 			};
@@ -1204,7 +1333,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.GiftyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Gifty;
 			};
@@ -1220,9 +1349,69 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.GiftyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Gifty;
+			};
+			name = Release;
+		};
+		B0DBFB86201127F6009442F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2733C6P24Y;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GiftyBridge/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = timbeals.GiftyBridge;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B0DBFB87201127F6009442F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2733C6P24Y;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = GiftyBridge/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = timbeals.GiftyBridge;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1231,6 +1420,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GiftyTodayExtension/GiftyTodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2733C6P24Y;
@@ -1251,6 +1441,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = GiftyTodayExtension/GiftyTodayExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2733C6P24Y;
@@ -1301,6 +1492,15 @@
 			buildConfigurations = (
 				B041F7921EF899F500A3E332 /* Debug */,
 				B041F7931EF899F500A3E332 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0DBFB85201127F6009442F4 /* Build configuration list for PBXNativeTarget "GiftyBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0DBFB86201127F6009442F4 /* Debug */,
+				B0DBFB87201127F6009442F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

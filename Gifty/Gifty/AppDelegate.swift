@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GiftyBridge
+
 import CoreData
 
 @UIApplicationMain
@@ -49,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             item.title = ""
             item.image = UIImage(named: icons[index])?.withRenderingMode(.alwaysTemplate)
             item.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
-            
         }
         
         tabBarController.tabBar.layer.shadowColor = UIColor.black.cgColor
@@ -83,29 +84,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        saveContext()
+        
+        let moc = CoreDataStorage.mainQueueContext()
+        CoreDataStorage.saveContext(moc)
+        
+//        saveContext()
     }
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "PersonEventModel")
-        container.loadPersistentStores(completionHandler: { (description, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-        })
-        return container
-    }()
-
-    func saveContext() {
-        let moc = persistentContainer.viewContext
-        if moc.hasChanges {
-            do {
-                try moc.save()
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-    }
+//    lazy var persistentContainer: NSPersistentContainer = {
+//        let container = NSPersistentContainer(name: "PersonEventModel")
+//        container.loadPersistentStores(completionHandler: { (description, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//            }
+//        })
+//        return container
+//    }()
+//
+//    func saveContext() {
+//        let moc = persistentContainer.viewContext
+//        if moc.hasChanges {
+//            do {
+//                try moc.save()
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
 
 }
 

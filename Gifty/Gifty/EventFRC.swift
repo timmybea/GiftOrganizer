@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import GiftyBridge
 import CoreData
 
 class EventFRC: NSObject {
     
     static func frc() -> NSFetchedResultsController<Event>? {
         
-        guard let moc = moc else { return nil }
+        //guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
@@ -32,7 +33,7 @@ class EventFRC: NSObject {
     
     static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
         
-        guard let moc = moc else { return nil }
+        //guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
@@ -54,10 +55,10 @@ class EventFRC: NSObject {
         return frc
     }
     
-    private static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    private static let moc = CoreDataStorage.mainQueueContext()
     
     static func updateMoc() {
-        guard let moc = moc else { return }
+        //guard let moc = moc else { return }
         
         do {
             try moc.save()
@@ -93,7 +94,6 @@ class EventFRC: NSObject {
                 if sectionHeaders {
                     
                     if eventDate < Date(timeInterval: 60 * 60 * 24 * 7, since: today) {
-                    //if DateHandler.sameComponent(.weekOfYear, date1: eventDate, date2: today) {
                         upcoming![0].events.append(event)
                     } else if DateHandler.sameComponent(.month, date1: eventDate, date2: today) {
                         upcoming![1].events.append(event)

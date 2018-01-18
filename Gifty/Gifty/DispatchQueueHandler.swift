@@ -16,8 +16,6 @@ enum DispatchQueueHandler {
         switch self {
         case .notification:
             return DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
-        default:
-            return DispatchQueue.main
         }
     }
     

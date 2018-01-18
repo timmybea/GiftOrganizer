@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import GiftyBridge
 import CoreData
 
 class ManagedObjectBuilder: NSObject {
 
-    static let moc = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext
+    static let moc = CoreDataStorage.mainQueueContext()
     
     //MARK: PERSON MODEL
     static func createPerson(firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
     
-        guard let moc = moc else {
-            completion(false, nil)
-            return
-        }
+//        guard let moc = moc else {
+//            completion(false, nil)
+//            return
+//        }
         
         let person = Person(context: moc)
         person.id = UUID().uuidString
@@ -81,10 +82,10 @@ class ManagedObjectBuilder: NSObject {
     //MARK: EVENT MODEL
     static func addNewEventToPerson(date: Date, type: String, gift: ActionButton.SelectionStates, card: ActionButton.SelectionStates, phone: ActionButton.SelectionStates, person: Person, budgetAmt: Float, completion: (_ success: Bool, _ event: Event?) -> Void) {
         
-        guard let moc = moc else {
-            completion(false, nil)
-            return
-        }
+//        guard let moc = moc else {
+//            completion(false, nil)
+//            return
+//        }
         
         let event = Event(context: moc)
         event.id = UUID().uuidString
@@ -125,7 +126,7 @@ class ManagedObjectBuilder: NSObject {
         var fetchedEvents: [Event]?
         
         do {
-            fetchedEvents = try moc?.fetch(fetchRequest)
+            fetchedEvents = try moc.fetch(fetchRequest)
         } catch {
             print(error.localizedDescription)
         }
@@ -137,10 +138,10 @@ class ManagedObjectBuilder: NSObject {
     
     //MARK: SAVE
     static func saveChanges(completion: (_ success: Bool) -> Void) {
-        guard let moc = moc else {
-            completion(false)
-            return
-        }
+//        guard let moc = moc else {
+//            completion(false)
+//            return
+//        }
         
         do {
             try moc.save()
@@ -173,8 +174,7 @@ class ManagedObjectBuilder: NSObject {
         guard let events = EventFRC.frc()?.fetchedObjects as [Event]? else { return }
         
         for event in events {
-            
-                event.managedObjectContext?.delete(event)
+            event.managedObjectContext?.delete(event)
         }
         PersonFRC.updateMoc()
     }

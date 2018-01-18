@@ -48,13 +48,10 @@ class SettingsHandler: NSObject {
         rounding = udStandard.object(forKey: key.rounding.rawValue) as? Float ?? 0.50
     }
     
-    
     enum key: String {
         case maxBudget
         case groups
         case celebrations
         case rounding
     }
-    
-    
 }
