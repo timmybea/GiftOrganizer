@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)

@@ -9,6 +9,7 @@
 import UIKit
 import JTAppleCalendar
 import CoreData
+import GiftyBridge
 
 class CalendarViewController: CustomViewController {
     

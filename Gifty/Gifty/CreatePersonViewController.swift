@@ -9,6 +9,7 @@
 import UIKit
 import Contacts
 import ContactsUI
+import GiftyBridge
 
 protocol CreatePersonViewControllerDelegate {
     func didSaveChanges()
@@ -630,18 +631,8 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
         destination.delegate = self
         destination.createEventState = CreateEventState.newEventForPerson
         
-        self.person = self.person != nil ? self.person : createPersonEntity() //<<<
+        self.person = self.person != nil ? self.person : createPersonEntity()
         destination.person = self.person
-        
-//        if isUpdatePerson {
-//            //create vc and assign person
-//            destination.person = self.person
-//        } else {
-//            //create 'unsaved' person then create vc and assign
-//            let newPerson = createPersonEntity()
-//            self.person = newPerson
-//            destination.person = newPerson
-//        }
         
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)

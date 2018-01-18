@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol EventDisplayViewCalendarDelegate: EventTableViewDelegate {
     func eventDisplayPosition(up: Bool)

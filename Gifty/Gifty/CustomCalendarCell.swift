@@ -8,6 +8,7 @@
 
 import UIKit
 import JTAppleCalendar
+import GiftyBridge
 
 class CustomCalendarCell: JTAppleCell {
     

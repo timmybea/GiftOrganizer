@@ -9,6 +9,7 @@
 import UIKit
 import JTAppleCalendar
 import CoreData
+import GiftyBridge
 
 protocol CustomCalendarDelegate {
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool)

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import GiftyBridge
 
 class PeopleViewController: CustomViewController {
     

@@ -10,9 +10,13 @@
 		775F83FD437CBFAE67612986 /* Pods_GiftyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373C8160F0EABC34750BBAAE /* Pods_GiftyUITests.framework */; };
 		842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */; };
 		9395BA95A74AB8402D9BAFC8 /* Pods_GiftyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C30F863C942B547F235266 /* Pods_GiftyTests.framework */; };
+		B00B53E7201132AE00A2301F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
+		B00B53E8201134D200A2301F /* EventFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */; };
+		B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
+		B00B53EA2011358800A2301F /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
+		B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */; };
 		B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5731EFF21E300107B64 /* CustomCalendar.swift */; };
 		B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5751EFF221000107B64 /* CustomCalendarCell.swift */; };
-		B013B5781EFF233200107B64 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
 		B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */; };
 		B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */; };
 		B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5C81F041DD700107B64 /* PersonTFTableView.swift */; };
@@ -33,7 +37,6 @@
 		B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7991EF89B4900A3E332 /* PeopleViewController.swift */; };
 		B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */; };
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
-		B044D1FC1F2CE9B600214CE5 /* EventFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */; };
 		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
@@ -57,7 +60,6 @@
 		B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
-		B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */; };
 		B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63271F0D7D3200C1A2B1 /* UIImage + Scale.swift */; };
 		B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA632B1F0D844800C1A2B1 /* PersonFRC.swift */; };
@@ -148,6 +150,7 @@
 		840BF037763567376C3007C0 /* Pods-GiftyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B00B53E520112E8000A2301F /* Gifty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gifty.entitlements; sourceTree = "<group>"; };
 		B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftyTodayExtension.entitlements; sourceTree = "<group>"; };
+		B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionEvent.swift; sourceTree = "<group>"; };
 		B00EE8281FF48035005FC817 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B013B5751EFF221000107B64 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -441,6 +444,7 @@
 				B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */,
 				B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */,
 				B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */,
+				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1010,13 +1014,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */,
-				B013B5781EFF233200107B64 /* DateHandler.swift in Sources */,
 				B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */,
 				B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */,
 				B088330A1FE48E110085BBD9 /* SettingCellType.swift in Sources */,
 				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
-				B044D1FC1F2CE9B600214CE5 /* EventFRC.swift in Sources */,
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
 				B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */,
@@ -1047,7 +1049,6 @@
 				B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				B0CEC1F11FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift in Sources */,
 				B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */,
-				B0CA63241F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld in Sources */,
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
@@ -1084,6 +1085,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00B53EA2011358800A2301F /* DateHandler.swift in Sources */,
+				B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */,
+				B00B53E8201134D200A2301F /* EventFRC.swift in Sources */,
+				B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */,
 				B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1092,6 +1097,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00B53E7201132AE00A2301F /* Theme.swift in Sources */,
 				B0F004702005553900D9B6D0 /* DemoTableViewCell.swift in Sources */,
 				B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */,
 			);

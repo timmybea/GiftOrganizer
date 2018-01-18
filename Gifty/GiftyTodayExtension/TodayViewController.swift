@@ -13,6 +13,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var datasource = ["first item", "second item", "third item"]
     
+    let segControl: UISegmentedControl = {
+        let seg = UISegmentedControl(items: ["upcoming", "overdue"])
+        seg.translatesAutoresizingMaskIntoConstraints = false
+        seg.backgroundColor = UIColor.white
+        seg.tintColor = Theme.colors.lightToneTwo.color
+        seg.selectedSegmentIndex = 0
+        return seg
+    }()
+    
     let tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -31,8 +40,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     private func layoutSubviews() {
         
+        view.addSubview(segControl)
+        segControl.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        segControl.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        segControl.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: segControl.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true

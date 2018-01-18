@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import GiftyBridge
 import CoreData
 
-class EventFRC: NSObject {
+public class EventFRC: NSObject {
     
-    static func frc() -> NSFetchedResultsController<Event>? {
+    public static func frc() -> NSFetchedResultsController<Event>? {
         
         //guard let moc = moc else { return nil }
         
@@ -31,7 +30,7 @@ class EventFRC: NSObject {
     }
     
     
-    static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
+    public static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
         
         //guard let moc = moc else { return nil }
         
@@ -57,7 +56,7 @@ class EventFRC: NSObject {
     
     private static let moc = CoreDataStorage.mainQueueContext()
     
-    static func updateMoc() {
+    public static func updateMoc() {
         //guard let moc = moc else { return }
         
         do {
@@ -67,7 +66,7 @@ class EventFRC: NSObject {
         }
     }
     
-    static func sortEventsIntoUpcomingAndOverdue(events: [Event], sectionHeaders: Bool, completion: (_ upcomingEvents: [TableSectionEvent]?, _ overdueEvents: [TableSectionEvent]?) -> ()) {
+    public static func sortEventsIntoUpcomingAndOverdue(events: [Event], sectionHeaders: Bool, completion: (_ upcomingEvents: [TableSectionEvent]?, _ overdueEvents: [TableSectionEvent]?) -> ()) {
         
         var overdue: [TableSectionEvent]? = [TableSectionEvent(header: nil, events: [Event]())]
         
@@ -113,8 +112,14 @@ class EventFRC: NSObject {
     }
 }
 
-struct TableSectionEvent {
-    let header: String?
-    var events: [Event]
-}
+//public struct TableSectionEvent {
+//    
+//    public let header: String?
+//    public var events: [Event]
+//    
+//    public init(header: String?, events: [Event]) {
+//        self.header = header
+//        self.events = events
+//    }
+//}
 

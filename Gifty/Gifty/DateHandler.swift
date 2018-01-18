@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DateHandler: NSObject {
+public class DateHandler: NSObject {
    
     //MARK: String to date and viceversa
     //NOTE: There were threading issues with having date formatter as a property, so changed to func
@@ -20,61 +20,61 @@ class DateHandler: NSObject {
         return df
     }
     
-    static func dateWith(dd: String, MM: String, yyyy: String) -> Date? {
+    public static func dateWith(dd: String, MM: String, yyyy: String) -> Date? {
         let df = dateFormatter()
         df.dateFormat = "yyyy MM dd"
         return df.date(from: "\(yyyy) \(MM) \(dd)")
     }
     
-    static func dateWith(yyyy: String, MM: String, dd: String, HH: String, mm: String, ss: String) -> Date? {
+    public static func dateWith(yyyy: String, MM: String, dd: String, HH: String, mm: String, ss: String) -> Date? {
         let df = dateFormatter()
         df.dateFormat = "yyyy MM dd HH:mm:ss"
         return df.date(from: "\(yyyy) \(MM) \(dd) \(HH)-\(mm)-\(ss)")
     }
     
-    static func dateFromDateString(_ dateString: String) -> Date? {
+    public static func dateFromDateString(_ dateString: String) -> Date? {
         let dateComponents = dateString.components(separatedBy: " ")
         guard let date = DateHandler.dateWith(dd: dateComponents[2], MM: dateComponents[1], yyyy: dateComponents[0]) else { return nil }
         return date
     }
     
-    static func stringYear() -> String {
+    public static func stringYear() -> String {
         let df = dateFormatter()
         df.dateFormat = "YYYY"
         return df.string(from: Date())
     }
     
-    static func describeDate(_ date: Date) -> String {
+    public static func describeDate(_ date: Date) -> String {
         let df = dateFormatter()
         df.dateStyle = .long
         return df.string(from: date)
     }
     
-    static func stringFromDate(_ date: Date) -> String {
+    public static func stringFromDate(_ date: Date) -> String {
         let df = dateFormatter()
         df.dateFormat = "yyyy MM dd"
         return df.string(from: date)
     }
     
-    static func stringMonthAbb(from date: Date) -> String {
+    public static func stringMonthAbb(from date: Date) -> String {
         let df = dateFormatter()
         df.dateFormat = "MMM"
         return df.string(from: date)
     }
     
-    static func stringMonth(from date: Date) -> String {
+    public static func stringMonth(from date: Date) -> String {
         let df = dateFormatter()
         df.dateFormat = "MM"
         return df.string(from: date)
     }
     
-    static func stringDayNum(from date: Date) -> String {
+    public static func stringDayNum(from date: Date) -> String {
         let df = dateFormatter()
         df.dateFormat = "dd"
         return df.string(from: date)
     }
     
-    static func sameComponent(_ component: Calendar.Component, date1: Date, date2: Date) -> Bool {
+    public static func sameComponent(_ component: Calendar.Component, date1: Date, date2: Date) -> Bool {
         let calendar = Calendar.current
         if calendar.component(.year, from: date1) == calendar.component(.year, from: date2) {
             if calendar.component(component, from: date1) == calendar.component(component, from: date2) {
@@ -85,13 +85,13 @@ class DateHandler: NSObject {
     }    
 
     //MARK: Handle time zone
-    static func localTimeFromUTC(_ date: Date) -> Date {
+    public static func localTimeFromUTC(_ date: Date) -> Date {
         let todayGMT = Date()
         let secondsFromGMT = Calendar.current.timeZone.secondsFromGMT()
         return todayGMT.addingTimeInterval(TimeInterval(secondsFromGMT))
     }
     
-    static func UTCTimeFromLocal(_ date: Date) -> Date {
+    public static func UTCTimeFromLocal(_ date: Date) -> Date {
         let secondsFromGMT = Calendar.current.timeZone.secondsFromGMT()
         return date.addingTimeInterval(TimeInterval(secondsFromGMT * -1))
     }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GiftyBridge
 
 class PieChartService: NSObject {
     

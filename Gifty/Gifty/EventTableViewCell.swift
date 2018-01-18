@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol EventTableViewCellDelegate {
     func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event)
