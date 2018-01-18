@@ -228,7 +228,6 @@ class CreatePersonViewController: CustomViewController {
     
     func updateEventDisplayViewWithOrderedEvents() {
         if let unorderedEvents = self.person?.event?.allObjects as? [Event] {
-            
             //correctly order the events by date
             let orderedEvents = unorderedEvents.sorted(by: { (eventA, eventB) -> Bool in
                 eventA.date?.compare(eventB.date! as Date) == ComparisonResult.orderedAscending

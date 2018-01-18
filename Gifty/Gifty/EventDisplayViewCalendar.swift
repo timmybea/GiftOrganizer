@@ -171,8 +171,8 @@ class EventDisplayViewCalendar: EventTableView {
         self.setOverviewDatasource(for: 0)
     }
     
-    func eventDisplayTouchedBoundary() {
-        if isSnapped == true {
+    func bringDown() {
+        if isSnapped {
             isSnapped = false
             eventDisplayDown()
         }
@@ -183,22 +183,26 @@ class EventDisplayViewCalendar: EventTableView {
     }
     
     private func eventDisplayDown() {
-        
         header.headerDisappearAnimation { (success) in
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                 self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
-                self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
+                self.tableView.alpha = 0.0
             }, completion: { (success) in
+                self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
                 self.header.setFrame(appear: false)
                 self.displayMode = .normal
                 self.selectedIndexPath = nil
-                self.tableView.reloadData()
+                self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+                    self.tableView.alpha = 1.0
+                })
             })
         }
-        self.eventDisplayViewDelegate?.eventDisplayPosition(up: false)
+        
     }
-    
-    
 }
 
 //MARK: EVENT DISPLAY HEADER DELEGATE

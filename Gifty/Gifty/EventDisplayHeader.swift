@@ -100,7 +100,7 @@ class EventDisplayHeader: UIView {
     }
     
     func headerDisappearAnimation(completion: @escaping (_ success: Bool) -> Void) {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.4, animations: {
             self.segmentedControl.alpha = 0
         }, completion: { (success) in
             self.segmentedControl.isHidden = true

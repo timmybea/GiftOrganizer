@@ -125,16 +125,12 @@ class ManagedObjectBuilder: NSObject {
         var fetchedEvents: [Event]?
         
         do {
-            try fetchedEvents = moc?.fetch(fetchRequest)
+            fetchedEvents = try moc?.fetch(fetchRequest)
         } catch {
             print(error.localizedDescription)
         }
         
-        if fetchedEvents != nil {
-            return fetchedEvents?.first
-        } else {
-            return nil
-        }
+        return fetchedEvents?.first
     }
 
 

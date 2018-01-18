@@ -47,7 +47,6 @@ class CalendarViewController: CustomViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(newEventCreated(notification:)), name: Notifications.names.newEventCreated.name, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(eventDeleted(notification:)), name: Notifications.names.eventDeleted.name, object: nil)
         
-        //self.frc?.delegate = self
         setupNavigationBar()
         setupSubviews()
         passCalendarDataSource()
@@ -204,7 +203,6 @@ extension CalendarViewController: CustomCalendarDelegate {
             if show {
                 print(date)
                 frc = EventFRC.frc(for: date)
-                //frc?.delegate = self
                 eventDisplayView.displayDateString = DateHandler.stringFromDate(date)
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
@@ -281,10 +279,8 @@ extension CalendarViewController {
                 isViewSnapped = true
             }
         } else {
-            if isViewSnapped {
                 dynamicAnimator.removeBehavior(snap!)
                 isViewSnapped = false
-            }
         }
     }
 }
@@ -294,7 +290,11 @@ extension CalendarViewController {
 extension CalendarViewController: UICollisionBehaviorDelegate {
     
     func collisionBehavior(_ behavior: UICollisionBehavior, endedContactFor item: UIDynamicItem, withBoundaryIdentifier identifier: NSCopying?) {
-        eventDisplayView.eventDisplayTouchedBoundary()
+        let yOffset = calendar.frame.maxY + pad
+        UIView.animate(withDuration: 0.1, delay: 0.2, options: .curveEaseOut, animations: {
+            print("animating")
+            self.eventDisplayView.frame = self.view.bounds.offsetBy(dx: 0, dy: yOffset)
+        }, completion: nil)
     }
 
 }
@@ -318,7 +318,6 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
             } else {
                 eventDisplayView.orderedEvents = nil
             }
-            
         }
     }
     
@@ -329,9 +328,12 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
         
         if let dragView = panRecognizer.view?.superview {
             if panRecognizer.state == .began {
-
-                    isDragging = true
-                    previousPosition = currentPosition
+                isDragging = true
+                previousPosition = currentPosition
+                
+                if isViewSnapped {
+                    eventDisplayView.bringDown()
+                }
             } else if panRecognizer.state == .changed && isDragging {
                 if let previousPosition = previousPosition {
                     let offset = previousPosition.y - currentPosition.y
@@ -339,12 +341,9 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
                 }
                 previousPosition = currentPosition
             } else if panRecognizer.state == .ended && isDragging {
-                
                 snap(dragView: dragView)
-                
                 //Applies behavior to the dynamic item again. Makes it adhere to gravity etc.
                 dynamicAnimator.updateItem(usingCurrentState: dragView)
-                
                 isDragging = false
             }
         }
@@ -376,7 +375,6 @@ extension CalendarViewController: EventTableViewDelegate {
         overlayVC.modalPresentationStyle = .custom
         
         self.present(overlayVC, animated: true, completion: nil)
-        
     }
 
     
