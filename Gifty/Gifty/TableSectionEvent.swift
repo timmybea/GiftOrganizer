@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct TableSectionEvent {
+public class TableSectionEvent {
     
     public let header: String?
     public var events: [Event]

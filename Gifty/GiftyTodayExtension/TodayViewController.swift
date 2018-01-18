@@ -8,10 +8,22 @@
 
 import UIKit
 import NotificationCenter
+import GiftyBridge
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
-    var datasource = ["first item", "second item", "third item"]
+    var datasource: [Event]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    var upcomingEvents: [Event]?
+    var overdueEvents: [Event]?
+    
+    var isExpanded = false
     
     let segControl: UISegmentedControl = {
         let seg = UISegmentedControl(items: ["upcoming", "overdue"])
@@ -36,7 +48,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         
         layoutSubviews()
+        
+        guard let frc = EventFRC.frc(), frc.fetchedObjects != nil else { return }
+        setupDataSources(for: frc.fetchedObjects!)
     }
+    
+    func setupDataSources(for orderedEvents: [Event]) {
+        EventFRC.sortEventsTodayExtension(events: orderedEvents) { (upcoming, overdue) in
+        
+            self.overdueEvents = overdue
+            self.upcomingEvents = upcoming
+            self.datasource = upcoming
+            
+        }
+    }
+    
     
     private func layoutSubviews() {
         
@@ -59,6 +85,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Perform any setup necessary in order to update the view.
         
+        guard let frc = EventFRC.frc(), frc.fetchedObjects != nil else { return }
+        setupDataSources(for: frc.fetchedObjects!)
+        
         completionHandler(NCUpdateResult.newData)
     }
     
@@ -79,14 +108,18 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource.count
+        return datasource?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell") as! DemoTableViewCell
         cell.backgroundColor = UIColor.blue
         cell.textLabel?.textColor = UIColor.white
-        cell.textLabel?.text = datasource[indexPath.row]
+        if let event = datasource?[indexPath.row] {
+            cell.textLabel?.text = event.type
+            cell.detailTextLabel?.text = String(describing: event.date)
+        }
+        
         return cell
     }
     

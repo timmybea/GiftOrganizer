@@ -12,9 +12,6 @@ import CoreData
 public class EventFRC: NSObject {
     
     public static func frc() -> NSFetchedResultsController<Event>? {
-        
-        //guard let moc = moc else { return nil }
-        
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
         let dateDescriptor = NSSortDescriptor(key: "date", ascending: true)
@@ -29,10 +26,7 @@ public class EventFRC: NSObject {
         return frc
     }
     
-    
     public static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
-        
-        //guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
@@ -57,8 +51,6 @@ public class EventFRC: NSObject {
     private static let moc = CoreDataStorage.mainQueueContext()
     
     public static func updateMoc() {
-        //guard let moc = moc else { return }
-        
         do {
             try moc.save()
         } catch {
@@ -110,16 +102,33 @@ public class EventFRC: NSObject {
         upcoming = upcoming!.count > 0 ? upcoming : nil
         completion(upcoming, overdue)
     }
-}
+    
+    
+    public static func sortEventsTodayExtension(events: [Event], completion: (_ upcomingEvents: [Event]?, _ overdueEvents: [Event]?) -> ()) {
+     
+        var overdue: [Event]? = [Event]()
+        var upcoming: [Event]? = [Event]()
 
-//public struct TableSectionEvent {
-//    
-//    public let header: String?
-//    public var events: [Event]
-//    
-//    public init(header: String?, events: [Event]) {
-//        self.header = header
-//        self.events = events
-//    }
-//}
+        let now = DateHandler.localTimeFromUTC(Date())
+        let todayString = DateHandler.stringFromDate(now)
+        guard let today = DateHandler.dateFromDateString(todayString) else { completion(nil, nil); return }
+
+        for event in events {
+            guard let eventDate = event.date as Date? else { continue }
+            if eventDate < today {
+                if !event.isComplete && overdue!.count < 3 {
+                    overdue?.append(event)
+                }
+            } else {
+                if upcoming!.count < 3 {
+                    upcoming?.append(event)
+                }
+            }
+        }
+        overdue = overdue!.isEmpty ? nil : overdue
+        upcoming = upcoming!.isEmpty ? nil : upcoming
+        
+        completion(upcoming, overdue)
+    }
+}
 

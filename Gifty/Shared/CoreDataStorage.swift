@@ -63,7 +63,8 @@ public class CoreDataStorage {
     
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = Bundle.main.url(forResource: "PersonEventModel", withExtension: "momd")!
+        let frameworkBundle = Bundle(identifier: "com.tapp.timbeals.GiftyBridge")
+        let modelURL = frameworkBundle!.url(forResource: "PersonEventModel", withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
     
