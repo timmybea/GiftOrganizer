@@ -126,7 +126,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
-            cell.actionsButtonsView.isHidden = true
+            cell.actionsButtonsView.isHidden = indexPath == selectedIndexPath ? false : true
             cell.delegate = self
             print("IndexPath is: \(indexPath)")
             if let event = datasource?[indexPath.section].events[indexPath.row] {
@@ -141,6 +141,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             if let dataCount = self.pieChartDatasource?.count {
                 return CGFloat(PieChartCell.heightForCell(for: dataCount))
             } else {
+                
                 return 300
             }
         } else {
