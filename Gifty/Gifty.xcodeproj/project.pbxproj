@@ -73,13 +73,15 @@
 		B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */; };
+		B0E38D29201166A000542217 /* TodayEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E38D28201166A000542217 /* TodayEventTableViewCell.swift */; };
+		B0E38D2B2011682000542217 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0E38D2A2011682000542217 /* Media.xcassets */; };
+		B0E38D2D20116A2400542217 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E38D2C20116A2400542217 /* Helpers.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
 		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
 		B0F0046620054BC900D9B6D0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */; };
 		B0F0046A20054BC900D9B6D0 /* GiftyTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B0F004702005553900D9B6D0 /* DemoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046F2005553900D9B6D0 /* DemoTableViewCell.swift */; };
 		B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */; };
 		B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */; };
 /* End PBXBuildFile section */
@@ -219,6 +221,9 @@
 		B0DBFB7E201127F6009442F4 /* GiftyBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftyBridge.h; sourceTree = "<group>"; };
 		B0DBFB7F201127F6009442F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		B0E38D28201166A000542217 /* TodayEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayEventTableViewCell.swift; sourceTree = "<group>"; };
+		B0E38D2A2011682000542217 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		B0E38D2C20116A2400542217 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,7 +231,6 @@
 		B0F0046220054BC900D9B6D0 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B0F0046520054BC900D9B6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B0F0046720054BC900D9B6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B0F0046F2005553900D9B6D0 /* DemoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTableViewCell.swift; sourceTree = "<group>"; };
 		B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyHandler.swift; sourceTree = "<group>"; };
 		B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayHeader.swift; sourceTree = "<group>"; };
 		CF30C550C51DFC2BA7982DFC /* Pods-GiftyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -605,7 +609,9 @@
 				B0F0046220054BC900D9B6D0 /* TodayViewController.swift */,
 				B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */,
 				B0F0046720054BC900D9B6D0 /* Info.plist */,
-				B0F0046F2005553900D9B6D0 /* DemoTableViewCell.swift */,
+				B0E38D28201166A000542217 /* TodayEventTableViewCell.swift */,
+				B0E38D2A2011682000542217 /* Media.xcassets */,
+				B0E38D2C20116A2400542217 /* Helpers.swift */,
 			);
 			path = GiftyTodayExtension;
 			sourceTree = "<group>";
@@ -850,6 +856,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E38D2B2011682000542217 /* Media.xcassets in Resources */,
 				B0F0046620054BC900D9B6D0 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1098,7 +1105,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B00B53E7201132AE00A2301F /* Theme.swift in Sources */,
-				B0F004702005553900D9B6D0 /* DemoTableViewCell.swift in Sources */,
+				B0E38D29201166A000542217 /* TodayEventTableViewCell.swift in Sources */,
+				B0E38D2D20116A2400542217 /* Helpers.swift in Sources */,
 				B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

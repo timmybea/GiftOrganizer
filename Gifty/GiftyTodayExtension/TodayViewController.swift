@@ -31,6 +31,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         seg.backgroundColor = UIColor.white
         seg.tintColor = Theme.colors.lightToneTwo.color
         seg.selectedSegmentIndex = 0
+        seg.layer.cornerRadius = 4.0
+        seg.clipsToBounds = true
         return seg
     }()
     
@@ -38,6 +40,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.backgroundColor = UIColor.clear
+        tv.separatorColor = UIColor.clear
         tv.separatorStyle = .none
         return tv
     }()
@@ -60,6 +63,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.upcomingEvents = upcoming
             self.datasource = upcoming
             
+            if overdueEvents != nil {
+                segControl.setTitle("overdue (\(String(describing: overdueEvents!.count)))", forSegmentAt: 1)
+            }
         }
     }
     
@@ -68,16 +74,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         view.addSubview(segControl)
         segControl.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        segControl.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        segControl.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        segControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: smallPad).isActive = true
+        segControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -smallPad).isActive = true
+        segControl.addTarget(self, action: #selector(segmentChanged(sender:)), for: .valueChanged)
         
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: segControl.bottomAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: segControl.bottomAnchor, constant: 3).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
 
-        tableView.register(DemoTableViewCell.self, forCellReuseIdentifier: "demoCell")
+        tableView.register(TodayEventTableViewCell.self, forCellReuseIdentifier: "todayEventCell")
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -94,9 +101,23 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .expanded {
-            preferredContentSize = CGSize(width: 0.0, height: 300.0)
+            isExpanded = true
+            preferredContentSize = CGSize(width: 0.0, height: 236.0)
         } else {
             preferredContentSize = maxSize
+            isExpanded = false
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    @objc
+    func segmentChanged(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0: datasource = upcomingEvents
+        case 1: datasource = overdueEvents
+        default: print("this should never execute")
         }
     }
 }
@@ -108,22 +129,22 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource?.count ?? 0
+        if isExpanded {
+            return datasource?.count ?? 0
+        } else {
+            return datasource != nil ? 1 : 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "demoCell") as! DemoTableViewCell
-        cell.backgroundColor = UIColor.blue
-        cell.textLabel?.textColor = UIColor.white
+        let cell = tableView.dequeueReusableCell(withIdentifier: "todayEventCell") as! TodayEventTableViewCell
         if let event = datasource?[indexPath.row] {
-            cell.textLabel?.text = event.type
-            cell.detailTextLabel?.text = String(describing: event.date)
+            cell.configureWith(event: event)
         }
-        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return 62
     }
 }
