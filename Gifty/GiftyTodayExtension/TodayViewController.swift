@@ -104,8 +104,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             isExpanded = true
             preferredContentSize = CGSize(width: 0.0, height: 236.0)
         } else {
-            preferredContentSize = maxSize
             isExpanded = false
+            preferredContentSize = maxSize
         }
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -146,5 +146,14 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 62
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! TodayEventTableViewCell
+        let event = cell.event
+        let dateString = event?.dateString
+        if let url = URL(string: "giftyApp://ShowDate/?q=\(dateString!)") {
+            self.extensionContext?.open(url, completionHandler: { success in print("called url complete handler: \(success)")})
+        }
     }
 }

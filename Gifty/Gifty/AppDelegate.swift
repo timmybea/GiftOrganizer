@@ -61,6 +61,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return tabBarController
     }
 
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let query = url.query else { return false }
+        if query.hasPrefix("q=") {
+            let dateString = query.replacingOccurrences(of: "^q=", with: "", options: .regularExpression, range: nil)
+            
+            if let rootVC = self.window?.rootViewController as? CalendarViewController {
+                
+                print("You sent the word \(dateString)")
+                
+            }
+            
+            return true
+        }
+        return true
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -88,29 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let moc = CoreDataStorage.mainQueueContext()
         CoreDataStorage.saveContext(moc)
         
-//        saveContext()
     }
-    
-//    lazy var persistentContainer: NSPersistentContainer = {
-//        let container = NSPersistentContainer(name: "PersonEventModel")
-//        container.loadPersistentStores(completionHandler: { (description, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            }
-//        })
-//        return container
-//    }()
-//
-//    func saveContext() {
-//        let moc = persistentContainer.viewContext
-//        if moc.hasChanges {
-//            do {
-//                try moc.save()
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
-
 }
 

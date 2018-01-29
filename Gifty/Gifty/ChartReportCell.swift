@@ -83,7 +83,6 @@ class ChartReportCell: UITableViewCell {
     }
     
     func configureWith(chartReportItem: ChartReportItem) {
-        print("Enter configure")
         
         self.colorView.backgroundColor = chartReportItem.color
         

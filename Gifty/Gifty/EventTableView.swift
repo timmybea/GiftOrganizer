@@ -129,7 +129,6 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
             cell.actionsButtonsView.isHidden = indexPath == selectedIndexPath ? false : true
             cell.delegate = self
-            print("IndexPath is: \(indexPath)")
             if let event = datasource?[indexPath.section].events[indexPath.row] {
                 cell.configureWith(event: event)
             }
