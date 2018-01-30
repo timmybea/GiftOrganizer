@@ -64,14 +64,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         guard let query = url.query else { return false }
+        
         if query.hasPrefix("q=") {
             let dateString = query.replacingOccurrences(of: "^q=", with: "", options: .regularExpression, range: nil)
+            guard dateString.count == 8 else { return false }
+            let year = String(Array(dateString)[0...3])
+            let month = String(Array(dateString)[4...5])
+            let day = String(Array(dateString)[6...7])
             
-            if let rootVC = self.window?.rootViewController as? CalendarViewController {
-                
-                print("You sent the word \(dateString)")
-                
-            }
+            guard let showDate = DateHandler.dateWith(dd: day, MM: month, yyyy: year) else { return false }
+            
+            guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return false}
+            tabBarController.selectedIndex = 0
+            let navCon = tabBarController.selectedViewController as? UINavigationController
+            let calVc = navCon?.viewControllers.first as? CalendarViewController
+            calVc?.scrollToDateAndSelect(date: showDate)
             
             return true
         }

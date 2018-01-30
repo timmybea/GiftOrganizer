@@ -149,9 +149,12 @@ extension TodayViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("Selected row!!")
+        
         let cell = tableView.cellForRow(at: indexPath) as! TodayEventTableViewCell
         let event = cell.event
-        let dateString = event?.dateString
+        let dateString = event?.dateString?.replacingOccurrences(of: " ", with: "")
         if let url = URL(string: "giftyApp://ShowDate/?q=\(dateString!)") {
             self.extensionContext?.open(url, completionHandler: { success in print("called url complete handler: \(success)")})
         }

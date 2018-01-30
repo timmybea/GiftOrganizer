@@ -187,7 +187,14 @@ class CustomCalendar: UIView {
     }
     
     func selectDate(_ date: Date) {
-        self.calendarView.selectDates([])
+        //<<<<HERE
+        self.calendarView.deselectAllDates()
+        self.calendarView.selectDates([date])
+        self.previouslySelectedDate = date
+        
+        DispatchQueue.main.async {
+            self.calendarView.reloadData()
+        }
         
     }
 }
@@ -241,7 +248,7 @@ extension CustomCalendar: JTAppleCalendarViewDelegate {
             self.delegate?.hideShowInfoForSelectedDate(cellState.date, show: validCell.showInfo)
             validCell.bounceAnimation()
         } else if let prevDate = previouslySelectedDate {
-                calendar.selectDates([prevDate])
+            calendar.selectDates([prevDate])
         }
     }
     
