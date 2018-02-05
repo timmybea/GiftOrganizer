@@ -186,17 +186,17 @@ class CustomCalendar: UIView {
         }
     }
     
-    func selectDate(_ date: Date) {
-        //<<<<HERE
-        self.calendarView.deselectAllDates()
-        self.calendarView.selectDates([date])
-        self.previouslySelectedDate = date
-        
-        DispatchQueue.main.async {
-            self.calendarView.reloadData()
-        }
-        
-    }
+//    func selectDate(_ date: Date) {
+//        //<<<<HERE
+//        self.calendarView.deselectAllDates()
+//        self.calendarView.selectDates([date])
+//        self.previouslySelectedDate = date
+//        
+//        DispatchQueue.main.async {
+//            self.calendarView.reloadData()
+//        }
+//        
+//    }
 }
 
 extension CustomCalendar: JTAppleCalendarViewDataSource {

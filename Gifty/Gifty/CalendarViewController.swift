@@ -101,7 +101,7 @@ class CalendarViewController: CustomViewController {
     func scrollToDateAndSelect(date: Date) {
         self.calendar.scrollToSelectedDate(date)
         self.hideShowInfoForSelectedDate(date, show: true)
-        self.calendar.selectDate(date)
+        //self.calendar.selectDate(date)
     }
     
     fileprivate func checkActionsComplete(events: [Event]) -> Bool {
