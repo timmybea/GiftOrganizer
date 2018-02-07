@@ -130,7 +130,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             cell.actionsButtonsView.isHidden = indexPath == selectedIndexPath ? false : true
             cell.delegate = self
             if let event = datasource?[indexPath.section].events[indexPath.row] {
-                cell.configureWith(event: event)
+                cell.configureWith(event: event, showBudget: false)
             }
             return cell
         }
@@ -278,7 +278,7 @@ extension EventTableView: EventTableViewCellDelegate {
             //update cell subviews according to checklist completion
             if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {
                 let event = self.datasource![(selectedIndexPath?.section)!].events[(selectedIndexPath?.row)!]
-                cell.configureWith(event: event)
+                cell.configureWith(event: event, showBudget: true)
             }
         }
     }

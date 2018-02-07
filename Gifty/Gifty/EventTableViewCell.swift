@@ -159,7 +159,7 @@ class EventTableViewCell: UITableViewCell {
     }
     
     
-    func configureWith(event: Event) {
+    func configureWith(event: Event, showBudget: Bool) {
         
         self.event = event
         
@@ -177,6 +177,10 @@ class EventTableViewCell: UITableViewCell {
             if count == 0 {
                 self.summaryLabel.text = "All actions completed"
                 completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
+                
+                if showBudget {
+                    self.budgetButtonTouched() //<<HERE
+                }
             } else if count > 0 {
                 if count == 1 {
                     self.summaryLabel.text = "1 incomplete action"
