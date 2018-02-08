@@ -6,6 +6,7 @@ target 'Gifty' do
   use_frameworks!
 pod 'JTAppleCalendar', '~> 7.1'
 pod 'RKPieChart', '~> 0.0'
+pod 'Google-Mobile-Ads-SDK'
 
   # Pods for Gifty
 

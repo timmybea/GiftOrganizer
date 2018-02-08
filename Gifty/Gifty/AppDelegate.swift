@@ -8,7 +8,7 @@
 
 import UIKit
 import GiftyBridge
-
+import GoogleMobileAds
 import CoreData
 
 @UIApplicationMain
@@ -31,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         statusBarBackgroundView.backgroundColor = UIColor.clear
         window?.addSubview(statusBarBackgroundView)
         statusBarBackgroundView.frame = CGRect(x: 0, y: 0, width: (window?.frame.width)!, height: 20)
+        
+        //MARK: setup interstitials
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544~1458002511")
+        InterstitialService.shared.createAndLoadInterstitial()
+        InterstitialTimer.shared.delegate = self
+        InterstitialTimer.shared.setupInterstitialTimer()
         
         return true
     }
@@ -112,6 +118,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let moc = CoreDataStorage.mainQueueContext()
         CoreDataStorage.saveContext(moc)
         
+        InterstitialTimer.shared.dispose()
+        InterstitialService.shared.dispose()
     }
+    
 }
 
+extension AppDelegate: InterstitialTimerDelegate {
+    
+    func interstitialTimerExecuted() {
+        if InterstitialService.shared.isShowing { return }
+        guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
+        guard let navCon = tabBarController.selectedViewController as? UINavigationController else { return }
+        guard let vc = navCon.topViewController else { return }
+        InterstitialService.shared.showInterstitial(in: vc)
+    }
+}

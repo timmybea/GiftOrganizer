@@ -38,6 +38,12 @@ class SettingsHandler: NSObject {
         }
     }
     
+    var showInterstitials: Bool = true {
+        willSet {
+            udStandard.set(newValue, forKey: key.showInterstitials.rawValue)
+        }
+    }
+    
     private let udStandard = UserDefaults.standard
     
     func getSettings() {
@@ -46,6 +52,7 @@ class SettingsHandler: NSObject {
         groups = udStandard.object(forKey: key.groups.rawValue) as? [String] ?? ["Colleagues", "Family", "Friends"]
         celebrations = udStandard.object(forKey: key.celebrations.rawValue) as? [String] ?? ["Baby Shower", "Birthday", "Graduation", "Wedding"]
         rounding = udStandard.object(forKey: key.rounding.rawValue) as? Float ?? 0.50
+        showInterstitials = udStandard.object(forKey: key.showInterstitials.rawValue) as? Bool ?? true
     }
     
     enum key: String {
@@ -53,5 +60,6 @@ class SettingsHandler: NSObject {
         case groups
         case celebrations
         case rounding
+        case showInterstitials
     }
 }

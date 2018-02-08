@@ -15,6 +15,8 @@
 		B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B00B53EA2011358800A2301F /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
 		B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */; };
+		B00FF3E8202CC777004CF10C /* InterstitialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E7202CC777004CF10C /* InterstitialService.swift */; };
+		B00FF3EA202CC787004CF10C /* InterstitialTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */; };
 		B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5731EFF21E300107B64 /* CustomCalendar.swift */; };
 		B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5751EFF221000107B64 /* CustomCalendarCell.swift */; };
 		B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */; };
@@ -154,6 +156,8 @@
 		B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftyTodayExtension.entitlements; sourceTree = "<group>"; };
 		B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionEvent.swift; sourceTree = "<group>"; };
 		B00EE8281FF48035005FC817 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		B00FF3E7202CC777004CF10C /* InterstitialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialService.swift; sourceTree = "<group>"; };
+		B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialTimer.swift; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B013B5751EFF221000107B64 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
 		B013B5771EFF233200107B64 /* DateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
@@ -294,6 +298,15 @@
 				386FB104C6CB606AE6CC98AA /* Pods-GiftyUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B00FF3E6202CC643004CF10C /* Interstitials */ = {
+			isa = PBXGroup;
+			children = (
+				B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */,
+				B00FF3E7202CC777004CF10C /* InterstitialService.swift */,
+			);
+			name = Interstitials;
 			sourceTree = "<group>";
 		};
 		B041F75A1EF899F500A3E332 = {
@@ -438,6 +451,7 @@
 		B0D514FD1F378092008A88A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B00FF3E6202CC643004CF10C /* Interstitials */,
 				B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */,
 				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
 				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
@@ -1027,6 +1041,7 @@
 				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
+				B00FF3EA202CC787004CF10C /* InterstitialTimer.swift in Sources */,
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
 				B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
@@ -1059,6 +1074,7 @@
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
+				B00FF3E8202CC777004CF10C /* InterstitialService.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
 				B07D34E61FF9C0A700626C36 /* AutoCompleteTextField.swift in Sources */,
 				B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */,
