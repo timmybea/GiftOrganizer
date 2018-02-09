@@ -15,33 +15,20 @@ protocol InterstitialTimerDelegate {
 
 class InterstitialTimer: NSObject {
     
-    private override init() { }
-    
-    private struct Static {
-        static var instance: InterstitialTimer?
-    }
-    
-    static var shared: InterstitialTimer {
-        if Static.instance == nil {
-            Static.instance = InterstitialTimer()
-        }
-        return Static.instance!
-    }
-
-    
     var delegate: InterstitialTimerDelegate?
-    
-    var initialFireInterval: TimeInterval = 30.0
-    var fireInterval: TimeInterval = 60.0 * 3
     
     var showInterstitials: Bool = SettingsHandler.shared.showInterstitials
     
     private var timer: Timer?
     
-    func setupInterstitialTimer() {
-        
-            self.timer = Timer(fireAt: Date(timeInterval: initialFireInterval, since: Date()), interval: 30.0, target: self, selector: #selector(execute), userInfo: nil, repeats: true)
+    func setupInterstitialTimer(timeInterval: TimeInterval) {
+            self.timer = Timer(fireAt: Date(timeInterval: timeInterval, since: Date()), interval: 0.0, target: self, selector: #selector(execute), userInfo: nil, repeats: false)
             RunLoop.main.add(timer!, forMode: RunLoopMode.commonModes)
+    }
+    
+    func removeTimerFromRunLoop() {
+        self.timer?.invalidate()
+        self.timer = nil
     }
     
     @objc
@@ -50,17 +37,6 @@ class InterstitialTimer: NSObject {
         
         if showInterstitials {
             self.delegate?.interstitialTimerExecuted()
-        } else {
-            self.dispose()
-            InterstitialService.shared.dispose()
         }
-        
     }
-    
-    
-    func dispose() {
-        self.timer?.invalidate()
-        InterstitialTimer.Static.instance = nil
-    }
-    
 }

@@ -15,7 +15,7 @@
 		B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B00B53EA2011358800A2301F /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
 		B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */; };
-		B00FF3E8202CC777004CF10C /* InterstitialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E7202CC777004CF10C /* InterstitialService.swift */; };
+		B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E7202CC777004CF10C /* GoogleAdService.swift */; };
 		B00FF3EA202CC787004CF10C /* InterstitialTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */; };
 		B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5731EFF21E300107B64 /* CustomCalendar.swift */; };
 		B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5751EFF221000107B64 /* CustomCalendarCell.swift */; };
@@ -46,6 +46,7 @@
 		B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */; };
 		B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070420B1F0D50DE00D6A027 /* AddDateView.swift */; };
 		B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */; };
+		B076AF1F202D1D6D00B54CDF /* InterstitialService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */; };
 		B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */; };
 		B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E21F677D5A004BD772 /* PresentationController.swift */; };
 		B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */; };
@@ -156,7 +157,7 @@
 		B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftyTodayExtension.entitlements; sourceTree = "<group>"; };
 		B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionEvent.swift; sourceTree = "<group>"; };
 		B00EE8281FF48035005FC817 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
-		B00FF3E7202CC777004CF10C /* InterstitialService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialService.swift; sourceTree = "<group>"; };
+		B00FF3E7202CC777004CF10C /* GoogleAdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAdService.swift; sourceTree = "<group>"; };
 		B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialTimer.swift; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B013B5751EFF221000107B64 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -195,6 +196,7 @@
 		B07042091F09A2DC00D6A027 /* CreateEventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		B070420B1F0D50DE00D6A027 /* AddDateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDateView.swift; sourceTree = "<group>"; };
 		B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoCompletePerson.swift; sourceTree = "<group>"; };
+		B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialService.swift; sourceTree = "<group>"; };
 		B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		B07A55E21F677D5A004BD772 /* PresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
 		B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayEventBudgetViewController.swift; sourceTree = "<group>"; };
@@ -304,7 +306,8 @@
 			isa = PBXGroup;
 			children = (
 				B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */,
-				B00FF3E7202CC777004CF10C /* InterstitialService.swift */,
+				B00FF3E7202CC777004CF10C /* GoogleAdService.swift */,
+				B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */,
 			);
 			name = Interstitials;
 			sourceTree = "<group>";
@@ -1051,6 +1054,7 @@
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
+				B076AF1F202D1D6D00B54CDF /* InterstitialService.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
@@ -1074,7 +1078,7 @@
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
-				B00FF3E8202CC777004CF10C /* InterstitialService.swift in Sources */,
+				B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
 				B07D34E61FF9C0A700626C36 /* AutoCompleteTextField.swift in Sources */,
 				B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */,

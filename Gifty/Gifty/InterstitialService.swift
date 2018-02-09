@@ -1,22 +1,32 @@
 //
 //  InterstitialService.swift
-//  InterstitialAdTest
+//  Gifty
 //
-//  Created by Tim Beals on 2018-02-06.
+//  Created by Tim Beals on 2018-02-08.
 //  Copyright © 2018 Tim Beals. All rights reserved.
 //
 
-import Foundation
-import GoogleMobileAds
+import UIKit
+
+protocol InterstitialServiceDelegate {
+    func interstitialTimerExecuted()
+}
 
 class InterstitialService: NSObject {
+
+    var delegate: InterstitialServiceDelegate?
     
-    var interstitialAd: GADInterstitial?
-    var isShowing = false
+    var initialFireInterval: TimeInterval = 30.0
+    var fireInterval: TimeInterval = 60.0 * 3
     
-    private override init() {}
+    var showInterstitials: Bool {
+        return SettingsHandler.shared.showInterstitials
+    }
+
+    private override init() {
+    }
     
-    struct Static {
+    private struct Static {
         fileprivate static var instance: InterstitialService?
     }
     
@@ -27,38 +37,51 @@ class InterstitialService: NSObject {
         return Static.instance!
     }
     
+    private lazy var adService: GoogleAdService = {
+        let gAd = GoogleAdService()
+        gAd.delegate = self
+        return gAd
+    }()
+    
+    private lazy var timer: InterstitialTimer = {
+        let t = InterstitialTimer()
+        t.delegate = self
+        return t
+    }()
+    
+    
     func createAndLoadInterstitial() {
-        
-        let request = GADRequest()
-        //test device - window/devices/identifier
-        request.testDevices = [kGADSimulatorID]
-        
-        //you need to create an adMob account and register the app
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
-        interstitial.delegate = self
-        interstitial.load(request)
-        self.interstitialAd = interstitial
+        self.adService.createAndLoadInterstitial()
+    }
+    
+    func setupTimer() {
+        self.timer.setupInterstitialTimer(timeInterval: initialFireInterval)
     }
     
     func showInterstitial(in vc: UIViewController) {
-        if let interstitial = self.interstitialAd {
-            if interstitial.isReady {
-                interstitial.present(fromRootViewController: vc)
-                isShowing = true
-            }
-        }
+        self.adService.showInterstitial(in: vc)
     }
     
+    
     func dispose() {
-        Static.instance = nil
+        self.timer.removeTimerFromRunLoop()
+        self.adService.interstitialAd = nil
     }
 }
 
-extension InterstitialService: GADInterstitialDelegate {
+extension InterstitialService: InterstitialTimerDelegate {
     
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        isShowing = false
-        createAndLoadInterstitial()
+    func interstitialTimerExecuted() {
+        if showInterstitials {
+            self.delegate?.interstitialTimerExecuted()
+        }
     }
+}
+
+extension InterstitialService: GoogleAdServiceDelegate {
     
+    func adWasDismissed() {
+        self.timer.removeTimerFromRunLoop()
+        self.timer.setupInterstitialTimer(timeInterval: initialFireInterval)
+    }
 }
