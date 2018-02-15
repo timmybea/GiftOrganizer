@@ -8,6 +8,7 @@
 
 import UIKit
 import GiftyBridge
+import CoreData
 
 protocol CreateEventViewControllerDelegate {
     

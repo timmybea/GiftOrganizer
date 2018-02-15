@@ -8,14 +8,13 @@
 
 import UIKit
 import GiftyBridge
-//import GoogleMobileAds
 import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -114,9 +113,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
-        let moc = CoreDataStorage.mainQueueContext()
-        CoreDataStorage.saveContext(moc)
-        
+        if let moc = DataPersistenceService.shared.dpMainQueueContext {
+            DataPersistenceService.shared.dpSaveToContext(moc)
+        }
+                
         InterstitialService.shared.dispose()
     }
     

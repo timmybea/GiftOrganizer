@@ -12,11 +12,16 @@ import CoreData
 public class EventFRC: NSObject {
     
     public static func frc() -> NSFetchedResultsController<Event>? {
+        guard let moc = CoreDataStorage.shared.mainQueueContext else { return nil }
+        
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
         let dateDescriptor = NSSortDescriptor(key: "date", ascending: true)
         fetchRequest.sortDescriptors = [dateDescriptor]
-        frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: "dateString", cacheName: nil)
+        
+        frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                         managedObjectContext: moc,
+                                         sectionNameKeyPath: "dateString", cacheName: nil)
   
         do {
             try frc?.performFetch()
@@ -27,6 +32,7 @@ public class EventFRC: NSObject {
     }
     
     public static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
+        guard let moc = CoreDataStorage.shared.mainQueueContext else { return nil }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
@@ -48,9 +54,9 @@ public class EventFRC: NSObject {
         return frc
     }
     
-    private static let moc = CoreDataStorage.mainQueueContext()
-    
     public static func updateMoc() {
+        guard let moc = CoreDataStorage.shared.mainQueueContext else { return }
+        
         do {
             try moc.save()
         } catch {

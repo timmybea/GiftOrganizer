@@ -12,9 +12,11 @@ import CoreData
 
 class PersonFRC: NSObject {
     
+    private static let moc = DataPersistenceService.shared.dpMainQueueContext
+    
     static func frc(byGroup bool: Bool) -> NSFetchedResultsController<Person>? {
         
-        //guard let moc = moc else { return nil }
+        guard let moc = moc else { return nil }
         
         let fetchRequest: NSFetchRequest<Person> = Person.fetchRequest()
         let frc: NSFetchedResultsController<Person>?
@@ -38,10 +40,8 @@ class PersonFRC: NSObject {
         return frc
     }
     
-    private static let moc = CoreDataStorage.mainQueueContext()
-    
     static func updateMoc() {
-        //guard let moc = moc else { return }
+        guard let moc = moc else { return }
         
         do {
             try moc.save()
@@ -57,7 +57,7 @@ class PersonFRC: NSObject {
         
         var person: Person?
         
-        //guard let moc = moc else { return nil }
+        guard let moc = moc else { return nil }
         
         do {
             person = try moc.fetch(fetchRequest).first

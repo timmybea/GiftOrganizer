@@ -20,7 +20,12 @@ struct SettingData {
                       SettingData(section: "Budget & Spending",
                                   settingCells: [SettingCellType(type: .textfield,
                                                                  args: [TFSettingsCellID.budgetAmt.rawValue]),
-                                                 SettingCellType(type: .scrollview, args: ["rounding"])])]
+                                                 SettingCellType(type: .scrollview, args: ["rounding"])]),
+                      
+                      SettingData(section: "Purchase & Review",
+                                  settingCells: [SettingCellType(type: .segue, args: ["Upgrade to full version"]),
+                                                 SettingCellType(type: .segue, args: ["Review this app"])])
+        ]
         return output
     }
 }

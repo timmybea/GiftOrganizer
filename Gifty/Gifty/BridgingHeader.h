@@ -2,7 +2,12 @@
 //  BridgingHeader.h
 //  Gifty
 //
-//  Created by Tim Beals on 2017-12-27.
-//  Copyright © 2017 Tim Beals. All rights reserved.
+//  Created by Tim Beals on 2018-02-15.
+//  Copyright © 2018 Tim Beals. All rights reserved.
 //
 
+#ifndef BridgingHeader_h
+#define BridgingHeader_h
+
+
+#endif /* BridgingHeader_h */

@@ -12,15 +12,15 @@ import CoreData
 
 class ManagedObjectBuilder: NSObject {
 
-    static let moc = CoreDataStorage.mainQueueContext()
+    static let moc = DataPersistenceService.shared.dpMainQueueContext
     
     //MARK: PERSON MODEL
     static func createPerson(firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {
     
-//        guard let moc = moc else {
-//            completion(false, nil)
-//            return
-//        }
+        guard let moc = moc else {
+            completion(false, nil)
+            return
+        }
         
         let person = Person(context: moc)
         person.id = UUID().uuidString
@@ -82,10 +82,10 @@ class ManagedObjectBuilder: NSObject {
     //MARK: EVENT MODEL
     static func addNewEventToPerson(date: Date, type: String, gift: ActionButton.SelectionStates, card: ActionButton.SelectionStates, phone: ActionButton.SelectionStates, person: Person, budgetAmt: Float, completion: (_ success: Bool, _ event: Event?) -> Void) {
         
-//        guard let moc = moc else {
-//            completion(false, nil)
-//            return
-//        }
+        guard let moc = moc else {
+            completion(false, nil)
+            return
+        }
         
         let event = Event(context: moc)
         event.id = UUID().uuidString
@@ -125,6 +125,8 @@ class ManagedObjectBuilder: NSObject {
 
         var fetchedEvents: [Event]?
         
+        guard let moc = moc else { return nil }
+        
         do {
             fetchedEvents = try moc.fetch(fetchRequest)
         } catch {
@@ -138,10 +140,10 @@ class ManagedObjectBuilder: NSObject {
     
     //MARK: SAVE
     static func saveChanges(completion: (_ success: Bool) -> Void) {
-//        guard let moc = moc else {
-//            completion(false)
-//            return
-//        }
+        guard let moc = moc else {
+            completion(false)
+            return
+        }
         
         do {
             try moc.save()

@@ -11,7 +11,6 @@
 		842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */; };
 		9395BA95A74AB8402D9BAFC8 /* Pods_GiftyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C30F863C942B547F235266 /* Pods_GiftyTests.framework */; };
 		B00B53E7201132AE00A2301F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
-		B00B53E8201134D200A2301F /* EventFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */; };
 		B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B00B53EA2011358800A2301F /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
 		B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */; };
@@ -30,6 +29,7 @@
 		B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */; };
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
 		B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */; };
+		B03B653E20363BF50045F95A /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
 		B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */; };
 		B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */; };
@@ -85,6 +85,8 @@
 		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
 		B0F0046620054BC900D9B6D0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F0046420054BC900D9B6D0 /* MainInterface.storyboard */; };
 		B0F0046A20054BC900D9B6D0 /* GiftyTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B0F4048B20361C9700112E6D /* DataPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F4048A20361C9700112E6D /* DataPersistenceService.swift */; };
+		B0F4048C203624F000112E6D /* EventFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */; };
 		B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */; };
 		B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */; };
 /* End PBXBuildFile section */
@@ -156,7 +158,6 @@
 		B00B53E520112E8000A2301F /* Gifty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gifty.entitlements; sourceTree = "<group>"; };
 		B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftyTodayExtension.entitlements; sourceTree = "<group>"; };
 		B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionEvent.swift; sourceTree = "<group>"; };
-		B00EE8281FF48035005FC817 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B00FF3E7202CC777004CF10C /* GoogleAdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAdService.swift; sourceTree = "<group>"; };
 		B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialTimer.swift; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
@@ -173,6 +174,7 @@
 		B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCalendar.swift; sourceTree = "<group>"; };
 		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsButtonsView.swift; sourceTree = "<group>"; };
+		B03B653F20363D250045F95A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PersonAssets.xcassets; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 		B0F0046220054BC900D9B6D0 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		B0F0046520054BC900D9B6D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B0F0046720054BC900D9B6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0F4048A20361C9700112E6D /* DataPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceService.swift; sourceTree = "<group>"; };
 		B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyHandler.swift; sourceTree = "<group>"; };
 		B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayHeader.swift; sourceTree = "<group>"; };
 		CF30C550C51DFC2BA7982DFC /* Pods-GiftyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B03B653E20363BF50045F95A /* GiftyBridge.framework in Frameworks */,
 				B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +314,14 @@
 				B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */,
 			);
 			name = Interstitials;
+			sourceTree = "<group>";
+		};
+		B03B654020363D6D0045F95A /* DatePersistence */ = {
+			isa = PBXGroup;
+			children = (
+				B0F4048A20361C9700112E6D /* DataPersistenceService.swift */,
+			);
+			name = DatePersistence;
 			sourceTree = "<group>";
 		};
 		B041F75A1EF899F500A3E332 = {
@@ -342,6 +354,7 @@
 		B041F7651EF899F500A3E332 /* Gifty */ = {
 			isa = PBXGroup;
 			children = (
+				B03B653F20363D250045F95A /* BridgingHeader.h */,
 				B00B53E520112E8000A2301F /* Gifty.entitlements */,
 				B0D514FC1F37803D008A88A4 /* App */,
 				B0D514FB1F378000008A88A4 /* CalendarTab */,
@@ -372,6 +385,7 @@
 		B041F7941EF89A0800A3E332 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -439,7 +453,7 @@
 		B0D514FC1F37803D008A88A4 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				B00EE8281FF48035005FC817 /* BridgingHeader.h */,
+				B03B654020363D6D0045F95A /* DatePersistence */,
 				B07A55DF1F677CC7004BD772 /* PresentationController */,
 				B0D515001F378212008A88A4 /* AppDelegate */,
 				B0D514FF1F3780A5008A88A4 /* Controller */,
@@ -454,12 +468,9 @@
 		B0D514FD1F378092008A88A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B00FF3E6202CC643004CF10C /* Interstitials */,
-				B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */,
-				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
-				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
-				B013B5771EFF233200107B64 /* DateHandler.swift */,
 				B041F7A21EF8A74A00A3E332 /* Helpers.swift */,
+				B00FF3E6202CC643004CF10C /* Interstitials */,
+				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
 				B0CA63271F0D7D3200C1A2B1 /* UIImage + Scale.swift */,
 				B0C205761F22D2C200C3E7ED /* Theme.swift */,
 				B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */,
@@ -597,7 +608,6 @@
 				B08833081FE48C570085BBD9 /* Model */,
 				B0AFD7951FBA31D1002F89FF /* View */,
 				B041F7941EF89A0800A3E332 /* Controller */,
-				B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */,
 			);
 			name = SettingsTab;
 			sourceTree = "<group>";
@@ -606,6 +616,10 @@
 			isa = PBXGroup;
 			children = (
 				B0DBFB7E201127F6009442F4 /* GiftyBridge.h */,
+				B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */,
+				B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */,
+				B013B5771EFF233200107B64 /* DateHandler.swift */,
+				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
 				B0DBFB7F201127F6009442F4 /* Info.plist */,
 			);
 			path = GiftyBridge;
@@ -614,7 +628,6 @@
 		B0DBFB8920112813009442F4 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1073,6 +1086,7 @@
 				B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */,
 				B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */,
 				B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */,
+				B0F4048B20361C9700112E6D /* DataPersistenceService.swift in Sources */,
 				B0CEC1F11FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift in Sources */,
 				B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */,
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
@@ -1112,9 +1126,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0F4048C203624F000112E6D /* EventFRC.swift in Sources */,
 				B00B53EA2011358800A2301F /* DateHandler.swift in Sources */,
 				B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */,
-				B00B53E8201134D200A2301F /* EventFRC.swift in Sources */,
 				B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */,
 				B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */,
 			);

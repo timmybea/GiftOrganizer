@@ -23,8 +23,7 @@ class InterstitialService: NSObject {
         return SettingsHandler.shared.showInterstitials
     }
 
-    private override init() {
-    }
+    private override init() {}
     
     private struct Static {
         fileprivate static var instance: InterstitialService?

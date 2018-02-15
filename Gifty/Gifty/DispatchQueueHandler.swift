@@ -18,8 +18,5 @@ enum DispatchQueueHandler {
             return DispatchQueue(label: "notificationQueue", qos: DispatchQoS.userInitiated)
         }
     }
-    
-    
-    
 }
 
