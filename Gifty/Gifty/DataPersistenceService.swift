@@ -11,33 +11,24 @@ import GiftyBridge
 import CoreData
 
 
-//I cannot access the protocol in the bridgin header, so here it is copied and adopted in an extension.
-public protocol DataPersistenceDependency {
-    func dpSaveToContext(_ context: NSManagedObjectContext?)
-    var dpMainQueueContext: NSManagedObjectContext? { get }
-    var dpPrivateQueueContext: NSManagedObjectContext? { get }
-}
+//Use dependency injection instead of adding the CoreDataStorage singleton to your project
 
-extension CoreDataStorage: DataPersistenceDependency {
+class DataPersistenceService: DataPersistence {
     
-    public func dpSaveToContext(_ context: NSManagedObjectContext?) {
-        CoreDataStorage.shared.saveToContext(context)
+    func saveToContext(_ context: NSManagedObjectContext?) {
+        self.dataPersistence.saveToContext(context)
     }
     
-    public var dpMainQueueContext: NSManagedObjectContext? {
-        return CoreDataStorage.shared.mainQueueContext
+    var mainQueueContext: NSManagedObjectContext? {
+        return self.dataPersistence.mainQueueContext
     }
     
-    public var dpPrivateQueueContext: NSManagedObjectContext? {
-        return CoreDataStorage.shared.privateQueueContext
+    var privateQueueContext: NSManagedObjectContext? {
+        return self.dataPersistence.privateQueueContext
     }
-}
-
-//And now here is the wrapper
-
-class DataPersistenceService: DataPersistenceDependency {
     
-    private var dataPersistence: DataPersistenceDependency
+    
+    private var dataPersistence: DataPersistence
     
     private init() {
         self.dataPersistence = CoreDataStorage.shared
@@ -52,17 +43,5 @@ class DataPersistenceService: DataPersistenceDependency {
             Static.instance = DataPersistenceService()
         }
         return Static.instance!
-    }
-    
-    func dpSaveToContext(_ context: NSManagedObjectContext?) {
-        self.dataPersistence.dpSaveToContext(context)
-    }
-    
-    var dpMainQueueContext: NSManagedObjectContext? {
-        return dataPersistence.dpMainQueueContext
-    }
-    
-    var dpPrivateQueueContext: NSManagedObjectContext? {
-        return dataPersistence.dpPrivateQueueContext
     }
 }

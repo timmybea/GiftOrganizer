@@ -12,7 +12,7 @@ import CoreData
 
 class ManagedObjectBuilder: NSObject {
 
-    static let moc = DataPersistenceService.shared.dpMainQueueContext
+    static let moc = DataPersistenceService.shared.mainQueueContext
     
     //MARK: PERSON MODEL
     static func createPerson(firstName: String, lastName: String?, group: String, profileImage: UIImage?, completion: (_ success: Bool, _ person: Person?) -> Void) {

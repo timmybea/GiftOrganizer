@@ -12,7 +12,7 @@ import CoreData
 
 class PersonFRC: NSObject {
     
-    private static let moc = DataPersistenceService.shared.dpMainQueueContext
+    private static let moc = DataPersistenceService.shared.mainQueueContext
     
     static func frc(byGroup bool: Bool) -> NSFetchedResultsController<Person>? {
         

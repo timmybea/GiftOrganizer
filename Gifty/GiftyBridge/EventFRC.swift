@@ -11,8 +11,10 @@ import CoreData
 
 public class EventFRC: NSObject {
     
+    static let dataPersistence: DataPersistence = CoreDataStorage.shared
+    
     public static func frc() -> NSFetchedResultsController<Event>? {
-        guard let moc = CoreDataStorage.shared.mainQueueContext else { return nil }
+        guard let moc = dataPersistence.mainQueueContext else { return nil }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
@@ -32,7 +34,7 @@ public class EventFRC: NSObject {
     }
     
     public static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
-        guard let moc = CoreDataStorage.shared.mainQueueContext else { return nil }
+        guard let moc = dataPersistence.mainQueueContext else { return nil }
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let frc: NSFetchedResultsController<Event>?
@@ -55,7 +57,7 @@ public class EventFRC: NSObject {
     }
     
     public static func updateMoc() {
-        guard let moc = CoreDataStorage.shared.mainQueueContext else { return }
+        guard let moc = dataPersistence.mainQueueContext else { return }
         
         do {
             try moc.save()

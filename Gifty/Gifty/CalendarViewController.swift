@@ -415,6 +415,15 @@ extension CalendarViewController: EventTableViewDelegate {
         }
     }
     
+    func didTouchReminder(for event: Event) {
+        let dest = ReminderTableviewController()
+        dest.event = event
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(dest, animated: true)
+        }
+    }
+    
     func didTouchBegin() {
         //DO NOTHING
     }

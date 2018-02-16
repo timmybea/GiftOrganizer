@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G1114" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Event" representedClassName="Event" syncable="YES" codeGenerationType="class">
         <attribute name="actualAmt" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="budgetAmt" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
@@ -13,6 +13,7 @@
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="person" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="event" inverseEntity="Person" syncable="YES"/>
     </entity>
+    <entity name="EventNotification" representedClassName="EventNotification" syncable="YES" codeGenerationType="class"/>
     <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
         <attribute name="alphabetisedName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="alphabetisedSection" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,6 +27,7 @@
     </entity>
     <elements>
         <element name="Event" positionX="-288" positionY="3" width="128" height="210"/>
+        <element name="EventNotification" positionX="-171" positionY="81" width="128" height="45"/>
         <element name="Person" positionX="-63" positionY="-18" width="128" height="178"/>
     </elements>
 </model>

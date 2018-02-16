@@ -12,6 +12,7 @@ import GiftyBridge
 protocol EventTableViewDelegate {
     func didTouchEditEvent(event: Event)
     func didTouchDeleteEvent(event: Event)
+    func didTouchReminder(for event: Event)
     func showBudgetInfo(for event: Event)
     func didTouchBegin()
 }
@@ -202,7 +203,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
         if displayMode != .pieChart {
             let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
                 if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                    self.delegate?.didTouchEditEvent(event: event)
+                    self.delegate!.didTouchEditEvent(event: event)
                 }
             }
             editAction.backgroundColor = Theme.colors.yellow.color
@@ -223,7 +224,15 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
                 
             }
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
-            return [deleteAction, editAction]
+            
+            let reminderAction = UITableViewRowAction(style: .default, title: "Reminder", handler: { (action, indexPath) in
+                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
+                    self.delegate?.didTouchReminder(for: event)
+                }
+            })
+            reminderAction.backgroundColor = Theme.colors.lightToneFour.color
+            
+            return [deleteAction, editAction, reminderAction]
         } else {
             return nil
         }

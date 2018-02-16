@@ -491,7 +491,6 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
     
-    
     func showBudgetInfo(for event: Event) {
         let overlayVC = OverlayEventBudgetViewController()
         self.transitioningDelegate = self.customTransitionDelegate
@@ -528,6 +527,15 @@ extension CreatePersonViewController: EventTableViewDelegate {
                                                     userInfo: userInfo)
                 }
             }
+        }
+    }
+    
+    func didTouchReminder(for event: Event) {
+        let dest = ReminderTableviewController()
+        dest.event = event
+        
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(dest, animated: true)
         }
     }
     
