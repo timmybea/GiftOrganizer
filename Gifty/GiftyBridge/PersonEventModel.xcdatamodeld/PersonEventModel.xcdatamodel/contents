@@ -11,9 +11,16 @@
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="phoneState" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventNotification" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EventNotification" inverseName="event" inverseEntity="EventNotification" syncable="YES"/>
         <relationship name="person" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="event" inverseEntity="Person" syncable="YES"/>
     </entity>
-    <entity name="EventNotification" representedClassName="EventNotification" syncable="YES" codeGenerationType="class"/>
+    <entity name="EventNotification" representedClassName="EventNotification" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="eventTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="eventNotification" inverseEntity="Event" syncable="YES"/>
+    </entity>
     <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
         <attribute name="alphabetisedName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="alphabetisedSection" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,8 +33,8 @@
         <relationship name="event" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="person" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-288" positionY="3" width="128" height="210"/>
-        <element name="EventNotification" positionX="-171" positionY="81" width="128" height="45"/>
-        <element name="Person" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Event" positionX="-164" positionY="-27" width="128" height="225"/>
+        <element name="EventNotification" positionX="-270" positionY="285" width="128" height="120"/>
+        <element name="Person" positionX="63" positionY="119" width="128" height="178"/>
     </elements>
 </model>

@@ -40,6 +40,10 @@
 		B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */; };
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
 		B06B7EB72037522E007D05FB /* ReminderTableviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B7EB62037522E007D05FB /* ReminderTableviewController.swift */; };
+		B06CF693203E2B6800072152 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF68F203E2B6700072152 /* NotificationModel.swift */; };
+		B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */; };
+		B06CF695203E2B6800072152 /* EventNotificationMOBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */; };
+		B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */; };
 		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
@@ -193,6 +197,10 @@
 		B041F7A21EF8A74A00A3E332 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventFRC.swift; sourceTree = "<group>"; };
 		B06B7EB62037522E007D05FB /* ReminderTableviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableviewController.swift; sourceTree = "<group>"; };
+		B06CF68F203E2B6700072152 /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationBuilder.swift; sourceTree = "<group>"; };
+		B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationMOBuilder.swift; sourceTree = "<group>"; };
+		B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationUNBuilder.swift; sourceTree = "<group>"; };
 		B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnContainerView.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
 		B07042051F06CC6200D6A027 /* CustomImageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageControl.swift; sourceTree = "<group>"; };
@@ -411,6 +419,17 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		B06CF68E203E2B4D00072152 /* EventNotification */ = {
+			isa = PBXGroup;
+			children = (
+				B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */,
+				B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */,
+				B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */,
+				B06CF68F203E2B6700072152 /* NotificationModel.swift */,
+			);
+			name = EventNotification;
+			sourceTree = "<group>";
+		};
 		B07A55DF1F677CC7004BD772 /* PresentationController */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,6 +489,7 @@
 		B0D514FD1F378092008A88A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B06CF68E203E2B4D00072152 /* EventNotification */,
 				B041F7A21EF8A74A00A3E332 /* Helpers.swift */,
 				B00FF3E6202CC643004CF10C /* Interstitials */,
 				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
@@ -1078,6 +1098,8 @@
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
 				B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */,
+				B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */,
+				B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */,
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
@@ -1095,6 +1117,7 @@
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
+				B06CF695203E2B6800072152 /* EventNotificationMOBuilder.swift in Sources */,
 				B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
 				B07D34E61FF9C0A700626C36 /* AutoCompleteTextField.swift in Sources */,
@@ -1106,6 +1129,7 @@
 				B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */,
 				B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */,
 				B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */,
+				B06CF693203E2B6800072152 /* NotificationModel.swift in Sources */,
 				B06B7EB72037522E007D05FB /* ReminderTableviewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

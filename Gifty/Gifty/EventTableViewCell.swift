@@ -179,7 +179,7 @@ class EventTableViewCell: UITableViewCell {
                 completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
                 
                 if showBudget {
-                    self.budgetButtonTouched() //<<HERE
+                    self.budgetButtonTouched()
                 }
             } else if count > 0 {
                 if count == 1 {
