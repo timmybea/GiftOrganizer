@@ -11,6 +11,14 @@ import GiftyBridge
 
 class ReminderTableviewController: CustomViewController {
 
+    var datasource: [EventNotification]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     var event: Event?
     
     //MARK: VIEWS
@@ -21,8 +29,9 @@ class ReminderTableviewController: CustomViewController {
         tv.allowsSelection = false
         tv.separatorStyle = .singleLine
         tv.separatorColor = Theme.colors.lightToneTwo.color
-//        tv.delegate = self
-//        tv.dataSource = self
+        tv.delegate = self
+        tv.dataSource = self
+        tv.register(EventReminderCell.self, forCellReuseIdentifier: "EventReminderCell")
         return tv
     }()
     
@@ -103,6 +112,12 @@ class ReminderTableviewController: CustomViewController {
         self.navigationItem.leftBarButtonItem = backButton
         
         self.title = "Reminders"
+        
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add,
+                                        target: self,
+                                        action: #selector(addEventNotificationTouched(sender:)))
+        navigationItem.rightBarButtonItem = addButton
     }
     
     override func viewWillLayoutSubviews() {
@@ -130,11 +145,17 @@ class ReminderTableviewController: CustomViewController {
         
         view.addSubview(eventTypeLabel)
         eventTypeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        //eventTypeLabel.leftAnchor.constraint(equalTo: monthLabel.leftAnchor, constant: 30).isActive = true
         eventTypeLabel.topAnchor.constraint(equalTo: monthLabel.topAnchor).isActive = true
         
-        setupViewsWithEvent()
+
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupViewsWithEvent()
+        setupDatasourceWithEvent()
+    }
+    
 
     func setupViewsWithEvent() {
         guard let event = self.event else { return }
@@ -146,51 +167,43 @@ class ReminderTableviewController: CustomViewController {
                 self.dayLabel.text = DateHandler.stringDayNum(from: date)
                 self.monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
             }
-            
- //           let count = countIncompleteActions(event: event)
-            
-//            if count == 0 {
-//                self.summaryLabel.text = "All actions completed"
-//                completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
-//
-//                if showBudget {
-//                    self.budgetButtonTouched() //<<HERE
-//                }
-//            } else if count > 0 {
-//                if count == 1 {
-//                    self.summaryLabel.text = "1 incomplete action"
-//                } else {
-//                    self.summaryLabel.text = "\(count) incomplete actions"
-//                }
-//                completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
-//            }
-        
-//            actionsButtonsView.configureButtonStatesFor(event: event)
-        
+    }
+    
+    private func setupDatasourceWithEvent() {
+        guard let notifications = event?.eventNotification as? Set<EventNotification> else { datasource = nil; return }
+        datasource = Array(notifications).sorted() { $0.date! < $1.date! }
     }
     
     @objc
     func backButtonTouched(sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc
+    func addEventNotificationTouched(sender: UIBarButtonItem) {
+        let dest = CreateEventNotificationViewController()
+        dest.event = self.event
+        self.navigationController?.pushViewController(dest, animated: true)
+    }
 }
 
-//extension ReminderTableviewController: UITableViewDelegate, UITableViewDataSource {
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        //
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        //
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        //
-//    }
-//
-//
-//
-//}
+extension ReminderTableviewController: UITableViewDelegate, UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.datasource?.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EventReminderCell") as? EventReminderCell else { return UITableViewCell() }
+        if let en = datasource?[indexPath.row] {
+            cell.configureCell(notification: en)
+        }
+        return cell
+    }
+
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 62
+    }
+}
 

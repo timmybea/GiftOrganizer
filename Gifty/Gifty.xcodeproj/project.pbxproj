@@ -44,6 +44,8 @@
 		B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */; };
 		B06CF695203E2B6800072152 /* EventNotificationMOBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */; };
 		B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */; };
+		B06CF698203E3A1C00072152 /* CreateEventNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF697203E3A1C00072152 /* CreateEventNotificationViewController.swift */; };
+		B06CF69A203E7A8800072152 /* EventReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF699203E7A8800072152 /* EventReminderCell.swift */; };
 		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
@@ -201,6 +203,8 @@
 		B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationBuilder.swift; sourceTree = "<group>"; };
 		B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationMOBuilder.swift; sourceTree = "<group>"; };
 		B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationUNBuilder.swift; sourceTree = "<group>"; };
+		B06CF697203E3A1C00072152 /* CreateEventNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventNotificationViewController.swift; sourceTree = "<group>"; };
+		B06CF699203E7A8800072152 /* EventReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReminderCell.swift; sourceTree = "<group>"; };
 		B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnContainerView.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
 		B07042051F06CC6200D6A027 /* CustomImageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageControl.swift; sourceTree = "<group>"; };
@@ -566,6 +570,7 @@
 				B08695AA1FDA2D6F00080855 /* PieChartCell.swift */,
 				B0FAB87D1F620699008EA9A1 /* EventDisplayHeader.swift */,
 				B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */,
+				B06CF699203E7A8800072152 /* EventReminderCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -575,6 +580,7 @@
 			children = (
 				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
 				B06B7EB62037522E007D05FB /* ReminderTableviewController.swift */,
+				B06CF697203E3A1C00072152 /* CreateEventNotificationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1103,6 +1109,7 @@
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
+				B06CF698203E3A1C00072152 /* CreateEventNotificationViewController.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
@@ -1110,6 +1117,7 @@
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,
 				B070420E1F0D5ED000D6A027 /* AutoCompletePerson.swift in Sources */,
 				B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */,
+				B06CF69A203E7A8800072152 /* EventReminderCell.swift in Sources */,
 				B07A55E11F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				B0F4048B20361C9700112E6D /* DataPersistenceService.swift in Sources */,
 				B0CEC1F11FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift in Sources */,
