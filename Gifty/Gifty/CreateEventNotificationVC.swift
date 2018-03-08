@@ -9,9 +9,13 @@
 import UIKit
 import GiftyBridge
 
-class CreateEventNotificationViewController: CustomViewController {
+class CreateEventNotificationVC: CustomViewController {
 
     var event: Event?
+    
+    var notificationDate: Date?
+    
+    var datasource = CENTableViewData.getData()
     
     let monthLabel: UILabel = {
         let label = UILabel()
@@ -42,6 +46,18 @@ class CreateEventNotificationViewController: CustomViewController {
         return label
     }()
     
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.separatorColor = UIColor.clear
+        tv.delegate = self
+        tv.dataSource = self
+        tv.backgroundColor = Theme.colors.offWhite.color
+        return tv
+    }()
+    
+    var tvBottomConstraint: NSLayoutConstraint!
+    
     let saveButton: ButtonTemplate = {
         let b = ButtonTemplate()
         b.setTitle("SAVE")
@@ -58,6 +74,14 @@ class CreateEventNotificationViewController: CustomViewController {
         setupNavigationBar()
         saveButton.addTarget(self, action: #selector(saveButtonTouched(sender:)), for: .touchUpInside)
         layoutSubviews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+        tableView.register(CENTitleTableViewCell.self, forCellReuseIdentifier: "CENtitle")
+        tableView.register(CENDateTableViewCell.self, forCellReuseIdentifier: "CENdate")
+        
         
 //        guard let event = self.event else { return }
 //        let nb = EventNotificationBuilder.newNotificaation(for: event)
@@ -108,6 +132,21 @@ class CreateEventNotificationViewController: CustomViewController {
             bgView.leftAnchor.constraint(equalTo: view.leftAnchor),
             bgView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
+        
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            ])
+        tvBottomConstraint = NSLayoutConstraint(item: tableView,
+                                                            attribute: .bottom,
+                                                            relatedBy: .equal,
+                                                            toItem: bgView,
+                                                            attribute: .top,
+                                                            multiplier: 1,
+                                                            constant: 0)
+        tvBottomConstraint.isActive = true
 
         view.addSubview(saveButton)
         let buttonframe = CGRect(x: pad,
@@ -142,5 +181,89 @@ class CreateEventNotificationViewController: CustomViewController {
     @objc
     func saveButtonTouched(sender: UIButton) {
         print("Save button touched")
+    }
+}
+
+//MARK: Keyboard notification handler
+extension CreateEventNotificationVC {
+    
+    @objc
+    func handleKeyboardNotification(sender: Notification) {
+        
+        if let userInfo = sender.userInfo {
+            guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+            
+            let keyboardUp = sender.name == Notification.Name.UIKeyboardWillShow
+            tvBottomConstraint.constant = keyboardUp ? CGFloat(-keyboardFrame.height) : -tabBarHeight + 40
+            UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: { (success) in
+                
+            })
+        }
+    }
+    
+    func addDateWasSelected() {
+        let destination = DatePickerViewController()
+        destination.delegate = self
+        
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
+
+}
+
+extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.datasource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let type = datasource[indexPath.row]
+        switch type {
+        case .date:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CENdate") as? CENDateTableViewCell
+            return cell!
+        case .title:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CENtitle") as? CENTitleTableViewCell
+            return cell!
+        case .body:
+            let cell = UITableViewCell()
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let type = datasource[indexPath.row]
+        switch type {
+        case .date:
+            return 60
+        case .title:
+            return 50
+        case .body:
+            return 50
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let type = datasource[indexPath.row]
+        switch type {
+        case .date:
+            addDateWasSelected()
+        case .title:
+            print("Title selected")
+        case .body:
+            print("body selected")
+        }
+    }
+}
+
+extension CreateEventNotificationVC : DatePickerViewControllerDelegate {
+    
+    func didSetDate(_ date: Date?) {
+        let ip = IndexPath(row: 0, section: 0) //hard code
+        if let cell = tableView.cellForRow(at: ip) as? CENDateTableViewCell {
+            cell.updateLabel(with: date)
+        }
     }
 }

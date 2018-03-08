@@ -181,7 +181,7 @@ class ReminderTableviewController: CustomViewController {
     
     @objc
     func addEventNotificationTouched(sender: UIBarButtonItem) {
-        let dest = CreateEventNotificationViewController()
+        let dest = CreateEventNotificationVC()
         dest.event = self.event
         self.navigationController?.pushViewController(dest, animated: true)
     }

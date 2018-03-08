@@ -25,6 +25,9 @@
 		B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5CC1F04497400107B64 /* DropDownTextField.swift */; };
 		B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3B1F05AD6B00805687 /* Contacts.framework */; };
 		B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3D1F05AD8300805687 /* ContactsUI.framework */; };
+		B022CF172051E905003F6F89 /* CENTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */; };
+		B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */; };
+		B022CF1E2051EDA8003F6F89 /* CENDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */; };
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
 		B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */; };
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
@@ -44,7 +47,7 @@
 		B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */; };
 		B06CF695203E2B6800072152 /* EventNotificationMOBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */; };
 		B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */; };
-		B06CF698203E3A1C00072152 /* CreateEventNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF697203E3A1C00072152 /* CreateEventNotificationViewController.swift */; };
+		B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */; };
 		B06CF69A203E7A8800072152 /* EventReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF699203E7A8800072152 /* EventReminderCell.swift */; };
 		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
@@ -177,6 +180,9 @@
 		B013B5CC1F04497400107B64 /* DropDownTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTextField.swift; sourceTree = "<group>"; };
 		B019FC3B1F05AD6B00805687 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		B019FC3D1F05AD8300805687 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
+		B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTitleTableViewCell.swift; sourceTree = "<group>"; };
+		B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTableViewData.swift; sourceTree = "<group>"; };
+		B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENDateTableViewCell.swift; sourceTree = "<group>"; };
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCalendar.swift; sourceTree = "<group>"; };
 		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
@@ -203,7 +209,7 @@
 		B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationBuilder.swift; sourceTree = "<group>"; };
 		B06CF691203E2B6800072152 /* EventNotificationMOBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationMOBuilder.swift; sourceTree = "<group>"; };
 		B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventNotificationUNBuilder.swift; sourceTree = "<group>"; };
-		B06CF697203E3A1C00072152 /* CreateEventNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventNotificationViewController.swift; sourceTree = "<group>"; };
+		B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventNotificationVC.swift; sourceTree = "<group>"; };
 		B06CF699203E7A8800072152 /* EventReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReminderCell.swift; sourceTree = "<group>"; };
 		B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnContainerView.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
@@ -328,6 +334,41 @@
 				B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */,
 			);
 			name = Interstitials;
+			sourceTree = "<group>";
+		};
+		B022CF152051E8DE003F6F89 /* CENCreateEventNotification */ = {
+			isa = PBXGroup;
+			children = (
+				B022CF1A2051EB29003F6F89 /* Controller */,
+				B022CF192051EB23003F6F89 /* View */,
+				B022CF182051EB1A003F6F89 /* Model */,
+			);
+			name = CENCreateEventNotification;
+			sourceTree = "<group>";
+		};
+		B022CF182051EB1A003F6F89 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B022CF192051EB23003F6F89 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */,
+				B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B022CF1A2051EB29003F6F89 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		B03B654020363D6D0045F95A /* DatePersistence */ = {
@@ -467,6 +508,7 @@
 		B0D514FB1F378000008A88A4 /* CalendarTab */ = {
 			isa = PBXGroup;
 			children = (
+				B022CF152051E8DE003F6F89 /* CENCreateEventNotification */,
 				B0D515091F37886D008A88A4 /* Controller */,
 				B0D515071F378857008A88A4 /* Model */,
 				B0D5150A1F378899008A88A4 /* Resources */,
@@ -580,7 +622,6 @@
 			children = (
 				B041F7971EF89B3D00A3E332 /* CalendarViewController.swift */,
 				B06B7EB62037522E007D05FB /* ReminderTableviewController.swift */,
-				B06CF697203E3A1C00072152 /* CreateEventNotificationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1095,7 +1136,9 @@
 				B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
+				B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
+				B022CF172051E905003F6F89 /* CENTitleTableViewCell.swift in Sources */,
 				B076AF1F202D1D6D00B54CDF /* InterstitialService.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
@@ -1109,7 +1152,7 @@
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
-				B06CF698203E3A1C00072152 /* CreateEventNotificationViewController.swift in Sources */,
+				B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
@@ -1133,6 +1176,7 @@
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */,
 				B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */,
+				B022CF1E2051EDA8003F6F89 /* CENDateTableViewCell.swift in Sources */,
 				B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */,
 				B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */,
 				B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */,
