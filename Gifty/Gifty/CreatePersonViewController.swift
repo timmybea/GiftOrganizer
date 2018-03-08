@@ -448,7 +448,6 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
         } else {
             self.firstName = string
         }
-        print("updated first name in vc to \(firstName ?? "")")
     }
     
     func didUpdateLastName(string: String) {
@@ -462,7 +461,6 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
             self.lastName = string
             
         }
-        print("updated last name in vc to \(lastName ?? "")")
     }
     
     func showNameChangeAlert(string: String, isfirstName: Bool) {

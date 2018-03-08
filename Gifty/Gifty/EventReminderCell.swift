@@ -85,9 +85,9 @@ class EventReminderCell: UITableViewCell {
         
         addSubview(leftEdge)
         NSLayoutConstraint.activate([
-            leftEdge.leftAnchor.constraint(equalTo: self.leftAnchor),
-            leftEdge.topAnchor.constraint(equalTo: self.topAnchor),
-            leftEdge.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            leftEdge.leftAnchor.constraint(equalTo: leftAnchor),
+            leftEdge.topAnchor.constraint(equalTo: topAnchor),
+            leftEdge.bottomAnchor.constraint(equalTo: bottomAnchor),
             leftEdge.widthAnchor.constraint(equalToConstant: 10)
             ])
         

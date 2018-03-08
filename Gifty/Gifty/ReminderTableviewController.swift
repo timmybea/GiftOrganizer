@@ -64,6 +64,7 @@ class ReminderTableviewController: CustomViewController {
         return label
     }()
     
+    
 //    let customBackground: UIView = {
 //        let view = UIView()
 //        view.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +113,6 @@ class ReminderTableviewController: CustomViewController {
         self.navigationItem.leftBarButtonItem = backButton
         
         self.title = "Reminders"
-        
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add,
                                         target: self,
