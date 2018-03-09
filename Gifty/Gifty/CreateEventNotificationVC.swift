@@ -13,7 +13,11 @@ class CreateEventNotificationVC: CustomViewController {
 
     var event: Event?
     
-    var notificationDate: Date?
+    var notificationDate: Date? {
+        return Date(timeInterval: 10.0, since: Date())
+    }
+    var notificationTitle: String?
+    var notificationBody: String?
     
     var datasource = CENTableViewData.getData()
     
@@ -83,15 +87,6 @@ class CreateEventNotificationVC: CustomViewController {
         tableView.register(CENTitleTableViewCell.self, forCellReuseIdentifier: "CENtitle")
         tableView.register(CENDateTableViewCell.self, forCellReuseIdentifier: "CENdate")
         tableView.register(CENBodyTableViewCell.self, forCellReuseIdentifier: "CENbody")
-        
-        
-//        guard let event = self.event else { return }
-//        let nb = EventNotificationBuilder.newNotificaation(for: event)
-//        nb.moBuilder.addDate(Date(timeInterval: 30.0, since: Date()))
-//            .addMessage("This is my message")
-//            .addTitle("Hello!")
-//        _ = nb.createNewNotification()
-//        nb.saveChanges(DataPersistenceService.shared)
     }
     
     private func setupNavigationBar() {
@@ -182,7 +177,19 @@ class CreateEventNotificationVC: CustomViewController {
     
     @objc
     func saveButtonTouched(sender: UIButton) {
-        print("Save button touched")
+        guard let event = self.event else { return }
+        guard let d = self.notificationDate else { return }
+        guard let t = self.notificationTitle else { return }
+        guard let b = self.notificationBody else { return }
+        
+        let nb = EventNotificationBuilder.newNotificaation(for: event)
+        nb.moBuilder.addDate(d)
+            .addTitle(t)
+            .addMessage(b)
+        _ = nb.createNewNotification()
+        nb.saveChanges(DataPersistenceService.shared)
+        
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -230,9 +237,11 @@ extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource 
             return cell!
         case .title:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CENtitle") as? CENTitleTableViewCell
+            cell?.delegate = self
             return cell!
         case .body:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CENbody") as? CENBodyTableViewCell
+            cell?.delegate = self
             return cell!
         }
     }
@@ -271,3 +280,20 @@ extension CreateEventNotificationVC : DatePickerViewControllerDelegate {
         }
     }
 }
+
+extension CreateEventNotificationVC : CENBodyCellDelegate {
+    
+    func finishedEditing(text: String) {
+        self.notificationBody = text
+    }
+
+}
+
+extension CreateEventNotificationVC : CENTitleCellDelegate {
+
+    func editingFinished(text: String) {
+        self.notificationTitle = text
+    }
+    
+}
+

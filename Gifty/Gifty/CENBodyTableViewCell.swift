@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CENBodyCellDelegate {
+    func finishedEditing(text: String)
+}
+
 class CENBodyTableViewCell: UITableViewCell {
     
     let clearframe: UIView = {
@@ -51,6 +55,8 @@ class CENBodyTableViewCell: UITableViewCell {
     }()
     
     var count = 120
+    
+    var delegate: CENBodyCellDelegate?
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -116,6 +122,11 @@ extension CENBodyTableViewCell: UITextViewDelegate {
         }
         
         countLabel.text = String(120 - textView.text.count)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let t = textView.text else { return }
+        delegate?.finishedEditing(text: t)
     }
     
 }

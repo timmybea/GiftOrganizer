@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol CENTitleCellDelegate {
+    func editingFinished(text: String)
+}
+
 class CENTitleTableViewCell: UITableViewCell {
 
     let textField: UITextField = {
@@ -27,6 +31,8 @@ class CENTitleTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    var delegate: CENTitleCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,20 +80,8 @@ extension CENTitleTableViewCell: UITextFieldDelegate {
         let firstChar = input.removeFirst()
         let capitalized = String(firstChar).uppercased() + input
         textField.text = capitalized
+        
+        delegate?.editingFinished(text: capitalized)
     }
-
-//
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//
-//        guard let use = args?.first else { return true }
-//        if let id = TFSettingsCellID.init(rawValue: use) {
-//            self.delegate?.beganEditingCell(with: id)
-//        }
-//        if use == TFSettingsCellID.budgetAmt.rawValue {
-//
-//            textField.text = "$"
-//        }
-//        return true
-//    }
 }
 
