@@ -50,6 +50,7 @@ class CreateEventNotificationVC: CustomViewController {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.separatorColor = UIColor.clear
+        tv.isScrollEnabled = false
         tv.delegate = self
         tv.dataSource = self
         tv.backgroundColor = Theme.colors.offWhite.color
@@ -81,6 +82,7 @@ class CreateEventNotificationVC: CustomViewController {
         
         tableView.register(CENTitleTableViewCell.self, forCellReuseIdentifier: "CENtitle")
         tableView.register(CENDateTableViewCell.self, forCellReuseIdentifier: "CENdate")
+        tableView.register(CENBodyTableViewCell.self, forCellReuseIdentifier: "CENbody")
         
         
 //        guard let event = self.event else { return }
@@ -142,10 +144,10 @@ class CreateEventNotificationVC: CustomViewController {
         tvBottomConstraint = NSLayoutConstraint(item: tableView,
                                                             attribute: .bottom,
                                                             relatedBy: .equal,
-                                                            toItem: bgView,
-                                                            attribute: .top,
+                                                            toItem: view,
+                                                            attribute: .bottom,
                                                             multiplier: 1,
-                                                            constant: 0)
+                                                            constant: -(tabBarHeight + pad + 35 + pad))
         tvBottomConstraint.isActive = true
 
         view.addSubview(saveButton)
@@ -189,13 +191,15 @@ extension CreateEventNotificationVC {
     
     @objc
     func handleKeyboardNotification(sender: Notification) {
-        
         if let userInfo = sender.userInfo {
             guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
             
             let keyboardUp = sender.name == Notification.Name.UIKeyboardWillShow
-            tvBottomConstraint.constant = keyboardUp ? CGFloat(-keyboardFrame.height) : -tabBarHeight + 40
-            UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
+            tvBottomConstraint.constant = keyboardUp ? CGFloat(-keyboardFrame.height) : -(tabBarHeight + pad + 35 + pad)
+            let duration = keyboardUp ? 0.0 : 0.0
+            let delay = keyboardUp ? 0.1 : 0.0
+
+            UIView.animate(withDuration: duration, delay: delay, options: .curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
             }, completion: { (success) in
                 
@@ -228,8 +232,8 @@ extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource 
             let cell = tableView.dequeueReusableCell(withIdentifier: "CENtitle") as? CENTitleTableViewCell
             return cell!
         case .body:
-            let cell = UITableViewCell()
-            return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CENbody") as? CENBodyTableViewCell
+            return cell!
         }
     }
     
@@ -241,7 +245,7 @@ extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource 
         case .title:
             return 50
         case .body:
-            return 50
+            return 180
         }
     }
     

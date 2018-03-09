@@ -28,6 +28,7 @@
 		B022CF172051E905003F6F89 /* CENTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */; };
 		B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */; };
 		B022CF1E2051EDA8003F6F89 /* CENDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */; };
+		B022CF20205314EB003F6F89 /* CENBodyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1F205314EB003F6F89 /* CENBodyTableViewCell.swift */; };
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
 		B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */; };
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
@@ -183,6 +184,7 @@
 		B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTitleTableViewCell.swift; sourceTree = "<group>"; };
 		B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTableViewData.swift; sourceTree = "<group>"; };
 		B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENDateTableViewCell.swift; sourceTree = "<group>"; };
+		B022CF1F205314EB003F6F89 /* CENBodyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENBodyTableViewCell.swift; sourceTree = "<group>"; };
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCalendar.swift; sourceTree = "<group>"; };
 		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		B022CF182051EB1A003F6F89 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B06CF68E203E2B4D00072152 /* Builders */,
 				B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */,
 			);
 			name = Model;
@@ -359,6 +362,7 @@
 			children = (
 				B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */,
 				B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */,
+				B022CF1F205314EB003F6F89 /* CENBodyTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -464,7 +468,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		B06CF68E203E2B4D00072152 /* EventNotification */ = {
+		B06CF68E203E2B4D00072152 /* Builders */ = {
 			isa = PBXGroup;
 			children = (
 				B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */,
@@ -472,7 +476,7 @@
 				B06CF692203E2B6800072152 /* EventNotificationUNBuilder.swift */,
 				B06CF68F203E2B6700072152 /* NotificationModel.swift */,
 			);
-			name = EventNotification;
+			name = Builders;
 			sourceTree = "<group>";
 		};
 		B07A55DF1F677CC7004BD772 /* PresentationController */ = {
@@ -535,7 +539,6 @@
 		B0D514FD1F378092008A88A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B06CF68E203E2B4D00072152 /* EventNotification */,
 				B041F7A21EF8A74A00A3E332 /* Helpers.swift */,
 				B00FF3E6202CC643004CF10C /* Interstitials */,
 				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
@@ -1148,6 +1151,7 @@
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
 				B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */,
 				B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */,
+				B022CF20205314EB003F6F89 /* CENBodyTableViewCell.swift in Sources */,
 				B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */,
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,

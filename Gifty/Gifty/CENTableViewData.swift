@@ -11,7 +11,7 @@ import Foundation
 struct CENTableViewData {
     
     static func getData() -> [CENCellType] {
-        return [.date]
+        return [.date, .title, .body]
     }
 }
 
