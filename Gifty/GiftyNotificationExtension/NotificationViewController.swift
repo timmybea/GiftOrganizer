@@ -36,7 +36,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.bounds.size = CGSize(width: 320, height: 220)
+        //self.view.bounds.size = CGSize(width: 320, height: 60)
         self.view.backgroundColor = UIColor.clear
     
         setupSubviews()
@@ -58,7 +58,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     func didReceive(_ notification: UNNotification) {
-        //self.label?.text = notification.request.content.body
+        guard let date = notification.request.content.userInfo["date"] as? Date else { return }
+        
+        monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
+        dayLabel.text = DateHandler.stringDayNum(from: date)
     }
 
 }

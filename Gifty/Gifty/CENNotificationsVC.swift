@@ -103,7 +103,7 @@ class CENNotificationsVC: CustomViewController {
         // Do any additional setup after loading the view.
         setupNavigationBar()
     }
-    
+
     
     private func setupNavigationBar() {
         navigationItem.hidesBackButton = true
@@ -127,27 +127,29 @@ class CENNotificationsVC: CustomViewController {
         monthLabel.removeFromSuperview()
         tableView.removeFromSuperview()
         
-        
         view.addSubview(monthLabel)
-        monthLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad).isActive = true
-        monthLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
+        NSLayoutConstraint.activate([
+            monthLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            monthLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70)
+            ])
         
         view.addSubview(dayLabel)
-        dayLabel.topAnchor.constraint(equalTo: monthLabel.bottomAnchor, constant: -4).isActive = true
-        dayLabel.centerXAnchor.constraint(equalTo: monthLabel.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            dayLabel.topAnchor.constraint(equalTo: monthLabel.bottomAnchor, constant: -4),
+            dayLabel.centerXAnchor.constraint(equalTo: monthLabel.centerXAnchor)
+            ])
         
+        view.addSubview(eventTypeLabel)
+        NSLayoutConstraint.activate([
+            eventTypeLabel.centerXAnchor.constraint(equalTo: dayLabel.centerXAnchor),
+            eventTypeLabel.topAnchor.constraint(equalTo: dayLabel.bottomAnchor, constant: -4)
+            ])
         
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: dayLabel.bottomAnchor, constant: pad).isActive = true
+        tableView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad).isActive = true
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
-        view.addSubview(eventTypeLabel)
-        eventTypeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        eventTypeLabel.topAnchor.constraint(equalTo: monthLabel.topAnchor).isActive = true
-        
-
     }
     
     
@@ -204,6 +206,43 @@ extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 62
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+            let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+                //remove notification from UN
+                let notification = self.datasource![indexPath.row]
+                //EventNotificationBuilder.deleteNotification()
+                
+                
+                //delete notification from CoreData
+                //refresh datasource and tableview
+                //animation for delete in tableview
+                
+                
+                
+                //                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
+//                    tableView.beginUpdates()
+//                    if self.datasource![indexPath.section].events.count > 1 {
+//                        self.datasource![indexPath.section].events.remove(at: indexPath.row)
+//                        tableView.deleteRows(at: [indexPath], with: .fade)
+//                    } else {
+//                        self.datasource!.remove(at: indexPath.section)
+//                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+//                    }
+//                    tableView.endUpdates()
+//                    self.delegate?.didTouchDeleteEvent(event: event)
+//                }
+                
+            }
+            deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
+            
+            return [deleteAction]
+    }
+    
+    //Mark: ensure that editing is available for all cells except pieChartCll
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
 

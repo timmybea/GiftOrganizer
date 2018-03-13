@@ -106,11 +106,8 @@ class CENBodyTableViewCell: UITableViewCell {
 
 extension CENBodyTableViewCell: UITextViewDelegate {
     
-    
-    
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.last == "\n", var t = textView.text {
-            print("RETURN HIT")
             _ = t.removeLast()
             textView.text = t
             textView.resignFirstResponder()
