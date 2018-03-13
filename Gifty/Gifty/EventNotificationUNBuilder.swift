@@ -60,9 +60,12 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
         
         guard let title = eventNotification.eventTitle, let body = eventNotification.message, let date = eventNotification.date, let id = eventNotification.id else { return }
         
-        //content, trigger, request
+        guard let fullName = eventNotification.event?.person?.fullName,
+            let type = eventNotification.event?.type else { return }
+        
         let content = UNMutableNotificationContent()
-        content.title = title
+        content.title = "\(fullName) • \(type)"
+        content.subtitle = title
         content.body = body
         content.sound = .default()
         content.categoryIdentifier = NotificationModel.event.categoryId

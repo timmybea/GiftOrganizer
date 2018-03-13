@@ -9,7 +9,7 @@
 import UIKit
 import GiftyBridge
 
-class ReminderTableviewController: CustomViewController {
+class CENNotificationsVC: CustomViewController {
 
     var datasource: [EventNotification]? {
         didSet {
@@ -187,7 +187,7 @@ class ReminderTableviewController: CustomViewController {
     }
 }
 
-extension ReminderTableviewController: UITableViewDelegate, UITableViewDataSource {
+extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.datasource?.count ?? 0

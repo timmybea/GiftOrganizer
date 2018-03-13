@@ -416,7 +416,7 @@ extension CalendarViewController: EventTableViewDelegate {
     }
     
     func didTouchReminder(for event: Event) {
-        let dest = ReminderTableviewController()
+        let dest = CENNotificationsVC()
         dest.event = event
         
         DispatchQueue.main.async {

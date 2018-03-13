@@ -39,19 +39,16 @@ class EventNotificationMOBuilder {
     }
     
     //changing values for properties
-    func addTitle(_ title: String) -> EventNotificationMOBuilder {
+    func addTitle(_ title: String) {
         self.eventNotification?.eventTitle = title
-        return self
     }
     
-    func addDate(_ date: Date) -> EventNotificationMOBuilder{
+    func addDate(_ date: Date) {
         self.eventNotification?.date = date
-        return self
     }
     
-    func addMessage(_ message: String) -> EventNotificationMOBuilder {
+    func addMessage(_ message: String) {
         self.eventNotification?.message = message
-        return self
     }
     
     private func canReturnEventNotification() -> Bool {

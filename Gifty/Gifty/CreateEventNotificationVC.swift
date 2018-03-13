@@ -184,8 +184,8 @@ class CreateEventNotificationVC: CustomViewController {
         
         let nb = EventNotificationBuilder.newNotificaation(for: event)
         nb.moBuilder.addDate(d)
-            .addTitle(t)
-            .addMessage(b)
+        nb.moBuilder.addTitle(t)
+        nb.moBuilder.addMessage(b)
         _ = nb.createNewNotification()
         nb.saveChanges(DataPersistenceService.shared)
         
