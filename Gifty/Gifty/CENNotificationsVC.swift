@@ -25,13 +25,15 @@ class CENNotificationsVC: CustomViewController {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.rowHeight = UITableViewAutomaticDimension
+        tv.estimatedRowHeight = 62
         tv.backgroundColor = Theme.colors.offWhite.color
         tv.allowsSelection = false
         tv.separatorStyle = .singleLine
         tv.separatorColor = Theme.colors.lightToneTwo.color
         tv.delegate = self
         tv.dataSource = self
-        tv.register(EventReminderCell.self, forCellReuseIdentifier: "EventReminderCell")
+        tv.register(CENReminderTableViewCell.self, forCellReuseIdentifier: "EventReminderCell")
         return tv
     }()
     
@@ -100,6 +102,7 @@ class CENNotificationsVC: CustomViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         // Do any additional setup after loading the view.
         setupNavigationBar()
     }
@@ -196,44 +199,25 @@ extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EventReminderCell") as? EventReminderCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EventReminderCell") as? CENReminderTableViewCell else { return UITableViewCell() }
         if let en = datasource?[indexPath.row] {
             cell.configureCell(notification: en)
         }
         return cell
     }
-
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 62
-    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
             let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
-                //remove notification from UN
-                let notification = self.datasource![indexPath.row]
-                //EventNotificationBuilder.deleteNotification()
+                //remove from data source and table
+                tableView.beginUpdates()
+                let notification = self.datasource!.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
                 
-                
-                //delete notification from CoreData
-                //refresh datasource and tableview
-                //animation for delete in tableview
-                
-                
-                
-                //                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-//                    tableView.beginUpdates()
-//                    if self.datasource![indexPath.section].events.count > 1 {
-//                        self.datasource![indexPath.section].events.remove(at: indexPath.row)
-//                        tableView.deleteRows(at: [indexPath], with: .fade)
-//                    } else {
-//                        self.datasource!.remove(at: indexPath.section)
-//                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-//                    }
-//                    tableView.endUpdates()
-//                    self.delegate?.didTouchDeleteEvent(event: event)
-//                }
-                
+                let builder = EventNotificationBuilder.updateNotification(notification)
+                builder.deleteNotification()
+                builder.saveChanges(DataPersistenceService.shared)
+
             }
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
             

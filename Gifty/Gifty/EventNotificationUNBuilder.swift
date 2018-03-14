@@ -44,12 +44,12 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
 
     private func createActionsCategories() {
         //action, category
-        let action = UNNotificationAction(identifier: NotificationModel.event.actionId,
-                                          title: "DEFAULT TEXT",
-                                          options: [.foreground])
+//        let action = UNNotificationAction(identifier: NotificationModel.event.actionId,
+//                                          title: "DEFAULT TEXT",
+//                                          options: [.foreground])
         
         let category = UNNotificationCategory(identifier: NotificationModel.event.categoryId,
-                                              actions: [action],
+                                              actions: [],
                                               intentIdentifiers: [])
         
         unCenter.setNotificationCategories([category])
@@ -58,7 +58,7 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
     //protocol method
     func createUNNotification(eventNotification: EventNotification) {
         
-        guard let title = eventNotification.eventTitle, let body = eventNotification.message, let date = eventNotification.date, let id = eventNotification.id else { return }
+        guard let title = eventNotification.title, let body = eventNotification.message, let date = eventNotification.date, let id = eventNotification.id else { return }
         
         guard let fullName = eventNotification.event?.person?.fullName,
             let type = eventNotification.event?.type else { return }
@@ -69,7 +69,7 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
         content.userInfo = ["date" : eventDate]
         content.title = title
         let formattedDate = DateHandler.describeDate(eventDate)
-        content.body = "\(body)\n\(formattedDate) • \(fullName) • \(type)"
+        content.body = "\(body)\n\n\(formattedDate) • \(fullName) • \(type)"
         content.sound = .default()
         content.categoryIdentifier = NotificationModel.event.categoryId
         

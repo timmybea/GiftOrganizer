@@ -22,6 +22,7 @@ class EventNotificationMOBuilder {
         
         self.eventNotification = EventNotification(context: moc)
         self.eventNotification?.id = UUID().uuidString
+        self.eventNotification?.completed = false
         event.addToEventNotification(self.eventNotification!)
     }
     
@@ -40,7 +41,7 @@ class EventNotificationMOBuilder {
     
     //changing values for properties
     func addTitle(_ title: String) {
-        self.eventNotification?.eventTitle = title
+        self.eventNotification?.title = title
     }
     
     func addDate(_ date: Date) {
@@ -52,7 +53,7 @@ class EventNotificationMOBuilder {
     }
     
     private func canReturnEventNotification() -> Bool {
-        guard self.eventNotification?.eventTitle != nil else { return false }
+        guard self.eventNotification?.title != nil else { return false }
         guard self.eventNotification?.message != nil else { return false }
         guard self.eventNotification?.id != nil else { return false }
         guard self.eventNotification?.date != nil else { return false }
