@@ -37,6 +37,7 @@ enum ImageNames: String {
     case budget = "budget"
     case settingsIcon = "settings"
     case expandArrow = "expand_arrow"
+    case gift = "gift"
 }
 
 struct Notifications {

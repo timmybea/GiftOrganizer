@@ -44,13 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         let calendarVC = UINavigationController.setupCustomNavigationController(CalendarViewController())
         let peopleVC = UINavigationController.setupCustomNavigationController(PeopleViewController())
+        let giftVC = UINavigationController.setupCustomNavigationController(CGCreateGiftViewController())
         let settingsVC = UINavigationController.setupCustomNavigationController(SettingsViewController())
-        tabBarController.viewControllers = [calendarVC, peopleVC, settingsVC]
+        tabBarController.viewControllers = [calendarVC, peopleVC, giftVC, settingsVC]
         tabBarController.tabBar.barTintColor = Theme.colors.darkPurple.color
         tabBarController.tabBar.unselectedItemTintColor = Theme.colors.lightToneOne.color
         tabBarController.tabBar.tintColor = UIColor.white
         
-        let icons = [ImageNames.calendarIcon.rawValue, ImageNames.peopleIcon.rawValue, ImageNames.settingsIcon.rawValue]
+        let icons = [ImageNames.calendarIcon.rawValue, ImageNames.peopleIcon.rawValue, ImageNames.gift.rawValue ,ImageNames.settingsIcon.rawValue]
         for (index, item) in tabBarController.tabBar.items!.enumerated() {
             item.title = ""
             item.image = UIImage(named: icons[index])?.withRenderingMode(.alwaysTemplate)

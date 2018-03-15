@@ -51,6 +51,8 @@
 		B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */; };
 		B06CF69A203E7A8800072152 /* CENReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF699203E7A8800072152 /* CENReminderTableViewCell.swift */; };
 		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
+		B06F41E7205B27880083A28F /* CGCreateGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F41E6205B27880083A28F /* CGCreateGiftViewController.swift */; };
+		B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F41E8205B2E080083A28F /* GiftBuilder.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
 		B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042071F06DAE000D6A027 /* EventTableView.swift */; };
@@ -228,6 +230,8 @@
 		B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventNotificationVC.swift; sourceTree = "<group>"; };
 		B06CF699203E7A8800072152 /* CENReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENReminderTableViewCell.swift; sourceTree = "<group>"; };
 		B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnContainerView.swift; sourceTree = "<group>"; };
+		B06F41E6205B27880083A28F /* CGCreateGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGCreateGiftViewController.swift; sourceTree = "<group>"; };
+		B06F41E8205B2E080083A28F /* GiftBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBuilder.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
 		B07042051F06CC6200D6A027 /* CustomImageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageControl.swift; sourceTree = "<group>"; };
 		B07042071F06DAE000D6A027 /* EventTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableView.swift; sourceTree = "<group>"; };
@@ -450,6 +454,7 @@
 				B0D514FC1F37803D008A88A4 /* App */,
 				B0D514FB1F378000008A88A4 /* CalendarTab */,
 				B0D5150B1F37890C008A88A4 /* PersonTab */,
+				B06F41E1205B26C60083A28F /* GiftTab */,
 				B0D5150F1F378A63008A88A4 /* SettingsTab */,
 			);
 			path = Gifty;
@@ -509,6 +514,47 @@
 				B06CF68F203E2B6700072152 /* NotificationModel.swift */,
 			);
 			name = Builders;
+			sourceTree = "<group>";
+		};
+		B06F41E1205B26C60083A28F /* GiftTab */ = {
+			isa = PBXGroup;
+			children = (
+				B06F41E2205B26FB0083A28F /* CGCreateGift */,
+			);
+			name = GiftTab;
+			sourceTree = "<group>";
+		};
+		B06F41E2205B26FB0083A28F /* CGCreateGift */ = {
+			isa = PBXGroup;
+			children = (
+				B06F41E5205B27560083A28F /* View */,
+				B06F41E4205B27260083A28F /* Model */,
+				B06F41E3205B271B0083A28F /* Controller */,
+			);
+			name = CGCreateGift;
+			sourceTree = "<group>";
+		};
+		B06F41E3205B271B0083A28F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B06F41E6205B27880083A28F /* CGCreateGiftViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B06F41E4205B27260083A28F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B06F41E8205B2E080083A28F /* GiftBuilder.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B06F41E5205B27560083A28F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		B07A55DF1F677CC7004BD772 /* PresentationController */ = {
@@ -1213,6 +1259,7 @@
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
+				B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
@@ -1224,6 +1271,7 @@
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */,
+				B06F41E7205B27880083A28F /* CGCreateGiftViewController.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,

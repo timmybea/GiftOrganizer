@@ -22,6 +22,12 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="eventNotification" inverseEntity="Event" syncable="YES"/>
     </entity>
+    <entity name="Gift" representedClassName="Gift" syncable="YES" codeGenerationType="class">
+        <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="person" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="gift" inverseEntity="Person" syncable="YES"/>
+    </entity>
     <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
         <attribute name="alphabetisedName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="alphabetisedSection" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,10 +38,12 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <relationship name="event" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="person" inverseEntity="Event" syncable="YES"/>
+        <relationship name="gift" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Gift" inverseName="person" inverseEntity="Gift" syncable="YES"/>
     </entity>
     <elements>
         <element name="Event" positionX="-164" positionY="-27" width="128" height="225"/>
         <element name="EventNotification" positionX="-270" positionY="285" width="128" height="133"/>
-        <element name="Person" positionX="63" positionY="119" width="128" height="178"/>
+        <element name="Person" positionX="63" positionY="119" width="128" height="195"/>
+        <element name="Gift" positionX="-0" positionY="372" width="128" height="103"/>
     </elements>
 </model>
