@@ -406,18 +406,17 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		B03B654020363D6D0045F95A /* DatePersistence */ = {
+		B03B654020363D6D0045F95A /* DataPersistence */ = {
 			isa = PBXGroup;
 			children = (
 				B0F4048A20361C9700112E6D /* DataPersistenceService.swift */,
 			);
-			name = DatePersistence;
+			name = DataPersistence;
 			sourceTree = "<group>";
 		};
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
-				B0DBFB8920112813009442F4 /* Shared */,
 				B041F7651EF899F500A3E332 /* Gifty */,
 				B041F77A1EF899F500A3E332 /* GiftyTests */,
 				B041F7851EF899F500A3E332 /* GiftyUITests */,
@@ -567,7 +566,7 @@
 		B0D514FC1F37803D008A88A4 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				B03B654020363D6D0045F95A /* DatePersistence */,
+				B03B654020363D6D0045F95A /* DataPersistence */,
 				B07A55DF1F677CC7004BD772 /* PresentationController */,
 				B0D515001F378212008A88A4 /* AppDelegate */,
 				B0D514FF1F3780A5008A88A4 /* Controller */,
@@ -737,13 +736,6 @@
 				B0DBFB7F201127F6009442F4 /* Info.plist */,
 			);
 			path = GiftyBridge;
-			sourceTree = "<group>";
-		};
-		B0DBFB8920112813009442F4 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 		B0F0046120054BC900D9B6D0 /* GiftyTodayExtension */ = {

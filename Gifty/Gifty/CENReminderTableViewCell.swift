@@ -15,10 +15,10 @@ protocol CENReminderCellDelegate {
 
 class CENReminderTableViewCell: UITableViewCell {
     
-    var notification: EventNotification?
+    private var notification: EventNotification?
     var delegate: CENReminderCellDelegate?
     
-    var completed = false {
+    private var completed = false {
         didSet {
             self.updateCompletedIcon()
             if let n = self.notification {
@@ -27,34 +27,14 @@ class CENReminderTableViewCell: UITableViewCell {
         }
     }
     
-//    let monthLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textColor = Theme.colors.lightToneTwo.color
-//        label.font = Theme.fonts.dateMonth.font
-//        label.textAlignment = .center
-//        label.text = "MAR"
-//        return label
-//    }()
-//
-//    let dayLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textAlignment = .center
-//        label.textColor = Theme.colors.lightToneTwo.color
-//        label.font = Theme.fonts.dateDay.font
-//        label.text = "24"
-//        return label
-//    }()
-    
-    let leftEdge: UIView = {
+    private let leftEdge: UIView = {
         let v = UIView()
         v.backgroundColor = Theme.colors.lightToneOne.color
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = Theme.colors.charcoal.color
@@ -64,7 +44,7 @@ class CENReminderTableViewCell: UITableViewCell {
         return label
     }()
     
-    let messageLabel: UILabel = {
+    private let messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -74,27 +54,27 @@ class CENReminderTableViewCell: UITableViewCell {
         return label
     }()
     
-//    let statusLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textColor = Theme.colors.lightToneTwo.color
-//        label.textAlignment = .left
-//        label.font = Theme.fonts.mediumText.font
-//        return label
-//    }()
+    private let statusLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.lightGray
+        label.textAlignment = .left
+        label.font = Theme.fonts.smallText.font
+        return label
+    }()
     
-    let completionIcon: UIImageView = {
+    private let completionIcon: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
-        view.isUserInteractionEnabled = true
         return view
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = .none
         setupSubviews()
     }
     
@@ -103,12 +83,6 @@ class CENReminderTableViewCell: UITableViewCell {
     }
     
     func setupSubviews() {
-//        monthLabel.removeFromSuperview()
-//        dayLabel.removeFromSuperview()
-//        leftEdge.removeFromSuperview()
-//        titleLabel.removeFromSuperview()
-//        messageLabel.removeFromSuperview()
-//        statusLabel.removeFromSuperview()
         
         addSubview(leftEdge)
         NSLayoutConstraint.activate([
@@ -121,51 +95,35 @@ class CENReminderTableViewCell: UITableViewCell {
         addSubview(completionIcon)
         NSLayoutConstraint.activate([
             completionIcon.topAnchor.constraint(equalTo: topAnchor, constant: smallPad),
-            completionIcon.leftAnchor.constraint(equalTo: leftEdge.rightAnchor, constant: smallPad),
+            completionIcon.rightAnchor.constraint(equalTo: rightAnchor, constant: -pad),
             completionIcon.heightAnchor.constraint(equalToConstant: 24),
             completionIcon.widthAnchor.constraint(equalToConstant: 24)
             ])
         
-//        addSubview(monthLabel)
-//        NSLayoutConstraint.activate([
-//            monthLabel.leftAnchor.constraint(equalTo: leftEdge.rightAnchor, constant: smallPad),
-//            monthLabel.topAnchor.constraint(equalTo: topAnchor, constant: 6)
-//            ])
-//
-//        addSubview(dayLabel)
-//        NSLayoutConstraint.activate([
-//            dayLabel.centerXAnchor.constraint(equalTo: monthLabel.centerXAnchor),
-//            dayLabel.topAnchor.constraint(equalTo: monthLabel.bottomAnchor, constant: -4)
-//            ])
-        
         addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: smallPad),
-            titleLabel.leftAnchor.constraint(equalTo: completionIcon.rightAnchor, constant: pad),
-            titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -100) //<<<This will need to be adjusted
+            titleLabel.leftAnchor.constraint(equalTo: leftEdge.rightAnchor, constant: pad),
+            titleLabel.rightAnchor.constraint(equalTo: completionIcon.leftAnchor, constant: -pad)
             ])
         
         addSubview(messageLabel)
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
             messageLabel.leftAnchor.constraint(equalTo: titleLabel.leftAnchor),
-            messageLabel.rightAnchor.constraint(equalTo: trailingAnchor, constant: -100),
-            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -pad)
+            messageLabel.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
             ])
         
-//        addSubview(statusLabel)
-//        NSLayoutConstraint.activate([
-//            statusLabel.leftAnchor.constraint(equalTo: rightAnchor, constant: -90),
-//            statusLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
-//            ])
+        addSubview(statusLabel)
+        NSLayoutConstraint.activate([
+            statusLabel.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 6),
+            statusLabel.leftAnchor.constraint(equalTo: messageLabel.leftAnchor),
+            statusLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -pad)
+            ])
     
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(completedIconTapped(sender:)))
-        completionIcon.addGestureRecognizer(tapGesture)
-        
     }
     
-    @objc
-    func completedIconTapped(sender: UITapGestureRecognizer) {
+    func setCompleted() {
         self.completed = !self.completed
     }
     
@@ -176,12 +134,9 @@ class CENReminderTableViewCell: UITableViewCell {
 
     func configureCell(notification: EventNotification) {
 
-//        if let date = notification.date {
-//            dayLabel.text = DateHandler.stringDayNum(from: date)
-//            monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
-            
-            //statusLabel.text = date < Date() ? "SENT" : "PENDING"
-//        }
+        if let date = notification.date {
+            statusLabel.text = date < Date() ? "Sent \(DateHandler.describeDate(date))" : "Scheduled \(DateHandler.describeDate(date))"
+        }
         
         if let title = notification.title {
             titleLabel.text = title
@@ -195,4 +150,5 @@ class CENReminderTableViewCell: UITableViewCell {
         
         self.notification = notification
     }
+    
 }

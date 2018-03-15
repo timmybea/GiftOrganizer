@@ -29,15 +29,6 @@ class PersonCell: UITableViewCell {
         return label
     }()
     
-    let eventIcon: UIImageView = {
-        let image = UIImage(named: ImageNames.eventIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
-        let view = UIImageView(image: image)
-        view.contentMode = .scaleAspectFit
-        view.tintColor = Theme.colors.lightToneTwo.color
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     let eventCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = Theme.colors.lightToneTwo.color
@@ -100,13 +91,6 @@ class PersonCell: UITableViewCell {
         eventCountLabel.leftAnchor.constraint(equalTo: self.rightAnchor, constant: -40).isActive = true
         eventCountLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -medPad).isActive = true
         eventCountLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-
-        self.addSubview(eventIcon)
-        eventIcon.rightAnchor.constraint(equalTo: eventCountLabel.leftAnchor, constant: -smallPad).isActive = true
-        eventIcon.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        eventIcon.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        eventIcon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
     }
     
     func configureCellWith(person: Person) {

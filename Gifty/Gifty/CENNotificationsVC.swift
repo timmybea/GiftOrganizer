@@ -28,7 +28,6 @@ class CENNotificationsVC: CustomViewController {
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 62
         tv.backgroundColor = Theme.colors.offWhite.color
-        tv.allowsSelection = false
         tv.separatorStyle = .singleLine
         tv.separatorColor = Theme.colors.lightToneTwo.color
         tv.delegate = self
@@ -200,8 +199,9 @@ extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EventReminderCell") as? CENReminderTableViewCell else { return UITableViewCell() }
-        if let en = datasource?[indexPath.row] {
-            cell.configureCell(notification: en)
+        cell.delegate = self
+        if let eventNotification = datasource?[indexPath.row] {
+            cell.configureCell(notification: eventNotification)
         }
         return cell
     }
@@ -228,5 +228,25 @@ extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? CENReminderTableViewCell else { return }
+        cell.setCompleted()
+    }
 }
 
+extension CENNotificationsVC : CENReminderCellDelegate {
+    
+    func set(notification: EventNotification, completed: Bool) {
+        
+        notification.completed = completed
+
+        if let moc = DataPersistenceService.shared.mainQueueContext {
+            DataPersistenceService.shared.saveToContext(moc)
+        }
+    }
+    
+    
+    
+    
+}

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Profile Image touched.png",
+      "filename" : "imageAddDark.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Profile Image touched@2x.png",
+      "filename" : "imageAddDark@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Profile Image touched@3x.png",
+      "filename" : "imageAddDark@3x.png",
       "scale" : "3x"
     }
   ],
