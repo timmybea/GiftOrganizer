@@ -519,7 +519,6 @@ extension CreateEventViewController: AutoCompleteTextFieldDelegate {
     
     
     func returned(with selection: String) {
-        
         print("SELECTED: \(selection)")
         self.person = PersonFRC.person(with: selection)
         if self.person != nil {
