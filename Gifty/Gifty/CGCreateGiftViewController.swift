@@ -9,11 +9,19 @@
 import UIKit
 import GiftyBridge
 
+enum CGCreateGiftModes {
+    case newGiftForPerson
+    case newGiftForEvent
+    case editExistingGift
+}
+
 class CGCreateGiftViewController: CustomViewController {
     
-    private var person: Person?
+    private var mode: CGCreateGiftModes = .newGiftForPerson
     
-
+    private var person: Person?
+    private var giftName: String?
+    
     //constants
     private var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
@@ -33,14 +41,19 @@ class CGCreateGiftViewController: CustomViewController {
     private var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.layer.masksToBounds = false
-        sv.backgroundColor = UIColor.blue
+        sv.backgroundColor = UIColor.clear
         sv.isPagingEnabled = false
         return sv
     }()
     
     lazy var giftNameTF: UITextField = {
         let tf = UITextField()
-        tf.backgroundColor = UIColor.green
+        tf.backgroundColor = UIColor.clear
+        tf.placeholderWith(string: "Gift idea", color: Theme.colors.lightToneOne.color)
+        tf.autocapitalizationType = .words
+        tf.returnKeyType = .done
+        tf.keyboardType = .alphabet
+        tf.textColor = UIColor.white
         tf.delegate = self
         return tf
     }()
@@ -67,7 +80,6 @@ class CGCreateGiftViewController: CustomViewController {
                                                selector: #selector(handleKeyboardNotification(sender:)),
                                                name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
-        
         navigationItem.title = "Create Gift"
         setupSubviews()
     }
@@ -82,7 +94,7 @@ class CGCreateGiftViewController: CustomViewController {
         saveButton = ButtonTemplate(frame: buttonframe)
         saveButton.setTitle("SAVE")
         saveButton.addBorder(with: UIColor.white)
-        saveButton.addTarget(self, action: #selector(addGiftToPersonTouched), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(SaveButtonTouched), for: .touchUpInside)
         view.addSubview(saveButton)
         
         //scrollView
@@ -151,17 +163,39 @@ class CGCreateGiftViewController: CustomViewController {
     
     
     
+    private func createAlertForError(_ error: CustomErrors.createGift) {
+        let alertController = UIAlertController(title: "Incomplete Gift", message: error.description, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel)
+        alertController.addAction(action)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc
     func handleKeyboardNotification(sender: Notification) {
+        //handle scroll view when keyboard will appear and disappear
+        
         
     }
     
     @objc
-    func addGiftToPersonTouched() {
-        
+    func SaveButtonTouched() {
+        //Save button
+        let gb = GiftBuilder.newGift(dataPersistence: DataPersistenceService.shared)
+        gb.addName(self.giftName)
+        gb.addToPerson(self.person)
+        gb.canReturnGift { (success, error) in
+            if success {
+                if let moc = DataPersistenceService.shared.mainQueueContext {
+                    DataPersistenceService.shared.saveToContext(moc)
+                }
+            }
+            
+            if let error = error {
+                createAlertForError(error)
+            }
+        }
     }
 }
-
 
 extension CGCreateGiftViewController: AutoCompleteTextFieldDelegate {
    
@@ -185,12 +219,34 @@ extension CGCreateGiftViewController: AutoCompleteTextFieldDelegate {
     
     func textFieldCleared() {
         autoCompletePerson?.resetProfileImage()
-        person = nil
+        self.person = nil
     }
 }
 
 extension CGCreateGiftViewController: UITextFieldDelegate {
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        return updatedText.count <= 30
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.giftNameTF.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard var input = textField.text, input.count > 0 else { return }
+        
+        let firstChar = input.removeFirst()
+        let capitalized = String(firstChar).uppercased() + input
+        textField.text = capitalized
+        
+        self.giftName = capitalized
+    }
     
     
     

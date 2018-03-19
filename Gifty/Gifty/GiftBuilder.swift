@@ -13,49 +13,64 @@ class GiftBuilder {
     
     //Factory methods
     private init() {
+        self.gift = Gift(context: DataPersistenceService.shared.mainQueueContext!)
         self.gift.id = UUID().uuidString
     }
     
-    static func newGift() -> GiftBuilder {
+    private init(dataPersistence: DataPersistence) {
+        self.gift = Gift(context: dataPersistence.mainQueueContext!)
+        self.gift.id = UUID().uuidString
+    }
+    
+    private init(gift: Gift) {
+        self.gift = gift
+    }
+    
+    static func newGift(dataPersistence: DataPersistence) -> GiftBuilder {
         return GiftBuilder()
     }
     
-    static func newGift(for event: Event) -> GiftBuilder {
-        let gb = GiftBuilder()
+    static func newGift(for event: Event, dataPersistence: DataPersistence) -> GiftBuilder {
+        let gb = GiftBuilder(dataPersistence: dataPersistence)
         gb.addToEvent(event)
         gb.addToPerson(event.person!)
         return gb
     }
     
     static func updateGift(_ gift: Gift) -> GiftBuilder {
-        let gb = GiftBuilder()
-        gb.gift = gift
-        return gb
+        return GiftBuilder(gift: gift)
     }
     
-    private var gift = Gift()
+    private var gift: Gift
     
-    func addName(_ name: String) {
+    func addName(_ name: String?) {
         self.gift.name = name
     }
     
-    func addToPerson(_ person: Person) {
-        person.addToGift(self.gift)
+    func addToPerson(_ person: Person?) {
+        if let p = person {
+            p.addToGift(self.gift)
+        }
     }
     
     func addToEvent(_ event: Event) {
         self.gift.eventId = event.id
     }
     
-    func canReturnGift() -> Bool {
-        guard self.gift.id != nil else { return false }
-        guard self.gift.name != nil else { return false }
-        guard self.gift.person != nil else { return false }
-        return true
+    func canReturnGift(completion: (_ success: Bool, _ error: CustomErrors.createGift?) -> ()) {
+        if self.gift.name == nil { completion(false, CustomErrors.createGift.noName) }
+        if self.gift.person == nil { completion(false, CustomErrors.createGift.noPerson) }
+        completion(true, nil)
     }
     
-    func returnCompletedGift() -> Gift {
+    func returnGift() -> Gift {
         return self.gift
+    }
+    
+    func saveGiftToCoreData(_ dataPersistence: DataPersistence) {
+        if let moc = dataPersistence.mainQueueContext {
+            dataPersistence.saveToContext(moc)
+        }
     }
     
     func deleteGiftFromCoreData(_ dataPersistence: DataPersistence) {

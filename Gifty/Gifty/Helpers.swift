@@ -73,7 +73,21 @@ struct CustomErrors {
             case .changesMade: return "If you continue with this action, you will lose changes you have made"
             }
         }
-    }    
+    }
+    
+    enum createGift {
+        case noName
+        case noBudget
+        case noPerson
+        
+        var description: String {
+            switch self {
+            case .noName: return "Please create a name for your gift"
+            case .noBudget: return "Please create a budget for your gift"
+            case .noPerson: return "Please assign your gift to a person before saving."
+            }
+        }
+    }
 }
 
 

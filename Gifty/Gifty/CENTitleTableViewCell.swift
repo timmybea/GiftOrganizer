@@ -19,7 +19,7 @@ class CENTitleTableViewCell: UITableViewCell {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholderWith(string: "Title", color: Theme.colors.lightToneTwo.color)
         textField.textColor = Theme.colors.charcoal.color
-        textField.autocapitalizationType = .sentences
+        textField.autocapitalizationType = .words
         textField.returnKeyType = .done
         textField.keyboardType = .alphabet
         return textField
