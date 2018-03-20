@@ -13,9 +13,26 @@ class SelectGiftViewController: CustomViewController {
 
     var person: Person? = nil {
         didSet {
-            printAllGifts()
+            getDataSource()
         }
     }
+    
+    var dataSource: [Gift]? {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = UIColor.green
+        tv.delegate = self
+        tv.dataSource = self
+        tv.register(GiftSelectTableViewCell.self, forCellReuseIdentifier: "giftSelectCell")
+        return tv
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +47,27 @@ class SelectGiftViewController: CustomViewController {
         
         self.navigationItem.leftBarButtonItem = backButton
         
+        setupSubviews()
     }
     
-    private func printAllGifts() {
+    private func getDataSource() {
         guard let p = self.person else { return }
         guard let gifts = p.gift?.allObjects as? [Gift] else { return }
+
+        self.dataSource = gifts
+    }
+    
+    private func setupSubviews() {
         
-        for gift in gifts {
-            print(gift.name!)
-        }
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            ])
+        
+        self.getDataSource()
     }
     
     @objc
@@ -48,4 +77,18 @@ class SelectGiftViewController: CustomViewController {
         navigationController?.popViewController(animated: true)
     }
 
+}
+
+extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "giftSelectCell") as! GiftSelectTableViewCell
+        guard let gift = dataSource?[indexPath.row] else { return cell }
+        cell.setup(with: gift)
+        return cell
+    }
 }
