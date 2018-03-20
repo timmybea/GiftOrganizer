@@ -88,6 +88,8 @@
 		B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */; };
 		B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */; };
 		B0CEC1F11FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CEC1F01FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift */; };
+		B0D064B1206065C3002B4865 /* AddGiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B0206065C3002B4865 /* AddGiftView.swift */; };
+		B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B220618242002B4865 /* SelectGiftViewController.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
@@ -268,6 +270,8 @@
 		B0CA63311F0EAEEA00C1A2B1 /* PersonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonCell.swift; sourceTree = "<group>"; };
 		B0CA63331F0ECEDC00C1A2B1 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		B0CEC1F01FE9D63100BF7099 /* ScrollSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		B0D064B0206065C3002B4865 /* AddGiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftView.swift; sourceTree = "<group>"; };
+		B0D064B220618242002B4865 /* SelectGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGiftViewController.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -491,6 +495,7 @@
 			children = (
 				B07D34E51FF9C0A700626C36 /* AutoCompleteTextField.swift */,
 				B070420B1F0D50DE00D6A027 /* AddDateView.swift */,
+				B0D064B0206065C3002B4865 /* AddGiftView.swift */,
 				B070420D1F0D5ED000D6A027 /* AutoCompletePerson.swift */,
 				B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */,
 				B07042031F06B7B400D6A027 /* ButtonTemplate.swift */,
@@ -741,6 +746,7 @@
 				B013B5C61F035F6D00107B64 /* CreatePersonViewController.swift */,
 				B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */,
 				B041F7991EF89B4900A3E332 /* PeopleViewController.swift */,
+				B0D064B220618242002B4865 /* SelectGiftViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1258,6 +1264,7 @@
 				B076AF1F202D1D6D00B54CDF /* InterstitialService.swift in Sources */,
 				B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */,
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
+				B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
 				B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,
@@ -1271,6 +1278,7 @@
 				B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */,
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */,
+				B0D064B1206065C3002B4865 /* AddGiftView.swift in Sources */,
 				B06F41E7205B27880083A28F /* CGCreateGiftViewController.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,

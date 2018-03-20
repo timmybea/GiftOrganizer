@@ -11,17 +11,13 @@ import GiftyBridge
 import CoreData
 
 protocol CreateEventViewControllerDelegate {
-    
     func eventAddedToPerson(uuid: String)
-    
 }
 
 enum CreateEventState: String {
-    
     case newEventForPerson
     case updateEventForPerson
     case newEventToBeAssigned
-    
 }
 
 class CreateEventViewController: CustomViewController {
@@ -62,9 +58,9 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-    private var addGift = ActionButton.SelectionStates.unselected
-    private var addCard = ActionButton.SelectionStates.unselected
-    private var addPhone = ActionButton.SelectionStates.unselected
+//    private var addGift = ActionButton.SelectionStates.unselected
+//    private var addCard = ActionButton.SelectionStates.unselected
+//    private var addPhone = ActionButton.SelectionStates.unselected
     
     private var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
@@ -93,13 +89,15 @@ class CreateEventViewController: CustomViewController {
     
     private var addDateView: AddDateView!
     
-    lazy var actionsButtonsView: ActionsButtonsView = {
-        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.selectDeselect)
-        view.tintUnselected = Theme.colors.lightToneOne.color
-        view.tintSelected = UIColor.white
-        view.delegate = self
-        return view
-    }()
+    private var addGiftView: AddGiftView!
+    
+//    lazy var actionsButtonsView: ActionsButtonsView = {
+//        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.selectDeselect)
+//        view.tintUnselected = Theme.colors.lightToneOne.color
+//        view.tintSelected = UIColor.white
+//        view.delegate = self
+//        return view
+//    }()
     
     var autoCompletePerson: AutoCompletePerson?
     
@@ -170,39 +168,50 @@ class CreateEventViewController: CustomViewController {
         scrollView.addSubview(addDateView)
 
         //actionsLabel
-        let actionsLabel = Theme.createMediumLabel()
-        actionsLabel.frame = CGRect(x: 0,
-                                    y: addDateView.frame.maxY + pad,
-                                    width: scrollView.bounds.width,
-                                    height: 25)
-        actionsLabel.text = "Select Actions"
-        scrollView.addSubview(actionsLabel)
+//        let giftLabel = Theme.createMediumLabel()
+//        giftLabel.frame = CGRect(x: 0,
+//                                    y: addDateView.frame.maxY + pad,
+//                                    width: scrollView.bounds.width,
+//                                    height: 25)
+//        giftLabel.text = "Select Gift"
+//        scrollView.addSubview(giftLabel)
+        
+        
 
         //actionsButtonsView
-        actionsButtonsView.frame = CGRect(x: 30,
-                                          y: actionsLabel.frame.maxY + pad,
-                                          width: self.scrollView.bounds.width - 60,
-                                          height: actionsButtonsView.imageSize)
-        scrollView.addSubview(actionsButtonsView)
-        actionsButtonsView.setupSubviews()
+//        actionsButtonsView.frame = CGRect(x: 30,
+//                                          y: actionsLabel.frame.maxY + pad,
+//                                          width: self.scrollView.bounds.width - 60,
+//                                          height: actionsButtonsView.imageSize)
+//        scrollView.addSubview(actionsButtonsView)
+//        actionsButtonsView.setupSubviews()
+        
+        //Add gift view
+        self.addGiftView = AddGiftView(frame: CGRect(x: 0,
+                                                     y: addDateView.frame.maxY + (2 * pad),
+                                                     width: scrollView.frame.width,
+                                                     height: AddGiftView.height)) //??
+        scrollView.addSubview(addGiftView)
+        
+        self.addGiftView.delegate = self
         
         //budgetLabel
-        let budgetLabel = Theme.createMediumLabel()
-        budgetLabel.frame = CGRect(x: 0,
-                                   y: actionsButtonsView.frame.maxY + pad,
-                                   width: scrollView.bounds.width,
-                                   height: 25)
-        budgetLabel.text = "Set Budget"
-        scrollView.addSubview(budgetLabel)
+//        let budgetLabel = Theme.createMediumLabel()
+//        budgetLabel.frame = CGRect(x: 0,
+//                                   y: actionsButtonsView.frame.maxY + pad,
+//                                   width: scrollView.bounds.width,
+//                                   height: 25)
+//        budgetLabel.text = "Set Budget"
+//        scrollView.addSubview(budgetLabel)
 
         //budgetView
-        budgetView = BudgetView(frame: CGRect(x: 0,
-                                              y: budgetLabel.frame.maxY + pad,
-                                              width: scrollView.bounds.width,
-                                              height: 60))
-        scrollView.addSubview(budgetView)
+//        budgetView = BudgetView(frame: CGRect(x: 0,
+//                                              y: budgetLabel.frame.maxY + pad,
+//                                              width: scrollView.bounds.width,
+//                                              height: 60))
+//        scrollView.addSubview(budgetView)
 
-        var contentHeight = budgetView.frame.maxY + pad
+        var contentHeight = addDateView.frame.maxY + pad
         
         if createEventState == .updateEventForPerson {
             setupEventDataForEdit()
@@ -245,10 +254,10 @@ class CreateEventViewController: CustomViewController {
         
         self.isRecurringEvent = true //<<<<PULL THIS OUT OF EVENT
         
-        actionsButtonsView.configureButtonStatesFor(event: currentEvent)
-        self.addGift = getActionState(for: currentEvent.giftState!)
-        self.addCard = getActionState(for: currentEvent.cardState!)
-        self.addPhone = getActionState(for: currentEvent.phoneState!)
+//        actionsButtonsView.configureButtonStatesFor(event: currentEvent)
+//        self.addGift = getActionState(for: currentEvent.giftState!)
+//        self.addCard = getActionState(for: currentEvent.cardState!)
+//        self.addPhone = getActionState(for: currentEvent.phoneState!)
         
         budgetView.setTo(amount: currentEvent.budgetAmt)
         
@@ -380,27 +389,43 @@ extension CreateEventViewController: DatePickerViewControllerDelegate {
     
 }
 
-//MARK: ActionsButtonsViewDelegate Methods
-extension CreateEventViewController: ActionsButtonsViewDelegate {
-    
-    func budgetButtonTouched() {
-        //do nothing
+
+//MARK: AddGiftDelegate
+extension CreateEventViewController: AddGiftViewDelegate {
+   
+    func addGiftViewWasTouched() {
+        guard let p = self.person else { return }
+        let destination = SelectGiftViewController()
+        destination.person = p
+        
+        navigationController?.pushViewController(destination, animated: true)
     }
 
-    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
-        
-        if action == ActionButton.Actions.gift {
-            self.addGift = state
-            print("Event gift state: \(self.addGift.rawValue)")
-        } else if action == ActionButton.Actions.card {
-            self.addCard = state
-            print("Event card state: \(self.addCard.rawValue)")
-        } else if action == ActionButton.Actions.phone {
-            self.addPhone = state
-            print("Event phone state: \(self.addPhone.rawValue)")
-        }
-    }
 }
+
+
+
+//MARK: ActionsButtonsViewDelegate Methods
+//extension CreateEventViewController: ActionsButtonsViewDelegate {
+//
+//    func budgetButtonTouched() {
+//        //do nothing
+//    }
+//
+//    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
+//
+//        if action == ActionButton.Actions.gift {
+//            self.addGift = state
+//            print("Event gift state: \(self.addGift.rawValue)")
+//        } else if action == ActionButton.Actions.card {
+//            self.addCard = state
+//            print("Event card state: \(self.addCard.rawValue)")
+//        } else if action == ActionButton.Actions.phone {
+//            self.addPhone = state
+//            print("Event phone state: \(self.addPhone.rawValue)")
+//        }
+//    }
+//}
 
 
 //MARK: AddEventButton Method
@@ -420,7 +445,7 @@ extension CreateEventViewController {
                     currEvent.date = self.eventDate
                     currEvent.dateString = DateHandler.stringFromDate(self.eventDate!)
                     currEvent.budgetAmt = self.budgetView.getBudgetAmount()
-                    currEvent.giftState = self.addGift.rawValue
+//                    currEvent.giftState = self.addGift.rawValue
                     EventFRC.updateMoc()
                     
                     guard let dateString = currEvent.dateString else { return }
@@ -446,22 +471,22 @@ extension CreateEventViewController {
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 if success {
                     let budgetAmt = self.budgetView.getBudgetAmount()
-                    ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
-                        
-                        print("successfully added event")
-                        //send notification
-                        guard let dateString = event?.dateString else { return }
-                        let userInfo = ["dateString": dateString, "personId": person?.id!, "createEventState": self.createEventState?.rawValue]
-                    
-                        DispatchQueueHandler.notification.queue.async {
-                            NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo as! [String : String])
-                        }
-                        
-                        if self.delegate != nil {
-                            self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
-                        }
-                        self.navigationController?.popViewController(animated: true)
-                    }
+//                    ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
+//
+//                        print("successfully added event")
+//                        //send notification
+//                        guard let dateString = event?.dateString else { return }
+//                        let userInfo = ["dateString": dateString, "personId": person?.id!, "createEventState": self.createEventState?.rawValue]
+//
+//                        DispatchQueueHandler.notification.queue.async {
+//                            NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo as! [String : String])
+//                        }
+//
+//                        if self.delegate != nil {
+//                            self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
+//                        }
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
                 } else {
                     if error != nil {
                         createAlertForError(error!)

@@ -188,6 +188,8 @@ class CGCreateGiftViewController: CustomViewController {
                 if let moc = DataPersistenceService.shared.mainQueueContext {
                     DataPersistenceService.shared.saveToContext(moc)
                 }
+
+                //DISMISS VC
             }
             
             if let error = error {
