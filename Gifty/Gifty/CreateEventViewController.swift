@@ -293,6 +293,39 @@ class CreateEventViewController: CustomViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    //MARK: check sufficient information to build event
+    func checkSufficientInformationToCreateEvent(completion: (_ success: Bool, _ error: CustomErrors.createEvent?) -> Void) {
+        
+        guard self.eventType != nil else {
+            completion(false, CustomErrors.createEvent.noEventType)
+            return
+        }
+        
+        guard self.eventDate != nil else {
+            completion(false, CustomErrors.createEvent.noDate)
+            return
+        }
+        
+        if createEventState != CreateEventState.updateEventForPerson {
+            guard self.person != nil else {
+                completion(false, CustomErrors.createEvent.personIsNil)
+                return
+            }
+        }
+        completion(true, nil)
+    }
+    
+    func changesMade() -> Bool {
+        guard self.eventType == nil else { return true }
+        guard self.eventDate == nil else { return true }
+        guard self.addGiftView.getGifts() == nil else { return true }
+        if self.createEventState == .newEventToBeAssigned && self.person != nil {
+            return true
+        }
+        guard self.budgetView.getBudgetAmount() == 0 else { return true }
+        return false
+    }
 }
 
 //MARK: Drop down textfield delegate
@@ -390,55 +423,29 @@ extension CreateEventViewController: AddGiftViewDelegate {
 
 }
 
-
-
-//MARK: ActionsButtonsViewDelegate Methods
-//extension CreateEventViewController: ActionsButtonsViewDelegate {
-//
-//    func budgetButtonTouched() {
-//        //do nothing
-//    }
-//
-//    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
-//
-//        if action == ActionButton.Actions.gift {
-//            self.addGift = state
-//            print("Event gift state: \(self.addGift.rawValue)")
-//        } else if action == ActionButton.Actions.card {
-//            self.addCard = state
-//            print("Event card state: \(self.addCard.rawValue)")
-//        } else if action == ActionButton.Actions.phone {
-//            self.addPhone = state
-//            print("Event phone state: \(self.addPhone.rawValue)")
-//        }
-//    }
-//}
-
-
 //MARK: AddEventButton Method
 extension CreateEventViewController {
     
     @objc
     func saveButtonTouched(sender: UIButton) {
-        
-        if self.createEventState == CreateEventState.updateEventForPerson {
-            //update existing event and save
-            guard let currEvent = self.eventToBeEdited else { return }
-            checkSufficientInformationToCreateEvent(completion: { (success, error) in
-                if success {
+        checkSufficientInformationToCreateEvent(completion: { (success, error) in
+            if success {
+                if self.createEventState == CreateEventState.updateEventForPerson {
+                    
+                    //update existing event and save
+                    guard let currEvent = self.eventToBeEdited else { return }
                     
                     let oldDate = currEvent.dateString
                     
-                    currEvent.type = self.eventType
-                    currEvent.date = self.eventDate
-                    currEvent.dateString = DateHandler.stringFromDate(self.eventDate!)
-                    currEvent.budgetAmt = self.budgetView.getBudgetAmount()
-
+                    let eb = EventBuilder.edit(event: currEvent)
+                    eb.addType(self.eventType!)
+                    eb.addDate(self.eventDate!)
+                    eb.addBudget(self.budgetView.getBudgetAmount())
                     
-                    EventFRC.updateMoc()
                     
                     guard let dateString = currEvent.dateString else { return }
                     let createUserInfo = ["dateString": dateString]
+                    
                     DispatchQueueHandler.notification.queue.async {
                         NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: createUserInfo)
                     }
@@ -449,15 +456,58 @@ extension CreateEventViewController {
                         NotificationCenter.default.post(name: Notifications.names.eventDeleted.name, object: nil, userInfo: deleteUserInfo as! [String: String])
                     }
                     
-                } else if error != nil {
-                    createAlertForError(error!)
+                } else {
+                    //Create new event for existing person
+                    let eb = EventBuilder.newEvent(with: DataPersistenceService.shared)
+                    eb.addType(self.eventType!)
+                    eb.addDate(self.eventDate!)
+                    eb.addBudget(self.budgetView.getBudgetAmount())
+                    eb.setToPerson(self.person!)
+                    eb.canReturnEvent(completion: { (success, error) in
+                        if error != nil {
+                            self.createAlertForError(error!)
+                        }
+                    })
+                    let event = eb.buildAndReturnEvent()
+                    
+                    if let gifts = self.addGiftView.getGifts() {
+                        for g in gifts {
+                            g.eventId = event.id
+                        }
+                    }
+                    
+                    //send notification
+                    guard let dateString = event.dateString else { return }
+                    let userInfo = ["dateString": dateString, "personId": event.person?.id!, "createEventState": self.createEventState?.rawValue]
+                    
+                    DispatchQueueHandler.notification.queue.async {
+                        NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo as! [String : String])
+                    }
+                    
+                    //pass event to delegate
+                    if self.delegate != nil {
+                        self.delegate?.eventAddedToPerson(uuid: (event.id)!)
+                    }
                 }
-            })
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            //Create new event for existing person
-            checkSufficientInformationToCreateEvent(completion: { (success, error) in
-                if success {
+                EventBuilder.save(with: DataPersistenceService.shared)
+                self.navigationController?.popViewController(animated: true)
+                
+            } else if error != nil {
+                createAlertForError(error!)
+            }
+        })
+    }
+}
+        
+
+        
+        
+
+//        } else {
+//
+
+            //checkSufficientInformationToCreateEvent(completion: { (success, error) in
+              //  if success {
                     //let budgetAmt = self.budgetView.getBudgetAmount()
 //                    ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
 //
@@ -475,50 +525,17 @@ extension CreateEventViewController {
 //                        }
 //                        self.navigationController?.popViewController(animated: true)
 //                    }
-                } else {
-                    if error != nil {
-                        createAlertForError(error!)
-                    }
-                }
-            })
-            if createEventState == CreateEventState.newEventToBeAssigned {
-                EventFRC.updateMoc()
-            }
-        }
-    }
-    
-    private func checkSufficientInformationToCreateEvent(completion: (_ success: Bool, _ error: CustomErrors.createEvent?) -> Void) {
-        
-        guard self.eventType != nil else {
-            completion(false, CustomErrors.createEvent.noEventType)
-            return
-        }
-        
-        guard self.eventDate != nil else {
-            completion(false, CustomErrors.createEvent.noDate)
-            return
-        }
-        
-        if createEventState != CreateEventState.updateEventForPerson {
-            guard self.person != nil else {
-                completion(false, CustomErrors.createEvent.personIsNil)
-                return
-            }
-        }
-        completion(true, nil)
-    }
-    
-    private func changesMade() -> Bool {
-        guard self.eventType == nil else { return true }
-        guard self.eventDate == nil else { return true }
-        guard self.addGiftView.getGifts() == nil else { return true }
-        if self.createEventState == .newEventToBeAssigned && self.person != nil {
-            return true
-        }
-        guard self.budgetView.getBudgetAmount() == 0 else { return true }
-        return false
-    }
-}
+//                } else {
+//                    if error != nil {
+//                        createAlertForError(error!)
+//                    }
+//                }
+  //          })
+
+        //}
+//    }
+
+
 
 //MARK: AutoCompleteTextFieldDelegate
 extension CreateEventViewController: AutoCompleteTextFieldDelegate {

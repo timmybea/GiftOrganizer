@@ -80,30 +80,6 @@ class ManagedObjectBuilder: NSObject {
     }
     
     //MARK: EVENT MODEL
-    static func addNewEventToPerson(date: Date, type: String, person: Person, budgetAmt: Float, completion: (_ success: Bool, _ event: Event?) -> Void) {
-        
-        guard let moc = moc else {
-            completion(false, nil)
-            return
-        }
-        
-        let event = Event(context: moc)
-        event.id = UUID().uuidString
-        event.date = date
-        event.dateString = DateHandler.stringFromDate(date)
-        event.type = type
-        event.budgetAmt = budgetAmt
-        
-        _ = setEventComplete(event)
-        
-        person.addToEvent(event)
-        
-        completion(true, event)
-    }
-    
-    static func setEventComplete(_ event: Event) -> Bool {
-        return !event.isComplete
-    }
     
     static func getEventBy(uuid: String) -> Event? {
         
@@ -163,13 +139,5 @@ class ManagedObjectBuilder: NSObject {
         }
         PersonFRC.updateMoc()
     }
-    
-    static func deleteAllEvents() {
-        guard let events = EventFRC.frc()?.fetchedObjects as [Event]? else { return }
-        
-        for event in events {
-            event.managedObjectContext?.delete(event)
-        }
-        PersonFRC.updateMoc()
-    }
+
 }
