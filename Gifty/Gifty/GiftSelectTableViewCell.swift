@@ -18,8 +18,6 @@ class GiftSelectTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,7 +25,7 @@ class GiftSelectTableViewCell: UITableViewCell {
     }
     
     func setup(with gift: Gift) {
-        
+        self.gift = gift
         self.textLabel?.text = gift.name
         self.detailTextLabel?.text = gift.eventId == nil ? "AVAILABLE" : "ASSIGNED"
         

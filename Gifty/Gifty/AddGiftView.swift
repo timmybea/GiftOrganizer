@@ -7,29 +7,29 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol AddGiftViewDelegate {
     func addGiftViewWasTouched()
+    func needsToResize(to height: CGFloat)
 }
 
 class AddGiftView: UIView {
     
-    static var height: CGFloat {
-        return 25.0 + (CGFloat(30 * giftCount))
-    }
-    
     static var headerHeight: CGFloat = 25.0
     
-    static var giftCount = 0
+    private var gifts = [Gift]()
     
-    let touchView: UIControl = {
+    private let cellHeight: CGFloat = 30.0
+    
+    private let touchView: UIControl = {
         let view = UIControl()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.clear
         return view
     }()
     
-    let label: UILabel = {
+    private let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Add Gift"
@@ -39,7 +39,7 @@ class AddGiftView: UIView {
         return label
     }()
     
-    let giftImage: UIImageView = {
+    private let giftImage: UIImageView = {
         let image = UIImage(named: ImageNames.gift.rawValue)?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,12 +49,38 @@ class AddGiftView: UIView {
         return imageView
     }()
     
-    let underline: UIView = {
+    private let underline: UIView = {
         let v = UIView()
         v.translatesAutoresizingMaskIntoConstraints = false
         v.backgroundColor = UIColor.white
         return v
     }()
+    
+    private lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.backgroundColor = UIColor.clear
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.dataSource = self
+        tv.delegate = self
+        tv.register(GiftSelectTableViewCell.self, forCellReuseIdentifier: "GiftSelectCell")
+        return tv
+    }()
+    
+    private let bottomUnderline: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = UIColor.white
+        return v
+    }()
+    
+    private let costLabel: UILabel = {
+        let l = Theme.createMediumLabel()
+        l.translatesAutoresizingMaskIntoConstraints = false
+        l.textAlignment = .right
+        l.text = "Total cost: $20.00"
+        return l
+    }()
+    
     
     var delegate: AddGiftViewDelegate?
     
@@ -67,14 +93,14 @@ class AddGiftView: UIView {
         touchView.addTarget(self, action: #selector(didTouchUpSelf), for: .touchUpInside)
     }
     
-    func layoutViews() {
+    private func layoutViews() {
         
         self.addSubview(label)
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: self.topAnchor),
             label.centerXAnchor.constraint(equalTo: self.centerXAnchor)
             ])
-        
+
         self.addSubview(underline)
         NSLayoutConstraint.activate([
             underline.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 4),
@@ -82,7 +108,7 @@ class AddGiftView: UIView {
             underline.rightAnchor.constraint(equalTo: self.rightAnchor),
             underline.heightAnchor.constraint(equalToConstant: 2)
             ])
-        
+
         self.addSubview(giftImage)
         NSLayoutConstraint.activate([
             giftImage.centerYAnchor.constraint(equalTo: label.centerYAnchor),
@@ -90,7 +116,7 @@ class AddGiftView: UIView {
             giftImage.heightAnchor.constraint(equalToConstant: 18),
             giftImage.widthAnchor.constraint(equalToConstant: 18),
             ])
-        
+
         self.addSubview(touchView)
         bringSubview(toFront: touchView)
         NSLayoutConstraint.activate([
@@ -99,6 +125,65 @@ class AddGiftView: UIView {
             touchView.topAnchor.constraint(equalTo: self.topAnchor),
             touchView.heightAnchor.constraint(equalToConstant: AddGiftView.headerHeight)
             ])
+
+    }
+    
+    func addGiftToList(_ gift: Gift) {
+        if !gifts.contains(gift) {
+            self.gifts.append(gift)
+            self.delegate?.needsToResize(to: calculateNewHeight())
+            setupTableView()
+        }
+    }
+    
+    private func calculateNewHeight() -> CGFloat {
+        let footerHeight: CGFloat = gifts.count == 0 ? 0.0 : 36.0
+        return type(of: self).headerHeight + (CGFloat(gifts.count) * cellHeight) + footerHeight
+    }
+    
+    private func setupTableView() {
+        tableView.removeFromSuperview()
+        bottomUnderline.removeFromSuperview()
+        costLabel.removeFromSuperview()
+
+        if gifts.count > 0 {
+            
+            addSubview(costLabel)
+            NSLayoutConstraint.activate([
+                costLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
+                costLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
+                costLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+                ])
+            
+            addSubview(bottomUnderline)
+            NSLayoutConstraint.activate([
+                bottomUnderline.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -4),
+                bottomUnderline.leftAnchor.constraint(equalTo: self.leftAnchor),
+                bottomUnderline.rightAnchor.constraint(equalTo: self.rightAnchor),
+                bottomUnderline.heightAnchor.constraint(equalToConstant: 2)
+                ])
+            
+            addSubview(tableView)
+            NSLayoutConstraint.activate([
+                tableView.topAnchor.constraint(equalTo: underline.bottomAnchor),
+                tableView.bottomAnchor.constraint(equalTo: bottomUnderline.topAnchor, constant: -4),
+                tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+                tableView.rightAnchor.constraint(equalTo: self.rightAnchor)
+                ])
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            totalCostForLabel()
+        }
+    }
+    
+    private func totalCostForLabel() {
+        var cost: Float = 0.0
+        for g in gifts {
+            cost += g.cost
+        }
+        let a = String(format: "%.2f", cost)
+        costLabel.text = "Total cost: $\(a)"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,20 +191,19 @@ class AddGiftView: UIView {
     }
 }
 
-//MARK: touchViewtouched (protocol method called)
+//MARK: touchView touched
 extension AddGiftView {
     
-    @objc func didTouchDownSelf() {
-        //print("touch down")
-        
-        
+    @objc
+    func didTouchDownSelf() {
+
         self.giftImage.tintColor = Theme.colors.lightToneOne.color
         self.label.textColor = Theme.colors.lightToneOne.color
         self.underline.backgroundColor = Theme.colors.lightToneOne.color
     }
     
-    @objc func didTouchUpSelf() {
-        //print("touch up")
+    @objc
+    func didTouchUpSelf() {
         
         self.giftImage.tintColor = UIColor.white
         self.label.textColor = UIColor.white
@@ -128,5 +212,23 @@ extension AddGiftView {
         if self.delegate != nil {
             self.delegate?.addGiftViewWasTouched()
         }
+    }
+}
+
+extension AddGiftView : UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return gifts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GiftSelectCell") as! GiftSelectTableViewCell
+        let gift = gifts[indexPath.row]
+        cell.setup(with: gift)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return cellHeight
     }
 }

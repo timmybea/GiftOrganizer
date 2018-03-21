@@ -65,6 +65,6 @@ class PersonFRC: NSObject {
             print(error.localizedDescription)
             return nil
         }
-        return person!
+        return person
     }
 }

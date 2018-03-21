@@ -23,6 +23,7 @@
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="eventNotification" inverseEntity="Event" syncable="YES"/>
     </entity>
     <entity name="Gift" representedClassName="Gift" syncable="YES" codeGenerationType="class">
+        <attribute name="cost" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -43,7 +44,7 @@
     <elements>
         <element name="Event" positionX="-164" positionY="-27" width="128" height="225"/>
         <element name="EventNotification" positionX="-270" positionY="285" width="128" height="133"/>
+        <element name="Gift" positionX="-0" positionY="372" width="128" height="120"/>
         <element name="Person" positionX="63" positionY="119" width="128" height="195"/>
-        <element name="Gift" positionX="-0" positionY="372" width="128" height="103"/>
     </elements>
 </model>

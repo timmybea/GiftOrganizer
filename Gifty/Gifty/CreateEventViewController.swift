@@ -163,37 +163,20 @@ class CreateEventViewController: CustomViewController {
         addDateView = AddDateView(frame: CGRect(x: 0,
                                                 y: 50 + pad,
                                                 width: scrollView.bounds.width,
-                                                height: 25))
-        addDateView.delegate = self
+                                                height: 30))
         scrollView.addSubview(addDateView)
-
-        //actionsLabel
-//        let giftLabel = Theme.createMediumLabel()
-//        giftLabel.frame = CGRect(x: 0,
-//                                    y: addDateView.frame.maxY + pad,
-//                                    width: scrollView.bounds.width,
-//                                    height: 25)
-//        giftLabel.text = "Select Gift"
-//        scrollView.addSubview(giftLabel)
-        
-        
-
-        //actionsButtonsView
-//        actionsButtonsView.frame = CGRect(x: 30,
-//                                          y: actionsLabel.frame.maxY + pad,
-//                                          width: self.scrollView.bounds.width - 60,
-//                                          height: actionsButtonsView.imageSize)
-//        scrollView.addSubview(actionsButtonsView)
-//        actionsButtonsView.setupSubviews()
+        addDateView.delegate = self
         
         //Add gift view
         self.addGiftView = AddGiftView(frame: CGRect(x: 0,
                                                      y: addDateView.frame.maxY + (2 * pad),
-                                                     width: scrollView.frame.width,
-                                                     height: AddGiftView.height)) //??
+                                                     width: scrollView.bounds.width,
+                                                     height: AddGiftView.headerHeight))
         scrollView.addSubview(addGiftView)
-        
         self.addGiftView.delegate = self
+
+        
+        
         
         //budgetLabel
 //        let budgetLabel = Theme.createMediumLabel()
@@ -304,6 +287,7 @@ class CreateEventViewController: CustomViewController {
                                       y: navHeight + statusHeight + pad,
                                       width: view.bounds.width - pad - pad,
                                       height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
+            
             //scroll to bottom
             let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height)
             scrollView.setContentOffset(bottomOffset, animated: true)
@@ -312,7 +296,11 @@ class CreateEventViewController: CustomViewController {
             scrollView.frame = scrollViewFrame
             scrollView.removeGestureRecognizer(tapGesture)
         }
-        
+    }
+    
+    //drop keyboard if editing textfield
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
 
@@ -396,9 +384,18 @@ extension CreateEventViewController: AddGiftViewDelegate {
     func addGiftViewWasTouched() {
         guard let p = self.person else { return }
         let destination = SelectGiftViewController()
+        destination.delegate = self
         destination.person = p
-        
+
         navigationController?.pushViewController(destination, animated: true)
+
+    }
+    
+    func needsToResize(to height: CGFloat) {
+        
+        print("Before: \(addGiftView.frame)")
+        addGiftView.frame.size.height = height
+        print("After: \(addGiftView.frame)")
     }
 
 }
@@ -470,7 +467,7 @@ extension CreateEventViewController {
             //Create new event for existing person
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 if success {
-                    let budgetAmt = self.budgetView.getBudgetAmount()
+                    //let budgetAmt = self.budgetView.getBudgetAmount()
 //                    ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
 //
 //                        print("successfully added event")
@@ -554,6 +551,14 @@ extension CreateEventViewController: AutoCompleteTextFieldDelegate {
     func textFieldCleared() {
         autoCompletePerson?.resetProfileImage()
         person = nil
+    }
+    
+}
+
+extension CreateEventViewController : SelectGiftVCDelegate {
+    
+    func selectedGift(_ gift: Gift) {
+        self.addGiftView.addGiftToList(gift)
     }
     
 }

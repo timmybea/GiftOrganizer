@@ -37,11 +37,14 @@ class CGCreateGiftViewController: CustomViewController {
     
     private var scrollViewFrame: CGRect!
     
+    //private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:)))
+    
     //UI Components
     private var scrollView: UIScrollView = {
         let sv = UIScrollView()
-        sv.layer.masksToBounds = false
+        sv.layer.masksToBounds = true
         sv.backgroundColor = UIColor.clear
+        sv.bounces = false
         sv.isPagingEnabled = false
         return sv
     }()
@@ -106,14 +109,10 @@ class CGCreateGiftViewController: CustomViewController {
         scrollView.frame = scrollViewFrame
         view.addSubview(scrollView)
         
-        var contentHeight: CGFloat = 0
-        
         //imageView
         let width = (scrollView.frame.width / 3) * 2
         imageView.frame = CGRect(x: scrollView.frame.width / 6, y: 0, width: width, height: width / 2)
         scrollView.addSubview(imageView)
-        
-        contentHeight += imageView.frame.height
         
         giftNameTF.frame = CGRect(x: 0, y: imageView.frame.maxY + pad, width: scrollView.frame.width, height: 30)
         scrollView.addSubview(giftNameTF)
@@ -122,8 +121,6 @@ class CGCreateGiftViewController: CustomViewController {
         tfUnderline.backgroundColor = UIColor.white
         tfUnderline.frame = CGRect(x: 0, y: giftNameTF.frame.maxY, width: scrollView.frame.width, height: 2)
         scrollView.addSubview(tfUnderline)
-        
-        contentHeight += giftNameTF.frame.height + pad + 2
         
         //set budget
         let budgetLabel = Theme.createMediumLabel()
@@ -141,28 +138,26 @@ class CGCreateGiftViewController: CustomViewController {
                                               height: 60))
         scrollView.addSubview(budgetView)
         
-        contentHeight = budgetView.frame.maxY + pad
-
-            //autoCompletePerson
-            let personLabel = Theme.createMediumLabel()
-            personLabel.frame = CGRect(x: 0,
-                                       y: budgetView.frame.maxY + pad,
-                                       width: scrollView.bounds.width,
-                                       height: 25)
-            personLabel.text = "Set Person"
-            scrollView.addSubview(personLabel)
-
-            autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
-                                                                  y: personLabel.frame.maxY + pad,
-                                                                  width: scrollView.bounds.width,
-                                                                  height: 100))
-            self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
-            scrollView.addSubview(autoCompletePerson!)
-            contentHeight = autoCompletePerson!.frame.maxY + pad
+        //autoCompletePerson
+        let personLabel = Theme.createMediumLabel()
+        personLabel.frame = CGRect(x: 0,
+                                   y: budgetView.frame.maxY + pad,
+                                   width: scrollView.bounds.width,
+                                   height: 25)
+        personLabel.text = "Set Person"
+        scrollView.addSubview(personLabel)
+        
+        autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
+                                                              y: personLabel.frame.maxY + pad,
+                                                              width: scrollView.bounds.width,
+                                                              height: 100))
+        self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
+        scrollView.addSubview(autoCompletePerson!)
+        let contentHeight = autoCompletePerson!.frame.maxY + pad
+        
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
-    
-    
-    
+
     private func createAlertForError(_ error: CustomErrors.createGift) {
         let alertController = UIAlertController(title: "Incomplete Gift", message: error.description, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel)
@@ -170,11 +165,32 @@ class CGCreateGiftViewController: CustomViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    //drop keyboard if editing textfield
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     @objc
     func handleKeyboardNotification(sender: Notification) {
-        //handle scroll view when keyboard will appear and disappear
         
+        guard tabBarController?.selectedIndex == 2 else { return }
+        guard let userInfo = sender.userInfo else { return }
+        guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
+        if sender.name == Notification.Name.UIKeyboardWillShow {
+            //keyboard up
+
+            UIView.animate(withDuration: 0.0, animations: {
+                self.scrollView.frame.size.height = self.view.bounds.height - self.navHeight - self.statusHeight - pad - keyboardFrame.height
+                self.view.layoutIfNeeded()
+            })
+            
+            //scroll to bottom
+            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - pad - (autoCompletePerson?.frame.origin.y)!)
+            scrollView.setContentOffset(bottomOffset, animated: true)
+        } else {
+            scrollView.frame = scrollViewFrame
+        }
     }
     
     @objc
@@ -183,6 +199,7 @@ class CGCreateGiftViewController: CustomViewController {
         let gb = GiftBuilder.newGift(dataPersistence: DataPersistenceService.shared)
         gb.addName(self.giftName)
         gb.addToPerson(self.person)
+        gb.addCost(self.budgetView.getBudgetAmount())
         gb.canReturnGift { (success, error) in
             if success {
                 if let moc = DataPersistenceService.shared.mainQueueContext {
@@ -199,6 +216,7 @@ class CGCreateGiftViewController: CustomViewController {
     }
 }
 
+//MARK: Autocomplete TF Delegate
 extension CGCreateGiftViewController: AutoCompleteTextFieldDelegate {
    
     func provideDatasource() {
@@ -225,6 +243,7 @@ extension CGCreateGiftViewController: AutoCompleteTextFieldDelegate {
     }
 }
 
+//MARK: TextFieldDelegate
 extension CGCreateGiftViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

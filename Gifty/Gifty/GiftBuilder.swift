@@ -53,6 +53,10 @@ class GiftBuilder {
         }
     }
     
+    func addCost(_ cost: Float) {
+        self.gift.cost = cost
+    }
+    
     func addToEvent(_ event: Event) {
         self.gift.eventId = event.id
     }
@@ -60,6 +64,7 @@ class GiftBuilder {
     func canReturnGift(completion: (_ success: Bool, _ error: CustomErrors.createGift?) -> ()) {
         if self.gift.name == nil { completion(false, CustomErrors.createGift.noName) }
         if self.gift.person == nil { completion(false, CustomErrors.createGift.noPerson) }
+        if self.gift.cost == nil { completion(false, CustomErrors.createGift.noBudget) }
         completion(true, nil)
     }
     

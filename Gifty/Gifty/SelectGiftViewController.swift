@@ -9,8 +9,14 @@
 import UIKit
 import GiftyBridge
 
+protocol SelectGiftVCDelegate {
+    func selectedGift(_ gift: Gift)
+}
+
 class SelectGiftViewController: CustomViewController {
 
+    var delegate: SelectGiftVCDelegate?
+    
     var person: Person? = nil {
         didSet {
             getDataSource()
@@ -26,7 +32,7 @@ class SelectGiftViewController: CustomViewController {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = UIColor.green
+        tv.backgroundColor = UIColor.clear
         tv.delegate = self
         tv.dataSource = self
         tv.register(GiftSelectTableViewCell.self, forCellReuseIdentifier: "giftSelectCell")
@@ -90,5 +96,13 @@ extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
         guard let gift = dataSource?[indexPath.row] else { return cell }
         cell.setup(with: gift)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! GiftSelectTableViewCell
+        let gift = cell.gift!
+        
+        self.delegate?.selectedGift(gift)
+        navigationController?.popViewController(animated: true)
     }
 }
