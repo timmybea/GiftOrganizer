@@ -60,16 +60,16 @@ struct CustomErrors {
     enum createEvent {
         case noDate
         case noEventType
-        case noActionsSelected
         case personIsNil
         case changesMade
+        case noBudget
         
         var description: String {
             switch self {
+            case .noBudget: return "Please create a budget for your event"
             case .noDate: return "Please select a date for your event."
-            case .noEventType: return "Please select an event type from the drop down menu."
-            case .noActionsSelected: return "Please select at least one action to complete."
-            case .personIsNil: return "There has been a problem. Please go back and try again."
+            case .noEventType: return "Please select an event type."
+            case .personIsNil: return "Please select a person for your event."
             case .changesMade: return "If you continue with this action, you will lose changes you have made"
             }
         }

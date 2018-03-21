@@ -91,6 +91,7 @@
 		B0D064B1206065C3002B4865 /* AddGiftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B0206065C3002B4865 /* AddGiftView.swift */; };
 		B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B220618242002B4865 /* SelectGiftViewController.swift */; };
 		B0D064B520619995002B4865 /* GiftSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */; };
+		B0D064B72062DB60002B4865 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B62062DB60002B4865 /* EventBuilder.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
@@ -274,6 +275,7 @@
 		B0D064B0206065C3002B4865 /* AddGiftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftView.swift; sourceTree = "<group>"; };
 		B0D064B220618242002B4865 /* SelectGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGiftViewController.swift; sourceTree = "<group>"; };
 		B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSelectTableViewCell.swift; sourceTree = "<group>"; };
+		B0D064B62062DB60002B4865 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 				B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */,
 				B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */,
 				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
+				B0D064B62062DB60002B4865 /* EventBuilder.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1303,6 +1306,7 @@
 				B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,
 				B07D34E61FF9C0A700626C36 /* AutoCompleteTextField.swift in Sources */,
+				B0D064B72062DB60002B4865 /* EventBuilder.swift in Sources */,
 				B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */,
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */,

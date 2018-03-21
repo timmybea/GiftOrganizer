@@ -10,7 +10,7 @@ import UIKit
 import GiftyBridge
 
 protocol EventTableViewCellDelegate {
-    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event)
+    //func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event)
     func budgetButtonTouched(for event: Event)
 }
 
@@ -57,12 +57,12 @@ class EventTableViewCell: UITableViewCell {
         return view
     }()
     
-    lazy var actionsButtonsView: ActionsButtonsView = {
-        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.checkList)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.delegate = self
-        return view
-    }()
+//    lazy var actionsButtonsView: ActionsButtonsView = {
+//        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.checkList)
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.delegate = self
+//        return view
+//    }()
     
     let completionIcon: UIImageView = {
         let view = UIImageView()
@@ -139,23 +139,23 @@ class EventTableViewCell: UITableViewCell {
         summaryLabel.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
         summaryLabel.bottomAnchor.constraint(equalTo: dayLabel.bottomAnchor, constant: -6).isActive = true
         
-        customBackground.addSubview(actionsButtonsView)
-        actionsButtonsView.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
-        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
-        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6).isActive = true
-        actionsButtonsView.heightAnchor.constraint(equalToConstant: 34).isActive = true
-        actionsButtonsView.isHidden = true
+//        customBackground.addSubview(actionsButtonsView)
+//        actionsButtonsView.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
+//        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
+//        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6).isActive = true
+//        actionsButtonsView.heightAnchor.constraint(equalToConstant: 34).isActive = true
+//        actionsButtonsView.isHidden = true
     }
     
     
     func showActionsButtonsView() {
         if self.customBackground.frame.height > 70.0 {
-            actionsButtonsView.isHidden = false
+            //actionsButtonsView.isHidden = false
         }
     }
     
     func hideActionsButtonsView() {
-        actionsButtonsView.isHidden = true
+        //actionsButtonsView.isHidden = true
     }
     
     
@@ -179,7 +179,7 @@ class EventTableViewCell: UITableViewCell {
                 completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
                 
                 if showBudget {
-                    self.budgetButtonTouched()
+                    //self.budgetButtonTouched()
                 }
             } else if count > 0 {
                 if count == 1 {
@@ -190,44 +190,45 @@ class EventTableViewCell: UITableViewCell {
                 completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
             }
             
-            actionsButtonsView.configureButtonStatesFor(event: event)
+            //actionsButtonsView.configureButtonStatesFor(event: event)
         }
     }
     
     private func countIncompleteActions(event: Event) -> Int {
         
-        var count = 0
+        let count = 0
         
-        if event.giftState == ActionButton.SelectionStates.selected.rawValue {
-            count += 1
-        }
-
-        if event.cardState == ActionButton.SelectionStates.selected.rawValue {
-            count += 1
-        }
-        
-        if event.phoneState == ActionButton.SelectionStates.selected.rawValue {
-            count += 1
-        }
+//        if event.giftState == ActionButton.SelectionStates.selected.rawValue {
+//            count += 1
+//        }
+//
+//        if event.cardState == ActionButton.SelectionStates.selected.rawValue {
+//            count += 1
+//        }
+//
+//        if event.phoneState == ActionButton.SelectionStates.selected.rawValue {
+//            count += 1
+//        }
         return count
     }
 
 }
 
 //MARK: ActionsButtons Delegate
-extension EventTableViewCell: ActionsButtonsViewDelegate {
-    
-    func budgetButtonTouched() {
-    
-        if self.delegate != nil, self.event != nil {
-            self.delegate!.budgetButtonTouched(for: self.event!)
-        }
-    }
-    
-    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
-        
-        if self.delegate != nil, self.event != nil {
-            self.delegate!.setAction(action, to: state, for: self.event!)
-        }
-    }
-}
+//extension EventTableViewCell: ActionsButtonsViewDelegate {
+//    
+//    func budgetButtonTouched() {
+//    
+//        if self.delegate != nil, self.event != nil {
+//            self.delegate!.budgetButtonTouched(for: self.event!)
+//        }
+//    }
+//    
+//    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
+//        
+//        if self.delegate != nil, self.event != nil {
+//            self.delegate!.setAction(action, to: state, for: self.event!)
+//        }
+//    }
+//}
+

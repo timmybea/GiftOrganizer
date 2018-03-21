@@ -61,10 +61,10 @@ class GiftBuilder {
         self.gift.eventId = event.id
     }
     
-    func canReturnGift(completion: (_ success: Bool, _ error: CustomErrors.createGift?) -> ()) {
-        if self.gift.name == nil { completion(false, CustomErrors.createGift.noName) }
-        if self.gift.person == nil { completion(false, CustomErrors.createGift.noPerson) }
-        if self.gift.cost == nil { completion(false, CustomErrors.createGift.noBudget) }
+    func canReturnGift(completion: @escaping(_ success: Bool, _ error: CustomErrors.createGift?) -> ()) {
+        guard self.gift.name != nil else { completion(false, CustomErrors.createGift.noName); return }
+        guard self.gift.person != nil else { completion(false, CustomErrors.createGift.noPerson); return }
+        guard self.gift.cost != nil else { completion(false, CustomErrors.createGift.noBudget); return }
         completion(true, nil)
     }
     

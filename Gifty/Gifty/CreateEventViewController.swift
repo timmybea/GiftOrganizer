@@ -14,6 +14,7 @@ protocol CreateEventViewControllerDelegate {
     func eventAddedToPerson(uuid: String)
 }
 
+//MARK: Create Event State ENUM
 enum CreateEventState: String {
     case newEventForPerson
     case updateEventForPerson
@@ -58,10 +59,6 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-//    private var addGift = ActionButton.SelectionStates.unselected
-//    private var addCard = ActionButton.SelectionStates.unselected
-//    private var addPhone = ActionButton.SelectionStates.unselected
-    
     private var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
     }
@@ -91,17 +88,16 @@ class CreateEventViewController: CustomViewController {
     
     private var addGiftView: AddGiftView!
     
-//    lazy var actionsButtonsView: ActionsButtonsView = {
-//        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.selectDeselect)
-//        view.tintUnselected = Theme.colors.lightToneOne.color
-//        view.tintSelected = UIColor.white
-//        view.delegate = self
-//        return view
-//    }()
+    private var autoCompletePerson: AutoCompletePerson?
     
-    var autoCompletePerson: AutoCompletePerson?
+    private var budgetLabel: UILabel = {
+        let l = Theme.createMediumLabel()
+        l.text = "Set Budget"
+        return l
+    }()
     
     private var budgetView: BudgetView!
+    private var budgetViewFrame: CGRect!
     
     private var saveButton: ButtonTemplate!
     
@@ -141,7 +137,7 @@ class CreateEventViewController: CustomViewController {
         saveButton = ButtonTemplate(frame: buttonframe)
         saveButton.setTitle("SAVE")
         saveButton.addBorder(with: UIColor.white)
-        saveButton.addTarget(self, action: #selector(addEventToPersonTouched), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonTouched(sender:)), for: .touchUpInside)
         view.addSubview(saveButton)
         
         //scrollView
@@ -175,24 +171,19 @@ class CreateEventViewController: CustomViewController {
         scrollView.addSubview(addGiftView)
         self.addGiftView.delegate = self
 
-        
-        
-        
         //budgetLabel
-//        let budgetLabel = Theme.createMediumLabel()
-//        budgetLabel.frame = CGRect(x: 0,
-//                                   y: actionsButtonsView.frame.maxY + pad,
-//                                   width: scrollView.bounds.width,
-//                                   height: 25)
-//        budgetLabel.text = "Set Budget"
-//        scrollView.addSubview(budgetLabel)
+        budgetLabel.frame = CGRect(x: 0,
+                                   y: addGiftView.frame.maxY + pad,
+                                   width: scrollView.bounds.width,
+                                   height: 25)
+        scrollView.addSubview(budgetLabel)
 
         //budgetView
-//        budgetView = BudgetView(frame: CGRect(x: 0,
-//                                              y: budgetLabel.frame.maxY + pad,
-//                                              width: scrollView.bounds.width,
-//                                              height: 60))
-//        scrollView.addSubview(budgetView)
+        budgetView = BudgetView(frame: CGRect(x: 0,
+                                              y: budgetLabel.frame.maxY + pad,
+                                              width: scrollView.bounds.width,
+                                              height: 60))
+        scrollView.addSubview(budgetView)
 
         var contentHeight = addDateView.frame.maxY + pad
         
@@ -247,18 +238,18 @@ class CreateEventViewController: CustomViewController {
         self.saveButton.setTitle("UPDATE EVENT")
     }
     
-    private func getActionState(for action: String) -> ActionButton.SelectionStates {
-        switch action {
-        case ActionButton.SelectionStates.unselected.rawValue:
-            return ActionButton.SelectionStates.unselected
-        case ActionButton.SelectionStates.selected.rawValue:
-            return ActionButton.SelectionStates.selected
-        case ActionButton.SelectionStates.completed.rawValue:
-            return ActionButton.SelectionStates.completed
-        default:
-            return ActionButton.SelectionStates.unselected
-        }
-    }
+//    private func getActionState(for action: String) -> ActionButton.SelectionStates {
+//        switch action {
+//        case ActionButton.SelectionStates.unselected.rawValue:
+//            return ActionButton.SelectionStates.unselected
+//        case ActionButton.SelectionStates.selected.rawValue:
+//            return ActionButton.SelectionStates.selected
+//        case ActionButton.SelectionStates.completed.rawValue:
+//            return ActionButton.SelectionStates.completed
+//        default:
+//            return ActionButton.SelectionStates.unselected
+//        }
+//    }
     
     @objc
     func didTapBackground(sender: UITapGestureRecognizer) {
@@ -392,10 +383,9 @@ extension CreateEventViewController: AddGiftViewDelegate {
     }
     
     func needsToResize(to height: CGFloat) {
-        
-        print("Before: \(addGiftView.frame)")
         addGiftView.frame.size.height = height
-        print("After: \(addGiftView.frame)")
+        budgetLabel.frame.origin.y = addGiftView.frame.maxY + pad
+        budgetView.frame.origin.y = budgetLabel.frame.maxY + pad
     }
 
 }
@@ -428,7 +418,8 @@ extension CreateEventViewController: AddGiftViewDelegate {
 //MARK: AddEventButton Method
 extension CreateEventViewController {
     
-    @objc func addEventToPersonTouched() {
+    @objc
+    func saveButtonTouched(sender: UIButton) {
         
         if self.createEventState == CreateEventState.updateEventForPerson {
             //update existing event and save
@@ -442,7 +433,8 @@ extension CreateEventViewController {
                     currEvent.date = self.eventDate
                     currEvent.dateString = DateHandler.stringFromDate(self.eventDate!)
                     currEvent.budgetAmt = self.budgetView.getBudgetAmount()
-//                    currEvent.giftState = self.addGift.rawValue
+
+                    
                     EventFRC.updateMoc()
                     
                     guard let dateString = currEvent.dateString else { return }
@@ -463,7 +455,6 @@ extension CreateEventViewController {
             })
             self.navigationController?.popViewController(animated: true)
         } else {
-        
             //Create new event for existing person
             checkSufficientInformationToCreateEvent(completion: { (success, error) in
                 if success {
@@ -520,7 +511,10 @@ extension CreateEventViewController {
     private func changesMade() -> Bool {
         guard self.eventType == nil else { return true }
         guard self.eventDate == nil else { return true }
-        guard self.person == nil else { return true }
+        guard self.addGiftView.getGifts() == nil else { return true }
+        if self.createEventState == .newEventToBeAssigned && self.person != nil {
+            return true
+        }
         guard self.budgetView.getBudgetAmount() == 0 else { return true }
         return false
     }

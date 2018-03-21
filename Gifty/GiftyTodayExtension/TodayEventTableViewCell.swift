@@ -159,15 +159,7 @@ class TodayEventTableViewCell: UITableViewCell {
         
         var count = 0
         
-        if event.giftState == "selected" {
-            count += 1
-        }
-        
-        if event.cardState == "selected" {
-            count += 1
-        }
-        
-        if event.phoneState == "selected" {
+        if !event.isComplete {
             count += 1
         }
         return count

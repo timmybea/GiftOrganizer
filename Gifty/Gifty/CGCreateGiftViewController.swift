@@ -202,15 +202,11 @@ class CGCreateGiftViewController: CustomViewController {
         gb.addCost(self.budgetView.getBudgetAmount())
         gb.canReturnGift { (success, error) in
             if success {
-                if let moc = DataPersistenceService.shared.mainQueueContext {
-                    DataPersistenceService.shared.saveToContext(moc)
-                }
-
-                //DISMISS VC
+                gb.saveGiftToCoreData(DataPersistenceService.shared)
             }
             
             if let error = error {
-                createAlertForError(error)
+                self.createAlertForError(error)
             }
         }
     }

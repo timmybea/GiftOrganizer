@@ -515,7 +515,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         //guard let eventId = event.id else { return }
         event.managedObjectContext?.delete(event)
         
-        ManagedObjectBuilder.saveChanges { (success) in
+        ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
             if success {
                 //send notification
                 let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
@@ -556,7 +556,7 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
                     ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
                         
                         if success {
-                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                            ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
                                 if !success {
                                     print("Error occured during save")
                                 }
@@ -574,7 +574,7 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
                     //SAVE NEW PERSON (No event added)
                     ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
                         if success {
-                            ManagedObjectBuilder.saveChanges(completion: { (success) in
+                            ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
                                 if success {
                                     print("Saved new person successfully")
                                     if self.delegate != nil {

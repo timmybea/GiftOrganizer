@@ -80,7 +80,7 @@ class ManagedObjectBuilder: NSObject {
     }
     
     //MARK: EVENT MODEL
-    static func addNewEventToPerson(date: Date, type: String, gift: ActionButton.SelectionStates, card: ActionButton.SelectionStates, phone: ActionButton.SelectionStates, person: Person, budgetAmt: Float, completion: (_ success: Bool, _ event: Event?) -> Void) {
+    static func addNewEventToPerson(date: Date, type: String, person: Person, budgetAmt: Float, completion: (_ success: Bool, _ event: Event?) -> Void) {
         
         guard let moc = moc else {
             completion(false, nil)
@@ -92,9 +92,6 @@ class ManagedObjectBuilder: NSObject {
         event.date = date
         event.dateString = DateHandler.stringFromDate(date)
         event.type = type
-        event.giftState = gift.rawValue
-        event.cardState = card.rawValue
-        event.phoneState = phone.rawValue
         event.budgetAmt = budgetAmt
         
         _ = setEventComplete(event)
@@ -105,12 +102,7 @@ class ManagedObjectBuilder: NSObject {
     }
     
     static func setEventComplete(_ event: Event) -> Bool {
-        if event.giftState == ActionButton.SelectionStates.selected.rawValue || event.cardState == ActionButton.SelectionStates.selected.rawValue || event.phoneState == ActionButton.SelectionStates.selected.rawValue {
-            event.isComplete = false
-        } else {
-            event.isComplete = true
-        }
-        return event.isComplete
+        return !event.isComplete
     }
     
     static func getEventBy(uuid: String) -> Event? {
@@ -139,8 +131,8 @@ class ManagedObjectBuilder: NSObject {
 
     
     //MARK: SAVE
-    static func saveChanges(completion: (_ success: Bool) -> Void) {
-        guard let moc = moc else {
+    static func saveChanges(dataPersistence: DataPersistence, completion: (_ success: Bool) -> Void) {
+        guard let moc = dataPersistence.mainQueueContext else {
             completion(false)
             return
         }

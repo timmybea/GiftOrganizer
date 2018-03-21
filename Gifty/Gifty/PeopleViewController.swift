@@ -229,7 +229,7 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
             
             person.managedObjectContext?.delete(person)
             
-            ManagedObjectBuilder.saveChanges(completion: { (success) in
+            ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
                 print("Deleted person and their events and saved changes.")
             })
         }

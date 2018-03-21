@@ -16,7 +16,7 @@ protocol AddGiftViewDelegate {
 
 class AddGiftView: UIView {
     
-    static var headerHeight: CGFloat = 25.0
+    static var headerHeight: CGFloat = 24.0
     
     private var gifts = [Gift]()
     
@@ -60,6 +60,7 @@ class AddGiftView: UIView {
         let tv = UITableView()
         tv.backgroundColor = UIColor.clear
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.backgroundColor = UIColor.green
         tv.dataSource = self
         tv.delegate = self
         tv.register(GiftSelectTableViewCell.self, forCellReuseIdentifier: "GiftSelectCell")
@@ -74,7 +75,9 @@ class AddGiftView: UIView {
     }()
     
     private let costLabel: UILabel = {
-        let l = Theme.createMediumLabel()
+        let l = UILabel()
+        l.textColor = UIColor.white
+        l.font = Theme.fonts.mediumText.font
         l.translatesAutoresizingMaskIntoConstraints = false
         l.textAlignment = .right
         l.text = "Total cost: $20.00"
@@ -128,6 +131,10 @@ class AddGiftView: UIView {
 
     }
     
+    func getGifts() -> [Gift]? {
+        return self.gifts.isEmpty ? nil : self.gifts
+    }
+    
     func addGiftToList(_ gift: Gift) {
         if !gifts.contains(gift) {
             self.gifts.append(gift)
@@ -137,8 +144,8 @@ class AddGiftView: UIView {
     }
     
     private func calculateNewHeight() -> CGFloat {
-        let footerHeight: CGFloat = gifts.count == 0 ? 0.0 : 36.0
-        return type(of: self).headerHeight + (CGFloat(gifts.count) * cellHeight) + footerHeight
+        let footerHeight: CGFloat = gifts.count == 0 ? 0.0 : 30.0
+        return type(of: self).headerHeight + 2 + (CGFloat(gifts.count) * cellHeight) + footerHeight
     }
     
     private func setupTableView() {
@@ -165,8 +172,8 @@ class AddGiftView: UIView {
             
             addSubview(tableView)
             NSLayoutConstraint.activate([
-                tableView.topAnchor.constraint(equalTo: underline.bottomAnchor),
-                tableView.bottomAnchor.constraint(equalTo: bottomUnderline.topAnchor, constant: -4),
+                tableView.topAnchor.constraint(equalTo: underline.bottomAnchor, constant: 2),
+                tableView.bottomAnchor.constraint(equalTo: bottomUnderline.topAnchor, constant: -2),
                 tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
                 tableView.rightAnchor.constraint(equalTo: self.rightAnchor)
                 ])

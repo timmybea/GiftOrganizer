@@ -383,7 +383,7 @@ extension CalendarViewController: EventTableViewDelegate {
         
         self.present(overlayVC, animated: true, completion: nil)
     }
-
+    
     
     func didTouchEditEvent(event: Event) {
         
@@ -401,7 +401,7 @@ extension CalendarViewController: EventTableViewDelegate {
         guard let dateString = event.dateString else { return }
         event.managedObjectContext?.delete(event)
         
-        ManagedObjectBuilder.saveChanges { (success) in
+        ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
             if success {
                 print("successfully deleted event")
                 
@@ -414,7 +414,7 @@ extension CalendarViewController: EventTableViewDelegate {
             }
         }
     }
-    
+        
     func didTouchReminder(for event: Event) {
         let dest = CENNotificationsVC()
         dest.event = event
