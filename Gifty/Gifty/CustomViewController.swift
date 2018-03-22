@@ -11,6 +11,8 @@ import UIKit
 class CustomViewController: UIViewController {
     
     override func viewDidLoad() {
+        tabBarController?.delegate = self
+        
         setupBackgroundView()
     }
     
@@ -58,3 +60,15 @@ class CustomViewController: UIViewController {
         
     }
 }
+
+extension CustomViewController: UITabBarControllerDelegate {
+
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+
+        UITabBarController.currentIndex = tabBarController.selectedIndex
+        //print("current index is: \(UITabBarController.currentIndex)")
+        //print("previous index is: \(UITabBarController.previousIndex)")
+        
+    }
+}
+

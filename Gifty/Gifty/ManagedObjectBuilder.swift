@@ -123,9 +123,6 @@ class ManagedObjectBuilder: NSObject {
     }
 
     //MARK: Development tools
-    static func printAllPeople() {
-        
-    }
     
     static func deleteAllPeople() {
         guard let people = PersonFRC.frc(byGroup: true)?.fetchedObjects as [Person]? else { return }

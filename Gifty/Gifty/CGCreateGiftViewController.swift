@@ -193,6 +193,7 @@ class CGCreateGiftViewController: CustomViewController {
         }
     }
     
+    //MARK: SAVE
     @objc
     func SaveButtonTouched() {
         //Save button
@@ -203,6 +204,18 @@ class CGCreateGiftViewController: CustomViewController {
         gb.canReturnGift { (success, error) in
             if success {
                 gb.saveGiftToCoreData(DataPersistenceService.shared)
+                
+                //clear everything
+                self.giftName = nil
+                self.person = nil
+                self.giftNameTF.text = ""
+                self.budgetView.setTo(amount: 0.0)
+                self.autoCompletePerson?.fullReset()
+
+                
+                TemporaryAlertService.temporaryMessage("Gift created successfully", in: self, completion: {
+                    self.tabBarController?.selectedIndex = UITabBarController.previousIndex
+                })
             }
             
             if let error = error {
@@ -264,7 +277,5 @@ extension CGCreateGiftViewController: UITextFieldDelegate {
         
         self.giftName = capitalized
     }
-    
-    
     
 }

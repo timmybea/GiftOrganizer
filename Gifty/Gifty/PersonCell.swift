@@ -14,7 +14,7 @@ class PersonCell: UITableViewCell {
     var person: Person?
     
     let profileImageView: CircleView = {
-        let view = CircleView(image: UIImage(named: ImageNames.defaultProfileBlock.rawValue))
+        let view = CircleView(image: UIImage(named: ImageNames.personIcon.rawValue))
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         return view
@@ -102,7 +102,7 @@ class PersonCell: UITableViewCell {
             let image = UIImage(data: imageData as Data)
             profileImageView.image = image
         } else {
-            profileImageView.image = UIImage(named: ImageNames.defaultProfileBlock.rawValue)
+            profileImageView.image = UIImage(named: ImageNames.personIcon.rawValue)
         }
         
         if let events = person.event?.allObjects as? [Event] {

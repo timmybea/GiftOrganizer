@@ -65,6 +65,11 @@ class AutoCompletePerson: UIView {
         profileImage.image = UIImage(named: ImageNames.defaultProfileBlock.rawValue)
     }
     
+    func fullReset() {
+        resetProfileImage()
+        autoCompleteTF.reset()
+    }
+    
 }
 
 

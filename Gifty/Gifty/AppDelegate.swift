@@ -62,7 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.tabBar.layer.shadowOffset = CGSize(width: 2, height: 5)
         tabBarController.tabBar.layer.shadowOpacity = 0.5
         tabBarController.tabBar.layer.shadowRadius = 3
-
         return tabBarController
     }
 
@@ -131,3 +130,4 @@ extension AppDelegate: InterstitialServiceDelegate {
         InterstitialService.shared.showInterstitial(in: vc)
     }
 }
+

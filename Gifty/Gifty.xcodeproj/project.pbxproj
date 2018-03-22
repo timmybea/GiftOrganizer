@@ -92,6 +92,8 @@
 		B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B220618242002B4865 /* SelectGiftViewController.swift */; };
 		B0D064B520619995002B4865 /* GiftSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */; };
 		B0D064B72062DB60002B4865 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B62062DB60002B4865 /* EventBuilder.swift */; };
+		B0D064B92064294A002B4865 /* UITabBarController+PreviousIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */; };
+		B0D064BB20642E0C002B4865 /* TemporaryMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
@@ -276,6 +278,8 @@
 		B0D064B220618242002B4865 /* SelectGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGiftViewController.swift; sourceTree = "<group>"; };
 		B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSelectTableViewCell.swift; sourceTree = "<group>"; };
 		B0D064B62062DB60002B4865 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
+		B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+PreviousIndex.swift"; sourceTree = "<group>"; };
+		B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryMessageService.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -637,6 +641,7 @@
 		B0D514FD1F378092008A88A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */,
 				B041F7A21EF8A74A00A3E332 /* Helpers.swift */,
 				B00FF3E6202CC643004CF10C /* Interstitials */,
 				B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */,
@@ -647,6 +652,7 @@
 				B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */,
 				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 				B0D064B62062DB60002B4865 /* EventBuilder.swift */,
+				B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1273,6 +1279,7 @@
 				B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
 				B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */,
+				B0D064BB20642E0C002B4865 /* TemporaryMessageService.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
@@ -1287,6 +1294,7 @@
 				B0D064B1206065C3002B4865 /* AddGiftView.swift in Sources */,
 				B06F41E7205B27880083A28F /* CGCreateGiftViewController.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
+				B0D064B92064294A002B4865 /* UITabBarController+PreviousIndex.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
 				B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */,

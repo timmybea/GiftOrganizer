@@ -147,6 +147,7 @@ class OverlayEventBudgetViewController: UIViewController {
     @objc private func okButtonTouched(sender: UIButton) {
         print("ok button touched")
         event?.actualAmt = self.budgetView.getBudgetAmount()
+//        EventBuilder.save(with: DataPersistenceService.shared)
         ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
             print("Saving spent amount success: \(success)")
             presentingViewController?.dismiss(animated: true, completion: nil)
