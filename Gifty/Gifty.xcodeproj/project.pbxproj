@@ -94,6 +94,7 @@
 		B0D064B72062DB60002B4865 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B62062DB60002B4865 /* EventBuilder.swift */; };
 		B0D064B92064294A002B4865 /* UITabBarController+PreviousIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */; };
 		B0D064BB20642E0C002B4865 /* TemporaryMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */; };
+		B0D064BD20643AD3002B4865 /* GiftFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BC20643AD3002B4865 /* GiftFRC.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
@@ -104,6 +105,7 @@
 		B0E38D29201166A000542217 /* TodayEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E38D28201166A000542217 /* TodayEventTableViewCell.swift */; };
 		B0E38D2B2011682000542217 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0E38D2A2011682000542217 /* Media.xcassets */; };
 		B0E38D2D20116A2400542217 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E38D2C20116A2400542217 /* Helpers.swift */; };
+		B0E52AD420645928004812B6 /* AddGiftViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E52AD320645928004812B6 /* AddGiftViewCell.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
@@ -280,6 +282,7 @@
 		B0D064B62062DB60002B4865 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
 		B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+PreviousIndex.swift"; sourceTree = "<group>"; };
 		B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryMessageService.swift; sourceTree = "<group>"; };
+		B0D064BC20643AD3002B4865 /* GiftFRC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftFRC.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -290,6 +293,7 @@
 		B0E38D28201166A000542217 /* TodayEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayEventTableViewCell.swift; sourceTree = "<group>"; };
 		B0E38D2A2011682000542217 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B0E38D2C20116A2400542217 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		B0E52AD320645928004812B6 /* AddGiftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftViewCell.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -514,7 +518,6 @@
 				B013B5C81F041DD700107B64 /* PersonTFTableView.swift */,
 				B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */,
 				B013B5CA1F0428A300107B64 /* TextFieldCell.swift */,
-				B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				B06F41E8205B2E080083A28F /* GiftBuilder.swift */,
+				B0D064BC20643AD3002B4865 /* GiftFRC.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -567,6 +571,8 @@
 		B06F41E5205B27560083A28F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */,
+				B0E52AD320645928004812B6 /* AddGiftViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1254,6 +1260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0E52AD420645928004812B6 /* AddGiftViewCell.swift in Sources */,
 				B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */,
 				B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */,
 				B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */,
@@ -1271,6 +1278,7 @@
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
 				B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */,
+				B0D064BD20643AD3002B4865 /* GiftFRC.swift in Sources */,
 				B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */,
 				B022CF172051E905003F6F89 /* CENTitleTableViewCell.swift in Sources */,
 				B076AF1F202D1D6D00B54CDF /* InterstitialService.swift in Sources */,

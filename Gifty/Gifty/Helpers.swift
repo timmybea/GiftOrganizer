@@ -26,6 +26,7 @@ enum ImageNames: String {
     case addGift = "add_gift"
     case addGreetingCard = "add_greeting_card"
     case addPhoneCall = "add_phone_call"
+    case removeIcon = "remove_icon"
     case calendarIcon = "calendar"
     case peopleIcon = "people"
     case defaultProfileBlock = "default_profile_block"

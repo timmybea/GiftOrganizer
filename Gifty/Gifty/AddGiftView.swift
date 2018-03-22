@@ -20,7 +20,7 @@ class AddGiftView: UIView {
     
     private var gifts = [Gift]()
     
-    private let cellHeight: CGFloat = 30.0
+    private let cellHeight: CGFloat = 40.0
     
     private let touchView: UIControl = {
         let view = UIControl()
@@ -60,10 +60,10 @@ class AddGiftView: UIView {
         let tv = UITableView()
         tv.backgroundColor = UIColor.clear
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = UIColor.green
+        tv.backgroundColor = UIColor.clear
         tv.dataSource = self
         tv.delegate = self
-        tv.register(GiftSelectTableViewCell.self, forCellReuseIdentifier: "GiftSelectCell")
+        tv.register(AddGiftViewCell.self, forCellReuseIdentifier: "AddGiftViewCell")
         return tv
     }()
     
@@ -135,11 +135,17 @@ class AddGiftView: UIView {
         return self.gifts.isEmpty ? nil : self.gifts
     }
     
+    func setGifts(_ gifts: [Gift]) {
+        self.gifts = gifts
+        self.delegate?.needsToResize(to: calculateNewHeight())
+        setupTableView()
+    }
+    
     func addGiftToList(_ gift: Gift) {
         if !gifts.contains(gift) {
             self.gifts.append(gift)
             self.delegate?.needsToResize(to: calculateNewHeight())
-            setupTableView()
+            //setupTableView()
         }
     }
     
@@ -148,7 +154,7 @@ class AddGiftView: UIView {
         return type(of: self).headerHeight + 2 + (CGFloat(gifts.count) * cellHeight) + footerHeight
     }
     
-    private func setupTableView() {
+    func setupTableView() {
         tableView.removeFromSuperview()
         bottomUnderline.removeFromSuperview()
         costLabel.removeFromSuperview()
@@ -222,6 +228,32 @@ extension AddGiftView {
     }
 }
 
+//MARK: AddGiftViewCellDelegate
+extension AddGiftView : AddGiftViewCellDelegate {
+    
+    func remove(gift: Gift) {
+        var row = 0
+        for (i, g) in self.gifts.enumerated() {
+            if g.id == gift.id {
+                gift.eventId = nil
+                row = i
+                break
+            }
+        }
+        self.gifts.remove(at: row)
+        tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .fade)
+        
+        let fire = Date(timeInterval: 0.2, since: Date())
+        let timer = Timer(fire: fire, interval: 0, repeats: false, block: { (timer) in
+            self.delegate?.needsToResize(to: self.calculateNewHeight())
+            timer.invalidate()
+        })
+        RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+    }
+    
+}
+
+
 extension AddGiftView : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -229,13 +261,15 @@ extension AddGiftView : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GiftSelectCell") as! GiftSelectTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AddGiftViewCell") as! AddGiftViewCell
         let gift = gifts[indexPath.row]
         cell.setup(with: gift)
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return cellHeight
     }
+    
 }

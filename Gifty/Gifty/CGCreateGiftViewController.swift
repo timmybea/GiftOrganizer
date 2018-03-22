@@ -214,6 +214,7 @@ class CGCreateGiftViewController: CustomViewController {
 
                 
                 TemporaryAlertService.temporaryMessage("Gift created successfully", in: self, completion: {
+                    
                     self.tabBarController?.selectedIndex = UITabBarController.previousIndex
                 })
             }

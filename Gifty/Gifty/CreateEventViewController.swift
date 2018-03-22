@@ -218,7 +218,7 @@ class CreateEventViewController: CustomViewController {
             self.navigationController?.popViewController(animated: true)
             return
         }
-        
+        self.person = currentEvent.person
         self.navigationItem.title = "Event for \(currentEvent.person!.firstName!)"
         
         self.dropDown.setTitle(text: currentEvent.type!)
@@ -228,10 +228,9 @@ class CreateEventViewController: CustomViewController {
         
         self.isRecurringEvent = true //<<<<PULL THIS OUT OF EVENT
         
-//        actionsButtonsView.configureButtonStatesFor(event: currentEvent)
-//        self.addGift = getActionState(for: currentEvent.giftState!)
-//        self.addCard = getActionState(for: currentEvent.cardState!)
-//        self.addPhone = getActionState(for: currentEvent.phoneState!)
+        if let gifts = GiftFRC.getGifts(for: currentEvent) {
+            self.addGiftView.setGifts(gifts)
+        }
         
         budgetView.setTo(amount: currentEvent.budgetAmt)
         
@@ -406,6 +405,7 @@ extension CreateEventViewController: DatePickerViewControllerDelegate {
 extension CreateEventViewController: AddGiftViewDelegate {
    
     func addGiftViewWasTouched() {
+        
         guard let p = self.person else { return }
         let destination = SelectGiftViewController()
         destination.delegate = self
@@ -416,9 +416,13 @@ extension CreateEventViewController: AddGiftViewDelegate {
     }
     
     func needsToResize(to height: CGFloat) {
-        addGiftView.frame.size.height = height
-        budgetLabel.frame.origin.y = addGiftView.frame.maxY + pad
-        budgetView.frame.origin.y = budgetLabel.frame.maxY + pad
+        self.addGiftView.frame.size.height = height
+        UIView.animate(withDuration: 0.1, animations: {
+            self.budgetLabel.frame.origin.y = self.addGiftView.frame.maxY + pad
+            self.budgetView.frame.origin.y = self.budgetLabel.frame.maxY + pad
+        }) { (complete) in
+            self.addGiftView.setupTableView()
+        }
     }
 
 }
@@ -442,6 +446,11 @@ extension CreateEventViewController {
                     eb.addDate(self.eventDate!)
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     
+                    if let gifts = self.addGiftView.getGifts() {
+                        for g in gifts {
+                            g.eventId = currEvent.id
+                        }
+                    }
                     
                     guard let dateString = currEvent.dateString else { return }
                     let createUserInfo = ["dateString": dateString]
@@ -498,44 +507,6 @@ extension CreateEventViewController {
         })
     }
 }
-        
-
-        
-        
-
-//        } else {
-//
-
-            //checkSufficientInformationToCreateEvent(completion: { (success, error) in
-              //  if success {
-                    //let budgetAmt = self.budgetView.getBudgetAmount()
-//                    ManagedObjectBuilder.addNewEventToPerson(date: eventDate!, type: eventType!, gift: addGift, card: addCard, phone: addPhone, person: person!, budgetAmt: budgetAmt) { (success, event) in
-//
-//                        print("successfully added event")
-//                        //send notification
-//                        guard let dateString = event?.dateString else { return }
-//                        let userInfo = ["dateString": dateString, "personId": person?.id!, "createEventState": self.createEventState?.rawValue]
-//
-//                        DispatchQueueHandler.notification.queue.async {
-//                            NotificationCenter.default.post(name: Notifications.names.newEventCreated.name, object: nil, userInfo: userInfo as! [String : String])
-//                        }
-//
-//                        if self.delegate != nil {
-//                            self.delegate?.eventAddedToPerson(uuid: (event?.id)!)
-//                        }
-//                        self.navigationController?.popViewController(animated: true)
-//                    }
-//                } else {
-//                    if error != nil {
-//                        createAlertForError(error!)
-//                    }
-//                }
-  //          })
-
-        //}
-//    }
-
-
 
 //MARK: AutoCompleteTextFieldDelegate
 extension CreateEventViewController: AutoCompleteTextFieldDelegate {
