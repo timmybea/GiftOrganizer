@@ -15,6 +15,8 @@ protocol SelectGiftVCDelegate {
 
 class SelectGiftViewController: CustomViewController {
 
+    private var cellHeight: Int = 40
+    
     var delegate: SelectGiftVCDelegate?
     
     var person: Person? = nil {
@@ -32,6 +34,7 @@ class SelectGiftViewController: CustomViewController {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.bounces = false
         tv.backgroundColor = UIColor.clear
         tv.delegate = self
         tv.dataSource = self
@@ -39,6 +42,7 @@ class SelectGiftViewController: CustomViewController {
         return tv
     }()
     
+    var tvHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +57,9 @@ class SelectGiftViewController: CustomViewController {
         
         self.navigationItem.leftBarButtonItem = backButton
         
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTouched))
+        navigationItem.rightBarButtonItem = addButton
+        
         setupSubviews()
     }
     
@@ -61,6 +68,7 @@ class SelectGiftViewController: CustomViewController {
         guard let gifts = p.gift?.allObjects as? [Gift] else { return }
 
         self.dataSource = gifts
+        setTableViewHeight()
     }
     
     private func setupSubviews() {
@@ -68,12 +76,25 @@ class SelectGiftViewController: CustomViewController {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
+        tvHeightConstraint = NSLayoutConstraint(item: tableView,
+                                                attribute: .height,
+                                                relatedBy: .equal,
+                                                toItem: tableView,
+                                                attribute: .height,
+                                                multiplier: 0, constant: 0)
+        tvHeightConstraint.isActive = true
+        tableView.addConstraint(tvHeightConstraint)
         
         self.getDataSource()
+    }
+    
+    private func setTableViewHeight() {
+        guard tvHeightConstraint != nil else { return }
+        let dataCount = dataSource == nil ? 0 : dataSource!.count
+        tvHeightConstraint.constant = CGFloat(dataCount * cellHeight)
     }
     
     @objc
@@ -82,7 +103,26 @@ class SelectGiftViewController: CustomViewController {
         print("Back button touched")
         navigationController?.popViewController(animated: true)
     }
+    
+    @objc
+    func addButtonTouched() {
+        let dest = CreateGiftViewController()
+        if let p = self.person {
+            dest.setupNewGiftFor(person: p)
+            dest.delegate = self
+        }
+        navigationController?.pushViewController(dest, animated: true)
+    }
 
+}
+
+
+extension SelectGiftViewController: CreateGiftViewControllerDelegate {
+    
+    func newGiftCreated() {
+        getDataSource()
+    }
+    
 }
 
 extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
@@ -104,5 +144,9 @@ extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
         
         self.delegate?.selectedGift(gift)
         navigationController?.popViewController(animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(cellHeight)
     }
 }

@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         let calendarVC = UINavigationController.setupCustomNavigationController(CalendarViewController())
         let peopleVC = UINavigationController.setupCustomNavigationController(PeopleViewController())
-        let giftVC = UINavigationController.setupCustomNavigationController(CGCreateGiftViewController())
+        let giftVC = UINavigationController.setupCustomNavigationController(CreateGiftViewController())
         let settingsVC = UINavigationController.setupCustomNavigationController(SettingsViewController())
         tabBarController.viewControllers = [calendarVC, peopleVC, giftVC, settingsVC]
         tabBarController.tabBar.barTintColor = Theme.colors.darkPurple.color

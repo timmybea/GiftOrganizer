@@ -51,7 +51,7 @@
 		B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */; };
 		B06CF69A203E7A8800072152 /* CENReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF699203E7A8800072152 /* CENReminderTableViewCell.swift */; };
 		B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */; };
-		B06F41E7205B27880083A28F /* CGCreateGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F41E6205B27880083A28F /* CGCreateGiftViewController.swift */; };
+		B06F41E7205B27880083A28F /* CreateGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F41E6205B27880083A28F /* CreateGiftViewController.swift */; };
 		B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06F41E8205B2E080083A28F /* GiftBuilder.swift */; };
 		B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042031F06B7B400D6A027 /* ButtonTemplate.swift */; };
 		B07042061F06CC6200D6A027 /* CustomImageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07042051F06CC6200D6A027 /* CustomImageControl.swift */; };
@@ -97,6 +97,7 @@
 		B0D064BD20643AD3002B4865 /* GiftFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BC20643AD3002B4865 /* GiftFRC.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
+		B0DA02B1206588800084A2FF /* ActionSheetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B0206588800084A2FF /* ActionSheetService.swift */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
 		B0DBFB80201127F6009442F4 /* GiftyBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = B0DBFB7E201127F6009442F4 /* GiftyBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
@@ -238,7 +239,7 @@
 		B06CF697203E3A1C00072152 /* CreateEventNotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventNotificationVC.swift; sourceTree = "<group>"; };
 		B06CF699203E7A8800072152 /* CENReminderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENReminderTableViewCell.swift; sourceTree = "<group>"; };
 		B06D5B201FE5EF6100C096C9 /* ReturnContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnContainerView.swift; sourceTree = "<group>"; };
-		B06F41E6205B27880083A28F /* CGCreateGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGCreateGiftViewController.swift; sourceTree = "<group>"; };
+		B06F41E6205B27880083A28F /* CreateGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGiftViewController.swift; sourceTree = "<group>"; };
 		B06F41E8205B2E080083A28F /* GiftBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftBuilder.swift; sourceTree = "<group>"; };
 		B07042031F06B7B400D6A027 /* ButtonTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTemplate.swift; sourceTree = "<group>"; };
 		B07042051F06CC6200D6A027 /* CustomImageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageControl.swift; sourceTree = "<group>"; };
@@ -285,6 +286,7 @@
 		B0D064BC20643AD3002B4865 /* GiftFRC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftFRC.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
+		B0DA02B0206588800084A2FF /* ActionSheetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetService.swift; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiftyBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DBFB7E201127F6009442F4 /* GiftyBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftyBridge.h; sourceTree = "<group>"; };
@@ -554,7 +556,7 @@
 		B06F41E3205B271B0083A28F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B06F41E6205B27880083A28F /* CGCreateGiftViewController.swift */,
+				B06F41E6205B27880083A28F /* CreateGiftViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -659,6 +661,7 @@
 				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 				B0D064B62062DB60002B4865 /* EventBuilder.swift */,
 				B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */,
+				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1300,7 +1303,7 @@
 				B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */,
 				B06CF698203E3A1C00072152 /* CreateEventNotificationVC.swift in Sources */,
 				B0D064B1206065C3002B4865 /* AddGiftView.swift in Sources */,
-				B06F41E7205B27880083A28F /* CGCreateGiftViewController.swift in Sources */,
+				B06F41E7205B27880083A28F /* CreateGiftViewController.swift in Sources */,
 				B0CA63321F0EAEEA00C1A2B1 /* PersonCell.swift in Sources */,
 				B0D064B92064294A002B4865 /* UITabBarController+PreviousIndex.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
@@ -1326,6 +1329,7 @@
 				B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */,
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */,
+				B0DA02B1206588800084A2FF /* ActionSheetService.swift in Sources */,
 				B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */,
 				B022CF1E2051EDA8003F6F89 /* CENDateTableViewCell.swift in Sources */,
 				B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */,

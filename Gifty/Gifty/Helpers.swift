@@ -21,6 +21,7 @@ enum ImageNames: String {
     case profileImagePlaceHolder = "profile_image"
     case profileImagePlaceHolderTouched = "profile_image_touched"
     case personIcon = "person_icon"
+    case addGiftImage = "add_gift_image"
     case dropdownTriangle = "dropdown_triangle"
     case addButton = "add_button"
     case addGift = "add_gift"

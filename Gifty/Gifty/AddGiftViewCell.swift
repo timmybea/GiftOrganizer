@@ -47,8 +47,6 @@ class AddGiftViewCell: UITableViewCell {
     
     private func setupSubviews() {
         
-        //backgroundColor = UIColor.blue
-        
         addSubview(removeButton)
         NSLayoutConstraint.activate([
             removeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad),

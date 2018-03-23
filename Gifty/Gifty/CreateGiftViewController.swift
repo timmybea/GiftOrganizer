@@ -1,5 +1,5 @@
 //
-//  CGCreateGiftViewController.swift
+//  CreateGiftViewController.swift
 //  Gifty
 //
 //  Created by Tim Beals on 2018-03-15.
@@ -9,17 +9,28 @@
 import UIKit
 import GiftyBridge
 
-enum CGCreateGiftModes {
-    case newGiftForPerson
-    case newGiftForEvent
+enum CreateGiftModes {
+    case newGiftPersonUnknown
+    case newGiftPersonKnown
     case editExistingGift
 }
 
-class CGCreateGiftViewController: CustomViewController {
+protocol CreateGiftViewControllerDelegate {
+    func newGiftCreated()
+}
+
+class CreateGiftViewController: CustomViewController {
     
-    private var mode: CGCreateGiftModes = .newGiftForPerson
+    func setupNewGiftFor(person: Person) {
+        self.mode = .newGiftPersonKnown
+        self.person = person
+    }
     
-    private var person: Person?
+    var delegate: CreateGiftViewControllerDelegate?
+    
+    private var mode: CreateGiftModes = .newGiftPersonUnknown
+    
+    var person: Person?
     private var giftName: String?
     
     //constants
@@ -52,7 +63,7 @@ class CGCreateGiftViewController: CustomViewController {
     lazy var giftNameTF: UITextField = {
         let tf = UITextField()
         tf.backgroundColor = UIColor.clear
-        tf.placeholderWith(string: "Gift idea", color: Theme.colors.lightToneOne.color)
+        tf.placeholderWith(string: "Gift idea", color: UIColor.white)
         tf.autocapitalizationType = .words
         tf.returnKeyType = .done
         tf.keyboardType = .alphabet
@@ -65,9 +76,10 @@ class CGCreateGiftViewController: CustomViewController {
     
     private var budgetView: BudgetView!
     
-    let imageView: UIImageView = {
-        let v = UIImageView()
-        v.backgroundColor = UIColor.gray
+    let giftImageControl: CustomImageControl = {
+        let v = CustomImageControl()
+        v.imageView.image = UIImage(named: ImageNames.addGiftImage.rawValue)
+        v.contentMode = .scaleAspectFill
         return v
     }()
     
@@ -83,6 +95,14 @@ class CGCreateGiftViewController: CustomViewController {
                                                selector: #selector(handleKeyboardNotification(sender:)),
                                                name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
+        
+        navigationItem.hidesBackButton = true
+        let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(backButtonTouched(sender:)))
+        self.navigationItem.leftBarButtonItem = backButton
+        
         navigationItem.title = "Create Gift"
         setupSubviews()
     }
@@ -109,12 +129,13 @@ class CGCreateGiftViewController: CustomViewController {
         scrollView.frame = scrollViewFrame
         view.addSubview(scrollView)
         
-        //imageView
+        //giftImageControl
         let width = (scrollView.frame.width / 3) * 2
-        imageView.frame = CGRect(x: scrollView.frame.width / 6, y: 0, width: width, height: width / 2)
-        scrollView.addSubview(imageView)
+        giftImageControl.frame = CGRect(x: scrollView.frame.width / 6, y: 0, width: width, height: width / 2)
+        scrollView.addSubview(giftImageControl)
+        giftImageControl.addTarget(self, action: #selector(didTouchAddImage(sender:)), for: .touchUpInside)
         
-        giftNameTF.frame = CGRect(x: 0, y: imageView.frame.maxY + pad, width: scrollView.frame.width, height: 30)
+        giftNameTF.frame = CGRect(x: 0, y: giftImageControl.frame.maxY + pad, width: scrollView.frame.width, height: 30)
         scrollView.addSubview(giftNameTF)
         
         let tfUnderline = UIView()
@@ -131,6 +152,8 @@ class CGCreateGiftViewController: CustomViewController {
         budgetLabel.text = "Set Budget"
         scrollView.addSubview(budgetLabel)
         
+        var contentHeight = budgetLabel.frame.maxY + pad
+        
         //budgetView
         budgetView = BudgetView(frame: CGRect(x: 0,
                                               y: budgetLabel.frame.maxY + pad,
@@ -138,22 +161,24 @@ class CGCreateGiftViewController: CustomViewController {
                                               height: 60))
         scrollView.addSubview(budgetView)
         
-        //autoCompletePerson
-        let personLabel = Theme.createMediumLabel()
-        personLabel.frame = CGRect(x: 0,
-                                   y: budgetView.frame.maxY + pad,
-                                   width: scrollView.bounds.width,
-                                   height: 25)
-        personLabel.text = "Set Person"
-        scrollView.addSubview(personLabel)
-        
-        autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
-                                                              y: personLabel.frame.maxY + pad,
-                                                              width: scrollView.bounds.width,
-                                                              height: 100))
-        self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
-        scrollView.addSubview(autoCompletePerson!)
-        let contentHeight = autoCompletePerson!.frame.maxY + pad
+        if mode == .newGiftPersonUnknown {
+            //autoCompletePerson
+            let personLabel = Theme.createMediumLabel()
+            personLabel.frame = CGRect(x: 0,
+                                       y: budgetView.frame.maxY + pad,
+                                       width: scrollView.bounds.width,
+                                       height: 25)
+            personLabel.text = "Set Person"
+            scrollView.addSubview(personLabel)
+            
+            autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
+                                                                  y: personLabel.frame.maxY + pad,
+                                                                  width: scrollView.bounds.width,
+                                                                  height: 100))
+            self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
+            scrollView.addSubview(autoCompletePerson!)
+            contentHeight = autoCompletePerson!.frame.maxY + pad
+        }
         
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
@@ -193,6 +218,24 @@ class CGCreateGiftViewController: CustomViewController {
         }
     }
     
+    @objc
+    func didTouchAddImage(sender: CustomImageControl) {
+        let options = ["Camera", "Photo library"]
+        ActionSheetService.actionSheet(with: options, presentedIn: self) { (option) in
+            switch option {
+            case options[0]: print(options[0])
+            case options[1]: print(options[1])
+            default: print("this should not be reached")
+            }
+        }
+    }
+    
+    
+    @objc
+    func backButtonTouched(sender: UIButton) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     //MARK: SAVE
     @objc
     func SaveButtonTouched() {
@@ -205,18 +248,23 @@ class CGCreateGiftViewController: CustomViewController {
             if success {
                 gb.saveGiftToCoreData(DataPersistenceService.shared)
                 
-                //clear everything
-                self.giftName = nil
-                self.person = nil
-                self.giftNameTF.text = ""
-                self.budgetView.setTo(amount: 0.0)
-                self.autoCompletePerson?.fullReset()
-
                 
-                TemporaryAlertService.temporaryMessage("Gift created successfully", in: self, completion: {
+                //dismiss the vc depending on mode
+                if self.mode == .newGiftPersonUnknown {
+                    //clear everything
+                    self.giftName = nil
+                    self.person = nil
+                    self.giftNameTF.text = ""
+                    self.budgetView.setTo(amount: 0.0)
+                    self.autoCompletePerson?.fullReset()
                     
-                    self.tabBarController?.selectedIndex = UITabBarController.previousIndex
-                })
+                    TemporaryAlertService.temporaryMessage("Gift created successfully", in: self, completion: {
+                        self.tabBarController?.selectedIndex = UITabBarController.previousIndex
+                    })
+                } else {
+                    self.delegate?.newGiftCreated()
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
             
             if let error = error {
@@ -227,7 +275,7 @@ class CGCreateGiftViewController: CustomViewController {
 }
 
 //MARK: Autocomplete TF Delegate
-extension CGCreateGiftViewController: AutoCompleteTextFieldDelegate {
+extension CreateGiftViewController: AutoCompleteTextFieldDelegate {
    
     func provideDatasource() {
         //provide complete list of person names
@@ -254,7 +302,7 @@ extension CGCreateGiftViewController: AutoCompleteTextFieldDelegate {
 }
 
 //MARK: TextFieldDelegate
-extension CGCreateGiftViewController: UITextFieldDelegate {
+extension CreateGiftViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
