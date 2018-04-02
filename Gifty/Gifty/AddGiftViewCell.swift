@@ -22,9 +22,11 @@ class AddGiftViewCell: UITableViewCell {
     private var removeButton: CustomImageControl = {
         let c = CustomImageControl()
         c.translatesAutoresizingMaskIntoConstraints = false
-        c.imageView.image = UIImage(named: ImageNames.removeIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
-        c.imageView.contentMode = .scaleAspectFill
-        c.imageView.tintColor = Theme.colors.lightToneTwo.color
+        if let image = UIImage(named: ImageNames.removeIcon.rawValue)?.withRenderingMode(.alwaysTemplate) {
+            c.setDefaultImage(image)
+        }
+        c.setContentMode(.scaleAspectFill)
+        c.setTintColor(Theme.colors.lightToneTwo.color)
         return c
     }()
     

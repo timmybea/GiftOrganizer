@@ -372,21 +372,7 @@ extension CalendarViewController: EventDisplayViewCalendarDelegate {
 
 //MARK: EventTableViewDelegate
 extension CalendarViewController: EventTableViewDelegate {
-    
-    func showBudgetInfo(for event: Event) {
-        
-        let overlayVC = OverlayEventBudgetViewController()
-        self.transitioningDelegate = self.customTransitionDelegate
-        overlayVC.transitioningDelegate = self.customTransitionDelegate
-        overlayVC.event = event
-        overlayVC.modalPresentationStyle = .custom
-        
-        self.present(overlayVC, animated: true, completion: nil)
-    }
-    
-    
-    func didTouchEditEvent(event: Event) {
-        
+    func didTouchEdit(for event: Event) {
         print("Edit existing event")
         let destination = CreateEventViewController()
         destination.eventToBeEdited = event
@@ -396,8 +382,7 @@ extension CalendarViewController: EventTableViewDelegate {
         }
     }
     
-    func didTouchDeleteEvent(event: Event) {
-        
+    func didTouchDelete(for event: Event) {
         guard let dateString = event.dateString else { return }
         event.managedObjectContext?.delete(event)
         
@@ -414,7 +399,17 @@ extension CalendarViewController: EventTableViewDelegate {
             }
         }
     }
+    
+    func didTouchBudget(for event: Event) {
+        let overlayVC = OverlayEventBudgetViewController()
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.event = event
+        overlayVC.modalPresentationStyle = .custom
         
+        self.present(overlayVC, animated: true, completion: nil)
+    }
+  
     func didTouchReminder(for event: Event) {
         let dest = CENNotificationsVC()
         dest.event = event
@@ -424,8 +419,8 @@ extension CalendarViewController: EventTableViewDelegate {
         }
     }
     
-    func didTouchBegin() {
-        //DO NOTHING
+    func touchesBegan() {
+        //do nothing
     }
 }
 

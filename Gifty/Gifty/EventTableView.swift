@@ -10,11 +10,11 @@ import UIKit
 import GiftyBridge
 
 protocol EventTableViewDelegate {
-    func didTouchEditEvent(event: Event)
-    func didTouchDeleteEvent(event: Event)
+    func didTouchEdit(for event: Event)
+    func didTouchDelete(for event: Event)
     func didTouchReminder(for event: Event)
-    func showBudgetInfo(for event: Event)
-    func didTouchBegin()
+    func didTouchBudget(for event: Event)
+    func touchesBegan()
 }
 
 class EventTableView: UIView {
@@ -90,11 +90,11 @@ class EventTableView: UIView {
     
     //drop down keyboard if textfield is editing.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.delegate?.didTouchBegin()
+        self.delegate?.touchesBegan()
     }
 
     @objc func touchesInTV(sender: UITapGestureRecognizer) {
-        self.delegate?.didTouchBegin()
+        self.delegate?.touchesBegan()
     }
     
     @objc private func actionStateChanged(notification: NSNotification) {
@@ -201,12 +201,12 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if displayMode != .pieChart {
-            let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
-                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                    self.delegate!.didTouchEditEvent(event: event)
-                }
-            }
-            editAction.backgroundColor = Theme.colors.yellow.color
+//            let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
+//                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
+//                    self.delegate!.didTouchEditEvent(event: event)
+//                }
+//            }
+//            editAction.backgroundColor = Theme.colors.yellow.color
             
             let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
                 if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
@@ -219,20 +219,20 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
                         tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
                     }
                     tableView.endUpdates()
-                    self.delegate?.didTouchDeleteEvent(event: event)
+                    self.delegate?.didTouchDelete(for: event)
                 }
                 
             }
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
             
-            let reminderAction = UITableViewRowAction(style: .default, title: "Reminder", handler: { (action, indexPath) in
-                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                    self.delegate?.didTouchReminder(for: event)
-                }
-            })
-            reminderAction.backgroundColor = Theme.colors.lightToneFour.color
+//            let reminderAction = UITableViewRowAction(style: .default, title: "Reminder", handler: { (action, indexPath) in
+//                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
+//                    self.delegate?.didTouchReminder(for: event)
+//                }
+//            })
+//            reminderAction.backgroundColor = Theme.colors.lightToneFour.color
             
-            return [deleteAction, editAction, reminderAction]
+            return [deleteAction]
         } else {
             return nil
         }
@@ -253,18 +253,15 @@ extension EventTableView: EventTableViewCellDelegate {
     
     func buttonTouched(activity: ActivityType, event: Event) {
         switch activity {
-        case .budgetActivity: print("budget touched")
+        case .budgetActivity:
+            print("budget touched")
+            self.delegate?.didTouchBudget(for: event)
         case .editActivity: print("edit touched")
+            self.delegate?.didTouchEdit(for: event)
         case .giftActivity: print("gift touched")
-        case .reminderActivity: print("reminder touched")
+        case .reminderActivity:
+            print("reminder touched")
+            self.delegate?.didTouchReminder(for: event)
         }
     }
-    
-    
-    func budgetButtonTouched(for event: Event) {
-        if self.delegate != nil {
-            self.delegate?.showBudgetInfo(for: event)
-        }
-    }
-    
 }

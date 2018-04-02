@@ -61,6 +61,10 @@ class GiftBuilder {
         self.gift.eventId = event.id
     }
     
+    func addImage(_ image: UIImage) {
+        gift.image = NSData(data: UIImageJPEGRepresentation(image, 0.3)!) as Data
+    }
+    
     func canReturnGift(completion: @escaping(_ success: Bool, _ error: CustomErrors.createGift?) -> ()) {
         guard self.gift.name != nil else { completion(false, CustomErrors.createGift.noName); return }
         guard self.gift.person != nil else { completion(false, CustomErrors.createGift.noPerson); return }

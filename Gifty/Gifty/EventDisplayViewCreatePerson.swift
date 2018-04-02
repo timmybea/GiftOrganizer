@@ -28,9 +28,10 @@ class EventDisplayViewCreatePerson: EventTableView {
     lazy var addButton: CustomImageControl = {
         let add = CustomImageControl()
         add.translatesAutoresizingMaskIntoConstraints = false
-        add.imageView.image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate)
-        add.imageView.contentMode = .scaleAspectFit
-        add.imageView.tintColor = Theme.colors.lightToneTwo.color
+        if let image = UIImage(named: ImageNames.addButton.rawValue)?.withRenderingMode(.alwaysTemplate) {
+            add.setDefaultImage(image)
+        }
+        add.setTintColor(Theme.colors.lightToneTwo.color)
         add.addTarget(self, action: #selector(addButtonTouchedDown), for: .touchDown)
         add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
         return add
@@ -117,11 +118,11 @@ class EventDisplayViewCreatePerson: EventTableView {
 extension EventDisplayViewCreatePerson {
     
     @objc func addButtonTouchedDown() {
-        addButton.imageView.tintColor = Theme.colors.lightToneOne.color
+        addButton.setTintColor(Theme.colors.lightToneOne.color)
     }
     
     @objc func addButtonTouchedUpInside() {
-        addButton.imageView.tintColor = Theme.colors.lightToneTwo.color
+        addButton.setTintColor(Theme.colors.lightToneTwo.color)
         self.eventDisplayViewPersonDelegate?.didTouchAddEventButton()
     }
 }

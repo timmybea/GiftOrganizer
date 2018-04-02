@@ -123,7 +123,7 @@ class EventDisplayViewCalendar: EventTableView {
             upcomingEvents = datasource
         } else if showingIndex == 1 {
             overdueEvents = datasource
-            if let overdue = overdueEvents {
+            if let overdue = overdueEvents, !overdue.isEmpty {
                 self.header.updateOverdue(count: overdue[0].events.count)
             }
         }

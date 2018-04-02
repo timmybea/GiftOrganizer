@@ -32,7 +32,6 @@ class CreateGiftViewController: CustomViewController {
     
     var person: Person?
     private var giftName: String?
-    private var giftImage: UIImage?
     
     //constants
     private var tabBarHeight: CGFloat! {
@@ -79,8 +78,7 @@ class CreateGiftViewController: CustomViewController {
     
     let giftImageControl: CustomImageControl = {
         let v = CustomImageControl()
-        v.imageView.image = UIImage(named: ImageNames.addGiftImage.rawValue)
-        v.imageView.contentMode = .scaleAspectFit
+        v.setDefaultImage(UIImage(named: ImageNames.addGiftImage.rawValue)!)
         return v
     }()
     
@@ -133,8 +131,8 @@ class CreateGiftViewController: CustomViewController {
         view.addSubview(scrollView)
         
         //giftImageControl
-        let width = (scrollView.frame.width / 3) * 2
-        giftImageControl.frame = CGRect(x: scrollView.frame.width / 6, y: 0, width: width, height: width / 2)
+        let width = (scrollView.frame.width / 3)
+        giftImageControl.frame = CGRect(x: scrollView.frame.width / 3, y: 0, width: width, height: width)
         scrollView.addSubview(giftImageControl)
         giftImageControl.addTarget(self, action: #selector(didTouchAddImage(sender:)), for: .touchUpInside)
         
@@ -246,6 +244,9 @@ class CreateGiftViewController: CustomViewController {
         gb.addName(self.giftName)
         gb.addToPerson(self.person)
         gb.addCost(self.budgetView.getBudgetAmount())
+        if let image = self.giftImageControl.getSelectedImage() {
+            gb.addImage(image)
+        }
         gb.canReturnGift { (success, error) in
             if success {
                 gb.saveGiftToCoreData(DataPersistenceService.shared)
@@ -257,6 +258,7 @@ class CreateGiftViewController: CustomViewController {
                     self.giftName = nil
                     self.person = nil
                     self.giftNameTF.text = ""
+                    self.giftImageControl.returnToDefaultImage()
                     self.budgetView.setTo(amount: 0.0)
                     self.autoCompletePerson?.fullReset()
                     
@@ -356,10 +358,9 @@ extension CreateGiftViewController: UIImagePickerControllerDelegate, UINavigatio
         }
         
         if selectedImage != nil {
-            let scaledImage = UIImage.scaleImage(image: selectedImage!, toWidth: self.giftImageControl.frame.width, andHeight: giftImageControl.frame.height)
-            self.giftImageControl.imageView.image = scaledImage
-            self.giftImageControl.isImageSelected = true
-            self.giftImage = scaledImage
+            if let scaledImage = UIImage.scaleImage(image: selectedImage!, toWidth: self.giftImageControl.frame.width, andHeight: giftImageControl.frame.height) {
+                self.giftImageControl.setImage(scaledImage)
+            }
         }
         dismiss(animated: true, completion: nil)
     }

@@ -58,9 +58,10 @@ class EventActivityView : UIView {
             imageControl.identifier = name.rawValue
             imageControl.addTarget(self, action: #selector(activityTouched(sender:)), for: .touchUpInside)
             imageControl.translatesAutoresizingMaskIntoConstraints = false
-            imageControl.imageView.image = UIImage(named: name.rawValue)?.withRenderingMode(.alwaysTemplate)
-            imageControl.imageView.contentMode = .scaleAspectFit
-            imageControl.imageView.tintColor = Theme.colors.lightToneTwo.color
+            if let image = UIImage(named: name.rawValue)?.withRenderingMode(.alwaysTemplate) {
+                imageControl.setDefaultImage(image)
+            }
+            imageControl.setTintColor(Theme.colors.lightToneTwo.color)
             
             NSLayoutConstraint.activate([
                 imageControl.heightAnchor.constraint(equalToConstant: type(of: self).imageSize),

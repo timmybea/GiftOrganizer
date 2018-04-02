@@ -36,8 +36,10 @@ class CreatePersonViewController: CustomViewController {
     
     lazy var profileImageView: CustomImageControl = {
         let imageControl = CustomImageControl()
-        imageControl.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)
-        imageControl.imageView.contentMode = .scaleAspectFill
+        if let image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue) {
+            imageControl.setDefaultImage(image)
+        }
+//        imageControl.imageView.contentMode = .scaleAspectFill
         imageControl.addTarget(self, action: #selector(profileImageTouchDown), for: .touchDown)
         imageControl.addTarget(self, action: #selector(profileImageTouchUpInside), for: .touchUpInside)
         imageControl.layer.masksToBounds = true
@@ -274,9 +276,11 @@ extension CreatePersonViewController {
         self.navigationItem.title = currentPerson.fullName
         
         if currentPerson.profileImage != nil {
-            self.profileImageView.imageView.image = UIImage(data: currentPerson.profileImage! as Data)
-            self.profileImageView.isImageSelected = true
-            self.profileImage = profileImageView.imageView.image
+            if let image = UIImage(data: currentPerson.profileImage! as Data) {
+                self.profileImageView.setImage(image)
+                self.profileImage = image
+            }
+
         }
         textFieldTV.updateWith(firstName: currentPerson.firstName, lastName: currentPerson.lastName)
         
@@ -350,10 +354,10 @@ extension CreatePersonViewController: CNContactPickerDelegate {
     
     func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
         
-        if contact.imageDataAvailable {
-            let imageData = contact.imageData
-            let image = UIImage(data: imageData!)
-            profileImageView.imageView.image = image
+        if contact.imageDataAvailable, let imageData = contact.imageData {
+            if let image = UIImage(data: imageData) {
+                profileImageView.setImage(image)
+            }
         }
         textFieldTV.updateWith(firstName: contact.givenName, lastName: contact.familyName)
         dismiss(animated: true) { 
@@ -379,14 +383,18 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
     
     @objc func profileImageTouchDown() {
         if self.profileImageView.isImageSelected == false {
-            self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolderTouched.rawValue)
+            if let image = UIImage(named: ImageNames.profileImagePlaceHolderTouched.rawValue) {
+                self.profileImageView.setDefaultImage(image)
+            }
         }
     }
     
     @objc func profileImageTouchUpInside() {
         
         if self.profileImageView.isImageSelected == false {
-            self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)
+            if let image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue) {
+                self.profileImageView.setDefaultImage(image)
+            }
         }
         let options = ["Camera", "Photo library"]
         ActionSheetService.actionSheet(with: options, presentedIn: self) { (option) in
@@ -437,10 +445,10 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
         }
         
         if selectedImage != nil {
-            let scaledImage = UIImage.scaleImage(image: selectedImage!, toWidth: profileImageView.frame.width, andHeight: profileImageView.frame.height)
-            self.profileImageView.imageView.image = scaledImage
-            self.profileImageView.isImageSelected = true
-            self.profileImage = profileImageView.imageView.image
+            if let scaledImage = UIImage.scaleImage(image: selectedImage!, toWidth: profileImageView.frame.width, andHeight: profileImageView.frame.height) {
+                self.profileImageView.setImage(scaledImage)
+                self.profileImage = scaledImage
+            }
         }
         dismiss(animated: true, completion: nil)
     }
@@ -514,29 +522,15 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
-    
-    func showBudgetInfo(for event: Event) {
-        let overlayVC = OverlayEventBudgetViewController()
-        self.transitioningDelegate = self.customTransitionDelegate
-        overlayVC.transitioningDelegate = self.customTransitionDelegate
-        overlayVC.modalPresentationStyle = .custom
-        overlayVC.event = event
-        
-        self.present(overlayVC, animated: true, completion: nil)
-    }
-
-
-    func didTouchEditEvent(event: Event) {
+    func didTouchEdit(for event: Event) {
         print("Edit existing event")
         let destination = CreateEventViewController()
         destination.eventToBeEdited = event
-
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(destination, animated: true)
-        }
+        
+        self.navigationController?.pushViewController(destination, animated: true)
     }
     
-    func didTouchDeleteEvent(event: Event) {
+    func didTouchDelete(for event: Event) {
         guard let dateString = event.dateString else { return }
         //guard let eventId = event.id else { return }
         event.managedObjectContext?.delete(event)
@@ -554,6 +548,16 @@ extension CreatePersonViewController: EventTableViewDelegate {
         }
     }
     
+    func didTouchBudget(for event: Event) {
+        let overlayVC = OverlayEventBudgetViewController()
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.modalPresentationStyle = .custom
+        overlayVC.event = event
+        
+        self.present(overlayVC, animated: true, completion: nil)
+    }
+    
     func didTouchReminder(for event: Event) {
         let dest = CENNotificationsVC()
         dest.event = event
@@ -562,7 +566,6 @@ extension CreatePersonViewController: EventTableViewDelegate {
             self.navigationController?.pushViewController(dest, animated: true)
         }
     }
-    
     
 }
 
@@ -678,10 +681,9 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
     }
     
     //drop down keyboard if textfield is editing.
-    func didTouchBegin() {
+    func touchesBegan() {
         self.view.endEditing(true)
     }
-    
 }
 
 //MARK: Create Event Delegate
