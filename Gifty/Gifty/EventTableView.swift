@@ -128,7 +128,7 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
-            //cell.actionsButtonsView.isHidden = indexPath == selectedIndexPath ? false : true
+            cell.eventActivityView.isHidden = indexPath == selectedIndexPath ? false : true
             cell.delegate = self
             if let event = datasource?[indexPath.section].events[indexPath.row] {
                 cell.configureWith(event: event, showBudget: false)
@@ -251,44 +251,20 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
 //MARK: Event Cell Delegate (Save change to event)
 extension EventTableView: EventTableViewCellDelegate {
     
+    func buttonTouched(activity: ActivityType, event: Event) {
+        switch activity {
+        case .budgetActivity: print("budget touched")
+        case .editActivity: print("edit touched")
+        case .giftActivity: print("gift touched")
+        case .reminderActivity: print("reminder touched")
+        }
+    }
+    
+    
     func budgetButtonTouched(for event: Event) {
         if self.delegate != nil {
             self.delegate?.showBudgetInfo(for: event)
         }
     }
     
-//    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event) {
-//        
-//        let currentEvent = event
-//        
-//        if action == ActionButton.Actions.gift {
-//            currentEvent.giftState = state.rawValue
-//        } else if action == ActionButton.Actions.card {
-//            currentEvent.cardState = state.rawValue
-//        } else if action == ActionButton.Actions.phone {
-//            currentEvent.phoneState = state.rawValue
-//        }
-//        print("\(currentEvent.type!): \(action) was changed to state: \(state.rawValue)")
-//        
-//        _ = ManagedObjectBuilder.setEventComplete(currentEvent)
-//        
-//        ManagedObjectBuilder.saveChanges { (success) in
-//            print("saved successfully")
-//            
-//            //send notification
-//            guard let dateString = event.dateString else { return }
-//            
-//            let userInfo = ["EventDisplayViewId": self.id, "dateString": dateString]
-//            
-//            DispatchQueueHandler.notification.queue.async {
-//                NotificationCenter.default.post(name: Notifications.names.actionStateChanged.name, object: nil, userInfo: userInfo)
-//            }
-//            
-//            //update cell subviews according to checklist completion
-//            if self.selectedIndexPath != nil, let cell = self.tableView.cellForRow(at: self.selectedIndexPath!) as? EventTableViewCell {
-//                let event = self.datasource![(selectedIndexPath?.section)!].events[(selectedIndexPath?.row)!]
-//                cell.configureWith(event: event, showBudget: true)
-//            }
-//        }
-//    }
 }

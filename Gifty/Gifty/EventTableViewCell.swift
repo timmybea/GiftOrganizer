@@ -10,8 +10,7 @@ import UIKit
 import GiftyBridge
 
 protocol EventTableViewCellDelegate {
-    //func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates, for event: Event)
-    func budgetButtonTouched(for event: Event)
+    func buttonTouched(activity: ActivityType, event: Event)
 }
 
 class EventTableViewCell: UITableViewCell {
@@ -57,13 +56,14 @@ class EventTableViewCell: UITableViewCell {
         return view
     }()
     
-//    lazy var actionsButtonsView: ActionsButtonsView = {
-//        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.checkList)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.delegate = self
-//        return view
-//    }()
-    
+    lazy var eventActivityView: EventActivityView = {
+        let v = EventActivityView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.delegate = self
+        v.isHidden = true
+        return v
+    }()
+
     let completionIcon: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
@@ -84,7 +84,6 @@ class EventTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        //actionsButtonsView.isHidden = true
         self.selectionStyle = .none
         setupSubviews()
     }
@@ -139,23 +138,24 @@ class EventTableViewCell: UITableViewCell {
         summaryLabel.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
         summaryLabel.bottomAnchor.constraint(equalTo: dayLabel.bottomAnchor, constant: -6).isActive = true
         
-//        customBackground.addSubview(actionsButtonsView)
-//        actionsButtonsView.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor).isActive = true
-//        actionsButtonsView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad).isActive = true
-//        actionsButtonsView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6).isActive = true
-//        actionsButtonsView.heightAnchor.constraint(equalToConstant: 34).isActive = true
-//        actionsButtonsView.isHidden = true
+        customBackground.addSubview(eventActivityView)
+        NSLayoutConstraint.activate([
+            eventActivityView.leftAnchor.constraint(equalTo: eventTypeLabel.leftAnchor),
+            eventActivityView.rightAnchor.constraint(equalTo: customBackground.rightAnchor, constant: -pad),
+            eventActivityView.bottomAnchor.constraint(equalTo: customBackground.bottomAnchor, constant: -6),
+            eventActivityView.heightAnchor.constraint(equalToConstant: EventActivityView.imageSize)
+            ])
     }
     
     
     func showActionsButtonsView() {
         if self.customBackground.frame.height > 70.0 {
-            //actionsButtonsView.isHidden = false
+            eventActivityView.isHidden = false
         }
     }
     
     func hideActionsButtonsView() {
-        //actionsButtonsView.isHidden = true
+        eventActivityView.isHidden = true
     }
     
     
@@ -178,9 +178,9 @@ class EventTableViewCell: UITableViewCell {
                 self.summaryLabel.text = "All actions completed"
                 completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
                 
-                if showBudget {
+                //if showBudget {
                     //self.budgetButtonTouched()
-                }
+                //}
             } else if count > 0 {
                 if count == 1 {
                     self.summaryLabel.text = "1 incomplete action"
@@ -189,46 +189,23 @@ class EventTableViewCell: UITableViewCell {
                 }
                 completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
             }
-            
-            //actionsButtonsView.configureButtonStatesFor(event: event)
         }
     }
     
     private func countIncompleteActions(event: Event) -> Int {
-        
+    
         let count = 0
-        
-//        if event.giftState == ActionButton.SelectionStates.selected.rawValue {
-//            count += 1
-//        }
-//
-//        if event.cardState == ActionButton.SelectionStates.selected.rawValue {
-//            count += 1
-//        }
-//
-//        if event.phoneState == ActionButton.SelectionStates.selected.rawValue {
-//            count += 1
-//        }
         return count
     }
 
 }
 
-//MARK: ActionsButtons Delegate
-//extension EventTableViewCell: ActionsButtonsViewDelegate {
-//    
-//    func budgetButtonTouched() {
-//    
-//        if self.delegate != nil, self.event != nil {
-//            self.delegate!.budgetButtonTouched(for: self.event!)
-//        }
-//    }
-//    
-//    func setAction(_ action: ActionButton.Actions, to state: ActionButton.SelectionStates) {
-//        
-//        if self.delegate != nil, self.event != nil {
-//            self.delegate!.setAction(action, to: state, for: self.event!)
-//        }
-//    }
-//}
 
+
+//MARK: ActionButtonsViewDelegate
+
+extension EventTableViewCell : EventActivityViewDelegate {
+    func activityButtonTouched(activity: ActivityType) {
+        self.delegate?.buttonTouched(activity: activity, event: self.event!)
+    }
+}

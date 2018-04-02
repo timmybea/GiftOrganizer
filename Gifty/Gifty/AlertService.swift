@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TemporaryAlertService {
+class AlertService {
     
     static func temporaryMessage(_ message: String, in vc: UIViewController, completion: @escaping() -> ()) {
         
@@ -29,4 +29,11 @@ class TemporaryAlertService {
         }
     }
     
+    typealias completionHandler = () -> Void
+    static func okAlert(title: String?, message: String?, in vc: UIViewController, completion: completionHandler? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(ok)
+        vc.present(alert, animated: true, completion: completion)
+    }
 }

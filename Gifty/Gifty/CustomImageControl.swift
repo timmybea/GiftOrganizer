@@ -10,6 +10,7 @@ import UIKit
 
 final class CustomImageControl: UIControl {
     
+    var identifier: String?
     let imageView: UIImageView = UIImageView()
     var isImageSelected = false
     //var actionsSelectionState: ActionButton.SelectionStates = ActionButton.SelectionStates.unselected

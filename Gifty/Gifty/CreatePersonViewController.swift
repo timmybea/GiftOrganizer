@@ -388,11 +388,37 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
         if self.profileImageView.isImageSelected == false {
             self.profileImageView.imageView.image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue)
         }
-        
+        let options = ["Camera", "Photo library"]
+        ActionSheetService.actionSheet(with: options, presentedIn: self) { (option) in
+            switch option {
+            case options[0]: self.launchCameraPicker()
+            case options[1]: self.launchImagePicker()
+            default: print("this should not be reached")
+            }
+        }
+    }
+    
+    private func launchImagePicker() {
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
+    }
+    
+    private func launchCameraPicker() {
+        if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
+            print("Camera entered")
+            let picker = UIImagePickerController()
+            picker.allowsEditing = false
+            picker.sourceType = UIImagePickerControllerSourceType.camera
+            picker.cameraDevice = .front
+            picker.cameraCaptureMode = .photo
+            picker.delegate = self
+            
+            present(picker, animated: true, completion: nil)
+        } else {
+            AlertService.okAlert(title: "No Camera", message: "This device has no camera", in: self)
+        }
     }
     
     
@@ -617,17 +643,7 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
     }
     
     private func insufficientInfoAlert(message: String) {
-        
-        let alertController = UIAlertController(title: "Insufficient Information", message: message, preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            //do nothing
-        })
-        
-        alertController.addAction(okAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-        
+        AlertService.okAlert(title: "Insufficient Information", message: message, in: self)
     }
 
     func didTouchAddEventButton() {

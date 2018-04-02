@@ -32,7 +32,6 @@
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
 		B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */; };
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
-		B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */; };
 		B03B653E20363BF50045F95A /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
 		B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */; };
@@ -93,11 +92,12 @@
 		B0D064B520619995002B4865 /* GiftSelectTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */; };
 		B0D064B72062DB60002B4865 /* EventBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B62062DB60002B4865 /* EventBuilder.swift */; };
 		B0D064B92064294A002B4865 /* UITabBarController+PreviousIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */; };
-		B0D064BB20642E0C002B4865 /* TemporaryMessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */; };
+		B0D064BB20642E0C002B4865 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BA20642E0C002B4865 /* AlertService.swift */; };
 		B0D064BD20643AD3002B4865 /* GiftFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BC20643AD3002B4865 /* GiftFRC.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
 		B0DA02B1206588800084A2FF /* ActionSheetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B0206588800084A2FF /* ActionSheetService.swift */; };
+		B0DA02B32065A6EB0084A2FF /* EventActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
 		B0DBFB80201127F6009442F4 /* GiftyBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = B0DBFB7E201127F6009442F4 /* GiftyBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
@@ -213,7 +213,6 @@
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCalendar.swift; sourceTree = "<group>"; };
 		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
-		B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionsButtonsView.swift; sourceTree = "<group>"; };
 		B03B653F20363D250045F95A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -282,11 +281,12 @@
 		B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftSelectTableViewCell.swift; sourceTree = "<group>"; };
 		B0D064B62062DB60002B4865 /* EventBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBuilder.swift; sourceTree = "<group>"; };
 		B0D064B82064294A002B4865 /* UITabBarController+PreviousIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+PreviousIndex.swift"; sourceTree = "<group>"; };
-		B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryMessageService.swift; sourceTree = "<group>"; };
+		B0D064BA20642E0C002B4865 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		B0D064BC20643AD3002B4865 /* GiftFRC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftFRC.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
 		B0DA02B0206588800084A2FF /* ActionSheetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetService.swift; sourceTree = "<group>"; };
+		B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventActivityView.swift; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiftyBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DBFB7E201127F6009442F4 /* GiftyBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftyBridge.h; sourceTree = "<group>"; };
@@ -660,7 +660,7 @@
 				B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */,
 				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 				B0D064B62062DB60002B4865 /* EventBuilder.swift */,
-				B0D064BA20642E0C002B4865 /* TemporaryMessageService.swift */,
+				B0D064BA20642E0C002B4865 /* AlertService.swift */,
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
 			);
 			name = Model;
@@ -669,11 +669,11 @@
 		B0D514FE1F37809F008A88A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B02CCCA51F1C0DF6008CCA58 /* ActionsButtonsView.swift */,
 				B07042071F06DAE000D6A027 /* EventTableView.swift */,
 				B02866771F143590003F5E22 /* EventTableViewCell.swift */,
 				B07042051F06CC6200D6A027 /* CustomImageControl.swift */,
 				B041F76F1EF899F500A3E332 /* LaunchScreen.storyboard */,
+				B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1267,6 +1267,7 @@
 				B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */,
 				B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */,
 				B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */,
+				B0DA02B32065A6EB0084A2FF /* EventActivityView.swift in Sources */,
 				B088330A1FE48E110085BBD9 /* SettingCellType.swift in Sources */,
 				B013B5C71F035F6D00107B64 /* CreatePersonViewController.swift in Sources */,
 				B0CA632C1F0D844800C1A2B1 /* PersonFRC.swift in Sources */,
@@ -1290,11 +1291,10 @@
 				B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
 				B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */,
-				B0D064BB20642E0C002B4865 /* TemporaryMessageService.swift in Sources */,
+				B0D064BB20642E0C002B4865 /* AlertService.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
-				B02CCCA61F1C0DF6008CCA58 /* ActionsButtonsView.swift in Sources */,
 				B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */,
 				B022CF20205314EB003F6F89 /* CENBodyTableViewCell.swift in Sources */,
 				B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */,

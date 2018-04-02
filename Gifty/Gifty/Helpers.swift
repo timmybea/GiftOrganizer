@@ -16,6 +16,8 @@ enum ImageNames: String {
     case horizontalBGGradient = "background_gradient_horizontal"
     case verticalBGGradient = "background_gradient"
     case selectedDateCircle = "selected_date_circle"
+    case reminderIcon = "reminder_icon"
+    case editIcon = "edit_icon"
     case calendarDisplayView = "cal_display_view"
     case todayBGView = "todays_date"
     case profileImagePlaceHolder = "profile_image"
