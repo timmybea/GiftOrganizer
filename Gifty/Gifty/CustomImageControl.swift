@@ -63,7 +63,7 @@ final class CustomImageControl: UIControl {
     }
     
     func getSelectedImage() -> UIImage? {
-        return isSelected ? self.imageView.image : nil
+        return isImageSelected ? self.imageView.image : nil
     }
     //NOW YOU CAN INCLUDE: .addTarget(self, action: "imageTouchedDown:", forControlEvents: .TouchDown) etc for your imageView
 }

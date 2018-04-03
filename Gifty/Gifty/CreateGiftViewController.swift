@@ -251,6 +251,10 @@ class CreateGiftViewController: CustomViewController {
             if success {
                 gb.saveGiftToCoreData(DataPersistenceService.shared)
                 
+                //debugging
+                let gift = gb.returnGift()
+                print("NOT NIL:\(gift.image != nil)")
+                
                 
                 //dismiss the vc depending on mode
                 if self.mode == .newGiftPersonUnknown {

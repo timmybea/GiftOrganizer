@@ -63,7 +63,8 @@ class GiftBuilder {
     }
     
     func addImage(_ image: UIImage) {
-        gift.image = NSData(data: UIImageJPEGRepresentation(image, 0.3)!) as Data
+        let data = NSData(data: UIImageJPEGRepresentation(image, 0.3)!) as Data
+        gift.image = data
     }
     
     func canReturnGift(completion: @escaping(_ success: Bool, _ error: CustomErrors.createGift?) -> ()) {

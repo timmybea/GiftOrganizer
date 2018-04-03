@@ -20,8 +20,6 @@ class AddGiftView: UIView {
     
     private var gifts = [Gift]()
     
-    private let cellHeight: CGFloat = 40.0
-    
     private let touchView: UIControl = {
         let view = UIControl()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +58,9 @@ class AddGiftView: UIView {
         let tv = UITableView()
         tv.backgroundColor = UIColor.clear
         tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.bounces = false
         tv.backgroundColor = UIColor.clear
+        tv.separatorStyle = .none
         tv.dataSource = self
         tv.delegate = self
         tv.register(AddGiftViewCell.self, forCellReuseIdentifier: "AddGiftViewCell")
@@ -80,7 +80,7 @@ class AddGiftView: UIView {
         l.font = Theme.fonts.mediumText.font
         l.translatesAutoresizingMaskIntoConstraints = false
         l.textAlignment = .right
-        l.text = "Total cost: $20.00"
+        l.text = "Estimated cost: $20.00"
         return l
     }()
     
@@ -151,7 +151,7 @@ class AddGiftView: UIView {
     
     private func calculateNewHeight() -> CGFloat {
         let footerHeight: CGFloat = gifts.count == 0 ? 0.0 : 30.0
-        return type(of: self).headerHeight + 2 + (CGFloat(gifts.count) * cellHeight) + footerHeight
+        return type(of: self).headerHeight + 2 + (CGFloat(gifts.count) * AddGiftViewCell.cellHeight) + footerHeight
     }
     
     func setupTableView() {
@@ -269,7 +269,7 @@ extension AddGiftView : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return cellHeight
+        return AddGiftViewCell.cellHeight
     }
     
 }
