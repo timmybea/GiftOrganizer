@@ -29,7 +29,6 @@ class CENNotificationsVC: CustomViewController {
         tv.estimatedRowHeight = 62
         tv.backgroundColor = UIColor.clear
         tv.separatorStyle = .none
-//        tv.separatorColor = Theme.colors.lightToneTwo.color
         tv.delegate = self
         tv.dataSource = self
         tv.register(CENReminderTableViewCell.self, forCellReuseIdentifier: "EventReminderCell")
