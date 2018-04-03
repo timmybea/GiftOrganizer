@@ -9,7 +9,7 @@
 import CoreData
 
 public protocol DataPersistence {
-    func saveToContext(_ context: NSManagedObjectContext?)
+    func saveToContext(_ context: NSManagedObjectContext?, completion: () -> ())
     var mainQueueContext: NSManagedObjectContext? { get }
     var privateQueueContext: NSManagedObjectContext? { get }
 }
@@ -132,19 +132,22 @@ public class CoreDataStorage: NSObject, DataPersistence {
     }
 
     // MARK: - Core Data Saving support
-    private func privateSaveContext(_ context: NSManagedObjectContext?) {
+    private func privateSaveContext(_ context: NSManagedObjectContext?, completion: () -> ()) {
         guard let moc = context else { print("CoreDataService: could not get moc"); return }
         if moc.hasChanges {
             do {
                 try moc.save()
+                completion()
             } catch {
                 print(error.localizedDescription)
             }
         }
     }
     
-    open func saveToContext(_ context: NSManagedObjectContext?) {
-        self.privateSaveContext(context)
+    open func saveToContext(_ context: NSManagedObjectContext?, completion: () -> ()) {
+        self.privateSaveContext(context) {
+            completion()
+        }
     }
 }
 extension NSManagedObject {

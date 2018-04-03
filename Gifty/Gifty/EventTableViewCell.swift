@@ -175,7 +175,7 @@ class EventTableViewCell: UITableViewCell {
             let count = countIncompleteActions(event: event)
             
             if count == 0 {
-                self.summaryLabel.text = "All actions completed"
+                self.summaryLabel.text = "All gifts completed"
                 completionIcon.image = UIImage(named: ImageNames.completeIcon.rawValue)
                 
                 //if showBudget {
@@ -183,9 +183,9 @@ class EventTableViewCell: UITableViewCell {
                 //}
             } else if count > 0 {
                 if count == 1 {
-                    self.summaryLabel.text = "1 incomplete action"
+                    self.summaryLabel.text = "1 incomplete gift"
                 } else {
-                    self.summaryLabel.text = "\(count) incomplete actions"
+                    self.summaryLabel.text = "\(count) incomplete gifts"
                 }
                 completionIcon.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
             }
@@ -193,11 +193,16 @@ class EventTableViewCell: UITableViewCell {
     }
     
     private func countIncompleteActions(event: Event) -> Int {
-    
-        let count = 0
+        var count = 0
+        if let gifts = GiftFRC.getGifts(for: event) {
+            for gift in gifts {
+                if !gift.isCompleted {
+                    count += 1
+                }
+            }
+        }
         return count
     }
-
 }
 
 

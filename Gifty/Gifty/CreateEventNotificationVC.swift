@@ -9,9 +9,15 @@
 import UIKit
 import GiftyBridge
 
+protocol CreateEventNotificationDelegate {
+    func newNotificationCreated()
+}
+
 class CreateEventNotificationVC: CustomViewController {
 
     var event: Event?
+    
+    var delegate: CreateEventNotificationDelegate?
     
     var notificationDate: Date? {
         return Date(timeInterval: 10.0, since: Date())
@@ -187,8 +193,9 @@ class CreateEventNotificationVC: CustomViewController {
         nb.moBuilder.addTitle(t)
         nb.moBuilder.addMessage(b)
         _ = nb.createNewNotification()
-        nb.saveChanges(DataPersistenceService.shared)
-        
+        nb.saveChanges(DataPersistenceService.shared, completion: {
+            self.delegate?.newNotificationCreated()
+        })
         navigationController?.popViewController(animated: true)
     }
 }

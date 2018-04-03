@@ -27,9 +27,9 @@ class CENNotificationsVC: CustomViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.rowHeight = UITableViewAutomaticDimension
         tv.estimatedRowHeight = 62
-        tv.backgroundColor = Theme.colors.offWhite.color
-        tv.separatorStyle = .singleLine
-        tv.separatorColor = Theme.colors.lightToneTwo.color
+        tv.backgroundColor = UIColor.clear
+        tv.separatorStyle = .none
+//        tv.separatorColor = Theme.colors.lightToneTwo.color
         tv.delegate = self
         tv.dataSource = self
         tv.register(CENReminderTableViewCell.self, forCellReuseIdentifier: "EventReminderCell")
@@ -65,43 +65,9 @@ class CENNotificationsVC: CustomViewController {
         return label
     }()
     
-    
-//    let customBackground: UIView = {
-//        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor.white
-//        view.layer.cornerRadius = 8
-//        return view
-//    }()
-    
-//    lazy var actionsButtonsView: ActionsButtonsView = {
-//        let view = ActionsButtonsView(imageSize: 34, actionsSelectionType: ActionButton.SelectionTypes.checkList)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.delegate = self
-//        return view
-//    }()
-    
-//    let completionIcon: UIImageView = {
-//        let view = UIImageView()
-//        view.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        view.contentMode = .scaleAspectFill
-//        return view
-//    }()
-//
-//    let summaryLabel: UILabel = {
-//        let label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.textColor = UIColor.lightGray
-//        label.textAlignment = .left
-//        label.font = Theme.fonts.smallText.font
-//        return label
-//    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         // Do any additional setup after loading the view.
         setupNavigationBar()
     }
@@ -148,10 +114,12 @@ class CENNotificationsVC: CustomViewController {
             ])
         
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad).isActive = true
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
     }
     
     
@@ -187,6 +155,7 @@ class CENNotificationsVC: CustomViewController {
     func addEventNotificationTouched(sender: UIBarButtonItem) {
         let dest = CreateEventNotificationVC()
         dest.event = self.event
+        dest.delegate = self
         self.navigationController?.pushViewController(dest, animated: true)
     }
 }
@@ -216,7 +185,9 @@ extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
                 
                 let builder = EventNotificationBuilder.updateNotification(notification)
                 builder.deleteNotification()
-                builder.saveChanges(DataPersistenceService.shared)
+                builder.saveChanges(DataPersistenceService.shared, completion: {
+                    //do nothing
+                })
 
             }
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
@@ -242,11 +213,16 @@ extension CENNotificationsVC : CENReminderCellDelegate {
         notification.completed = completed
 
         if let moc = DataPersistenceService.shared.mainQueueContext {
-            DataPersistenceService.shared.saveToContext(moc)
+            DataPersistenceService.shared.saveToContext(moc, completion: {
+                //do nothing
+            })
         }
     }
+}
+
+extension CENNotificationsVC : CreateEventNotificationDelegate {
     
-    
-    
-    
+    func newNotificationCreated() {
+        setupDatasourceWithEvent()
+    }
 }

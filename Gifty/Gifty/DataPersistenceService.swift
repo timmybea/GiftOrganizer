@@ -15,8 +15,10 @@ import CoreData
 
 class DataPersistenceService: DataPersistence {
     
-    func saveToContext(_ context: NSManagedObjectContext?) {
-        self.dataPersistence.saveToContext(context)
+    func saveToContext(_ context: NSManagedObjectContext?, completion: () -> ()) {
+        self.dataPersistence.saveToContext(context, completion: {
+            completion()
+        })
     }
     
     var mainQueueContext: NSManagedObjectContext? {

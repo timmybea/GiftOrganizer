@@ -69,7 +69,9 @@ class EventBuilder {
     
     static func save(with dataPersistence: DataPersistence) {
         if let moc = dataPersistence.mainQueueContext {
-            dataPersistence.saveToContext(moc)
+            dataPersistence.saveToContext(moc, completion: {
+                //do nothing
+            })
         }
     }
     
@@ -79,7 +81,9 @@ class EventBuilder {
             event.managedObjectContext?.delete(event)
         }
         if let moc = dataPersistence.mainQueueContext {
-            dataPersistence.saveToContext(moc)
+            dataPersistence.saveToContext(moc, completion: {
+                //do nothing
+            })
         }
     }
 }

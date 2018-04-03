@@ -21,9 +21,11 @@
     </entity>
     <entity name="Gift" representedClassName="Gift" syncable="YES" codeGenerationType="class">
         <attribute name="cost" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="detail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="person" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="gift" inverseEntity="Person" syncable="YES"/>
     </entity>
@@ -42,7 +44,7 @@
     <elements>
         <element name="Event" positionX="-164" positionY="-27" width="128" height="180"/>
         <element name="EventNotification" positionX="-270" positionY="285" width="128" height="133"/>
-        <element name="Gift" positionX="-0" positionY="372" width="128" height="135"/>
+        <element name="Gift" positionX="-0" positionY="372" width="128" height="165"/>
         <element name="Person" positionX="63" positionY="119" width="128" height="195"/>
     </elements>
 </model>

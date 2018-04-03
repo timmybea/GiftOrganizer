@@ -15,6 +15,7 @@ class GiftBuilder {
     private init() {
         self.gift = Gift(context: DataPersistenceService.shared.mainQueueContext!)
         self.gift.id = UUID().uuidString
+        self.gift.isCompleted = false
     }
     
     private init(dataPersistence: DataPersistence) {
@@ -78,14 +79,18 @@ class GiftBuilder {
     
     func saveGiftToCoreData(_ dataPersistence: DataPersistence) {
         if let moc = dataPersistence.mainQueueContext {
-            dataPersistence.saveToContext(moc)
+            dataPersistence.saveToContext(moc, completion: {
+                //do nothing
+            })
         }
     }
     
     func deleteGiftFromCoreData(_ dataPersistence: DataPersistence) {
         self.gift.managedObjectContext?.delete(self.gift)
         if let moc = dataPersistence.mainQueueContext {
-            dataPersistence.saveToContext(moc)
+            dataPersistence.saveToContext(moc, completion: {
+                //do nothing
+            })
         }
     }
 }

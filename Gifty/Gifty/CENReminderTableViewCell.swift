@@ -71,6 +71,13 @@ class CENReminderTableViewCell: UITableViewCell {
         return view
     }()
     
+    private let separatorLine: UIView = {
+        let v = UIView()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        v.backgroundColor = Theme.colors.lightToneOne.color
+        return v
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -114,11 +121,19 @@ class CENReminderTableViewCell: UITableViewCell {
             messageLabel.rightAnchor.constraint(equalTo: titleLabel.rightAnchor),
             ])
         
+        addSubview(separatorLine)
+        NSLayoutConstraint.activate([
+            separatorLine.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            separatorLine.leftAnchor.constraint(equalTo: self.leftAnchor),
+            separatorLine.rightAnchor.constraint(equalTo: self.rightAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1)
+            ])
+        
         addSubview(statusLabel)
         NSLayoutConstraint.activate([
             statusLabel.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 6),
             statusLabel.leftAnchor.constraint(equalTo: messageLabel.leftAnchor),
-            statusLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -pad)
+            statusLabel.bottomAnchor.constraint(equalTo: separatorLine.topAnchor, constant: -pad)
             ])
     
     }
@@ -149,6 +164,8 @@ class CENReminderTableViewCell: UITableViewCell {
         self.completed = notification.completed
         
         self.notification = notification
+        
+        
     }
     
 }

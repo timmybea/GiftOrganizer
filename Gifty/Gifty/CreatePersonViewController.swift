@@ -280,7 +280,6 @@ extension CreatePersonViewController {
                 self.profileImageView.setImage(image)
                 self.profileImage = image
             }
-
         }
         textFieldTV.updateWith(firstName: currentPerson.firstName, lastName: currentPerson.lastName)
         
