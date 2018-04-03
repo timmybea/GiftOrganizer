@@ -65,7 +65,8 @@ class CENReminderTableViewCell: UITableViewCell {
     
     private let completionIcon: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
+        view.image = UIImage(named: ImageNames.starOutline.rawValue)?.withRenderingMode(.alwaysTemplate)
+        view.tintColor = Theme.colors.lightToneTwo.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFill
         return view
@@ -143,8 +144,8 @@ class CENReminderTableViewCell: UITableViewCell {
     }
     
     func updateCompletedIcon() {
-        let name = self.completed ? ImageNames.completeIcon.rawValue : ImageNames.incompleteIcon.rawValue
-        completionIcon.image = UIImage(named: name)
+        let name = self.completed ? ImageNames.starFill.rawValue : ImageNames.starOutline.rawValue
+        completionIcon.image = UIImage(named: name)?.withRenderingMode(.alwaysTemplate)
     }
 
     func configureCell(notification: EventNotification) {
@@ -164,8 +165,6 @@ class CENReminderTableViewCell: UITableViewCell {
         self.completed = notification.completed
         
         self.notification = notification
-        
-        
     }
     
 }

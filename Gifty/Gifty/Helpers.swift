@@ -44,6 +44,8 @@ enum ImageNames: String {
     case expandArrow = "expand_arrow"
     case gift = "gift"
     case giftIcon = "gift_icon"
+    case starOutline = "star_outline"
+    case starFill = "star_fill"
 }
 
 struct Notifications {
