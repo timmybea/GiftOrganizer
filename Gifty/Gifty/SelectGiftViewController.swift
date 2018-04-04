@@ -14,9 +14,7 @@ protocol SelectGiftVCDelegate {
 }
 
 class SelectGiftViewController: CustomViewController {
-
-    private var cellHeight: Int = 40
-    
+   
     var delegate: SelectGiftVCDelegate?
     
     var person: Person? = nil {
@@ -66,8 +64,9 @@ class SelectGiftViewController: CustomViewController {
     private func getDataSource() {
         guard let p = self.person else { return }
         guard let gifts = p.gift?.allObjects as? [Gift] else { return }
-
-        self.dataSource = gifts
+        let available = gifts.filter() { $0.eventId == nil || $0.eventId == "" }
+        
+        self.dataSource = available
         setTableViewHeight()
     }
     
@@ -94,7 +93,7 @@ class SelectGiftViewController: CustomViewController {
     private func setTableViewHeight() {
         guard tvHeightConstraint != nil else { return }
         let dataCount = dataSource == nil ? 0 : dataSource!.count
-        tvHeightConstraint.constant = CGFloat(dataCount * cellHeight)
+        tvHeightConstraint.constant = CGFloat(dataCount) * GiftSelectTableViewCell.cellHeight
     }
     
     @objc
@@ -147,6 +146,6 @@ extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(cellHeight)
+        return GiftSelectTableViewCell.cellHeight
     }
 }

@@ -521,6 +521,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
 
 //MARK: Event Table View Delegate
 extension CreatePersonViewController: EventTableViewDelegate {
+    
     func didTouchEdit(for event: Event) {
         print("Edit existing event")
         let destination = CreateEventViewController()
@@ -529,22 +530,44 @@ extension CreatePersonViewController: EventTableViewDelegate {
         self.navigationController?.pushViewController(destination, animated: true)
     }
     
-    func didTouchDelete(for event: Event) {
+    
+    func didTouchDelete(for event: Event, at indexPath: IndexPath) {
         guard let dateString = event.dateString else { return }
-        //guard let eventId = event.id else { return }
-        event.managedObjectContext?.delete(event)
         
-        ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
-            if success {
-                //send notification
-                let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
-                DispatchQueueHandler.notification.queue.async {
-                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name,
-                                                    object: nil,
-                                                    userInfo: userInfo)
+        //present alert
+        let alert = UIAlertController(title: "Are you sure?", message: "This action will delete the event and all of the gifts assigned to it.", preferredStyle: .alert)
+        
+        let delete = UIAlertAction(title: "Delete", style: .default) { (action) in
+            
+            //delete all assigned gifts
+            if let assignedGifts = GiftFRC.getGifts(for: event) {
+                for gift in assignedGifts {
+                    gift.managedObjectContext?.delete(gift)
                 }
             }
+            //delete event
+            event.managedObjectContext?.delete(event)
+            
+            //save changes
+            ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
+                if success {
+                    //send notification
+                    let userInfo = ["EventDisplayViewId": self.eventTableView.id, "dateString": dateString]
+                    DispatchQueueHandler.notification.queue.async {
+                        NotificationCenter.default.post(name: Notifications.names.eventDeleted.name,
+                                                        object: nil,
+                                                        userInfo: userInfo)
+                    }
+                }
+            }
+            self.eventTableView.tableViewRemoveEvent(at: indexPath)
         }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func didTouchBudget(for event: Event) {

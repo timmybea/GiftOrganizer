@@ -142,10 +142,10 @@ class AddGiftView: UIView {
     }
     
     func addGiftToList(_ gift: Gift) {
+        
         if !gifts.contains(gift) {
             self.gifts.append(gift)
             self.delegate?.needsToResize(to: calculateNewHeight())
-            //setupTableView()
         }
     }
     

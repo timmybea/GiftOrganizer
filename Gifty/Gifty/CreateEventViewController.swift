@@ -226,7 +226,7 @@ class CreateEventViewController: CustomViewController {
         
         self.eventDate = currentEvent.date!
         
-        self.isRecurringEvent = true //<<<<PULL THIS OUT OF EVENT
+        self.isRecurringEvent = true //<<< TEMPORARY HARDCODE
         
         if let gifts = GiftFRC.getGifts(for: currentEvent) {
             self.addGiftView.setGifts(gifts)
@@ -446,12 +446,6 @@ extension CreateEventViewController {
                     eb.addDate(self.eventDate!)
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     
-                    if let gifts = self.addGiftView.getGifts() {
-                        for g in gifts {
-                            g.eventId = currEvent.id
-                        }
-                    }
-                    
                     guard let dateString = currEvent.dateString else { return }
                     let createUserInfo = ["dateString": dateString]
                     
@@ -540,6 +534,8 @@ extension CreateEventViewController: AutoCompleteTextFieldDelegate {
 extension CreateEventViewController : SelectGiftVCDelegate {
     
     func selectedGift(_ gift: Gift) {
+        guard let currEvent = self.eventToBeEdited else { return }
+        gift.eventId = currEvent.id
         self.addGiftView.addGiftToList(gift)
     }
     

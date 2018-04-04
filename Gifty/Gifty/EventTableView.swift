@@ -11,7 +11,7 @@ import GiftyBridge
 
 protocol EventTableViewDelegate {
     func didTouchEdit(for event: Event)
-    func didTouchDelete(for event: Event)
+    func didTouchDelete(for event: Event, at indexPath: IndexPath)
     func didTouchReminder(for event: Event)
     func didTouchBudget(for event: Event)
     func touchesBegan()
@@ -201,42 +201,44 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if displayMode != .pieChart {
-//            let editAction = UITableViewRowAction(style: .default, title: " Edit ") { (action, indexPath) in
-//                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-//                    self.delegate!.didTouchEditEvent(event: event)
-//                }
-//            }
-//            editAction.backgroundColor = Theme.colors.yellow.color
             
             let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+
+                //You have reversed the order!!
                 if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-                    tableView.beginUpdates()
-                    if self.datasource![indexPath.section].events.count > 1 {
-                        self.datasource![indexPath.section].events.remove(at: indexPath.row)
-                        tableView.deleteRows(at: [indexPath], with: .fade)
-                    } else {
-                        self.datasource!.remove(at: indexPath.section)
-                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-                    }
-                    tableView.endUpdates()
-                    self.delegate?.didTouchDelete(for: event)
+                     self.delegate!.didTouchDelete(for: event, at: indexPath)
+//                    tableView.beginUpdates()
+//                    if self.datasource![indexPath.section].events.count > 1 {
+//                        self.datasource![indexPath.section].events.remove(at: indexPath.row)
+//                        tableView.deleteRows(at: [indexPath], with: .fade)
+//                    } else {
+//                        self.datasource!.remove(at: indexPath.section)
+//                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+//                    }
+//                    tableView.endUpdates()
                 }
                 
             }
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
-            
-//            let reminderAction = UITableViewRowAction(style: .default, title: "Reminder", handler: { (action, indexPath) in
-//                if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
-//                    self.delegate?.didTouchReminder(for: event)
-//                }
-//            })
-//            reminderAction.backgroundColor = Theme.colors.lightToneFour.color
             
             return [deleteAction]
         } else {
             return nil
         }
     }
+    
+    func tableViewRemoveEvent(at indexPath: IndexPath) {
+        tableView.beginUpdates()
+        if self.datasource![indexPath.section].events.count > 1 {
+            self.datasource![indexPath.section].events.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else {
+            self.datasource!.remove(at: indexPath.section)
+            tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
+        }
+        tableView.endUpdates()
+    }
+    
     
     //Mark: ensure that editing is available for all cells except pieChartCll
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
