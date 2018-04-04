@@ -203,35 +203,60 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
     //MARK: Editing methods
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
         let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
             
-            var person: Person
-            if self.isSearching {
-                person = self.filteredData[indexPath.row]
-            } else {
-                person = (self.frc?.object(at: indexPath))!
-            }
-            
-            for event in person.event?.allObjects as! [Event] {
-                
-                guard let dateString = event.dateString else { return }
-                
-                event.managedObjectContext?.delete(event)
-                
-                let userInfo = ["EventDisplayViewId": "none", "dateString": dateString]
+            let alert = UIAlertController(title: "Are you sure?", message: "This action will delete the person, all of their events and gifts", preferredStyle: .alert)
+            let delete = UIAlertAction(title: "Delete", style: .default, handler: { (action) in
+
+                var person: Person
+                if self.isSearching {
+                    person = self.filteredData[indexPath.row]
+                } else {
+                    person = (self.frc?.object(at: indexPath))!
+                }
+                //Notify that all objects will be deleted. <<<
+                let userInfo = ["personId": person.id!]
                 
                 DispatchQueueHandler.notification.queue.async {
-                    NotificationCenter.default.post(name: Notifications.names.eventDeleted.name,
+                    NotificationCenter.default.post(name: Notifications.names.personDeleted.name,
                                                     object: nil,
                                                     userInfo: userInfo)
                 }
-            }
-            
-            person.managedObjectContext?.delete(person)
-            
-            ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
-                print("Deleted person and their events and saved changes.")
+                
+                //Delete gifts
+                for gift in person.gift?.allObjects as! [Gift] {
+                    gift.managedObjectContext?.delete(gift)
+                }
+                
+                //Delete events
+                for event in person.event?.allObjects as! [Event] {
+                    
+                    guard let dateString = event.dateString else { return }
+                    
+                    event.managedObjectContext?.delete(event)
+                    
+                    //send notification
+                    let userInfo = ["EventDisplayViewId": "none", "dateString": dateString]
+                    
+                    DispatchQueueHandler.notification.queue.async {
+                        NotificationCenter.default.post(name: Notifications.names.eventDeleted.name,
+                                                        object: nil,
+                                                        userInfo: userInfo)
+                    }
+                }
+                //Delete person
+                person.managedObjectContext?.delete(person)
+                
+                //Save changes
+                ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
+                    print("Deleted person and their events and saved changes.")
+                })
             })
+            let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
         }
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
         return [deleteAction]

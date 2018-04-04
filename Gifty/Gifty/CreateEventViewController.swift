@@ -53,6 +53,8 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
+    private var tempEventId: String?
+    
     private var isRecurringEvent = false {
         didSet {
             addDateView.recurringEventSwitch.setOn(isRecurringEvent, animated: true)
@@ -113,6 +115,11 @@ class CreateEventViewController: CustomViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleKeyboardNotification(sender:)),
                                                name: NSNotification.Name.UIKeyboardWillHide,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(personDeleted(sender:)),
+                                               name: Notifications.names.personDeleted.name,
                                                object: nil)
         
         self.title = createEventState == .updateEventForPerson ? "Edit Event" : "Add Event"
@@ -237,19 +244,6 @@ class CreateEventViewController: CustomViewController {
         self.saveButton.setTitle("UPDATE EVENT")
     }
     
-//    private func getActionState(for action: String) -> ActionButton.SelectionStates {
-//        switch action {
-//        case ActionButton.SelectionStates.unselected.rawValue:
-//            return ActionButton.SelectionStates.unselected
-//        case ActionButton.SelectionStates.selected.rawValue:
-//            return ActionButton.SelectionStates.selected
-//        case ActionButton.SelectionStates.completed.rawValue:
-//            return ActionButton.SelectionStates.completed
-//        default:
-//            return ActionButton.SelectionStates.unselected
-//        }
-//    }
-    
     @objc
     func didTapBackground(sender: UITapGestureRecognizer) {
         guard let acPerson = autoCompletePerson else { return }
@@ -263,6 +257,17 @@ class CreateEventViewController: CustomViewController {
         let action = UIAlertAction(title: "OK", style: .cancel)
         alertController.addAction(action)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    //Person Deleted Notification
+    @objc
+    func personDeleted(sender: Notification) {
+        //get person from sender
+        if let person = self.person ?? self.eventToBeEdited?.person {
+            if let senderId = sender.userInfo?["personId"] as? String, senderId == person.id {
+                navigationController?.popToRootViewController(animated: false)
+            }
+        }
     }
     
     @objc
@@ -352,6 +357,9 @@ extension CreateEventViewController {
         if changesMade() {
             let alert = UIAlertController(title: "Are you sure?", message: CustomErrors.createEvent.changesMade.description, preferredStyle: .alert)
             let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+                if self.eventToBeEdited == nil && self.tempEventId != nil {
+                    self.addGiftView.removeEventIdFromAllGifts()
+                }
                 self.navigationController?.popViewController(animated: true)
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
@@ -462,8 +470,14 @@ extension CreateEventViewController {
                 } else {
                     //Create new event for existing person
                     let eb = EventBuilder.newEvent(with: DataPersistenceService.shared)
+                    
+                    if tempEventId != nil {
+                        eb.changeUUID(tempEventId!)
+                    }
+
                     eb.addType(self.eventType!)
                     eb.addDate(self.eventDate!)
+                    
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     eb.setToPerson(self.person!)
                     eb.canReturnEvent(completion: { (success, error) in
@@ -534,10 +548,13 @@ extension CreateEventViewController: AutoCompleteTextFieldDelegate {
 extension CreateEventViewController : SelectGiftVCDelegate {
     
     func selectedGift(_ gift: Gift) {
-        guard let currEvent = self.eventToBeEdited else { return }
-        gift.eventId = currEvent.id
+        if let currEvent = self.eventToBeEdited {
+            gift.eventId = currEvent.id
+        } else {
+            tempEventId = UUID().uuidString
+            gift.eventId = tempEventId
+        }
         self.addGiftView.addGiftToList(gift)
     }
-    
 }
 

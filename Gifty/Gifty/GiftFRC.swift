@@ -30,6 +30,5 @@ class GiftFRC {
             return nil
         }
     }
-
     
 }

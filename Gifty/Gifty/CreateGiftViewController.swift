@@ -276,6 +276,7 @@ class CreateGiftViewController: CustomViewController {
             }
             
             if let error = error {
+                gb.deleteGiftFromCoreData(DataPersistenceService.shared)
                 self.createAlertForError(error)
             }
         }

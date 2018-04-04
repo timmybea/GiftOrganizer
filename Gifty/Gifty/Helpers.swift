@@ -53,12 +53,14 @@ struct Notifications {
         case actionStateChanged
         case newEventCreated
         case eventDeleted
+        case personDeleted
     
         var name: NSNotification.Name {
             switch self {
             case .actionStateChanged: return NSNotification.Name.init("actionStateChanged")
             case .newEventCreated: return NSNotification.Name.init("newEventCreated")
             case .eventDeleted: return NSNotification.Name.init("eventDeleted")
+            case .personDeleted: return NSNotification.Name.init("personDeleted")
             }
         }
     }

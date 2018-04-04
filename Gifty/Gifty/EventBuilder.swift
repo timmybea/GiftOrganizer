@@ -40,6 +40,10 @@ class EventBuilder {
         self.event.dateString = DateHandler.stringFromDate(date)
     }
     
+    func changeUUID(_ uuid: String) {
+        self.event.id = uuid
+    }
+    
     func addRecurring(_ bool: Bool) {
         //not in model yet
     }

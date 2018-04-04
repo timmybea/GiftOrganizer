@@ -204,18 +204,8 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             
             let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
 
-                //You have reversed the order!!
                 if self.delegate != nil, let event = self.datasource?[indexPath.section].events[indexPath.row] {
                      self.delegate!.didTouchDelete(for: event, at: indexPath)
-//                    tableView.beginUpdates()
-//                    if self.datasource![indexPath.section].events.count > 1 {
-//                        self.datasource![indexPath.section].events.remove(at: indexPath.row)
-//                        tableView.deleteRows(at: [indexPath], with: .fade)
-//                    } else {
-//                        self.datasource!.remove(at: indexPath.section)
-//                        tableView.deleteSections(IndexSet(integer: indexPath.section), with: .fade)
-//                    }
-//                    tableView.endUpdates()
                 }
                 
             }
