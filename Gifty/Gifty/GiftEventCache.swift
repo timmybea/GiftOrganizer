@@ -33,7 +33,7 @@ class GiftEventCache {
         completion()
     }
     
-    static func event(with id: String) -> Event? {
+    static func event(withId id: String) -> Event? {
         return cache[id]
     }
 }

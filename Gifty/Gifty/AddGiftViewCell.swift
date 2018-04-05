@@ -126,7 +126,7 @@ class AddGiftViewCell: UITableViewCell {
     func setup(with gift: Gift) {
         self.gift = gift
         self.giftNameLabel.text = gift.name
-        self.summaryLabel.text = "Estimated cost: $\(CurrencyHandler.formattedString(for: gift.cost))"
+        self.summaryLabel.text = "$\(CurrencyHandler.formattedString(for: gift.cost))"
         
         if let imageData = gift.image {
             let image = UIImage(data: imageData as Data)

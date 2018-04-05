@@ -49,6 +49,14 @@ class GiftSelectTableViewCell: UITableViewCell {
         return v
     }()
     
+    let completionIcon: UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: ImageNames.incompleteIcon.rawValue)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -90,6 +98,14 @@ class GiftSelectTableViewCell: UITableViewCell {
             separatorLine.rightAnchor.constraint(equalTo: self.rightAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1)
             ])
+        
+        addSubview(completionIcon)
+        NSLayoutConstraint.activate([
+            completionIcon.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+            completionIcon.rightAnchor.constraint(equalTo: rightAnchor, constant: -pad),
+            completionIcon.heightAnchor.constraint(equalToConstant: 24),
+            completionIcon.widthAnchor.constraint(equalToConstant: 24),
+            ])
     }
     
     func setup(with gift: Gift) {
@@ -101,15 +117,23 @@ class GiftSelectTableViewCell: UITableViewCell {
             giftImage.image = UIImage(named: ImageNames.giftIcon.rawValue)
         }
         self.giftNameLabel.text = gift.name
-        self.summaryLabel.text = "Estimated cost: $\(CurrencyHandler.formattedString(for: gift.cost))"
         
+        var summaryText = "$\(CurrencyHandler.formattedString(for: gift.cost)) "
         
-        //
-        if self.gift?.eventId != nil {
-            backgroundColor = UIColor.blue //<<<
+        if let id = gift.eventId {
+            completionIcon.isHidden = false
+            let iconName = gift.isCompleted ? ImageNames.completeIcon.rawValue : ImageNames.incompleteIcon.rawValue
+            completionIcon.image =  UIImage(named: iconName)
+            
+            if let event = GiftEventCache.event(withId: id) {
+                let dateStr = DateHandler.describeDate(event.date!)
+                let eventType = event.type!
+                summaryText += "• \(dateStr) • \(eventType)"
+            }
         } else {
-            backgroundColor = UIColor.white
+            completionIcon.isHidden = true
         }
+        self.summaryLabel.text = summaryText
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

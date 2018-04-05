@@ -80,7 +80,7 @@ class AddGiftView: UIView {
         l.font = Theme.fonts.mediumText.font
         l.translatesAutoresizingMaskIntoConstraints = false
         l.textAlignment = .right
-        l.text = "Estimated cost: $20.00"
+        l.text = "Total: $20.00"
         return l
     }()
     
