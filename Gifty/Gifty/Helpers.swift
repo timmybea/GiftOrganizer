@@ -85,6 +85,24 @@ struct CustomErrors {
         }
     }
     
+    enum createPerson {
+        case deletePerson
+        case noFirstName
+        case noGroup
+        case noPerson
+        case nameChange
+        
+        var description: String {
+            switch self {
+            case .deletePerson: return "This action will delete the event and all of the gifts assigned to it."
+            case .noFirstName: return "Please add a first name"
+            case .noGroup: return "Please add a group"
+            case .noPerson: return "There is no person to update"
+            case .nameChange: return "This action will change the name of your person"
+            }
+        }
+    }
+    
     enum createGift {
         case noName
         case noBudget

@@ -19,40 +19,60 @@ class CreatePersonViewController: CustomViewController {
 
     var delegate: CreatePersonViewControllerDelegate?
     
-    var person: Person?
+    private var person: Person?
 
-    var isUpdatePerson = false
+    private var isUpdatePerson = false
     
-    var firstName: String?
-    var lastName: String?
-    var group: String?
-    var dob: DateComponents?
+    private var editsMade = false
     
-    var customTransitionDelegate = CustomTransitionDelegate()
+    private var firstName: String? {
+        didSet {
+            editsMade = true
+        }
+    }
+    
+    private var lastName: String? {
+        didSet {
+            editsMade = true
+        }
+    }
+    
+    private var group: String? {
+        didSet {
+            editsMade = true
+        }
+    }
+    
+    private var dob: DateComponents?
+    
+    private var customTransitionDelegate = CustomTransitionDelegate()
 
-    var orderedEvents: [Event]?
+    private var orderedEvents: [Event]?
     
-    var newEventIds = [String]()
+    private var newEventIds = [String]()
     
-    lazy var profileImageView: CustomImageControl = {
+    private lazy var profileImageView: CustomImageControl = {
         let imageControl = CustomImageControl()
         if let image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue) {
             imageControl.setDefaultImage(image)
         }
-//        imageControl.imageView.contentMode = .scaleAspectFill
         imageControl.addTarget(self, action: #selector(profileImageTouchDown), for: .touchDown)
         imageControl.addTarget(self, action: #selector(profileImageTouchUpInside), for: .touchUpInside)
         imageControl.layer.masksToBounds = true
         return imageControl
     }()
     
-    var profileImage: UIImage?
+    private var profileImage: UIImage? {
+        didSet {
+            editsMade = true
+        }
+    }
     
-    var textFieldTV: PersonTFTableView!
+    private var textFieldTV: PersonTFTableView!
     
-    var dropDown: DropDownTextField!
+    private var dropDown: DropDownTextField!
     
-    lazy var addFromContactLabel: ButtonTemplate = {
+    private lazy var addFromContactLabel: ButtonTemplate = {
         var button = ButtonTemplate(frame: .zero)
         button.setTitle("+ add from contacts")
         button.titleLabel?.font = Theme.fonts.mediumText.font
@@ -62,7 +82,7 @@ class CreatePersonViewController: CustomViewController {
         return button
     }()
     
-    var eventTableView: EventDisplayViewCreatePerson!
+    private var eventTableView: EventDisplayViewCreatePerson!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,13 +107,9 @@ class CreatePersonViewController: CustomViewController {
     //MARK: BACK BUTTON
     @objc func backButtonTouched() {
         
-        if let currentPerson = self.person, currentPerson.hasChanges {
+        if editsMade {
             
-            backButtonAlert(for: currentPerson)
-            
-        } else if variablesWereSet() && self.person == nil {
-            
-            backButtonAlert(for: nil)
+            backButtonAlert(for: self.person)
             
         } else {
             
@@ -105,12 +121,12 @@ class CreatePersonViewController: CustomViewController {
     
     private func backButtonAlert(for person: Person?) {
         
-        let alertController = UIAlertController(title: "Unsaved Changes", message: "If you continue to navigate away, you will lose your unsaved changes", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Are you sure?", message: CustomErrors.createEvent.changesMade.description, preferredStyle: .alert)
         
         let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
             
             if let currentPerson = person {
-                //discard changes to person
+                //discard changes if update mode ELSE delete new entity
                 if self.isUpdatePerson {
                     
                     for id in self.newEventIds {
@@ -142,28 +158,7 @@ class CreatePersonViewController: CustomViewController {
         
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    private func variablesWereSet() -> Bool {
-        
-        guard self.firstName == nil else {
-            return true
-        }
 
-        guard self.lastName == nil else {
-            return true
-        }
-        
-        guard self.group == nil else {
-            return true
-        }
-        
-        guard self.profileImage == nil else {
-            return true
-        }
-        
-        return false
-    }
-    
     private func layoutSubviews() {
         
         self.backgroundView.isUserInteractionEnabled = true
@@ -229,7 +224,12 @@ class CreatePersonViewController: CustomViewController {
         
     }
     
-    func updateEventDisplayViewWithOrderedEvents() {
+    func setupForEditPerson(_ person: Person) {
+        self.person = person
+        self.isUpdatePerson = true
+    }
+    
+    private func updateEventDisplayViewWithOrderedEvents() {
         if let unorderedEvents = self.person?.event?.allObjects as? [Event] {
             //correctly order the events by date
             let orderedEvents = unorderedEvents.sorted(by: { (eventA, eventB) -> Bool in
@@ -289,6 +289,7 @@ extension CreatePersonViewController {
         eventTableView.changeSaveButtonText("UPDATE")
         
         updateEventDisplayViewWithOrderedEvents()
+        editsMade = false
     }
     
     @objc func didTapBackgroundView() {
@@ -366,6 +367,7 @@ extension CreatePersonViewController: CNContactPickerDelegate {
                 let alertController = UIAlertController(title: "Create Birthday?", message: "Your contact has a birth date stored in it. Would you like to create a birthday event for them?", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                     print("Create new event for birth date \(dob)")
+                    //<<<
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
                     self.dismiss(animated: true, completion: nil)
@@ -499,7 +501,7 @@ extension CreatePersonViewController: PersonTFTableViewDelegate {
     }
     
     func showNameChangeAlert(string: String, isfirstName: Bool) {
-        let alertControntroller = UIAlertController(title: "Name Change", message: "This action could change the name of your person", preferredStyle: .alert)
+        let alertControntroller = UIAlertController(title: "Name Change!", message: CustomErrors.createPerson.nameChange.description, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
             if isfirstName {
                 self.firstName = string
@@ -537,7 +539,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         guard let dateString = event.dateString else { return }
         
         //present alert
-        let alert = UIAlertController(title: "Are you sure?", message: "This action will delete the event and all of the gifts assigned to it.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Are you sure?", message: CustomErrors.createPerson.deletePerson.description, preferredStyle: .alert)
         
         let delete = UIAlertAction(title: "Delete", style: .default) { (action) in
             
@@ -648,20 +650,20 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
     private func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {
         guard firstName != nil && firstName != "" else {
             completion(false)
-            insufficientInfoAlert(message: "Please add a first name")
+            insufficientInfoAlert(message: CustomErrors.createPerson.noFirstName.description)
             return
         }
         
         guard group != nil && group != "" else {
             completion(false)
-            insufficientInfoAlert(message: "Please add a group")
+            insufficientInfoAlert(message: CustomErrors.createPerson.noGroup.description)
             return
         }
         
         if isUpdatePerson {
             guard self.person != nil else {
                 completion(false)
-                print("No person to update")
+                print(CustomErrors.createPerson.noPerson.description)
                 return
             }
         }
@@ -717,8 +719,7 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
     
         print("CreateEventVCDelegate called")
         self.newEventIds.append(uuid)
+        editsMade = true
         updateEventDisplayViewWithOrderedEvents()
     }
-    
-    
 }

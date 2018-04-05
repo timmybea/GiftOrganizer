@@ -101,8 +101,7 @@ class PeopleViewController: CustomViewController {
         destination.delegate = self
 
         if person != nil {
-            destination.person = person
-            //destination.isUpdatePerson = true
+            destination.setupForEditPerson(person!)
         }
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
@@ -215,7 +214,7 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     person = (self.frc?.object(at: indexPath))!
                 }
-                //Notify that all objects will be deleted. <<<
+                //Notify that all objects will be deleted.
                 let userInfo = ["personId": person.id!]
                 
                 DispatchQueueHandler.notification.queue.async {
@@ -223,7 +222,7 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
                                                     object: nil,
                                                     userInfo: userInfo)
                 }
-                
+            
                 //Delete gifts
                 for gift in person.gift?.allObjects as! [Gift] {
                     gift.managedObjectContext?.delete(gift)
