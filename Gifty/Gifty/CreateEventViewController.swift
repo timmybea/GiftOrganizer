@@ -156,15 +156,45 @@ class CreateEventViewController: CustomViewController {
         scrollView.frame = scrollViewFrame
         view.addSubview(scrollView)
         
-        //dropDown
-        let dropDownFrame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: 40)
-        dropDown = DropDownTextField(frame: dropDownFrame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
-        dropDown.delegate = self
-        scrollView.addSubview(dropDown)
 
+        if createEventState == .newEventToBeAssigned {
+            //autoCompletePerson
+            let personLabel = Theme.createMediumLabel()
+            personLabel.frame = CGRect(x: 0,
+                                       y: 0,
+                                       width: scrollView.bounds.width,
+                                       height: 25)
+            personLabel.text = "Set Person"
+            scrollView.addSubview(personLabel)
+            
+            autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
+                                                                  y: personLabel.frame.maxY + pad,
+                                                                  width: scrollView.bounds.width,
+                                                                  height: 100))
+            guard let autoComplete = autoCompletePerson else { return }
+            autoComplete.autoCompleteTF.autocompleteDelegate = self
+            scrollView.addSubview(autoComplete)
+            
+            //dropDown
+            let dropDownFrame = CGRect(x: 0,
+                                       y: autoComplete.frame.maxY + pad,
+                                       width: scrollView.bounds.width,
+                                       height: 40)
+            dropDown = DropDownTextField(frame: dropDownFrame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
+            dropDown.delegate = self
+            scrollView.addSubview(dropDown)
+            
+        } else {
+            //dropDown
+            let dropDownFrame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: 40)
+            dropDown = DropDownTextField(frame: dropDownFrame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
+            dropDown.delegate = self
+            scrollView.addSubview(dropDown)
+        }
+        
         //addDateView
         addDateView = AddDateView(frame: CGRect(x: 0,
-                                                y: 50 + pad,
+                                                y: dropDown.frame.minY + 40 + (2 * pad),
                                                 width: scrollView.bounds.width,
                                                 height: 30))
         scrollView.addSubview(addDateView)
@@ -177,14 +207,14 @@ class CreateEventViewController: CustomViewController {
                                                      height: AddGiftView.headerHeight))
         scrollView.addSubview(addGiftView)
         self.addGiftView.delegate = self
-
+        
         //budgetLabel
         budgetLabel.frame = CGRect(x: 0,
                                    y: addGiftView.frame.maxY + pad,
                                    width: scrollView.bounds.width,
                                    height: 25)
         scrollView.addSubview(budgetLabel)
-
+        
         //budgetView
         budgetView = BudgetView(frame: CGRect(x: 0,
                                               y: budgetLabel.frame.maxY + pad,
@@ -192,30 +222,13 @@ class CreateEventViewController: CustomViewController {
                                               height: 60))
         scrollView.addSubview(budgetView)
 
-        var contentHeight = addDateView.frame.maxY + pad
-        
+        //Set content size for scroll view
+        let contentHeight = budgetView.frame.maxY + (2 * pad)
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
+
         if createEventState == .updateEventForPerson {
             setupEventDataForEdit()
-        } else if createEventState == .newEventToBeAssigned {
-            //autoCompletePerson
-            let personLabel = Theme.createMediumLabel()
-            personLabel.frame = CGRect(x: 0,
-                                       y: budgetView.frame.maxY + pad,
-                                       width: scrollView.bounds.width,
-                                       height: 25)
-            personLabel.text = "Set Person"
-            scrollView.addSubview(personLabel)
-            
-            autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
-                                                                  y: personLabel.frame.maxY + pad,
-                                                                  width: scrollView.bounds.width,
-                                                                  height: 100))
-            self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
-            scrollView.addSubview(autoCompletePerson!)
-            contentHeight = autoCompletePerson!.frame.maxY + pad
         }
-        //set content size for scrollView
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
     
     private func setupEventDataForEdit() {
@@ -241,7 +254,7 @@ class CreateEventViewController: CustomViewController {
         
         budgetView.setTo(amount: currentEvent.budgetAmt)
         
-        self.saveButton.setTitle("UPDATE EVENT")
+        self.saveButton.setTitle("UPDATE")
     }
     
     @objc

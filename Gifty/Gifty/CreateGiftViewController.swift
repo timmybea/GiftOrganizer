@@ -327,7 +327,10 @@ extension CreateGiftViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard var input = textField.text, input.count > 0 else { return }
+        guard var input = textField.text, input.count > 0 else {
+            self.giftName = nil
+            return
+        }
         
         let firstChar = input.removeFirst()
         let capitalized = String(firstChar).uppercased() + input
