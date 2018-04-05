@@ -33,6 +33,21 @@ public class EventFRC: NSObject {
         return frc
     }
     
+    public static func getEvent(for id: String, with context: NSManagedObjectContext) -> Event? {
+        
+        let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
+        let predicate = NSPredicate(format: "%K = %@", "id", id)
+        fetchRequest.predicate = predicate
+        
+        var output: Event? = nil
+        do {
+            output = try context.fetch(fetchRequest).first
+        } catch {
+            print("No event found for id \(id)")
+        }
+        return output
+    }
+    
     public static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
         guard let moc = dataPersistence.mainQueueContext else { return nil }
         

@@ -17,6 +17,8 @@ class SelectGiftViewController: CustomViewController {
    
     var delegate: SelectGiftVCDelegate?
     
+    var giftEventCache: GiftEventCache?
+    
     var person: Person? = nil {
         didSet {
             getDataSource()
@@ -29,7 +31,16 @@ class SelectGiftViewController: CustomViewController {
         }
     }
     
-    lazy var tableView: UITableView = {
+    private lazy var segmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Available", "Assigned"])
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        sc.tintColor = UIColor.white
+        sc.addTarget(self, action: #selector(segmentedControlValueChanged(sender:)), for: .valueChanged)
+        sc.selectedSegmentIndex = 0
+        return sc
+    }()
+    
+    private lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.bounces = false
@@ -66,17 +77,33 @@ class SelectGiftViewController: CustomViewController {
     private func getDataSource() {
         guard let p = self.person else { return }
         guard let gifts = p.gift?.allObjects as? [Gift] else { return }
-        let available = gifts.filter() { $0.eventId == nil || $0.eventId == "" }
         
-        self.dataSource = available
+        let currentData : [Gift]
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            currentData = gifts.filter() { $0.eventId == nil || $0.eventId == "" }
+            self.dataSource = currentData
+        } else {
+            currentData = gifts.filter() { $0.eventId != nil && $0.eventId != "" }
+            GiftEventCache.loadCache(for: currentData, completion: {
+                self.dataSource = currentData
+            })
+        }
         setTableViewHeight()
     }
     
     private func setupSubviews() {
         
+        view.addSubview(segmentedControl)
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
+            segmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad)
+            ])
+        
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: pad),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
@@ -121,11 +148,13 @@ class SelectGiftViewController: CustomViewController {
 extension SelectGiftViewController: CreateGiftViewControllerDelegate {
     
     func newGiftCreated() {
-        getDataSource()
+        if segmentedControl.selectedSegmentIndex == 0 {
+            getDataSource()
+        }
     }
-    
 }
 
+//MARK: Table View delegate and datasource
 extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -140,14 +169,26 @@ extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! GiftSelectTableViewCell
-        let gift = cell.gift!
-        
-        self.delegate?.selectedGift(gift)
-        navigationController?.popViewController(animated: true)
+        if segmentedControl.selectedSegmentIndex == 0 {
+            let cell = tableView.cellForRow(at: indexPath) as! GiftSelectTableViewCell
+            let gift = cell.gift!
+            
+            self.delegate?.selectedGift(gift)
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GiftSelectTableViewCell.cellHeight
+    }
+}
+
+//MARK: Segmented Control method
+
+extension SelectGiftViewController {
+    
+    @objc
+    func segmentedControlValueChanged(sender: UISegmentedControl) {
+        getDataSource()
     }
 }

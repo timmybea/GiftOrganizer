@@ -42,6 +42,7 @@
 		B041F79A1EF89B4900A3E332 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7991EF89B4900A3E332 /* PeopleViewController.swift */; };
 		B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */; };
 		B041F7A31EF8A74A00A3E332 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7A21EF8A74A00A3E332 /* Helpers.swift */; };
+		B043F4A22076BF4600F5DD52 /* GiftEventCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043F4A12076BF4600F5DD52 /* GiftEventCache.swift */; };
 		B06B7EB72037522E007D05FB /* CENNotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06B7EB62037522E007D05FB /* CENNotificationsVC.swift */; };
 		B06CF693203E2B6800072152 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF68F203E2B6700072152 /* NotificationModel.swift */; };
 		B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06CF690203E2B6700072152 /* EventNotificationBuilder.swift */; };
@@ -229,6 +230,7 @@
 		B041F7991EF89B4900A3E332 /* PeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		B041F79B1EF89B5800A3E332 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B041F7A21EF8A74A00A3E332 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		B043F4A12076BF4600F5DD52 /* GiftEventCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftEventCache.swift; sourceTree = "<group>"; };
 		B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventFRC.swift; sourceTree = "<group>"; };
 		B06B7EB62037522E007D05FB /* CENNotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENNotificationsVC.swift; sourceTree = "<group>"; };
 		B06CF68F203E2B6700072152 /* NotificationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 			children = (
 				B06F41E8205B2E080083A28F /* GiftBuilder.swift */,
 				B0D064BC20643AD3002B4865 /* GiftFRC.swift */,
+				B043F4A12076BF4600F5DD52 /* GiftEventCache.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1274,6 +1277,7 @@
 				B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */,
 				B00FF3EA202CC787004CF10C /* InterstitialTimer.swift in Sources */,
 				B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */,
+				B043F4A22076BF4600F5DD52 /* GiftEventCache.swift in Sources */,
 				B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */,

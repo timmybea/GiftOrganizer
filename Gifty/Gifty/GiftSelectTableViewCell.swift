@@ -90,7 +90,6 @@ class GiftSelectTableViewCell: UITableViewCell {
             separatorLine.rightAnchor.constraint(equalTo: self.rightAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1)
             ])
-        
     }
     
     func setup(with gift: Gift) {
@@ -104,7 +103,13 @@ class GiftSelectTableViewCell: UITableViewCell {
         self.giftNameLabel.text = gift.name
         self.summaryLabel.text = "Estimated cost: $\(CurrencyHandler.formattedString(for: gift.cost))"
         
-//        self.detailTextLabel?.text = gift.eventId == nil ? "AVAILABLE" : "ASSIGNED"
+        
+        //
+        if self.gift?.eventId != nil {
+            backgroundColor = UIColor.blue //<<<
+        } else {
+            backgroundColor = UIColor.white
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
