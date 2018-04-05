@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol BudgetViewDelegate {
+    func sliderChangedValue()
+}
+
 class BudgetView: UIView {
 
     private let budgetLabel: UILabel = {
@@ -28,7 +32,7 @@ class BudgetView: UIView {
         return slider
     }()
     
-
+    var delegate: BudgetViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,6 +59,7 @@ class BudgetView: UIView {
     @objc private func sliderChangedValue(sender: UISlider) {
         
         self.setTo(amount: sender.value)
+        self.delegate?.sliderChangedValue()
     }
     
     private func setLabel(for amount: Float) {

@@ -286,6 +286,8 @@ extension CreatePersonViewController {
         dropDown.setTitle(text: currentPerson.group!)
         self.group = person?.group
         
+        eventTableView.changeSaveButtonText("UPDATE")
+        
         updateEventDisplayViewWithOrderedEvents()
     }
     

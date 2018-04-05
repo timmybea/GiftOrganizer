@@ -31,18 +31,23 @@ class CreateEventViewController: CustomViewController {
             createEventState = .updateEventForPerson
         }
     }
+    private var editsMade = false
     
     var delegate: CreateEventViewControllerDelegate?
     
     var person: Person? {
         didSet {
             print("CreateEvent: Person assigned to \(String(describing: person?.fullName!))")
+            if createEventState == .newEventToBeAssigned {
+                editsMade = true
+            }
         }
     }
     
     private var eventType: String? {
         didSet {
             print("update event type to \(String(describing: eventType))")
+            editsMade = true
         }
     }
     
@@ -50,6 +55,7 @@ class CreateEventViewController: CustomViewController {
         didSet {
             print("event date changed to \(String(describing: eventDate))")
             addDateView.updateLabel(with: eventDate)
+            editsMade = true
         }
     }
     
@@ -58,6 +64,7 @@ class CreateEventViewController: CustomViewController {
     private var isRecurringEvent = false {
         didSet {
             addDateView.recurringEventSwitch.setOn(isRecurringEvent, animated: true)
+            editsMade = true
         }
     }
     
@@ -220,6 +227,7 @@ class CreateEventViewController: CustomViewController {
                                               y: budgetLabel.frame.maxY + pad,
                                               width: scrollView.bounds.width,
                                               height: 60))
+        budgetView.delegate = self
         scrollView.addSubview(budgetView)
 
         //Set content size for scroll view
@@ -255,6 +263,8 @@ class CreateEventViewController: CustomViewController {
         budgetView.setTo(amount: currentEvent.budgetAmt)
         
         self.saveButton.setTitle("UPDATE")
+        
+        self.editsMade = false
     }
     
     @objc
@@ -332,17 +342,6 @@ class CreateEventViewController: CustomViewController {
         }
         completion(true, nil)
     }
-    
-    func changesMade() -> Bool {
-        guard self.eventType == nil else { return true }
-        guard self.eventDate == nil else { return true }
-        guard self.addGiftView.getGifts() == nil else { return true }
-        if self.createEventState == .newEventToBeAssigned && self.person != nil {
-            return true
-        }
-        guard self.budgetView.getBudgetAmount() == 0 else { return true }
-        return false
-    }
 }
 
 //MARK: Drop down textfield delegate
@@ -367,7 +366,7 @@ extension CreateEventViewController {
     
     @objc func backButtonTouched() {
         //check if there are changes and send alert
-        if changesMade() {
+        if editsMade {
             let alert = UIAlertController(title: "Are you sure?", message: CustomErrors.createEvent.changesMade.description, preferredStyle: .alert)
             let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
                 if self.eventToBeEdited == nil && self.tempEventId != nil {
@@ -444,11 +443,12 @@ extension CreateEventViewController: AddGiftViewDelegate {
         }) { (complete) in
             self.addGiftView.setupTableView()
         }
+        editsMade = true
     }
 
 }
 
-//MARK: AddEventButton Method
+//MARK: SAVE Method
 extension CreateEventViewController {
     
     @objc
@@ -558,6 +558,7 @@ extension CreateEventViewController: AutoCompleteTextFieldDelegate {
     
 }
 
+//MARK: SelectGiftViewDelegate
 extension CreateEventViewController : SelectGiftVCDelegate {
     
     func selectedGift(_ gift: Gift) {
@@ -568,6 +569,14 @@ extension CreateEventViewController : SelectGiftVCDelegate {
             gift.eventId = tempEventId
         }
         self.addGiftView.addGiftToList(gift)
+    }
+}
+
+//MARK: BudgetViewDelegate
+extension CreateEventViewController : BudgetViewDelegate {
+    
+    func sliderChangedValue() {
+        self.editsMade = true
     }
 }
 

@@ -92,6 +92,10 @@ class EventDisplayViewCreatePerson: EventTableView {
         tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
+    func changeSaveButtonText(_ text: String) {
+        saveButton.setTitle(text)
+    }
+    
     func setupDataSources(for orderedEvents: [Event]) {
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: orderedEvents, sectionHeaders: false) { (upcoming, overdue) in
             
