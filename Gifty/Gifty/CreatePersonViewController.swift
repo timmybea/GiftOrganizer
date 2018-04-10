@@ -584,6 +584,16 @@ extension CreatePersonViewController: EventTableViewDelegate {
         self.present(overlayVC, animated: true, completion: nil)
     }
     
+    func didTouchGifts(for event: Event) {
+        let overlayVC = OverlayGiftViewController()
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.modalPresentationStyle = .custom
+        overlayVC.event = event
+        
+        self.present(overlayVC, animated: true, completion: nil)
+    }
+    
     func didTouchReminder(for event: Event) {
         let dest = CENNotificationsVC()
         dest.event = event

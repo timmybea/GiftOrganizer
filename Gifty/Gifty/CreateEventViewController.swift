@@ -187,14 +187,14 @@ class CreateEventViewController: CustomViewController {
                                        y: autoComplete.frame.maxY + pad,
                                        width: scrollView.bounds.width,
                                        height: 40)
-            dropDown = DropDownTextField(frame: dropDownFrame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
+            dropDown = DropDownTextField(frame: dropDownFrame, title: "Event Type", options: SettingsHandler.shared.celebrations)
             dropDown.delegate = self
             scrollView.addSubview(dropDown)
             
         } else {
             //dropDown
             let dropDownFrame = CGRect(x: 0, y: 0, width: scrollView.bounds.width, height: 40)
-            dropDown = DropDownTextField(frame: dropDownFrame, title: "Celebration Type", options: SettingsHandler.shared.celebrations)
+            dropDown = DropDownTextField(frame: dropDownFrame, title: "Event Type", options: SettingsHandler.shared.celebrations)
             dropDown.delegate = self
             scrollView.addSubview(dropDown)
         }

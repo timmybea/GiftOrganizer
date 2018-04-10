@@ -77,6 +77,7 @@
 		B08B99A220577F7000779C6C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
+		B0A9458B207D30D20051C755 /* OverlayGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */; };
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
 		B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
@@ -266,6 +267,7 @@
 		B08B999B20577C5300779C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
+		B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayGiftViewController.swift; sourceTree = "<group>"; };
 		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
 		B0C205761F22D2C200C3E7ED /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */,
 				B07A55E21F677D5A004BD772 /* PresentationController.swift */,
 				B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */,
+				B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */,
 			);
 			name = PresentationController;
 			sourceTree = "<group>";
@@ -1300,6 +1303,7 @@
 				B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */,
 				B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */,
 				B06CF694203E2B6800072152 /* EventNotificationBuilder.swift in Sources */,
+				B0A9458B207D30D20051C755 /* OverlayGiftViewController.swift in Sources */,
 				B022CF20205314EB003F6F89 /* CENBodyTableViewCell.swift in Sources */,
 				B06CF696203E2B6800072152 /* EventNotificationUNBuilder.swift in Sources */,
 				B0CA63341F0ECEDC00C1A2B1 /* CircleView.swift in Sources */,

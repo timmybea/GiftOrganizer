@@ -125,23 +125,34 @@ class CreateGiftViewController: CustomViewController {
         scrollViewFrame = CGRect(x: pad,
                                  y: navHeight + statusHeight + pad,
                                  width: view.bounds.width - pad - pad,
-                                 height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - 35)
+                                 height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - buttonframe.height)
         
         scrollView.frame = scrollViewFrame
         view.addSubview(scrollView)
         
-        //giftImageControl
+        //gift imageControl
         let width = (scrollView.frame.width / 3)
-        giftImageControl.frame = CGRect(x: scrollView.frame.width / 3, y: 0, width: width, height: width)
+        giftImageControl.frame = CGRect(x: scrollView.frame.width / 3,
+                                        y: 0,
+                                        width: width,
+                                        height: width)
         scrollView.addSubview(giftImageControl)
         giftImageControl.addTarget(self, action: #selector(didTouchAddImage(sender:)), for: .touchUpInside)
         
-        giftNameTF.frame = CGRect(x: 0, y: giftImageControl.frame.maxY + pad, width: scrollView.frame.width, height: 30)
+        
+        //name textfield
+        giftNameTF.frame = CGRect(x: 0,
+                                  y: giftImageControl.frame.maxY + pad,
+                                  width: scrollView.frame.width,
+                                  height: 30)
         scrollView.addSubview(giftNameTF)
         
         let tfUnderline = UIView()
         tfUnderline.backgroundColor = UIColor.white
-        tfUnderline.frame = CGRect(x: 0, y: giftNameTF.frame.maxY, width: scrollView.frame.width, height: 2)
+        tfUnderline.frame = CGRect(x: 0,
+                                   y: giftNameTF.frame.maxY,
+                                   width: scrollView.frame.width,
+                                   height: 2)
         scrollView.addSubview(tfUnderline)
         
         //set budget
@@ -153,8 +164,6 @@ class CreateGiftViewController: CustomViewController {
         budgetLabel.text = "Set Budget"
         scrollView.addSubview(budgetLabel)
         
-        var contentHeight = budgetLabel.frame.maxY + pad
-        
         //budgetView
         budgetView = BudgetView(frame: CGRect(x: 0,
                                               y: budgetLabel.frame.maxY + pad,
@@ -162,7 +171,10 @@ class CreateGiftViewController: CustomViewController {
                                               height: 60))
         scrollView.addSubview(budgetView)
         
+        //<<<<ADD DESCRIPTION TEXT VIEW
+        
         if mode == .newGiftPersonUnknown {
+            
             //autoCompletePerson
             let personLabel = Theme.createMediumLabel()
             personLabel.frame = CGRect(x: 0,
@@ -178,9 +190,10 @@ class CreateGiftViewController: CustomViewController {
                                                                   height: 100))
             self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
             scrollView.addSubview(autoCompletePerson!)
-            contentHeight = autoCompletePerson!.frame.maxY + pad
         }
         
+        //set content size
+        let contentHeight = autoCompletePerson!.frame.maxY + pad
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
 

@@ -207,7 +207,7 @@ class EventTableViewCell: UITableViewCell {
 
 
 
-//MARK: ActionButtonsViewDelegate
+//MARK: Event Activity View Delegate
 
 extension EventTableViewCell : EventActivityViewDelegate {
     func activityButtonTouched(activity: ActivityType) {

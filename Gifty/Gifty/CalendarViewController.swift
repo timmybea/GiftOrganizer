@@ -432,6 +432,18 @@ extension CalendarViewController: EventTableViewDelegate {
         
         self.present(overlayVC, animated: true, completion: nil)
     }
+
+    
+    func didTouchGifts(for event: Event) {
+        let overlayVC = OverlayGiftViewController()
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.event = event
+        overlayVC.modalPresentationStyle = .custom
+        
+        self.present(overlayVC, animated: true, completion: nil)
+    }
+    
   
     func didTouchReminder(for event: Event) {
         let dest = CENNotificationsVC()

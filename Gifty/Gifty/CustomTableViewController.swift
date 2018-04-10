@@ -69,13 +69,13 @@ class CustomTableViewController: CustomViewController {
         var title: String {
             switch self {
             case .group: return "Group"
-            case .celebration: return "Celebration"
+            case .celebration: return "Event"
             }
         }
         
         var placeholderText: String {
             switch self {
-            case .celebration: return "Please enter celebration"
+            case .celebration: return "Please enter event"
             case .group: return "Please enter group"
             }
         }

@@ -16,7 +16,7 @@ struct SettingData {
     static func getSettingDatasource() -> [SettingData] {
         let output = [SettingData(section: "Categories",
                                   settingCells: [SettingCellType(type: .segue, args: ["Groups"]),
-                                                 SettingCellType(type: .segue, args: ["Celebrations"])]),
+                                                 SettingCellType(type: .segue, args: ["Events"])]),
                       SettingData(section: "Budget & Spending",
                                   settingCells: [SettingCellType(type: .textfield,
                                                                  args: [TFSettingsCellID.budgetAmt.rawValue]),

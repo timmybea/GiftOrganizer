@@ -14,6 +14,7 @@ protocol EventTableViewDelegate {
     func didTouchDelete(for event: Event, at indexPath: IndexPath)
     func didTouchReminder(for event: Event)
     func didTouchBudget(for event: Event)
+    func didTouchGifts(for event: Event)
     func touchesBegan()
 }
 
@@ -251,6 +252,7 @@ extension EventTableView: EventTableViewCellDelegate {
         case .editActivity: print("edit touched")
             self.delegate?.didTouchEdit(for: event)
         case .giftActivity: print("gift touched")
+            self.delegate?.didTouchGifts(for: event)
         case .reminderActivity:
             print("reminder touched")
             self.delegate?.didTouchReminder(for: event)

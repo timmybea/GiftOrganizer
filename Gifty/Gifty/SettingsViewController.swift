@@ -132,7 +132,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             let destination = CustomTableViewController()
             if segueCell.identifier == "Groups" {
                 destination.useCase = CustomTableViewController.UseCase.group
-            } else if segueCell.identifier == "Celebrations" {
+            } else if segueCell.identifier == "Events" {
                 destination.useCase = CustomTableViewController.UseCase.celebration
             }
             self.navigationController?.pushViewController(destination, animated: true)
