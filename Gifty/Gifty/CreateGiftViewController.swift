@@ -173,6 +173,8 @@ class CreateGiftViewController: CustomViewController {
         
         //<<<<ADD DESCRIPTION TEXT VIEW
         
+        var contentHeight: CGFloat = 0.0
+        
         if mode == .newGiftPersonUnknown {
             
             //autoCompletePerson
@@ -190,10 +192,12 @@ class CreateGiftViewController: CustomViewController {
                                                                   height: 100))
             self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
             scrollView.addSubview(autoCompletePerson!)
+            
+            contentHeight = autoCompletePerson!.frame.maxY + pad
         }
         
         //set content size
-        let contentHeight = autoCompletePerson!.frame.maxY + pad
+        contentHeight = budgetView.frame.maxY + pad
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
 
