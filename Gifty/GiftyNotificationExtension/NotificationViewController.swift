@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 import UserNotificationsUI
-import GiftyBridge
+//import GiftyBridge
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
     
@@ -60,8 +60,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     func didReceive(_ notification: UNNotification) {
         guard let date = notification.request.content.userInfo["date"] as? Date else { return }
         
-        monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
-        dayLabel.text = DateHandler.stringDayNum(from: date)
+//        monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
+//        dayLabel.text = DateHandler.stringDayNum(from: date)
     }
 
 }

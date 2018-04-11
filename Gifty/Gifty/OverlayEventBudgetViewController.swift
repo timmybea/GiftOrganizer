@@ -34,16 +34,6 @@ class OverlayEventBudgetViewController: UIViewController {
         return button
     }()
     
-    lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Cancel", for: .normal)
-        button.setTitleColor(Theme.colors.lightToneOne.color, for: .highlighted)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.addTarget(self, action: #selector(closeButtonTouched(sender:)), for: .touchUpInside)
-        return button
-    }()
-    
     let headingLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.white
@@ -55,7 +45,7 @@ class OverlayEventBudgetViewController: UIViewController {
     
     let textView: UITextView = {
         let textView = UITextView()
-        textView.textColor = Theme.colors.lightToneOne.color
+        textView.textColor = Theme.colors.textLightTone.color
         textView.backgroundColor = UIColor.clear
         textView.textAlignment = .center
         textView.isScrollEnabled = false
@@ -86,10 +76,12 @@ class OverlayEventBudgetViewController: UIViewController {
     private func setupSubviews() {
         
         view.addSubview(bgView)
-        bgView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        bgView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        bgView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        bgView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            bgView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
+            bgView.rightAnchor.constraint(equalTo: self.view.rightAnchor),
+            bgView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            bgView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
         
         view.addSubview(headingLabel)
         headingLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: pad).isActive = true
@@ -111,23 +103,11 @@ class OverlayEventBudgetViewController: UIViewController {
             budgetView.setTo(amount: (event?.actualAmt)!)
         }
         
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 0
-        stackView.distribution = .equalSpacing
-        
-        view.addSubview(stackView)
-        stackView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        stackView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -8).isActive = true
-        stackView.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        okButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width / 2).isActive = true
-        cancelButton.widthAnchor.constraint(equalToConstant: self.view.bounds.width / 2).isActive = true
-        
-        stackView.addArrangedSubview(okButton)
-        stackView.addArrangedSubview(cancelButton)
+        view.addSubview(okButton)
+        okButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        okButton.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        okButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -8).isActive = true
+        okButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     func setText() {
@@ -137,17 +117,10 @@ class OverlayEventBudgetViewController: UIViewController {
             textView.font = Theme.fonts.mediumText.font
         }
     }
-    
-    
-    @objc private func closeButtonTouched(sender: UIButton) {
-        print("close button touched")
-        presentingViewController?.dismiss(animated: true, completion: nil)
-    }
 
     @objc private func okButtonTouched(sender: UIButton) {
         print("ok button touched")
         event?.actualAmt = self.budgetView.getBudgetAmount()
-//        EventBuilder.save(with: DataPersistenceService.shared)
         ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
             print("Saving spent amount success: \(success)")
             presentingViewController?.dismiss(animated: true, completion: nil)

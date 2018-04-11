@@ -32,6 +32,7 @@
 		B0275CFD1F1018DE004F77E6 /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */; };
 		B027E5581F2C123800EC273A /* EventDisplayViewCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */; };
 		B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02866771F143590003F5E22 /* EventTableViewCell.swift */; };
+		B035E7EC207E878800AB66C3 /* GiftCompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B035E7EB207E878800AB66C3 /* GiftCompletionTableViewCell.swift */; };
 		B03B653E20363BF50045F95A /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B041F7671EF899F500A3E332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B041F7661EF899F500A3E332 /* AppDelegate.swift */; };
 		B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B041F76D1EF899F500A3E332 /* PersonAssets.xcassets */; };
@@ -215,6 +216,7 @@
 		B0275CFC1F1018DE004F77E6 /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeaderView.swift; sourceTree = "<group>"; };
 		B027E5571F2C123800EC273A /* EventDisplayViewCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCalendar.swift; sourceTree = "<group>"; };
 		B02866771F143590003F5E22 /* EventTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
+		B035E7EB207E878800AB66C3 /* GiftCompletionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftCompletionTableViewCell.swift; sourceTree = "<group>"; };
 		B03B653F20363D250045F95A /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		B041F7631EF899F500A3E332 /* Gifty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gifty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B041F7661EF899F500A3E332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 			children = (
 				B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */,
 				B0E52AD320645928004812B6 /* AddGiftViewCell.swift */,
+				B035E7EB207E878800AB66C3 /* GiftCompletionTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1328,6 +1331,7 @@
 				B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */,
 				B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */,
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
+				B035E7EC207E878800AB66C3 /* GiftCompletionTableViewCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
 				B06CF695203E2B6800072152 /* EventNotificationMOBuilder.swift in Sources */,
 				B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */,

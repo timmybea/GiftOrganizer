@@ -24,7 +24,7 @@ class GiftEventCache {
             
             if !cache.keys.contains(eventId) {
                 
-                if let event = EventFRC.getEvent(for: eventId, with: context) {
+                if let event = EventFRC.getEvent(forId: eventId, with: context) {
                     cache[eventId] = event
                 }
                 

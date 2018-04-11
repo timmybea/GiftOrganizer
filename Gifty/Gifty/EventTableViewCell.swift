@@ -125,7 +125,6 @@ class EventTableViewCell: UITableViewCell {
         eventTypeLabel.leftAnchor.constraint(equalTo: customBackground.leftAnchor, constant: 50).isActive = true
         eventTypeLabel.topAnchor.constraint(equalTo: customBackground.topAnchor, constant: 6).isActive = true
         
-        //customBackground.layer.masksToBounds = true
         customBackground.dropShadow()
         
         customBackground.addSubview(completionIcon)

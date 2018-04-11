@@ -99,7 +99,13 @@ class EventTableView: UIView {
     }
     
     @objc private func actionStateChanged(notification: NSNotification) {
-        if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
+        if let eventId = notification.userInfo?["giftId"] as? String {
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+
+        } else if let senderId = notification.userInfo?["EventDisplayViewId"] as? String, senderId != self.id {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

@@ -33,7 +33,7 @@ public class EventFRC: NSObject {
         return frc
     }
     
-    public static func getEvent(for id: String, with context: NSManagedObjectContext) -> Event? {
+    public static func getEvent(forId id: String, with context: NSManagedObjectContext) -> Event? {
         
         let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
         let predicate = NSPredicate(format: "%K = %@", "id", id)
