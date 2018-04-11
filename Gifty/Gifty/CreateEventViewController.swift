@@ -85,6 +85,7 @@ class CreateEventViewController: CustomViewController {
         let sv = UIScrollView()
         sv.layer.masksToBounds = false
         sv.backgroundColor = UIColor.clear
+        sv.layer.masksToBounds = true
         sv.isPagingEnabled = false
         return sv
     }()

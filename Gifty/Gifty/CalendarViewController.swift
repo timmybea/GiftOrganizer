@@ -438,6 +438,7 @@ extension CalendarViewController: EventTableViewDelegate {
         let overlayVC = OverlayGiftViewController()
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.delegate = self
         overlayVC.event = event
         overlayVC.modalPresentationStyle = .custom
         
@@ -459,4 +460,13 @@ extension CalendarViewController: EventTableViewDelegate {
     }
 }
 
+extension CalendarViewController : OverlayGiftViewControllerDelegate {
+    
+    func segueToOverlayBudgetViewController(event: Event) {
+        self.didTouchBudget(for: event)
+    }
+    
+    
+    
+}
 

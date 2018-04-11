@@ -242,6 +242,7 @@ extension AddGiftView : AddGiftViewCellDelegate {
         for (i, g) in self.gifts.enumerated() {
             if g.id == gift.id {
                 gift.eventId = nil
+                gift.isCompleted = false
                 row = i
                 break
             }

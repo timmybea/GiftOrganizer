@@ -9,7 +9,13 @@
 import Foundation
 import GiftyBridge
 
+protocol OverlayGiftViewControllerDelegate {
+    func segueToOverlayBudgetViewController(event: Event)
+}
+
 class OverlayGiftViewController: UIViewController {
+    
+    var delegate: OverlayGiftViewControllerDelegate?
     
     var event: Event? {
         didSet {
@@ -148,9 +154,27 @@ class OverlayGiftViewController: UIViewController {
         print("datasource count is: \(d.count)")
         
     }
+    
+    private func checkEventCompleted() -> Bool {
+        guard let gifts = datasource else { return true }
+        
+        for gift in gifts {
+            if !gift.isCompleted {
+                return false
+            }
+        }
+        return true
+    }
 
     @objc private func okButtonTouched(sender: UIButton) {
         print("ok button touched")
+        if let gift = datasource?.first, let id = gift.eventId, let moc = gift.managedObjectContext {
+            if let event = EventFRC.getEvent(forId: id, with: moc), checkEventCompleted(), event.actualAmt == 0 {
+                presentingViewController?.dismiss(animated: true, completion: {
+                    self.delegate?.segueToOverlayBudgetViewController(event: event)
+                })
+            }
+        }
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
@@ -182,17 +206,6 @@ extension OverlayGiftViewController : UITableViewDelegate, UITableViewDataSource
 }
 
 extension OverlayGiftViewController : GiftCompletionCellDelegate {
-
-    private func checkEventCompleted() -> Bool {
-        guard let gifts = datasource else { return true }
-        
-        for gift in gifts {
-            if !gift.isCompleted {
-                return false
-            }
-        }
-        return true
-    }
     
     func didChange(gift: Gift, to complete: Bool) {
         gift.isCompleted = complete
@@ -208,7 +221,7 @@ extension OverlayGiftViewController : GiftCompletionCellDelegate {
         
         let userInfo = ["giftId" : gift.id, "dateString": event.dateString]
         DispatchQueueHandler.notification.queue.async {
-            NotificationCenter.default.post(name: Notifications.names.actionStateChanged.name, object: nil, userInfo: userInfo)
+            NotificationCenter.default.post(name: Notifications.names.actionStateChanged.name, object: nil, userInfo: userInfo as! [String: String])
         }
     }
 }
