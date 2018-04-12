@@ -22,6 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SettingsHandler.shared.getSettings()
         
+        //MARK: Look for recurring events and deep copy + assign
+        if let recurringEvents = EventFRC.getRecurringEvents(before: Date()) {
+            for event in recurringEvents {
+                let _ = EventDeepCopy(event: event).copyRecurringEvent()
+            }
+            DataPersistenceService.shared.saveToContext(DataPersistenceService.shared.mainQueueContext, completion: {
+                //
+            })
+        }
+        
         window?.rootViewController = setupTabBarController()
         
         //MARK: custom status bar
@@ -30,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         statusBarBackgroundView.backgroundColor = UIColor.clear
         window?.addSubview(statusBarBackgroundView)
         statusBarBackgroundView.frame = CGRect(x: 0, y: 0, width: (window?.frame.width)!, height: 20)
+        
         
         //MARK: setup interstitials
 //        InterstitialService.shared.delegate = self

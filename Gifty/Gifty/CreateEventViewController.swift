@@ -255,7 +255,7 @@ class CreateEventViewController: CustomViewController {
         
         self.eventDate = currentEvent.date!
         
-        self.isRecurringEvent = true //<<< TEMPORARY HARDCODE
+        self.isRecurringEvent = currentEvent.recurring
         
         if let gifts = GiftFRC.getGifts(for: currentEvent) {
             self.addGiftView.setGifts(gifts)
@@ -468,6 +468,28 @@ extension CreateEventViewController {
                     eb.addDate(self.eventDate!)
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     
+                    //<<< COME BACK TO HERE
+                    if currEvent.recurring != isRecurringEvent {
+                        
+                        if let recurringGroup = currEvent.recurringGroup {
+                            //Change from recurring to not recurring
+                            let ids = recurringGroup.components(separatedBy: " ")
+                            
+                            var group = [Event]()
+                            
+                            for id in ids {
+                                if let event = EventFRC.getEvent(forId: id, with: DataPersistenceService.shared.mainQueueContext!) {
+                                    group.append(event)
+                                    
+                                }
+                            }
+                            
+                            for event in group {
+                                event.recurring = isRecurringEvent
+                            }
+                        }
+                    }
+                    
                     guard let dateString = currEvent.dateString else { return }
                     let createUserInfo = ["dateString": dateString]
                     
@@ -491,6 +513,7 @@ extension CreateEventViewController {
 
                     eb.addType(self.eventType!)
                     eb.addDate(self.eventDate!)
+                    eb.setRecurring(self.isRecurringEvent)
                     
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     eb.setToPerson(self.person!)

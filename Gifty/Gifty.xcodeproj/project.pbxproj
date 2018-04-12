@@ -81,6 +81,7 @@
 		B0A9458B207D30D20051C755 /* OverlayGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */; };
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
+		B0B19205207FD58000F2A468 /* EventDeepCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B19204207FD58000F2A468 /* EventDeepCopy.swift */; };
 		B0C205771F22D2C200C3E7ED /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
@@ -272,6 +273,7 @@
 		B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayGiftViewController.swift; sourceTree = "<group>"; };
 		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
+		B0B19204207FD58000F2A468 /* EventDeepCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDeepCopy.swift; sourceTree = "<group>"; };
 		B0C205761F22D2C200C3E7ED /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueHandler.swift; sourceTree = "<group>"; };
 		B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 				B0D064B62062DB60002B4865 /* EventBuilder.swift */,
 				B0D064BA20642E0C002B4865 /* AlertService.swift */,
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
+				B0B19204207FD58000F2A468 /* EventDeepCopy.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1319,6 +1322,7 @@
 				B0D064B92064294A002B4865 /* UITabBarController+PreviousIndex.swift in Sources */,
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
+				B0B19205207FD58000F2A468 /* EventDeepCopy.swift in Sources */,
 				B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */,
 				B0D064B520619995002B4865 /* GiftSelectTableViewCell.swift in Sources */,
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,

@@ -48,6 +48,36 @@ public class EventFRC: NSObject {
         return output
     }
     
+    public static func getRecurringEvents(before date: Date) -> [Event]? {
+        
+        let fetchRequest: NSFetchRequest<Event> = Event.fetchRequest()
+        let predicateRecurring = NSPredicate(format: "%K == %@", "recurringHead", NSNumber(value: true))
+        let sortByDate = NSSortDescriptor(key: "date", ascending: true)
+        fetchRequest.predicate = predicateRecurring
+        fetchRequest.sortDescriptors = [sortByDate]
+        
+        var results: [Event]?
+        do {
+            results = try dataPersistence.mainQueueContext?.fetch(fetchRequest)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        var output = [Event]()
+        
+        guard let r = results else { return nil }
+        
+        for event in r {
+            if event.recurring && event.date! < date {
+                output.append(event)
+            } else {
+                break
+            }
+        }
+        return output.count == 0 ? nil : output
+    }
+    
+    
     public static func frc(for date: Date) -> NSFetchedResultsController<Event>? {
         guard let moc = dataPersistence.mainQueueContext else { return nil }
         

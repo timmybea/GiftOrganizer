@@ -181,6 +181,31 @@ extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return GiftSelectTableViewCell.cellHeight
     }
+    
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            //remove from data source and table
+            tableView.beginUpdates()
+            if let gift = self.dataSource?.remove(at: indexPath.row) {
+                gift.managedObjectContext?.delete(gift)
+                ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: {(success) in
+                    //do nothing
+                })
+                
+            }
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            self.setTableViewHeight()
+        }
+        deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
+        return segmentedControl.selectedSegmentIndex == 0 ? [deleteAction] : nil
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return segmentedControl.selectedSegmentIndex == 0 ? true : false
+    }
 }
 
 //MARK: Segmented Control method

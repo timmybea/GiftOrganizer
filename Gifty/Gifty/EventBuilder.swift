@@ -44,8 +44,10 @@ class EventBuilder {
         self.event.id = uuid
     }
     
-    func addRecurring(_ bool: Bool) {
-        //not in model yet
+    func setRecurring(_ bool: Bool) {
+        self.event.recurring = bool
+        self.event.recurringHead = bool
+        self.event.recurringGroup = bool ? "\(event.id)" : ""
     }
     
     func addBudget(_ budgetAmt: Float) {
@@ -90,5 +92,11 @@ class EventBuilder {
             })
         }
     }
+}
+
+extension Event {
+    
+
+    
 }
 
