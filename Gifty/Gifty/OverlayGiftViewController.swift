@@ -26,6 +26,7 @@ class OverlayGiftViewController: UIViewController {
     private var datasource: [Gift]? {
         didSet {
             setTableViewHeight()
+            noGifts()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -153,6 +154,27 @@ class OverlayGiftViewController: UIViewController {
         c.constant = CGFloat(d.count) * cellHeight
         print("datasource count is: \(d.count)")
         
+    }
+    
+    private func noGifts() {
+        
+        guard datasource?.count == 0 else { return }
+        
+        let label = UILabel()
+        label.textColor = Theme.colors.textLightTone.color
+        label.textAlignment = .center
+        label.font = Theme.fonts.subtitleText.font
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "You have not selected any gifts for this event."
+        label.sizeToFit()
+        
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            ])
     }
     
     private func checkEventCompleted() -> Bool {

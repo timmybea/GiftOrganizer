@@ -87,7 +87,7 @@ class AddDateView: UIView {
         label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         addSubview(recurringEventSwitch)
-        recurringEventSwitch.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        recurringEventSwitch.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -2).isActive = true
         recurringEventSwitch.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         addSubview(recurringLabel)

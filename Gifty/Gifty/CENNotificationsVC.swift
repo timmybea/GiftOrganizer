@@ -13,6 +13,7 @@ class CENNotificationsVC: CustomViewController {
 
     var datasource: [EventNotification]? {
         didSet {
+            noNotifications()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -61,6 +62,18 @@ class CENNotificationsVC: CustomViewController {
         label.textColor = UIColor.white
         label.textAlignment = .left
         label.font = Theme.fonts.subtitleText.font
+        return label
+    }()
+    
+    let noRemindersLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Theme.colors.textLightTone.color
+        label.textAlignment = .center
+        label.font = Theme.fonts.subtitleText.font
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "You have not created any reminders for this event."
+        label.sizeToFit()
         return label
     }()
     
@@ -192,6 +205,20 @@ extension CENNotificationsVC: UITableViewDelegate, UITableViewDataSource {
             deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
             
             return [deleteAction]
+    }
+    
+    private func noNotifications() {
+        
+        if datasource?.count == 0 {
+            view.addSubview(noRemindersLabel)
+            NSLayoutConstraint.activate([
+                noRemindersLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
+                noRemindersLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad),
+                noRemindersLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+                ])
+        } else {
+            noRemindersLabel.removeFromSuperview()
+        }
     }
     
     //Mark: ensure that editing is available for all cells except pieChartCll

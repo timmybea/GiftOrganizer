@@ -154,7 +154,8 @@ class PieChartCell: UITableViewCell {
         
         let action = isShowBudget ? "budgetted" : "spent"
         let prep = isShowBudget ? "for" : "on"
-        summaryLabel.text = "You have \(action) $\(String(format: "%.0f", totalSpent)) \(prep) \(totalGifts) gifts."
+        let gift = totalGifts == 1 ? "gift" : "gifts"
+        summaryLabel.text = "You have \(action) $\(String(format: "%.0f", totalSpent)) \(prep) \(totalGifts) \(gift)."
 
         self.addSubview(summaryLabel)
         summaryLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
