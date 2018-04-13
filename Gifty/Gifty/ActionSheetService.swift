@@ -20,6 +20,10 @@ class ActionSheetService {
             })
             alert.addAction(action)
         }
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(cancel)
         vc.present(alert, animated: true, completion: nil)
     }
     
