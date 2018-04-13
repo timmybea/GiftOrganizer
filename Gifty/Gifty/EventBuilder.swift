@@ -47,13 +47,22 @@ class EventBuilder {
     func setRecurring(_ bool: Bool) {
         self.event.recurring = bool
         self.event.recurringHead = bool
-        self.event.recurringGroup = bool ? "\(event.id)" : ""
+        self.event.recurringGroup = bool ? "\(event.id!)" : ""
     }
     
     func addBudget(_ budgetAmt: Float) {
         self.event.budgetAmt = budgetAmt
     }
 
+    func addGifts(_ gifts: [Gift]) {
+        
+        var giftIds = String()
+        for gift in gifts {
+            giftIds += "\(gift.id!) "
+        }
+        self.event.giftIds = giftIds
+    }
+    
     func addType(_ type: String) {
         self.event.type = type
     }

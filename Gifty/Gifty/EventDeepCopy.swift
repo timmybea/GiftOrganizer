@@ -36,7 +36,7 @@ class EventDeepCopy {
             if success {
                 output = self.eventBuilder.buildAndReturnEvent()
             } else if let e = customError {
-                print(e.description, " SHIT SHIT SHIT!")
+                print(e.description)
                 output = self.eventBuilder.buildAndReturnEvent()
             }
         }

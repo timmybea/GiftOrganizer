@@ -5,6 +5,7 @@
         <attribute name="budgetAmt" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="dateString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="giftIds" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="recurring" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -45,7 +46,7 @@
         <relationship name="gift" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Gift" inverseName="person" inverseEntity="Gift" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-164" positionY="-27" width="128" height="225"/>
+        <element name="Event" positionX="-164" positionY="-27" width="128" height="240"/>
         <element name="EventNotification" positionX="-270" positionY="285" width="128" height="133"/>
         <element name="Gift" positionX="-0" positionY="372" width="128" height="165"/>
         <element name="Person" positionX="63" positionY="119" width="128" height="195"/>

@@ -33,7 +33,10 @@ class PieChartService: NSObject {
                 for event in events where DateHandler.sameComponent(.year, date1: event.date!, date2: DateHandler.localTimeFromUTC(Date())){
                     if event.isComplete {
                         amtSpent += event.actualAmt
-                        numGifts += 1
+                        
+                        if let giftIds = event.giftIds?.components(separatedBy: " ") {
+                            numGifts += giftIds.reduce(0) { $1 != "" ? $0 + 1 : $0 }
+                        }
                     }
                 }
             }
@@ -65,7 +68,10 @@ class PieChartService: NSObject {
                     
                     if !event.isComplete && event.budgetAmt > 0 {
                         amtBudgetted += event.budgetAmt
-                        numGifts += 1
+                        
+                        if let giftIds = event.giftIds?.components(separatedBy: " ") {
+                            numGifts += giftIds.reduce(0) { $1 != "" ? $0 + 1 : $0 }
+                        }
                     }
                 }
             }
