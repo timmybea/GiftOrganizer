@@ -11,6 +11,7 @@ import GiftyBridge
 
 protocol OverlayGiftViewControllerDelegate {
     func segueToOverlayBudgetViewController(event: Event)
+    func segueToGiftVCForEdit(with gift: Gift)
 }
 
 class OverlayGiftViewController: UIViewController {
@@ -225,8 +226,24 @@ extension OverlayGiftViewController : UITableViewDelegate, UITableViewDataSource
         cell.changeCompleteValue()
     }
     
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let action = UITableViewRowAction(style: .default, title: "View/Edit") { (action, indexPath) in
+            if let gift = self.datasource?[indexPath.row] {
+                self.dismiss(animated: true, completion: {
+                    self.delegate?.segueToGiftVCForEdit(with: gift)
+                })
+            }
+        }
+        action.backgroundColor = Theme.colors.lightToneOne.color
+        
+        return [action]
+    }
 }
 
+
+//MARK: Gift completion cell delegate
 extension OverlayGiftViewController : GiftCompletionCellDelegate {
     
     func didChange(gift: Gift, to complete: Bool) {

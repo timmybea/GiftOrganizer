@@ -33,6 +33,8 @@ class CreateGiftViewController: CustomViewController {
     var person: Person?
     private var giftName: String?
     
+    private var giftToEdit: Gift?
+    
     //constants
     private var tabBarHeight: CGFloat! {
         return tabBarController?.tabBar.bounds.height ?? 48
@@ -47,8 +49,6 @@ class CreateGiftViewController: CustomViewController {
     private var saveButton: ButtonTemplate!
     
     private var scrollViewFrame: CGRect!
-    
-    //private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapBackground(sender:)))
     
     //UI Components
     private var scrollView: UIScrollView = {
@@ -95,17 +95,8 @@ class CreateGiftViewController: CustomViewController {
                                                name: NSNotification.Name.UIKeyboardWillHide,
                                                object: nil)
         
-        if mode != .newGiftPersonUnknown {
-            navigationItem.hidesBackButton = true
-            let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(backButtonTouched(sender:)))
-            self.navigationItem.leftBarButtonItem = backButton
-        }
-
-        navigationItem.title = "Create Gift"
         setupSubviews()
+        setupNavigationBar()
     }
     
     private func setupSubviews() {
@@ -200,6 +191,32 @@ class CreateGiftViewController: CustomViewController {
         contentHeight = budgetView.frame.maxY + pad
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
+    
+    private func setupNavigationBar() {
+        if mode != .newGiftPersonUnknown {
+            navigationItem.hidesBackButton = true
+            let backButton = UIBarButtonItem(image: UIImage(named: ImageNames.back.rawValue),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(backButtonTouched(sender:)))
+            self.navigationItem.leftBarButtonItem = backButton
+        }
+        
+        navigationItem.title = mode == .editExistingGift ? "Edit Gift" : "Create Gift"
+        
+        if mode == .editExistingGift {
+            let transferButton = UIBarButtonItem(image: UIImage(named: ImageNames.addGreetingCard.rawValue),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(didTouchTransferGift(sender:)))
+            self.navigationItem.rightBarButtonItem = transferButton
+        }
+    }
+    
+    func setupForEditMode(with gift: Gift) {
+        self.giftToEdit = gift
+        self.mode = .editExistingGift
+    }
 
     private func createAlertForError(_ error: CustomErrors.createGift) {
         let alertController = UIAlertController(title: "Incomplete Gift", message: error.description, preferredStyle: .alert)
@@ -246,6 +263,13 @@ class CreateGiftViewController: CustomViewController {
             default: print("this should not be reached")
             }
         }
+    }
+    
+    @objc
+    func didTouchTransferGift(sender: UIButton) {
+        
+        print("touched transfer gift!")
+
     }
     
     @objc

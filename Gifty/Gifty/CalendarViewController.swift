@@ -460,12 +460,20 @@ extension CalendarViewController: EventTableViewDelegate {
     }
 }
 
+
+//MARK: Overlay gift vc delegate
 extension CalendarViewController : OverlayGiftViewControllerDelegate {
     
     func segueToOverlayBudgetViewController(event: Event) {
         self.didTouchBudget(for: event)
     }
     
+    func segueToGiftVCForEdit(with gift: Gift) {
+        
+        let dest = CreateGiftViewController()
+        dest.setupForEditMode(with: gift)
+        self.navigationController?.pushViewController(dest, animated: true)
+    }
     
     
 }
