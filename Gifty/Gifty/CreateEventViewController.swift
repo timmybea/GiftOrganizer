@@ -468,9 +468,8 @@ extension CreateEventViewController {
                     eb.addDate(self.eventDate!)
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     
-                    if let gifts = addGiftView.getGifts() {
-                        eb.addGifts(gifts)
-                    }
+                    let gifts = addGiftView.getGifts()
+                    eb.addGifts(gifts)
                     
                     if currEvent.recurring != isRecurringEvent {
                         
@@ -518,10 +517,9 @@ extension CreateEventViewController {
                     eb.addDate(self.eventDate!)
                     eb.setRecurring(self.isRecurringEvent)
                     
-                    if let gifts = addGiftView.getGifts() {
-                        eb.addGifts(gifts)
-                    }
-                    
+                    let gifts = addGiftView.getGifts()
+                    eb.addGifts(gifts)
+                        
                     eb.addBudget(self.budgetView.getBudgetAmount())
                     eb.setToPerson(self.person!)
                     eb.canReturnEvent(completion: { (success, error) in

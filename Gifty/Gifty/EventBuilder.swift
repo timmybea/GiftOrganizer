@@ -54,11 +54,19 @@ class EventBuilder {
         self.event.budgetAmt = budgetAmt
     }
 
-    func addGifts(_ gifts: [Gift]) {
+    func addGifts(_ gifts: [Gift]?) {
+        self.event.isComplete = true
+        self.event.giftIds = nil
+
+        guard let gifts = gifts else { return }
         
         var giftIds = String()
         for gift in gifts {
             giftIds += "\(gift.id!) "
+            
+            if gift.isCompleted == false {
+                self.event.isComplete = false
+            }
         }
         self.event.giftIds = giftIds
     }
@@ -79,6 +87,7 @@ class EventBuilder {
     }
     
     func buildAndReturnEvent() -> Event {
+        
         return self.event
     }
     
