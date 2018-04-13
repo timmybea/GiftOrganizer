@@ -82,6 +82,8 @@ class CreateGiftViewController: CustomViewController {
         return v
     }()
     
+    private var detailsTextView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -152,7 +154,7 @@ class CreateGiftViewController: CustomViewController {
                                    y: tfUnderline.frame.maxY + pad,
                                    width: scrollView.bounds.width,
                                    height: 25)
-        budgetLabel.text = "Set Budget"
+        budgetLabel.text = "Price"
         scrollView.addSubview(budgetLabel)
         
         //budgetView
@@ -162,16 +164,25 @@ class CreateGiftViewController: CustomViewController {
                                               height: 60))
         scrollView.addSubview(budgetView)
         
-        //<<<<ADD DESCRIPTION TEXT VIEW
+        //details text view
+        detailsTextView = UIView(frame: CGRect(x: 0,
+                                               y: budgetView.frame.maxY + pad,
+                                               width: scrollView.bounds.width,
+                                               height: 300))
+        detailsTextView.backgroundColor = UIColor.clear
+        detailsTextView.layer.borderWidth = 2.0
+        detailsTextView.layer.borderColor = UIColor.white.cgColor
+        scrollView.addSubview(detailsTextView)
         
-        var contentHeight: CGFloat = 0.0
+        
+        var contentHeight: CGFloat = detailsTextView.frame.maxY + pad
         
         if mode == .newGiftPersonUnknown {
             
             //autoCompletePerson
             let personLabel = Theme.createMediumLabel()
             personLabel.frame = CGRect(x: 0,
-                                       y: budgetView.frame.maxY + pad,
+                                       y: detailsTextView.frame.maxY + pad,
                                        width: scrollView.bounds.width,
                                        height: 25)
             personLabel.text = "Set Person"
@@ -186,10 +197,12 @@ class CreateGiftViewController: CustomViewController {
             
             contentHeight = autoCompletePerson!.frame.maxY + pad
         }
-        
         //set content size
-        contentHeight = budgetView.frame.maxY + pad
         scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
+        
+        if mode == .editExistingGift {
+            updateViewsForGift()
+        }
     }
     
     private func setupNavigationBar() {
@@ -216,6 +229,19 @@ class CreateGiftViewController: CustomViewController {
     func setupForEditMode(with gift: Gift) {
         self.giftToEdit = gift
         self.mode = .editExistingGift
+    }
+    
+    private func updateViewsForGift() {
+        guard let gift = self.giftToEdit else { return }
+        
+        if let data = gift.image, let image = UIImage(data: data) {
+            self.giftImageControl.setImage(image)
+        }
+        
+        self.giftNameTF.text = gift.name
+        
+        self.budgetView.setTo(amount: gift.cost)
+        
     }
 
     private func createAlertForError(_ error: CustomErrors.createGift) {
