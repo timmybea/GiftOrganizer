@@ -155,34 +155,44 @@ class AddGiftView: UIView {
     }
     
     func setupTableView() {
-        tableView.removeFromSuperview()
-        bottomUnderline.removeFromSuperview()
-        costLabel.removeFromSuperview()
+        
+        if gifts.count == 0 {
+            tableView.removeFromSuperview()
+            bottomUnderline.removeFromSuperview()
+            costLabel.removeFromSuperview()
+        }
 
         if gifts.count > 0 {
             
-            addSubview(costLabel)
-            NSLayoutConstraint.activate([
-                costLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
-                costLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
-                costLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-                ])
+            if costLabel.superview == nil {
+                addSubview(costLabel)
+                NSLayoutConstraint.activate([
+                    costLabel.leftAnchor.constraint(equalTo: self.leftAnchor),
+                    costLabel.rightAnchor.constraint(equalTo: self.rightAnchor),
+                    costLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+                    ])
+            }
             
-            addSubview(bottomUnderline)
-            NSLayoutConstraint.activate([
-                bottomUnderline.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -4),
-                bottomUnderline.leftAnchor.constraint(equalTo: self.leftAnchor),
-                bottomUnderline.rightAnchor.constraint(equalTo: self.rightAnchor),
-                bottomUnderline.heightAnchor.constraint(equalToConstant: 2)
-                ])
+            if bottomUnderline.superview == nil {
+                addSubview(bottomUnderline)
+                NSLayoutConstraint.activate([
+                    bottomUnderline.bottomAnchor.constraint(equalTo: costLabel.topAnchor, constant: -4),
+                    bottomUnderline.leftAnchor.constraint(equalTo: self.leftAnchor),
+                    bottomUnderline.rightAnchor.constraint(equalTo: self.rightAnchor),
+                    bottomUnderline.heightAnchor.constraint(equalToConstant: 2)
+                    ])
+            }
             
-            addSubview(tableView)
-            NSLayoutConstraint.activate([
-                tableView.topAnchor.constraint(equalTo: underline.bottomAnchor, constant: 2),
-                tableView.bottomAnchor.constraint(equalTo: bottomUnderline.topAnchor, constant: -2),
-                tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
-                tableView.rightAnchor.constraint(equalTo: self.rightAnchor)
-                ])
+            if tableView.superview == nil {
+                addSubview(tableView)
+                NSLayoutConstraint.activate([
+                    tableView.topAnchor.constraint(equalTo: underline.bottomAnchor, constant: 2),
+                    tableView.bottomAnchor.constraint(equalTo: bottomUnderline.topAnchor, constant: -2),
+                    tableView.leftAnchor.constraint(equalTo: self.leftAnchor),
+                    tableView.rightAnchor.constraint(equalTo: self.rightAnchor)
+                    ])
+            }
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

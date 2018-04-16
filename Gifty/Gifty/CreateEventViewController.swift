@@ -307,10 +307,10 @@ class CreateEventViewController: CustomViewController {
                                       width: view.bounds.width - pad - pad,
                                       height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
             
-            //scroll to bottom
-            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height)
-            scrollView.setContentOffset(bottomOffset, animated: true)
-            scrollView.addGestureRecognizer(tapGesture)
+//            //scroll to bottom
+//            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height)
+//            scrollView.setContentOffset(bottomOffset, animated: true)
+//            scrollView.addGestureRecognizer(tapGesture)
         } else {
             scrollView.frame = scrollViewFrame
             scrollView.removeGestureRecognizer(tapGesture)
@@ -437,12 +437,31 @@ extension CreateEventViewController: AddGiftViewDelegate {
     }
     
     func needsToResize(to height: CGFloat) {
-        self.addGiftView.frame.size.height = height
+        
+//        UIView.animate(withDuration: 0.0, animations: {
+//            self.detailsTextView.frame.size.height
+//                = height
+//
+//            if self.autoCompletePerson != nil {
+//                self.personLabel.frame.origin.y = self.detailsTextView.frame.maxY + pad
+//                self.autoCompletePerson!.frame.origin.y = self.personLabel.frame.maxY + pad
+//                self.scrollView.contentSize.height = self.autoCompletePerson!.frame.maxY + pad
+//
+//            }
+//
+//            self.view.layoutIfNeeded()
+//        })
+        
+        
         UIView.animate(withDuration: 0.1, animations: {
+            self.addGiftView.frame.size.height = height
             self.budgetLabel.frame.origin.y = self.addGiftView.frame.maxY + pad
             self.budgetView.frame.origin.y = self.budgetLabel.frame.maxY + pad
+            self.scrollView.contentSize.height = self.budgetView.frame.maxY + pad
+            self.view.layoutIfNeeded()
         }) { (complete) in
             self.addGiftView.setupTableView()
+            
         }
         editsMade = true
     }
