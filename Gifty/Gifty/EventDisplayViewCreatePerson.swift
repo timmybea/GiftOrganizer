@@ -77,6 +77,7 @@ class EventDisplayViewCreatePerson: EventTableView {
         
         addSubview(saveButton)
         saveButton.setTitle("SAVE")
+        saveButton.setBackgroundColor(Theme.colors.buttonPurple.color)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         saveButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
         saveButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true

@@ -58,6 +58,12 @@ class GiftBuilder {
         self.gift.cost = cost
     }
     
+    func addNote(_ text: String?) {
+        if text != nil {
+            self.gift.detail = text
+        }
+    }
+    
     func addToEvent(_ event: Event) {
         self.gift.eventId = event.id
     }

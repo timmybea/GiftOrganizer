@@ -10,6 +10,7 @@
 		775F83FD437CBFAE67612986 /* Pods_GiftyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373C8160F0EABC34750BBAAE /* Pods_GiftyUITests.framework */; };
 		842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */; };
 		9395BA95A74AB8402D9BAFC8 /* Pods_GiftyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46C30F863C942B547F235266 /* Pods_GiftyTests.framework */; };
+		B0020BFB20853E96005A5F94 /* ResizingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0020BFA20853E96005A5F94 /* ResizingTextView.swift */; };
 		B00B53E7201132AE00A2301F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
 		B00B53EA2011358800A2301F /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
@@ -195,6 +196,7 @@
 		46C30F863C942B547F235266 /* Pods_GiftyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiftyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gifty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		840BF037763567376C3007C0 /* Pods-GiftyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftyTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B0020BFA20853E96005A5F94 /* ResizingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingTextView.swift; sourceTree = "<group>"; };
 		B00B53E520112E8000A2301F /* Gifty.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gifty.entitlements; sourceTree = "<group>"; };
 		B00B53E620112FA500A2301F /* GiftyTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GiftyTodayExtension.entitlements; sourceTree = "<group>"; };
 		B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionEvent.swift; sourceTree = "<group>"; };
@@ -585,6 +587,7 @@
 				B0D064B420619995002B4865 /* GiftSelectTableViewCell.swift */,
 				B0E52AD320645928004812B6 /* AddGiftViewCell.swift */,
 				B035E7EB207E878800AB66C3 /* GiftCompletionTableViewCell.swift */,
+				B0020BFA20853E96005A5F94 /* ResizingTextView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1303,6 +1306,7 @@
 				B07042041F06B7B400D6A027 /* ButtonTemplate.swift in Sources */,
 				B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
+				B0020BFB20853E96005A5F94 /* ResizingTextView.swift in Sources */,
 				B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */,
 				B0D064BB20642E0C002B4865 /* AlertService.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,

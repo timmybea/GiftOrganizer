@@ -60,7 +60,7 @@ class CreateGiftViewController: CustomViewController {
         return sv
     }()
     
-    lazy var giftNameTF: UITextField = {
+    private lazy var giftNameTF: UITextField = {
         let tf = UITextField()
         tf.backgroundColor = UIColor.clear
         tf.placeholderWith(string: "Gift idea", color: UIColor.white)
@@ -72,6 +72,8 @@ class CreateGiftViewController: CustomViewController {
         return tf
     }()
     
+    let personLabel = Theme.createMediumLabel()
+    
     var autoCompletePerson: AutoCompletePerson?
     
     private var budgetView: BudgetView!
@@ -82,7 +84,7 @@ class CreateGiftViewController: CustomViewController {
         return v
     }()
     
-    private var detailsTextView: UIView!
+    private var detailsTextView: ResizingTextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,23 +166,20 @@ class CreateGiftViewController: CustomViewController {
                                               height: 60))
         scrollView.addSubview(budgetView)
         
-        //details text view
-        detailsTextView = UIView(frame: CGRect(x: 0,
+        //resizing text view
+        detailsTextView = ResizingTextView(frame: CGRect(x: 0,
                                                y: budgetView.frame.maxY + pad,
                                                width: scrollView.bounds.width,
-                                               height: 300))
-        detailsTextView.backgroundColor = UIColor.clear
-        detailsTextView.layer.borderWidth = 2.0
-        detailsTextView.layer.borderColor = UIColor.white.cgColor
+                                               height: 40))
         scrollView.addSubview(detailsTextView)
-        
+        detailsTextView.delegate = self
         
         var contentHeight: CGFloat = detailsTextView.frame.maxY + pad
         
         if mode == .newGiftPersonUnknown {
             
             //autoCompletePerson
-            let personLabel = Theme.createMediumLabel()
+            
             personLabel.frame = CGRect(x: 0,
                                        y: detailsTextView.frame.maxY + pad,
                                        width: scrollView.bounds.width,
@@ -239,7 +238,7 @@ class CreateGiftViewController: CustomViewController {
         }
         
         self.giftNameTF.text = gift.name
-        
+        self.detailsTextView.setText(gift.detail)
         self.budgetView.setTo(amount: gift.cost)
         
     }
@@ -311,6 +310,7 @@ class CreateGiftViewController: CustomViewController {
         gb.addName(self.giftName)
         gb.addToPerson(self.person)
         gb.addCost(self.budgetView.getBudgetAmount())
+        gb.addNote(self.detailsTextView.text)
         if let image = self.giftImageControl.getSelectedImage() {
             gb.addImage(image)
         }
@@ -328,6 +328,7 @@ class CreateGiftViewController: CustomViewController {
                     self.person = nil
                     self.giftNameTF.text = ""
                     self.giftImageControl.returnToDefaultImage()
+                    self.detailsTextView.returnToPlaceholder()
                     self.budgetView.setTo(amount: 0.0)
                     self.autoCompletePerson?.fullReset()
                     
@@ -453,5 +454,26 @@ extension CreateGiftViewController: UIImagePickerControllerDelegate, UINavigatio
         } else {
             AlertService.okAlert(title: "No Camera", message: "This device has no camera", in: self)
         }
+    }
+}
+
+extension CreateGiftViewController : ResizingTextViewDelegate {
+    
+    func resizeToHeight(_ height: CGFloat) {
+        
+        UIView.animate(withDuration: 0.0, animations: {
+            self.detailsTextView.frame.size.height
+                = height
+            
+            if self.autoCompletePerson != nil {
+                self.personLabel.frame.origin.y = self.detailsTextView.frame.maxY + pad
+                self.autoCompletePerson!.frame.origin.y = self.personLabel.frame.maxY + pad
+                self.scrollView.contentSize.height = self.autoCompletePerson!.frame.maxY + pad
+
+            }
+            
+            self.view.layoutIfNeeded()
+        })
+        
     }
 }

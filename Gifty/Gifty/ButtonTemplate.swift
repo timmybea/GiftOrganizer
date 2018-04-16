@@ -22,12 +22,16 @@ class ButtonTemplate: UIButton {
         
         self.setTitleColor(UIColor.white, for: .normal)
         self.setTitleColor(Theme.colors.lightToneOne.color, for: .highlighted)
-        self.backgroundColor = Theme.colors.buttonPurple.color
+        self.backgroundColor = Theme.colors.lightToneTwo.color
         
         self.layer.cornerRadius = 5
         
         self.addTarget(self, action: #selector(buttonWasTouchDown), for: .touchDown)
         self.addTarget(self, action: #selector(buttonWasTouchUpInside), for: .touchUpInside)
+    }
+    
+    func setBackgroundColor(_ color: UIColor) {
+        self.backgroundColor = color
     }
     
     func setTitle(_ title: String) {
@@ -39,8 +43,7 @@ class ButtonTemplate: UIButton {
     }
 
     @objc func buttonWasTouchDown() {
-//        self.backgroundColor = Theme.colors.lightToneOne.color.cgColor
-//        self.layer.borderColor = Theme.colors.lightToneOne.color.cgColor
+
     }
     
     func addBorder(with color: UIColor) {
@@ -49,8 +52,7 @@ class ButtonTemplate: UIButton {
     }
     
     @objc func buttonWasTouchUpInside() {
-        
-        //self.layer.borderColor = UIColor.white.cgColor
+    
         if self.delegate != nil {
             self.delegate?.buttonWasTouched()
         }
