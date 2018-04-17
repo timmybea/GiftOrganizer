@@ -13,7 +13,7 @@ let pad: CGFloat = 16
 let smallPad: CGFloat = 12
 
 enum ImageNames: String {
-    case horizontalBGGradient = "background_gradient_horizontal"
+    case horizontalBGGradient = "bg_horizontal"
     case verticalBGGradient = "background_gradient"
     case selectedDateCircle = "selected_date_circle"
     case reminderIcon = "reminder_icon"
@@ -46,6 +46,7 @@ enum ImageNames: String {
     case giftIcon = "gift_icon"
     case starOutline = "star_outline"
     case starFill = "star_fill"
+    case copyIcon = "copy_icon"
 }
 
 struct Notifications {

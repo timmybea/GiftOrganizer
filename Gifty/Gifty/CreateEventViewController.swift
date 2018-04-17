@@ -151,6 +151,7 @@ class CreateEventViewController: CustomViewController {
                                  height: 35)
         saveButton = ButtonTemplate(frame: buttonframe)
         saveButton.setTitle("SAVE")
+        saveButton.setBackgroundColor(Theme.colors.buttonPurple.color)
         saveButton.addBorder(with: UIColor.white)
         saveButton.addTarget(self, action: #selector(saveButtonTouched(sender:)), for: .touchUpInside)
         view.addSubview(saveButton)
@@ -437,21 +438,6 @@ extension CreateEventViewController: AddGiftViewDelegate {
     }
     
     func needsToResize(to height: CGFloat) {
-        
-//        UIView.animate(withDuration: 0.0, animations: {
-//            self.detailsTextView.frame.size.height
-//                = height
-//
-//            if self.autoCompletePerson != nil {
-//                self.personLabel.frame.origin.y = self.detailsTextView.frame.maxY + pad
-//                self.autoCompletePerson!.frame.origin.y = self.personLabel.frame.maxY + pad
-//                self.scrollView.contentSize.height = self.autoCompletePerson!.frame.maxY + pad
-//
-//            }
-//
-//            self.view.layoutIfNeeded()
-//        })
-        
         
         UIView.animate(withDuration: 0.1, animations: {
             self.addGiftView.frame.size.height = height

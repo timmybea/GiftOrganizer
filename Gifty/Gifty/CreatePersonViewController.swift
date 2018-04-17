@@ -589,6 +589,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
         overlayVC.modalPresentationStyle = .custom
+        overlayVC.delegate = self
         overlayVC.event = event
         
         self.present(overlayVC, animated: true, completion: nil)
@@ -731,5 +732,19 @@ extension CreatePersonViewController: CreateEventViewControllerDelegate {
         self.newEventIds.append(uuid)
         editsMade = true
         updateEventDisplayViewWithOrderedEvents()
+    }
+}
+
+extension CreatePersonViewController : OverlayGiftViewControllerDelegate {
+    
+    func segueToOverlayBudgetViewController(event: Event) {
+        self.didTouchBudget(for: event)
+    }
+    
+    func segueToGiftVCForEdit(with gift: Gift) {
+        
+        let dest = CreateGiftViewController()
+        dest.setupForEditMode(with: gift)
+        self.navigationController?.pushViewController(dest, animated: true)
     }
 }

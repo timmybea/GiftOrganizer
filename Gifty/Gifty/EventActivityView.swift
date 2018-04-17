@@ -83,6 +83,7 @@ class EventActivityView : UIView {
                 stackView.addArrangedSubview(editControl!)
             default:
                 print("error setting up stackview")
+                break                
             }
             
             addSubview(stackView)

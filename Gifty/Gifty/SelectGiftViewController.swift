@@ -200,9 +200,20 @@ extension SelectGiftViewController: UITableViewDelegate, UITableViewDataSource {
             self.setTableViewHeight()
         }
         deleteAction.backgroundColor = Theme.colors.lightToneTwo.color
-        return segmentedControl.selectedSegmentIndex == 0 ? [deleteAction] : nil
+        
+        let viewEditAction = UITableViewRowAction(style: .default, title: "View/Edit") { (action, indexPath) in
+            if let gift = self.dataSource?[indexPath.row] {
+                let dest = CreateGiftViewController()
+                dest.setupForEditMode(with: gift)
+                self.navigationController?.pushViewController(dest, animated: true)
+            }
+        }
+        viewEditAction.backgroundColor = Theme.colors.lightToneOne.color
+        
+        return segmentedControl.selectedSegmentIndex == 0 ? [deleteAction, viewEditAction] : nil
     }
     
+    //only able to delete gift if it is unassigned
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return segmentedControl.selectedSegmentIndex == 0 ? true : false
     }

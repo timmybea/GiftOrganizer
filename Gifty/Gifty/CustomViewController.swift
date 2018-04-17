@@ -45,7 +45,7 @@ class CustomViewController: UIViewController {
     func setupBackgroundView() {
         
         let imageView = UIImageView()
-        imageView.image =  UIDevice.current.orientation.isPortrait ? UIImage(named: ImageNames.verticalBGGradient.rawValue) : UIImage(named: ImageNames.horizontalBGGradient.rawValue)
+        imageView.image =  UIImage(named: ImageNames.verticalBGGradient.rawValue)
         
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -65,10 +65,7 @@ extension CustomViewController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
 
-        UITabBarController.currentIndex = tabBarController.selectedIndex
-        //print("current index is: \(UITabBarController.currentIndex)")
-        //print("previous index is: \(UITabBarController.previousIndex)")
-        
+        UITabBarController.currentIndex = tabBarController.selectedIndex        
     }
 }
 

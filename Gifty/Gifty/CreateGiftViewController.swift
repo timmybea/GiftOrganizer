@@ -84,6 +84,8 @@ class CreateGiftViewController: CustomViewController {
         return v
     }()
     
+    private var customTransitionDelegate = CustomTransitionDelegate()
+    
     private var detailsTextView: ResizingTextView!
     
     override func viewDidLoad() {
@@ -111,7 +113,9 @@ class CreateGiftViewController: CustomViewController {
                                  width: view.bounds.width - pad - pad,
                                  height: 35)
         saveButton = ButtonTemplate(frame: buttonframe)
-        saveButton.setTitle("SAVE")
+        let buttonText = mode == .editExistingGift ? "UPDATE" : "SAVE"
+        saveButton.setTitle(buttonText)
+        saveButton.setBackgroundColor(Theme.colors.buttonPurple.color)
         saveButton.addBorder(with: UIColor.white)
         saveButton.addTarget(self, action: #selector(SaveButtonTouched), for: .touchUpInside)
         view.addSubview(saveButton)
@@ -217,7 +221,7 @@ class CreateGiftViewController: CustomViewController {
         navigationItem.title = mode == .editExistingGift ? "Edit Gift" : "Create Gift"
         
         if mode == .editExistingGift {
-            let transferButton = UIBarButtonItem(image: UIImage(named: ImageNames.addGreetingCard.rawValue),
+            let transferButton = UIBarButtonItem(image: UIImage(named: ImageNames.copyIcon.rawValue),
                                                  style: .plain,
                                                  target: self,
                                                  action: #selector(didTouchTransferGift(sender:)))
@@ -238,7 +242,13 @@ class CreateGiftViewController: CustomViewController {
         }
         
         self.giftNameTF.text = gift.name
+        self.giftName = gift.name
+
+        self.person = gift.person
+        
         self.detailsTextView.setText(gift.detail)
+        
+        
         self.budgetView.setTo(amount: gift.cost)
         
     }
@@ -290,13 +300,19 @@ class CreateGiftViewController: CustomViewController {
         }
     }
     
+    //MARK: Transfer Gift
     @objc
     func didTouchTransferGift(sender: UIButton) {
         
-        print("touched transfer gift!")
-
+        let overlayVC = OverlayTransferGiftViewController()
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.modalPresentationStyle = .custom
+        
+        self.present(overlayVC, animated: true, completion: nil)
     }
     
+    //MARK: Back Button
     @objc
     func backButtonTouched(sender: UIButton) {
         navigationController?.popViewController(animated: true)
@@ -305,8 +321,18 @@ class CreateGiftViewController: CustomViewController {
     //MARK: SAVE
     @objc
     func SaveButtonTouched() {
-        //Save button
-        let gb = GiftBuilder.newGift(dataPersistence: DataPersistenceService.shared)
+        
+        let gb: GiftBuilder!
+        
+        if self.mode == .editExistingGift, self.giftToEdit != nil {
+            //edit mode
+            gb = GiftBuilder.updateGift(self.giftToEdit!)
+            
+        } else {
+            //Save button
+            gb = GiftBuilder.newGift(dataPersistence: DataPersistenceService.shared)
+
+        }
         gb.addName(self.giftName)
         gb.addToPerson(self.person)
         gb.addCost(self.budgetView.getBudgetAmount())
@@ -457,6 +483,8 @@ extension CreateGiftViewController: UIImagePickerControllerDelegate, UINavigatio
     }
 }
 
+
+//MARK: Resizing Text View Delegate
 extension CreateGiftViewController : ResizingTextViewDelegate {
     
     func resizeToHeight(_ height: CGFloat) {

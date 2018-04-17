@@ -84,6 +84,7 @@ class CreateEventNotificationVC: CustomViewController {
         
         setupNavigationBar()
         saveButton.addTarget(self, action: #selector(saveButtonTouched(sender:)), for: .touchUpInside)
+        saveButton.setBackgroundColor(Theme.colors.buttonPurple.color)
         layoutSubviews()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(sender:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)

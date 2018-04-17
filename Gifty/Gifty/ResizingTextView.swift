@@ -75,11 +75,17 @@ class ResizingTextView: UIView {
     func setText(_ text: String?) {
         if text != nil && text != "" && text != placeholder {
             textView.text = text
+            
+            let h = calculateCurrentHeight()
+            if h != currHeight {
+                currHeight = h
+                self.delegate?.resizeToHeight(h)
+            }
         }
     }
     
     private func calculateCurrentHeight() -> CGFloat {
-        let sizeThatFitsTextView = textView.sizeThatFits(CGSize(width: textView.frame.size.width, height: CGFloat(MAXFLOAT)))
+        let sizeThatFitsTextView = textView.sizeThatFits(CGSize(width: self.bounds.size.width, height: CGFloat(MAXFLOAT)))
         return sizeThatFitsTextView.height
     }
     

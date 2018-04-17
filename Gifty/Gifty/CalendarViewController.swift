@@ -474,7 +474,5 @@ extension CalendarViewController : OverlayGiftViewControllerDelegate {
         dest.setupForEditMode(with: gift)
         self.navigationController?.pushViewController(dest, animated: true)
     }
-    
-    
 }
 
