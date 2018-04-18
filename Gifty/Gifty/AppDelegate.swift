@@ -43,9 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //MARK: setup interstitials
-//        InterstitialService.shared.delegate = self
-//        InterstitialService.shared.createAndLoadInterstitial()
-//        InterstitialService.shared.setupTimer()
+        InterstitialService.shared.delegate = self
+        InterstitialService.shared.createAndLoadInterstitial()
+        InterstitialService.shared.setupTimer()
         
         return true
     }

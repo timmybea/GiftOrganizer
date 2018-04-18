@@ -311,7 +311,6 @@ extension CreateEventNotificationVC : CENTitleCellDelegate {
     
 }
 
-
 //MARK: date cell delegate
 extension CreateEventNotificationVC : CENDateTableViewCellDelegate {
     

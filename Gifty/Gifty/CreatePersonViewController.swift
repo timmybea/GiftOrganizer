@@ -364,19 +364,26 @@ extension CreatePersonViewController: CNContactPickerDelegate {
         textFieldTV.updateWith(firstName: contact.givenName, lastName: contact.familyName)
         dismiss(animated: true) { 
             if let dob = contact.birthday {
-                let alertController = UIAlertController(title: "Create Birthday?", message: "Your contact has a birth date stored in it. Would you like to create a birthday event for them?", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-                    print("Create new event for birth date \(dob)")
-                    //<<<
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
-                    self.dismiss(animated: true, completion: nil)
-                })
-                alertController.addAction(okAction)
-                alertController.addAction(cancelAction)
-                self.present(alertController, animated: true, completion: nil)
+                self.dob = dob
             }
         }
+    }
+    
+    fileprivate func birthdayAlert() {
+        let alertController = UIAlertController(title: "Create Birthday?", message: "Your contact has a birth date stored in it. Would you like to create a birthday event for them?", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+            print("Create new event for birth date \(self.dob)")
+            
+            //You are here <<<<
+            //create vc for segue and put in the dob
+            
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        })
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -606,7 +613,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
     
 }
 
-//MARK: Add Button Delegate
+//MARK: SAVE Button Delegate
 
 extension CreatePersonViewController: EventDisplayViewPersonDelegate {
     
@@ -617,9 +624,9 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
         checkSufficientInformationToSave { (success) in
             if success {
                 //UPDATE EXISTING PERSON
-                if self.person != nil {
+                if let p = self.person {
                     
-                    ManagedObjectBuilder.updatePerson(person: self.person!, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
+                    ManagedObjectBuilder.updatePerson(person: p, firstName: self.firstName!, lastName: self.lastName, group: self.group!, profileImage: self.profileImage, completion: { (success, person) in
                         
                         if success {
                             ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
@@ -640,13 +647,20 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
                     //SAVE NEW PERSON (No event added)
                     ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
                         if success {
+                            guard let p = person else { return }
+                            
                             ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
                                 if success {
+                                    
                                     print("Saved new person successfully")
                                     if self.delegate != nil {
                                         self.delegate?.didSaveChanges()
                                     }
-                                    self.navigationController?.popViewController(animated: true)
+                                    if dob != nil && !p.hasBirthday() {
+                                        self.birthdayAlert()
+                                    } else {
+                                        self.navigationController?.popViewController(animated: true)
+                                    }
                                 }
                             })
                         }
@@ -654,8 +668,6 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
                 }
             }
         }
-        
-        //SAVE TEMP PERSON (event added)
     }
     
     private func checkSufficientInformationToSave(completion: (_ success: Bool) -> Void) {

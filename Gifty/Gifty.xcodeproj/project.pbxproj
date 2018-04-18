@@ -72,6 +72,7 @@
 		B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */; };
 		B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B088330D1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift */; };
 		B08AD7241FDCB89100537A42 /* PieChartService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08AD7231FDCB89100537A42 /* PieChartService.swift */; };
+		B08B30D52087B835000A87F2 /* Person+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08B30D42087B835000A87F2 /* Person+Extension.swift */; };
 		B08B999220577C5300779C6C /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08B999120577C5300779C6C /* UserNotifications.framework */; };
 		B08B999420577C5300779C6C /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08B999320577C5300779C6C /* UserNotificationsUI.framework */; };
 		B08B999720577C5300779C6C /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08B999620577C5300779C6C /* NotificationViewController.swift */; };
@@ -266,6 +267,7 @@
 		B088330B1FE495770085BBD9 /* SegueSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		B088330D1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		B08AD7231FDCB89100537A42 /* PieChartService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartService.swift; sourceTree = "<group>"; };
+		B08B30D42087B835000A87F2 /* Person+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+Extension.swift"; sourceTree = "<group>"; };
 		B08B999020577C5300779C6C /* GiftyNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B08B999120577C5300779C6C /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B08B999320577C5300779C6C /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -680,6 +682,7 @@
 				B0D064BA20642E0C002B4865 /* AlertService.swift */,
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
 				B0B19204207FD58000F2A468 /* EventDeepCopy.swift */,
+				B08B30D42087B835000A87F2 /* Person+Extension.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1361,6 +1364,7 @@
 				B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */,
 				B070420C1F0D50DE00D6A027 /* AddDateView.swift in Sources */,
 				B06CF693203E2B6800072152 /* NotificationModel.swift in Sources */,
+				B08B30D52087B835000A87F2 /* Person+Extension.swift in Sources */,
 				B06B7EB72037522E007D05FB /* CENNotificationsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
