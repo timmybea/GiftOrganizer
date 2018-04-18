@@ -82,11 +82,22 @@ class SelectGiftViewController: CustomViewController {
         
         if segmentedControl.selectedSegmentIndex == 0 {
             currentData = gifts.filter() { $0.eventId == nil || $0.eventId == "" }
-            self.dataSource = currentData
+            let orderedData = currentData.sorted() { $0.name! < $1.name! }
+            self.dataSource = orderedData
         } else {
-            currentData = gifts.filter() { $0.eventId != nil && $0.eventId != "" }
+            currentData = gifts.filter() { $0.eventId != nil && $0.eventId != "" }            
             GiftEventCache.loadCache(for: currentData, completion: {
-                self.dataSource = currentData
+                let orderedIds = GiftEventCache.returnOrderedGiftIds()
+                var orderedEvents = [Gift]()
+                idLoop: for id in orderedIds {
+                    giftLoop: for gift in currentData {
+                        if gift.eventId == id {
+                            orderedEvents.append(gift)
+                            break giftLoop
+                        }
+                    }
+                }
+                self.dataSource = orderedEvents
             })
         }
         setTableViewHeight()

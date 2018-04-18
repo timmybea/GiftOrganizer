@@ -13,6 +13,7 @@ import GiftyBridge
 class GiftEventCache {
     
     private static var cache = [String: Event]()
+    private static var sortedEvents = [(String, Event)]()
     
     static func loadCache(for gifts: [Gift], completion: () -> ()) {
         
@@ -35,5 +36,10 @@ class GiftEventCache {
     
     static func event(withId id: String) -> Event? {
         return cache[id]
+    }
+    
+    static func returnOrderedGiftIds() -> [String] {
+        sortedEvents = cache.sorted() { $0.value.date! > $1.value.date! }
+        return sortedEvents.map() { $0.0 }
     }
 }
