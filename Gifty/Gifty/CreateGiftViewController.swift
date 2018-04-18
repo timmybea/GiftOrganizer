@@ -305,6 +305,7 @@ class CreateGiftViewController: CustomViewController {
     func didTouchTransferGift(sender: UIButton) {
         
         let overlayVC = OverlayTransferGiftViewController()
+        overlayVC.gift = self.giftToEdit
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
         overlayVC.modalPresentationStyle = .custom

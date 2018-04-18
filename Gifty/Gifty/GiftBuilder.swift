@@ -21,14 +21,26 @@ class GiftBuilder {
     private init(dataPersistence: DataPersistence) {
         self.gift = Gift(context: dataPersistence.mainQueueContext!)
         self.gift.id = UUID().uuidString
+        self.gift.isCompleted = false
     }
     
     private init(gift: Gift) {
         self.gift = gift
     }
     
+    private init(gift: Gift, person: Person) {
+        self.gift = Gift(context: DataPersistenceService.shared.mainQueueContext!)
+        self.gift.id = UUID().uuidString
+        self.gift.person = person
+        self.gift.name = gift.name
+        self.gift.image = gift.image
+        self.gift.cost = gift.cost
+        self.gift.detail = gift.detail
+        self.gift.isCompleted = false
+    }
+    
     static func newGift(dataPersistence: DataPersistence) -> GiftBuilder {
-        return GiftBuilder()
+        return GiftBuilder(dataPersistence: dataPersistence)
     }
     
     static func newGift(for event: Event, dataPersistence: DataPersistence) -> GiftBuilder {
@@ -40,6 +52,10 @@ class GiftBuilder {
     
     static func updateGift(_ gift: Gift) -> GiftBuilder {
         return GiftBuilder(gift: gift)
+    }
+    
+    static func copyGift(_ gift: Gift, to person: Person) -> GiftBuilder {
+        return GiftBuilder(gift: gift, person: person)
     }
     
     private var gift: Gift
