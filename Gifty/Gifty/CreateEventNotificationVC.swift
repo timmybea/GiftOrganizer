@@ -19,9 +19,7 @@ class CreateEventNotificationVC: CustomViewController {
     
     var delegate: CreateEventNotificationDelegate?
     
-    var notificationDate: Date? {
-        return Date(timeInterval: 10.0, since: Date())
-    }
+    var notificationDate: Date?
     var notificationTitle: String?
     var notificationBody: String?
     
@@ -231,6 +229,7 @@ extension CreateEventNotificationVC {
 
 }
 
+//MARK: tableview delegate and datasource
 extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -242,6 +241,7 @@ extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource 
         switch type {
         case .date:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CENdate") as? CENDateTableViewCell
+            cell?.delegate = self
             return cell!
         case .title:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CENtitle") as? CENTitleTableViewCell
@@ -279,16 +279,20 @@ extension CreateEventNotificationVC: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
+//MARK: Date Picker VC
 extension CreateEventNotificationVC : DatePickerViewControllerDelegate {
     
     func didSetDate(_ date: Date?) {
+        
         let ip = IndexPath(row: 0, section: 0) //hard code
         if let cell = tableView.cellForRow(at: ip) as? CENDateTableViewCell {
-            cell.updateLabel(with: date)
+            cell.update(with: date)
         }
     }
 }
 
+
+//MARK: Body cell delegate
 extension CreateEventNotificationVC : CENBodyCellDelegate {
     
     func finishedEditing(text: String) {
@@ -297,6 +301,8 @@ extension CreateEventNotificationVC : CENBodyCellDelegate {
 
 }
 
+
+//MARK: Title cell delegate
 extension CreateEventNotificationVC : CENTitleCellDelegate {
 
     func editingFinished(text: String) {
@@ -305,3 +311,11 @@ extension CreateEventNotificationVC : CENTitleCellDelegate {
     
 }
 
+
+//MARK: date cell delegate
+extension CreateEventNotificationVC : CENDateTableViewCellDelegate {
+    
+    func setNotificationDate(_ date: Date) {
+        self.notificationDate = date
+    }
+}

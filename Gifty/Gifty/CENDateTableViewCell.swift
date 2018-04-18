@@ -9,8 +9,50 @@
 import UIKit
 import GiftyBridge
 
-class CENDateTableViewCell: UITableViewCell {
+protocol CENDateTableViewCellDelegate {
+    func setNotificationDate(_ date: Date)
+}
 
+class CENDateTableViewCell: UITableViewCell {
+    
+    //You could have this adjustable in settings.
+    enum Time {
+        case am
+        case pm
+        
+        var dateComponent: Int {
+            switch self {
+            case .am: return 8
+            case .pm: return 14
+            }
+        }
+        
+        var text: String {
+            switch self {
+            case .am: return "AM"
+            case .pm: return "PM"
+            }
+        }
+    }
+    
+    private var date: Date? {
+        didSet {
+            if let d = getDateAndTime() {
+                self.delegate?.setNotificationDate(d)
+            }
+        }
+    }
+    
+    private var time: Time = .am {
+        didSet {
+            if let d = getDateAndTime() {
+                self.delegate?.setNotificationDate(d)
+            }
+        }
+    }
+    
+    var delegate: CENDateTableViewCellDelegate?
+    
     let calendarImage: UIImageView = {
         let image = UIImage(named: ImageNames.calendarIcon.rawValue)?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
@@ -45,7 +87,7 @@ class CENDateTableViewCell: UITableViewCell {
         label.textColor = Theme.colors.lightToneTwo.color
         label.font = Theme.fonts.mediumText.font
         label.textAlignment = .right
-        label.text = "AM"
+        label.text = Time.am.text
         return label
     }()
     
@@ -93,18 +135,43 @@ class CENDateTableViewCell: UITableViewCell {
             ])
     }
     
-    func updateLabel(with date: Date?) {
-
+    func update(with date: Date?) {
         if date != nil {
             self.label.text = DateHandler.describeDate(date!)
+            self.date = date
         } else {
             self.label.text = "Select date"
         }
     }
     
+    func getDateAndTime() -> Date? {
+        
+        guard let d = self.date else { return nil }
+        //"yyyy MM dd"
+        let dateComponents = DateHandler.stringFromDate(d).components(separatedBy: " ")
+        
+        guard dateComponents.count == 3 else { return nil }
+        let yyyy = Int(dateComponents[0])
+        let mm = Int(dateComponents[1])
+        let dd = Int(dateComponents[2])
+        
+        let hr = time.dateComponent
+        
+        let calendar = Calendar.current
+        
+        var components = DateComponents()
+        components.year = yyyy
+        components.month = mm
+        components.day = dd
+        components.hour = hr
+        
+        return calendar.date(from: components)
+    }
+    
     @objc
     func ampmSwitchChanged(sender: UISwitch) {
-        ampmLabel.text = sender.isOn ? "PM" : "AM"
+        self.time = sender.isOn ? .pm : .am
+        ampmLabel.text = self.time.text
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
