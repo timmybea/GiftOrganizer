@@ -81,6 +81,6 @@ extension InterstitialService: GoogleAdServiceDelegate {
     
     func adWasDismissed() {
         self.timer.removeTimerFromRunLoop()
-        self.timer.setupInterstitialTimer(timeInterval: initialFireInterval)
+        self.timer.setupInterstitialTimer(timeInterval: fireInterval)
     }
 }
