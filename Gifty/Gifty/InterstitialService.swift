@@ -16,6 +16,7 @@ class InterstitialService: NSObject {
 
     var delegate: InterstitialServiceDelegate?
     
+    var failedToShowInterval: TimeInterval = 10.0
     var initialFireInterval: TimeInterval = 30.0
     var fireInterval: TimeInterval = 60.0 * 3
     
@@ -78,6 +79,11 @@ extension InterstitialService: InterstitialTimerDelegate {
 }
 
 extension InterstitialService: GoogleAdServiceDelegate {
+    
+    func unableToShow() {
+            self.timer.removeTimerFromRunLoop()
+            self.timer.setupInterstitialTimer(timeInterval: failedToShowInterval)
+    }
     
     func adWasDismissed() {
         self.timer.removeTimerFromRunLoop()

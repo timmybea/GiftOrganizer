@@ -11,6 +11,7 @@ import GoogleMobileAds
 
 protocol GoogleAdServiceDelegate {
     func adWasDismissed()
+    func unableToShow()
 }
 
 class GoogleAdService: NSObject {
@@ -39,10 +40,15 @@ class GoogleAdService: NSObject {
     }
     
     func showInterstitial(in vc: UIViewController) {
-        if let interstitial = self.interstitialAd {
-            if interstitial.isReady {
-                interstitial.present(fromRootViewController: vc)
-                isShowing = true
+        if vc.presentedViewController != nil {
+            print("VC ALREADY PRESENTING. CANNOT SHOW AD")
+            self.delegate?.unableToShow()
+        } else {
+            if let interstitial = self.interstitialAd {
+                if interstitial.isReady {
+                    interstitial.present(fromRootViewController: vc)
+                    isShowing = true
+                }
             }
         }
     }
