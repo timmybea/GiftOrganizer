@@ -379,14 +379,12 @@ extension CreatePersonViewController: CNContactPickerDelegate {
                 print("could not create birthdate from components")
                 return
             }
-            guard let p = self.person else {
-                print("self.person == nil. Cannot segue to create event.")
-                return
-            }
+
+            self.person = self.person ?? self.createPersonEntity()
             
             let dest = CreateEventViewController()
             dest.delegate = self
-            if dest.createBirthday(dob: birthdate, for: p) {
+            if dest.createBirthday(dob: birthdate, for: self.person!) {
                 self.navigationController?.pushViewController(dest, animated: true)
             } else {
                 print("Could not create birthday for date (leap year.)")
@@ -718,14 +716,17 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
     func didTouchAddEventButton() {
         print("Add new event!")
         
-        let destination = CreateEventViewController()
-        destination.delegate = self
-        destination.createEventState = CreateEventState.newEventForPerson
+        self.person = self.person ?? createPersonEntity()
         
-        self.person = self.person != nil ? self.person : createPersonEntity()
-        destination.person = self.person
-        
-        DispatchQueue.main.async {
+        if dob != nil && !self.person!.hasBirthday() {
+            self.birthdayAlert()
+        } else {
+            
+            let destination = CreateEventViewController()
+            destination.delegate = self
+            destination.createEventState = CreateEventState.newEventForPerson
+            destination.person = self.person
+            
             self.navigationController?.pushViewController(destination, animated: true)
         }
     }
