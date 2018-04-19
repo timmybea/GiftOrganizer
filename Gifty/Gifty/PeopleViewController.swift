@@ -252,7 +252,7 @@ extension PeopleViewController: UITableViewDelegate, UITableViewDataSource {
                     print("Deleted person and their events and saved changes.")
                 })
             })
-            let cancel = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(delete)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)

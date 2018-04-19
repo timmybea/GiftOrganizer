@@ -238,8 +238,35 @@ class CreateEventViewController: CustomViewController {
 
         if createEventState == .updateEventForPerson {
             setupEventDataForEdit()
+        } else if self.nextBirthday != nil {
+            self.setupForCreateBirthday()
         }
     }
+    
+    func createBirthday(dob: Date, for person: Person) -> Bool {
+        
+        guard let nextBirthday = DateHandler.nextBirthday(dob: dob) else { return false }
+        
+        self.nextBirthday = nextBirthday
+        self.createEventState = .newEventForPerson
+        self.person = person
+        
+        return true
+    }
+    
+    private var nextBirthday: Date?
+    
+    private func setupForCreateBirthday() {
+        
+        guard let b = self.nextBirthday else { return }
+        
+        self.dropDown.setTitle(text: "Birthday")
+        self.eventType = "Birthday"
+        self.eventDate = b
+        self.isRecurringEvent = true
+        self.editsMade = false
+    }
+    
     
     private func setupEventDataForEdit() {
         

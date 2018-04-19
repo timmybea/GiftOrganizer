@@ -153,8 +153,8 @@ class CreatePersonViewController: CustomViewController {
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
-        alertController.addAction(cancelAction)
         alertController.addAction(continueAction)
+        alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
     }
@@ -374,15 +374,30 @@ extension CreatePersonViewController: CNContactPickerDelegate {
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
             print("Create new event for birth date \(self.dob)")
             
-            //You are here <<<<
             //create vc for segue and put in the dob
+            guard let d = self.dob, let birthdate = Calendar.current.date(from: d) else {
+                print("could not create birthdate from components")
+                return
+            }
+            guard let p = self.person else {
+                print("self.person == nil. Cannot segue to create event.")
+                return
+            }
             
+            let dest = CreateEventViewController()
+            dest.delegate = self
+            if dest.createBirthday(dob: birthdate, for: p) {
+                self.navigationController?.pushViewController(dest, animated: true)
+            } else {
+                print("Could not create birthday for date (leap year.)")
+            }
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
             self.dismiss(animated: true, completion: nil)
         })
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
+        
         self.present(alertController, animated: true, completion: nil)
     }
 }
@@ -648,6 +663,8 @@ extension CreatePersonViewController: EventDisplayViewPersonDelegate {
                     ManagedObjectBuilder.createPerson(firstName: self.firstName!, lastName: self.lastName, group: group!, profileImage: self.profileImage, completion: { (success, person) in
                         if success {
                             guard let p = person else { return }
+                            
+                            self.person = p
                             
                             ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared, completion: { (success) in
                                 if success {

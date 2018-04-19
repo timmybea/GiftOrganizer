@@ -38,6 +38,29 @@ public class DateHandler: NSObject {
         return date
     }
     
+    public static func nextBirthday(dob: Date) -> Date? {
+        
+        let thisYear = DateHandler.stringYear()
+        let nextYear = String(Int(thisYear)! + 1)
+        let now = Date()
+        
+        let strDob = DateHandler.stringFromDate(dob).components(separatedBy: " ")
+        let monthDob = strDob[1]
+        let dayDob = strDob[2]
+        
+        let dateA = DateHandler.dateWith(dd: dayDob, MM: monthDob, yyyy: thisYear)
+        let dateB = DateHandler.dateWith(dd: dayDob, MM: monthDob, yyyy: nextYear)
+        
+        //will need to consider leap year.
+        
+        if let a = dateA, let b = dateB {
+            return a > now ? a : b
+        }
+        return nil
+    }
+    
+    
+    
     public static func stringYear() -> String {
         let df = dateFormatter()
         df.dateFormat = "YYYY"
