@@ -47,6 +47,8 @@ class EventDisplayViewCalendar: EventTableView {
         return view
     }()
     
+    var navHeight: CGFloat?
+    
     let panGestureView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +59,18 @@ class EventDisplayViewCalendar: EventTableView {
         let view = EventDisplayHeader(with: self.frame.width - pad)
         view.delegate = self
         return view
+    }()
+    
+    var noDataLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Theme.colors.lightToneTwo.color
+        label.textAlignment = .center
+        label.font = Theme.fonts.subtitleText.font
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = ""
+        label.sizeToFit()
+        return label
     }()
     
     init(frame: CGRect, in superView: UIView) {
@@ -99,6 +113,8 @@ class EventDisplayViewCalendar: EventTableView {
     //MARK: Set datasource
     func setOverviewDatasource(for segment: Int) {
         print("SET DATASOURCE FOR OVERVIEW")
+        self.noDataLabel.removeFromSuperview()
+        
         guard let allEvents = EventFRC.frc()?.fetchedObjects else { return }
         EventFRC.sortEventsIntoUpcomingAndOverdue(events: allEvents, sectionHeaders: true) { (upcoming, overdue) in
             self.upcomingEvents = upcoming
@@ -109,12 +125,31 @@ class EventDisplayViewCalendar: EventTableView {
             
             self.displayMode = .sectionHeader
             switch segment {
-            case 0: self.datasource = upcoming
-            case 1: self.datasource = overdue
+            case 0:
+                self.datasource = upcoming
+                showNoDataLabel(with: "You have no upcoming events.")
+            case 1:
+                self.datasource = overdue
+                showNoDataLabel(with: "You have no overdue events.")
             default: print("You entered an invalid section")
             }
         }
     }
+    
+    private func showNoDataLabel(with message: String) {
+        if self.datasource == nil {
+            
+            self.addSubview(noDataLabel)
+            NSLayoutConstraint.activate([
+                noDataLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                noDataLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -(navHeight! / 2)),
+                noDataLabel.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -(2 * pad))
+                ])
+
+            noDataLabel.text = message
+        }
+    }
+    
     
     func dataSourceDidChange() {
         guard let datasource = datasource else { return }
@@ -140,6 +175,7 @@ class EventDisplayViewCalendar: EventTableView {
     var tableViewHeightUp: CGFloat = 0.0
     
     func setTableViewFrame(with tabHeight: CGFloat, navHeight: CGFloat) {
+        self.navHeight = navHeight
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableViewHeightDown = self.frame.height - self.frame.minY - 34 - tabHeight
@@ -210,6 +246,7 @@ class EventDisplayViewCalendar: EventTableView {
 extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
    
     func segControlChanged(to index: Int) {
+        noDataLabel.removeFromSuperview()
         
         var navTitle: String = ""
         if index == 0 {
@@ -217,10 +254,12 @@ extension EventDisplayViewCalendar: EventDisplayViewHeaderDelegate {
             self.datasource = self.upcomingEvents
             self.showingIndex = 0
             navTitle = "Upcoming Events"
+            self.showNoDataLabel(with: "You have no upcoming events.")
         } else if index == 1 {
             self.displayMode = .normal
             self.datasource = self.overdueEvents
             self.showingIndex = 1
+            self.showNoDataLabel(with: "You have no overdue events.")
             navTitle = "Overdue Events"
         } else if index == 2 {
             self.displayMode = .pieChart

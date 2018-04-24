@@ -44,10 +44,6 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
 
     private func createActionsCategories() {
         //action, category
-//        let action = UNNotificationAction(identifier: NotificationModel.event.actionId,
-//                                          title: "DEFAULT TEXT",
-//                                          options: [.foreground])
-        
         let category = UNNotificationCategory(identifier: NotificationModel.event.categoryId,
                                               actions: [],
                                               intentIdentifiers: [])
