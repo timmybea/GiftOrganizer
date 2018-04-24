@@ -42,10 +42,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         statusBarBackgroundView.frame = CGRect(x: 0, y: 0, width: (window?.frame.width)!, height: 20)
         
         
+        let _ = EventNotificationUNService.shared
+        
         //MARK: setup interstitials
-        InterstitialService.shared.delegate = self
-        InterstitialService.shared.createAndLoadInterstitial()
-        InterstitialService.shared.setupTimer()
+//        InterstitialService.shared.delegate = self
+//        InterstitialService.shared.createAndLoadInterstitial()
+//        InterstitialService.shared.setupTimer()
         
         return true
     }
@@ -92,12 +94,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return false}
             tabBarController.selectedIndex = 0
             let navCon = tabBarController.selectedViewController as? UINavigationController
+            navCon?.popToRootViewController(animated: true)
+            
             let calVc = navCon?.viewControllers.first as? CalendarViewController
             calVc?.scrollToDateAndSelect(date: showDate)
             
             return true
         }
         return true
+    }
+    
+    func showEvent(for date: Date) {
+        guard let tabBarController = self.window?.rootViewController as? UITabBarController else { return }
+        
+        tabBarController.selectedIndex = 0
+        let navCon = tabBarController.selectedViewController as? UINavigationController
+        navCon?.popToRootViewController(animated: true)
+        
+        let calVc = navCon?.viewControllers.first as? CalendarViewController
+        calVc?.scrollToDateAndSelect(date: date)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -112,9 +127,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        
-        //TODO: refresh calendar view
-        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

@@ -25,7 +25,7 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>UNNotificationExtensionCategory</key>
-			<string>NotificationModel.event.categoryId</string>
+			<string>NotificationModel.event</string>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
 			<real>0.14</real>
 		</dict>

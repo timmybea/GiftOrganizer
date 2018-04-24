@@ -20,13 +20,13 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
     
     private let unCenter = UNUserNotificationCenter.current()
     
-    override init() {
+    private override init() {
         super.init()
-
-        getAuthorization()
     }
     
-    private func getAuthorization() {
+    static var shared = EventNotificationUNService()
+    
+    func getAuthorization() {
         
         let options = UNAuthorizationOptions([.alert, .sound, .badge])
         unCenter.requestAuthorization(options: options) { (success, error) in
@@ -90,10 +90,15 @@ class EventNotificationUNService: NSObject, EventNotificationUN {
 extension EventNotificationUNService: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        //
+        
+        let options: UNNotificationPresentationOptions = [.alert, .sound]
+        completionHandler(options)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        //
+        
+        guard let eventDate = response.notification.request.content.userInfo["date"] as? Date else { return }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        appDelegate.showEvent(for: eventDate)
     }
 }
