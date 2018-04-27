@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol EventDisplayViewHeaderDelegate {
     func segControlChanged(to index: Int)

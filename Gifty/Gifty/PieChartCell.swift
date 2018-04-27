@@ -8,6 +8,7 @@
 
 import UIKit
 import RKPieChart
+import GiftyBridge
 
 class PieChartCell: UITableViewCell {
     
@@ -66,7 +67,7 @@ class PieChartCell: UITableViewCell {
     }()
     
     let summaryLabel: UILabel = {
-        let label =  Theme.createMediumLabel()
+        let label =  UILabel.createMediumLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = Theme.colors.charcoal.color

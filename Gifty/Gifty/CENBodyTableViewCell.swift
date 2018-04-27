@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol CENBodyCellDelegate {
     func finishedEditing(text: String)

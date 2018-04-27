@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol ButtonTemplateDelegate {
     func buttonWasTouched()

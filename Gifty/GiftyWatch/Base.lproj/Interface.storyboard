@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13771" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13756"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="GiftyWatch" customModuleProvider="target">
+                    <items>
+                        <group width="1" alignment="left" id="tvS-Yd-3Qy">
+                            <items>
+                                <button width="0.5" alignment="left" title="Upcoming" backgroundImage="rect_white" id="3lD-8v-FHk">
+                                    <color key="titleColor" red="0.80784313725490198" green="0.30588235294117649" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                    <connections>
+                                        <action selector="upcomingTouched" destination="AgC-eL-Hgc" id="GvV-oM-ytV"/>
+                                    </connections>
+                                </button>
+                                <button width="0.5" alignment="left" title="Overdue" backgroundImage="rect_red" id="BRU-0j-852">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.80784313730000001" green="0.30588235289999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="font" type="system" pointSize="11"/>
+                                    <connections>
+                                        <action selector="overdueTouched" destination="AgC-eL-Hgc" id="VD9-l5-Azp"/>
+                                    </connections>
+                                </button>
+                            </items>
+                            <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </group>
+                        <table alignment="left" id="SYu-ys-ZCj">
+                            <items>
+                                <tableRow id="EhD-vR-fxi">
+                                    <group key="rootItem" width="1" alignment="left" id="bag-7B-cVi"/>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="overdueButton" destination="BRU-0j-852" id="bhL-aG-NNM"/>
+                        <outlet property="upcomingButton" destination="3lD-8v-FHk" id="jAq-M5-1Bf"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="GiftyWatch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+    </scenes>
+</document>

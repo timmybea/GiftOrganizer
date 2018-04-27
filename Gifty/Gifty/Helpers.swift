@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 //MARK: layout constants
 let pad: CGFloat = 16
@@ -180,6 +181,16 @@ extension UITextField {
         
         // Add attribute
         self.attributedPlaceholder = placeHolder
+    }
+}
+
+extension UILabel {
+    public static func createMediumLabel() -> UILabel {
+        let label = UILabel()
+        label.textColor = UIColor.white
+        label.font = Theme.fonts.boldSubtitleText.font
+        label.textAlignment = .left
+        return label
     }
 }
 

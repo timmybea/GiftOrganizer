@@ -72,7 +72,7 @@ class CreateGiftViewController: CustomViewController {
         return tf
     }()
     
-    let personLabel = Theme.createMediumLabel()
+    let personLabel = UILabel.createMediumLabel()
     
     var autoCompletePerson: AutoCompletePerson?
     
@@ -155,7 +155,7 @@ class CreateGiftViewController: CustomViewController {
         scrollView.addSubview(tfUnderline)
         
         //set budget
-        let budgetLabel = Theme.createMediumLabel()
+        let budgetLabel = UILabel.createMediumLabel()
         budgetLabel.frame = CGRect(x: 0,
                                    y: tfUnderline.frame.maxY + pad,
                                    width: scrollView.bounds.width,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol ScrollingSettingsCellDelegate {
     func optionChanged(to option: String)

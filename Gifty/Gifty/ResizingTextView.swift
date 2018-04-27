@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol ResizingTextViewDelegate {
     func resizeToHeight(_ height: CGFloat)

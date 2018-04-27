@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol CENTitleCellDelegate {
     func editingFinished(text: String)

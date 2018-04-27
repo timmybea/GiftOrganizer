@@ -101,7 +101,7 @@ class CreateEventViewController: CustomViewController {
     private var autoCompletePerson: AutoCompletePerson?
     
     private var budgetLabel: UILabel = {
-        let l = Theme.createMediumLabel()
+        let l = UILabel.createMediumLabel()
         l.text = "Set Budget"
         return l
     }()
@@ -168,7 +168,7 @@ class CreateEventViewController: CustomViewController {
 
         if createEventState == .newEventToBeAssigned {
             //autoCompletePerson
-            let personLabel = Theme.createMediumLabel()
+            let personLabel = UILabel.createMediumLabel()
             personLabel.frame = CGRect(x: 0,
                                        y: 0,
                                        width: scrollView.bounds.width,

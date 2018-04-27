@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol DropDownTextFieldDelegate {
     func dropDownWillAnimate(down: Bool)

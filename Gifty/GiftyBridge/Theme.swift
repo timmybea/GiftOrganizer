@@ -8,9 +8,9 @@
 
 import UIKit
 
-struct Theme {
+public struct Theme {
     
-    enum colors {
+    public enum colors {
         case offWhite
         case sand
         case darkPurple
@@ -24,7 +24,7 @@ struct Theme {
         case completedGreen
         case textLightTone
         
-        var color: UIColor {
+        public var color: UIColor {
             switch self {
             case .buttonPurple: return UIColor.colorWithVals(r: 139, g: 24, b: 91)
             case .offWhite: return UIColor.colorWithVals(r: 249, g: 249, b: 250)
@@ -42,8 +42,8 @@ struct Theme {
         }
     }
 
-    enum fonts {
-     case titleText
+    public enum fonts {
+        case titleText
         case subtitleText
         case boldSubtitleText
         case mediumText
@@ -51,7 +51,7 @@ struct Theme {
         case dateDay
         case dateMonth
         
-        var font: UIFont {
+        public var font: UIFont {
             switch self {
             case .titleText: return UIFont.systemFont(ofSize: 24)
             case .boldSubtitleText: return UIFont.boldSystemFont(ofSize: 18)
@@ -64,18 +64,18 @@ struct Theme {
         }
     }
     
-    static func createMediumLabel() -> UILabel {
-        let label = UILabel()
-        label.textColor = UIColor.white
-        label.font = Theme.fonts.boldSubtitleText.font
-        label.textAlignment = .left
-        return label
-    }
+//    public static func createMediumLabel() -> UILabel {
+//        let label = UILabel()
+//        label.textColor = UIColor.white
+//        label.font = Theme.fonts.boldSubtitleText.font
+//        label.textAlignment = .left
+//        return label
+//    }
 }
 
 extension UIColor {
     
-    static func colorWithVals(r: Int, g: Int, b: Int) -> UIColor {
+    public static func colorWithVals(r: Int, g: Int, b: Int) -> UIColor {
         let red = CGFloat(r) / 255
         let green = CGFloat(g) / 255
         let blue = CGFloat(b) / 255

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol TextFieldSettingsCellDelegate {
     func beganEditingCell(with id: TFSettingsCellID)

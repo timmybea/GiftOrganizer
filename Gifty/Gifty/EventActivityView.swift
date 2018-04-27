@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 enum ActivityType {
     case budgetActivity

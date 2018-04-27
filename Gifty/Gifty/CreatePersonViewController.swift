@@ -372,7 +372,7 @@ extension CreatePersonViewController: CNContactPickerDelegate {
     fileprivate func birthdayAlert() {
         let alertController = UIAlertController(title: "Create Birthday?", message: "Your contact has a birth date stored in it. Would you like to create a birthday event for them?", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-            print("Create new event for birth date \(self.dob)")
+            print("Create new event for birth date \(String(describing: self.dob))")
             
             //create vc for segue and put in the dob
             guard let d = self.dob, let birthdate = Calendar.current.date(from: d) else {

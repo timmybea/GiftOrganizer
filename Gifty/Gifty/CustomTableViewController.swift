@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 class CustomTableViewController: CustomViewController {
 

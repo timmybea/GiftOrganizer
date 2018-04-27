@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GiftyBridge
 
 protocol BudgetViewDelegate {
     func sliderChangedValue()
@@ -15,7 +16,7 @@ protocol BudgetViewDelegate {
 class BudgetView: UIView {
 
     private let budgetLabel: UILabel = {
-        let label = Theme.createMediumLabel()
+        let label = UILabel.createMediumLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "$0.00"
         label.textAlignment = .center
