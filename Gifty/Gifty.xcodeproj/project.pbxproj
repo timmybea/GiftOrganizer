@@ -95,6 +95,8 @@
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
 		B0A7FEE220968947001A75F5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
+		B0A7FEE620969E1A001A75F5 /* EventToWKObjectAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */; };
+		B0A7FEE720969E64001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
 		B0A9458B207D30D20051C755 /* OverlayGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */; };
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
@@ -359,6 +361,7 @@
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
 		B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKObject.swift; sourceTree = "<group>"; };
+		B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventToWKObjectAdapter.swift; sourceTree = "<group>"; };
 		B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayGiftViewController.swift; sourceTree = "<group>"; };
 		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
@@ -967,6 +970,7 @@
 				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
 				B0DBFB7F201127F6009442F4 /* Info.plist */,
+				B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */,
 			);
 			path = GiftyBridge;
 			sourceTree = "<group>";
@@ -1662,10 +1666,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0F4048C203624F000112E6D /* EventFRC.swift in Sources */,
+				B0A7FEE720969E64001A75F5 /* EventWKObject.swift in Sources */,
 				B00B53EA2011358800A2301F /* DateHandler.swift in Sources */,
 				B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */,
 				B0151DC3209019E60032D054 /* Theme.swift in Sources */,
 				B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */,
+				B0A7FEE620969E1A001A75F5 /* EventToWKObjectAdapter.swift in Sources */,
 				B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,15 +8,15 @@
 
 import UIKit
 
-class EventWKObject: NSObject, NSCoding {
+public class EventWKObject: NSObject, NSCoding {
 
-    var date: Date?
-    var eventName: String?
-    var personName: String?
-    var isComplete: Bool?
-    var incompleteCount: Int?
+    public var date: Date?
+    public var eventName: String?
+    public var personName: String?
+    public var isComplete: Bool?
+    public var incompleteCount: Int?
     
-    func initWithData(date: Date,
+    public func initWithData(date: Date,
                       eventName: String,
                       personName: String,
                       isComplete: Bool,
@@ -28,7 +28,7 @@ class EventWKObject: NSObject, NSCoding {
         self.incompleteCount = incompleteCount
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
+    required convenience public init?(coder aDecoder: NSCoder) {
         
         guard let date = aDecoder.decodeObject(forKey: "date") as? Date,
         let eventName = aDecoder.decodeObject(forKey: "eventName") as? String,
@@ -42,7 +42,7 @@ class EventWKObject: NSObject, NSCoding {
         self.initWithData(date: date, eventName: eventName, personName: personName, isComplete: isComplete, incompleteCount: incompleteCount)
     }
     
-    func encode(with coder: NSCoder) {
+    public func encode(with coder: NSCoder) {
         coder.encode(self.date, forKey: "date")
         coder.encode(self.eventName, forKey: "eventName")
         coder.encode(self.personName, forKey: "personName")

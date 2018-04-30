@@ -160,7 +160,7 @@ class TodayEventTableViewCell: UITableViewCell {
         var count = 0
         
         if !event.isComplete {
-            count += 1
+            count += 1 //<<<< THIS IS INCOMPLETE
         }
         return count
     }

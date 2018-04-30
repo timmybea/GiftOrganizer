@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 public class EventFRC: NSObject {
     
     static let dataPersistence: DataPersistence = CoreDataStorage.shared
