@@ -131,6 +131,7 @@
 		B0E7B0D020976DD300540EA7 /* EventToWKObjectAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */; };
 		B0E7B0D22097795200540EA7 /* EventWKRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7B0D12097795200540EA7 /* EventWKRowController.swift */; };
 		B0E7B0D320977CEA00540EA7 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
+		B0E7B0D52097959A00540EA7 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7B0D42097959A00540EA7 /* WatchConnectivityService.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
 		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
@@ -398,6 +399,7 @@
 		B0E52AD320645928004812B6 /* AddGiftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftViewCell.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E7B0D12097795200540EA7 /* EventWKRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKRowController.swift; sourceTree = "<group>"; };
+		B0E7B0D42097959A00540EA7 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -824,6 +826,7 @@
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
 				B0B19204207FD58000F2A468 /* EventDeepCopy.swift */,
 				B08B30D42087B835000A87F2 /* Person+Extension.swift */,
+				B0E7B0D42097959A00540EA7 /* WatchConnectivityService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1606,6 +1609,7 @@
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
 				B0B19205207FD58000F2A468 /* EventDeepCopy.swift in Sources */,
+				B0E7B0D52097959A00540EA7 /* WatchConnectivityService.swift in Sources */,
 				B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */,
 				B0D064B520619995002B4865 /* GiftSelectTableViewCell.swift in Sources */,
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,
