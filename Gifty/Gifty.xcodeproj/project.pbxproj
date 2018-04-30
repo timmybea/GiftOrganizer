@@ -95,7 +95,6 @@
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
 		B0A7FEE220968947001A75F5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
-		B0A7FEE620969E1A001A75F5 /* EventToWKObjectAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */; };
 		B0A7FEE720969E64001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
 		B0A9458B207D30D20051C755 /* OverlayGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */; };
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
@@ -130,6 +129,7 @@
 		B0E38D2D20116A2400542217 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E38D2C20116A2400542217 /* Helpers.swift */; };
 		B0E52AD420645928004812B6 /* AddGiftViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E52AD320645928004812B6 /* AddGiftViewCell.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
+		B0E7B0D020976DD300540EA7 /* EventToWKObjectAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
 		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
@@ -1569,6 +1569,7 @@
 				B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */,
 				B041F7981EF89B3D00A3E332 /* CalendarViewController.swift in Sources */,
 				B0F90BA51F6F2D5900EF3DE4 /* CurrencyHandler.swift in Sources */,
+				B0E7B0D020976DD300540EA7 /* EventToWKObjectAdapter.swift in Sources */,
 				B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */,
 				B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
@@ -1671,7 +1672,6 @@
 				B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */,
 				B0151DC3209019E60032D054 /* Theme.swift in Sources */,
 				B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */,
-				B0A7FEE620969E1A001A75F5 /* EventToWKObjectAdapter.swift in Sources */,
 				B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

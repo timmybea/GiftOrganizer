@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import GiftyBridge
 
 public class EventToWKObjectAdapter {
     
@@ -18,14 +19,23 @@ public class EventToWKObjectAdapter {
     
     //<<<YOU ARE HERE: Make types optional. Use EventFRC to calculate incomplete gift count for initializer
     
-    public func returnWKObject() -> EventWKObject {
-        let output = EventWKObject()
-        output.initWithData(date: event.date!,
-                            eventName: event.type!,
-                            personName: event.person!.fullName!,
-                            isComplete: event.isComplete,
-                            incompleteCount: 3)
-        return output
+    public func returnWKObject() -> EventWKObject? {
+        guard let date = event.date, let eventName = event.type, let personName = event.person?.fullName else { return nil }
+
+        let incompleteCount = countIncompleteActions()
+        return EventWKObject(date: date, eventName: eventName, personName: personName, isComplete: event.isComplete, incompleteCount: incompleteCount)
+    }
+    
+    private func countIncompleteActions() -> Int {
+        var count = 0
+        if let gifts = GiftFRC.getGifts(for: self.event) {
+            for gift in gifts {
+                if !gift.isCompleted {
+                    count += 1
+                }
+            }
+        }
+        return count
     }
     
 }
