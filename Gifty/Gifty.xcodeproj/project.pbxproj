@@ -18,12 +18,6 @@
 		B00BDA032093BF1100D0B20F /* GiftyWatchBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = B00BDA012093BF1100D0B20F /* GiftyWatchBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B00BDA062093BF1100D0B20F /* GiftyWatchBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B00BD9FF2093BF1100D0B20F /* GiftyWatchBridge.framework */; };
 		B00BDA082093BF1100D0B20F /* GiftyWatchBridge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B00BD9FF2093BF1100D0B20F /* GiftyWatchBridge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B00BDA0C2093BF5100D0B20F /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */; };
-		B00BDA0D2093BF5700D0B20F /* EventFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */; };
-		B00BDA0E2093BF5D00D0B20F /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
-		B00BDA0F2093BF6200D0B20F /* PersonEventModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */; };
-		B00BDA102093BFC400D0B20F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
-		B00BDA112093C05F00D0B20F /* TableSectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */; };
 		B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E7202CC777004CF10C /* GoogleAdService.swift */; };
 		B00FF3EA202CC787004CF10C /* InterstitialTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */; };
 		B0110BB7208F9DA700775DA0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0110BB5208F9DA700775DA0 /* Interface.storyboard */; };
@@ -99,6 +93,8 @@
 		B08B999E20577C5300779C6C /* GiftyNotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B08B999020577C5300779C6C /* GiftyNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
+		B0A7FEE220968947001A75F5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
+		B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
 		B0A9458B207D30D20051C755 /* OverlayGiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */; };
 		B0AFD7921FBA302D002F89FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0AFD7911FBA302D002F89FF /* Main.storyboard */; };
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
@@ -362,6 +358,7 @@
 		B08B999B20577C5300779C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
+		B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKObject.swift; sourceTree = "<group>"; };
 		B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayGiftViewController.swift; sourceTree = "<group>"; };
 		B0AFD7911FBA302D002F89FF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHandler.swift; sourceTree = "<group>"; };
@@ -500,6 +497,7 @@
 			children = (
 				B00BDA012093BF1100D0B20F /* GiftyWatchBridge.h */,
 				B00BDA022093BF1100D0B20F /* Info.plist */,
+				B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */,
 			);
 			path = GiftyWatchBridge;
 			sourceTree = "<group>";
@@ -588,12 +586,12 @@
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
+				B0DBFB7D201127F6009442F4 /* GiftyBridge */,
 				B00BDA002093BF1100D0B20F /* GiftyWatchBridge */,
 				B041F7651EF899F500A3E332 /* Gifty */,
 				B041F77A1EF899F500A3E332 /* GiftyTests */,
 				B041F7851EF899F500A3E332 /* GiftyUITests */,
 				B0F0046120054BC900D9B6D0 /* GiftyTodayExtension */,
-				B0DBFB7D201127F6009442F4 /* GiftyBridge */,
 				B08B999520577C5300779C6C /* GiftyNotificationExtension */,
 				B0110BB4208F9DA700775DA0 /* GiftyWatch */,
 				B0110BC3208F9DA700775DA0 /* GiftyWatch Extension */,
@@ -817,7 +815,6 @@
 				B0F90BA41F6F2D5900EF3DE4 /* CurrencyHandler.swift */,
 				B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */,
 				B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */,
-				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 				B0D064B62062DB60002B4865 /* EventBuilder.swift */,
 				B0D064BA20642E0C002B4865 /* AlertService.swift */,
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
@@ -967,6 +964,7 @@
 				B0DBFB8A2011284C009442F4 /* CoreDataStorage.swift */,
 				B044D1FB1F2CE9B600214CE5 /* EventFRC.swift */,
 				B013B5771EFF233200107B64 /* DateHandler.swift */,
+				B00B53EB20113A9D00A2301F /* TableSectionEvent.swift */,
 				B0CA63221F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodeld */,
 				B0DBFB7F201127F6009442F4 /* Info.plist */,
 			);
@@ -1531,12 +1529,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B00BDA0D2093BF5700D0B20F /* EventFRC.swift in Sources */,
-				B00BDA0C2093BF5100D0B20F /* CoreDataStorage.swift in Sources */,
-				B00BDA102093BFC400D0B20F /* Theme.swift in Sources */,
-				B00BDA112093C05F00D0B20F /* TableSectionEvent.swift in Sources */,
-				B00BDA0E2093BF5D00D0B20F /* DateHandler.swift in Sources */,
-				B00BDA0F2093BF6200D0B20F /* PersonEventModel.xcdatamodeld in Sources */,
+				B0A7FEE220968947001A75F5 /* Theme.swift in Sources */,
+				B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
