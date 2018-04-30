@@ -37,14 +37,41 @@
                         </group>
                         <table alignment="left" id="SYu-ys-ZCj">
                             <items>
-                                <tableRow id="EhD-vR-fxi">
-                                    <group key="rootItem" width="1" alignment="left" id="bag-7B-cVi"/>
+                                <tableRow id="EhD-vR-fxi" customClass="EventWKRowController" customModule="GiftyWatch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="bag-7B-cVi">
+                                        <items>
+                                            <label width="121" alignment="left" text="August 12th" textAlignment="center" id="EZj-Fi-LKt">
+                                                <color key="textColor" red="0.80789154767990112" green="0.30576437711715698" blue="0.46849411725997925" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label width="123" alignment="left" text="Birthday" textAlignment="center" id="LpR-y5-F0m">
+                                                <color key="textColor" red="0.24313725490196078" green="0.24313725490196078" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                            </label>
+                                            <label width="132" alignment="left" text="Tim Beals" textAlignment="center" id="CSq-qP-3QL">
+                                                <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            </label>
+                                            <label width="122" alignment="left" text="All complete" textAlignment="center" id="j5B-xS-Xss">
+                                                <color key="textColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <edgeInsets key="margins" left="4" right="4" top="6" bottom="6"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="completeLabel" destination="j5B-xS-Xss" id="NiC-pW-La0"/>
+                                        <outlet property="dateLabel" destination="EZj-Fi-LKt" id="0ZQ-x5-Em7"/>
+                                        <outlet property="eventLabel" destination="LpR-y5-F0m" id="4n4-EY-0LR"/>
+                                        <outlet property="personLabel" destination="CSq-qP-3QL" id="KTC-qo-8WW"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
                     <connections>
                         <outlet property="overdueButton" destination="BRU-0j-852" id="bhL-aG-NNM"/>
+                        <outlet property="table" destination="SYu-ys-ZCj" id="Rv5-V2-KhM"/>
                         <outlet property="upcomingButton" destination="3lD-8v-FHk" id="jAq-M5-1Bf"/>
                     </connections>
                 </controller>

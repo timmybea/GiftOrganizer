@@ -13,8 +13,11 @@ import WatchConnectivity
 
 class InterfaceController: WKInterfaceController, WCSessionDelegate {
     
+    @IBOutlet var table: WKInterfaceTable!
     @IBOutlet var upcomingButton: WKInterfaceButton!
     @IBOutlet var overdueButton: WKInterfaceButton!
+    
+    private var datasource = [EventWKObject]()
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -33,7 +36,43 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         super.willActivate()
         print("WATCH: ACTIVATE")
         
-
+        if (WCSession.default.isReachable) {
+            let message = ["getEventWKData": [:]]
+            WCSession.default.sendMessage(message, replyHandler: { (result) in
+                
+                if result["eventWKData"] != nil {
+                    let loadedData = result["eventWKData"]
+                    
+                    NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
+                    
+                    guard let loadedEvents = NSKeyedUnarchiver.unarchiveObject(with: loadedData as! Data) as? [EventWKObject] else { return }
+                    
+                    self.datasource = loadedEvents
+                    
+                    self.table.setNumberOfRows(self.datasource.count, withRowType: "EventWKRowController")
+                    
+                    for (index, event) in self.datasource.enumerated() {
+                        let row = self.table.rowController(at: index) as! EventWKRowController
+                        row.dateLabel.setText(DateHandler.describeDate(event.date))
+                        row.eventLabel.setText(event.eventName)
+                        row.personLabel.setText(event.personName)
+                        row.completeLabel.setText(self.completeText(number: event.incompleteCount))
+                    }
+                }
+                
+            }, errorHandler: { (error) in
+                print("\(error.localizedDescription)")
+            })
+        }
+    }
+    
+    private func completeText(number: Int) -> String {
+        switch number {
+        case 0:
+            return "All complete"
+        default:
+            return "\(number) incomplete"
+        }
     }
     
     override func didDeactivate() {
@@ -77,8 +116,13 @@ extension InterfaceController {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         
         var replyValues = Dictionary<String, AnyObject>()
-        let loadedData = message["progData"]
-        
+        let loadedData = message["eventWKData"] // change to upcomingData, overdueData
+        if let loadedEvents = NSKeyedUnarchiver.unarchiveObject(with: loadedData as! Data) as? [EventWKObject] {
+            self.datasource = loadedEvents
+            
+            replyValues["status"] = "ProgramReceived" as AnyObject
+            replyHandler(replyValues)
+        }
         
     }
 }

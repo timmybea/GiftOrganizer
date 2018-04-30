@@ -35,7 +35,6 @@
 		B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5C81F041DD700107B64 /* PersonTFTableView.swift */; };
 		B013B5CB1F0428A300107B64 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5CA1F0428A300107B64 /* TextFieldCell.swift */; };
 		B013B5CD1F04497400107B64 /* DropDownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5CC1F04497400107B64 /* DropDownTextField.swift */; };
-		B0151DC2209008A70032D054 /* SegmentedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0151DC1209008A70032D054 /* SegmentedController.swift */; };
 		B0151DC3209019E60032D054 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0151DC420901D450032D054 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3B1F05AD6B00805687 /* Contacts.framework */; };
@@ -130,6 +129,8 @@
 		B0E52AD420645928004812B6 /* AddGiftViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E52AD320645928004812B6 /* AddGiftViewCell.swift */; };
 		B0E58B4E1F36375500A88123 /* EventDisplayViewCreatePerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */; };
 		B0E7B0D020976DD300540EA7 /* EventToWKObjectAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */; };
+		B0E7B0D22097795200540EA7 /* EventWKRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7B0D12097795200540EA7 /* EventWKRowController.swift */; };
+		B0E7B0D320977CEA00540EA7 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
 		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
@@ -296,7 +297,6 @@
 		B013B5C81F041DD700107B64 /* PersonTFTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonTFTableView.swift; sourceTree = "<group>"; };
 		B013B5CA1F0428A300107B64 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		B013B5CC1F04497400107B64 /* DropDownTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTextField.swift; sourceTree = "<group>"; };
-		B0151DC1209008A70032D054 /* SegmentedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedController.swift; sourceTree = "<group>"; };
 		B019FC3B1F05AD6B00805687 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		B019FC3D1F05AD8300805687 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
 		B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTitleTableViewCell.swift; sourceTree = "<group>"; };
@@ -397,6 +397,7 @@
 		B0E38D2C20116A2400542217 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B0E52AD320645928004812B6 /* AddGiftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftViewCell.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
+		B0E7B0D12097795200540EA7 /* EventWKRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKRowController.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -534,7 +535,7 @@
 				B0110BCA208F9DA700775DA0 /* Assets.xcassets */,
 				B0110BCC208F9DA700775DA0 /* Info.plist */,
 				B0110BCD208F9DA700775DA0 /* PushNotificationPayload.apns */,
-				B0151DC1209008A70032D054 /* SegmentedController.swift */,
+				B0E7B0D12097795200540EA7 /* EventWKRowController.swift */,
 			);
 			path = "GiftyWatch Extension";
 			sourceTree = "<group>";
@@ -1535,6 +1536,7 @@
 			files = (
 				B0A7FEE220968947001A75F5 /* Theme.swift in Sources */,
 				B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */,
+				B0E7B0D320977CEA00540EA7 /* DateHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1545,7 +1547,7 @@
 				B0110BC9208F9DA700775DA0 /* NotificationController.swift in Sources */,
 				B0110BC7208F9DA700775DA0 /* ExtensionDelegate.swift in Sources */,
 				B0110BC5208F9DA700775DA0 /* InterfaceController.swift in Sources */,
-				B0151DC2209008A70032D054 /* SegmentedController.swift in Sources */,
+				B0E7B0D22097795200540EA7 /* EventWKRowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
