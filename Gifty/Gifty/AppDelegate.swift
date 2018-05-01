@@ -44,6 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let _ = EventNotificationUNService.shared
         
+        //MARK: Event Connectivity
+        WatchConnectivityService.shared.activateSession()
+        
         //MARK: setup interstitials
 //        InterstitialService.shared.delegate = self
 //        InterstitialService.shared.createAndLoadInterstitial()

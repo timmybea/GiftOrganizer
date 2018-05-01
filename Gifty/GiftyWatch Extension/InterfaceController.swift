@@ -11,13 +11,16 @@ import Foundation
 import GiftyWatchBridge
 import WatchConnectivity
 
-class InterfaceController: WKInterfaceController, WCSessionDelegate {
+class InterfaceController: WKInterfaceController {
     
     @IBOutlet var table: WKInterfaceTable!
     @IBOutlet var upcomingButton: WKInterfaceButton!
     @IBOutlet var overdueButton: WKInterfaceButton!
     
-    private var datasource = [EventWKObject]()
+    private var overdueEvents: [EventWKObject]?
+    private var upcomingEvents: [EventWKObject]?
+    
+    private var datasource: [EventWKObject]?
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -37,32 +40,39 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         print("WATCH: ACTIVATE")
         
         if (WCSession.default.isReachable) {
+            
             let message = ["getEventWKData": [:]]
             WCSession.default.sendMessage(message, replyHandler: { (result) in
+
+                let upcomingData = result["upcomingWKEvent"] // change to upcomingData, overdueData
+                let overdueData = result["overdueWKEvent"]
+
+                NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
+                self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData as! Data) as? [EventWKObject]
+                self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData as! Data) as? [EventWKObject]
                 
-                if result["eventWKData"] != nil {
-                    let loadedData = result["eventWKData"]
-                    
-                    NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
-                    
-                    guard let loadedEvents = NSKeyedUnarchiver.unarchiveObject(with: loadedData as! Data) as? [EventWKObject] else { return }
-                    
-                    self.datasource = loadedEvents
-                    
-                    self.table.setNumberOfRows(self.datasource.count, withRowType: "EventWKRowController")
-                    
-                    for (index, event) in self.datasource.enumerated() {
-                        let row = self.table.rowController(at: index) as! EventWKRowController
-                        row.dateLabel.setText(DateHandler.describeDate(event.date))
-                        row.eventLabel.setText(event.eventName)
-                        row.personLabel.setText(event.personName)
-                        row.completeLabel.setText(self.completeText(number: event.incompleteCount))
-                    }
-                }
+
+                self.updateTable(with: self.upcomingEvents)
                 
             }, errorHandler: { (error) in
                 print("\(error.localizedDescription)")
             })
+        }
+    }
+    
+    private func updateTable(with source: [EventWKObject]?) {
+        if let source = source {
+            self.table.setNumberOfRows(source.count, withRowType: "EventWKRowController")
+            
+            for (index, event) in source.enumerated() {
+                let row = self.table.rowController(at: index) as! EventWKRowController
+                row.dateLabel.setText(DateHandler.describeDate(event.date))
+                row.eventLabel.setText(event.eventName)
+                row.personLabel.setText(event.personName)
+                row.completeLabel.setText(self.completeText(number: event.incompleteCount))
+            }
+        } else {
+            self.table.setNumberOfRows(0, withRowType: "EventWKRowController")
         }
     }
     
@@ -92,6 +102,8 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         overdueButton.setBackgroundImage(UIImage(named: "bg_red"))
         let overdue = NSAttributedString(string: "Overdue", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
         overdueButton.setAttributedTitle(overdue)
+        
+        updateTable(with: self.upcomingEvents)
     }
     
     
@@ -103,11 +115,13 @@ class InterfaceController: WKInterfaceController, WCSessionDelegate {
         upcomingButton.setBackgroundImage(UIImage(named: "bg_red"))
         let upcoming = NSAttributedString(string: "Upcoming", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
         upcomingButton.setAttributedTitle(upcoming)
+        
+        updateTable(with: overdueEvents)
     }
     
 }
 
-extension InterfaceController {
+extension InterfaceController: WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         //
@@ -116,13 +130,16 @@ extension InterfaceController {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         
         var replyValues = Dictionary<String, AnyObject>()
-        let loadedData = message["eventWKData"] // change to upcomingData, overdueData
-        if let loadedEvents = NSKeyedUnarchiver.unarchiveObject(with: loadedData as! Data) as? [EventWKObject] {
-            self.datasource = loadedEvents
-            
-            replyValues["status"] = "ProgramReceived" as AnyObject
-            replyHandler(replyValues)
-        }
         
+        let upcomingData = message["upcomingWKEvent"]
+        let overdueData = message["overdueWKEvent"]
+        
+        NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
+        self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData as! Data) as? [EventWKObject]
+        self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData as! Data) as? [EventWKObject]
+        
+        replyValues["status"] = "ProgramReceived" as AnyObject
+        replyHandler(replyValues)
     }
+    
 }
