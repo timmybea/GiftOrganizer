@@ -2039,6 +2039,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
 				INFOPLIST_FILE = Gifty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2059,6 +2060,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
 				INFOPLIST_FILE = Gifty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
