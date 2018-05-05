@@ -9,6 +9,7 @@
 import UIKit
 import GiftyBridge
 import CoreData
+import TDBWatchConnectivityiOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,7 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _ = EventNotificationUNService.shared
         
         //MARK: Event Connectivity
-        WatchConnectivityService.shared.activateSession()
+        WatchConnectivityService.shared.activate()
+        WatchConnectivityService.shared.delegate = self
+        
         
         //MARK: setup interstitials
 //        InterstitialService.shared.delegate = self
@@ -156,6 +159,49 @@ extension AppDelegate: InterstitialServiceDelegate {
         guard let navCon = tabBarController.selectedViewController as? UINavigationController else { return }
         guard let vc = navCon.topViewController else { return }
         InterstitialService.shared.showInterstitial(in: vc)
+    }
+}
+
+extension AppDelegate : WatchConnectivityServiceDelegate {
+    
+    func reply(to message: [String : Any], replyHandler: @escaping ([String : Any]) -> ()) {
+        
+        if message[UserInfoKey.identifier] as? String == ConnectivityIdentifier.getEvents.rawValue {
+            
+            //get Events
+            guard let frc = EventFRC.frc(), let events = frc.fetchedObjects else {
+                replyHandler([:])
+                return
+            }
+            EventFRC.sortEventsTodayExtension(events: events) { (upcoming, overdue) in
+                
+                var wkUpcoming = [EventWKObject]()
+                if let upcoming = upcoming {
+                    for event in upcoming {
+                        if let wke = EventToWKObjectAdapter(event: event).returnWKObject() {
+                            wkUpcoming.append(wke)
+                        }
+                    }
+                }
+                
+                var wkOverdue = [EventWKObject]()
+                if let overdue = overdue {
+                    for event in overdue {
+                        if let wke = EventToWKObjectAdapter(event: event).returnWKObject() {
+                            wkOverdue.append(wke)
+                        }
+                    }
+                }
+                
+                NSKeyedArchiver.setClassName("EventWKObject", for: EventWKObject.self)
+                let archivedUpcoming = NSKeyedArchiver.archivedData(withRootObject: wkUpcoming)
+                let archivedOverdue = NSKeyedArchiver.archivedData(withRootObject: wkOverdue)
+                
+                let payload: [String: Any] = [UserInfoKey.payload : ["upcoming": archivedUpcoming, "overdue": archivedOverdue]]
+                
+                replyHandler(payload)
+            }
+        }
     }
 }
 

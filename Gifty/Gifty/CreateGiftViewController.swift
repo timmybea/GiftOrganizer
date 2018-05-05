@@ -345,8 +345,6 @@ class CreateGiftViewController: CustomViewController {
             if success {
                 gb.saveGiftToCoreData(DataPersistenceService.shared)
                 
-                //debugging
-                let gift = gb.returnGift()                
                 
                 //dismiss the vc depending on mode
                 if self.mode == .newGiftPersonUnknown {

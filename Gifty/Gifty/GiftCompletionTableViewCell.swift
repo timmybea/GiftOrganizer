@@ -38,7 +38,7 @@ class GiftCompletionTableViewCell: UITableViewCell {
     }
     
     private func setCompletionImage(_ complete: Bool) {
-        var imageName = complete ? ImageNames.completeIcon.rawValue : ImageNames.incompleteIcon.rawValue
+        let imageName = complete ? ImageNames.completeIcon.rawValue : ImageNames.incompleteIcon.rawValue
         completeIcon.image = UIImage(named: imageName)
         if let g = self.gift {
             self.delegate?.didChange(gift: g, to: complete)

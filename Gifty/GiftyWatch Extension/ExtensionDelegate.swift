@@ -7,11 +7,15 @@
 //
 
 import WatchKit
+import TDBConnectivityWatchOS
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        
+        WatchConnectivityService.shared.activate()
+
     }
 
     func applicationDidBecomeActive() {

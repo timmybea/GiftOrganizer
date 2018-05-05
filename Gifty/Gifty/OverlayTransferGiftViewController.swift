@@ -165,8 +165,8 @@ class OverlayTransferGiftViewController: UIViewController {
         
         print("Keyboard will show")
         
-        if let userInfo = sender.userInfo {
-            guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+//        if let userInfo = sender.userInfo {
+//            guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
             
 //            let showBottomConst = CGFloat(keyboardFrame.height)
 //
@@ -180,7 +180,7 @@ class OverlayTransferGiftViewController: UIViewController {
                 
             })
         }
-    }
+ //   }
     
 }
 

@@ -37,7 +37,7 @@
                         </group>
                         <table alignment="left" id="SYu-ys-ZCj">
                             <items>
-                                <tableRow id="EhD-vR-fxi" customClass="EventWKRowController" customModule="GiftyWatch_Extension">
+                                <tableRow identifier="EventWKRowController" id="EhD-vR-fxi" customClass="EventWKRowController" customModule="GiftyWatch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="bag-7B-cVi">
                                         <items>
                                             <label width="121" alignment="left" text="August 12th" textAlignment="center" id="EZj-Fi-LKt">

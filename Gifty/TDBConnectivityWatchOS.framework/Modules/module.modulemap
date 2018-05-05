@@ -1,0 +1,11 @@
+framework module TDBConnectivityWatchOS {
+  umbrella header "TDBConnectivityWatchOS.h"
+
+  export *
+  module * { export * }
+}
+
+module TDBConnectivityWatchOS.Swift {
+    header "TDBConnectivityWatchOS-Swift.h"
+    requires objc
+}

@@ -91,6 +91,12 @@
 		B08B999A20577C5300779C6C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B08B999820577C5300779C6C /* MainInterface.storyboard */; };
 		B08B999E20577C5300779C6C /* GiftyNotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B08B999020577C5300779C6C /* GiftyNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
+		B0A03BBE209E1F1200FC53B0 /* ConnectivityCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */; };
+		B0A03BBF209E1F3800FC53B0 /* ConnectivityCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */; };
+		B0A03BC2209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */; };
+		B0A03BC3209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B0A03BC4209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */; };
+		B0A03BC5209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
 		B0A7FEE220968947001A75F5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
@@ -131,7 +137,6 @@
 		B0E7B0D020976DD300540EA7 /* EventToWKObjectAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */; };
 		B0E7B0D22097795200540EA7 /* EventWKRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7B0D12097795200540EA7 /* EventWKRowController.swift */; };
 		B0E7B0D320977CEA00540EA7 /* DateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5771EFF233200107B64 /* DateHandler.swift */; };
-		B0E7B0D52097959A00540EA7 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7B0D42097959A00540EA7 /* WatchConnectivityService.swift */; };
 		B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */; };
 		B0F0046020054BC900D9B6D0 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */; };
 		B0F0046320054BC900D9B6D0 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F0046220054BC900D9B6D0 /* TodayViewController.swift */; };
@@ -209,6 +214,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B0A03BC5209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Embed Frameworks */,
 				B00BDA082093BF1100D0B20F /* GiftyWatchBridge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -242,6 +248,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				B0A03BC3209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */,
 				B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -360,6 +367,9 @@
 		B08B999920577C5300779C6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B08B999B20577C5300779C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
+		B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBWatchConnectivityiOS.framework; sourceTree = "<group>"; };
+		B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityCommand.swift; sourceTree = "<group>"; };
+		B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBConnectivityWatchOS.framework; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
 		B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKObject.swift; sourceTree = "<group>"; };
 		B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventToWKObjectAdapter.swift; sourceTree = "<group>"; };
@@ -399,7 +409,6 @@
 		B0E52AD320645928004812B6 /* AddGiftViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGiftViewCell.swift; sourceTree = "<group>"; };
 		B0E58B4D1F36375500A88123 /* EventDisplayViewCreatePerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDisplayViewCreatePerson.swift; sourceTree = "<group>"; };
 		B0E7B0D12097795200540EA7 /* EventWKRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKRowController.swift; sourceTree = "<group>"; };
-		B0E7B0D42097959A00540EA7 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
 		B0E8B89E1EF8E26700D1B5DC /* CustomViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewController.swift; sourceTree = "<group>"; };
 		B0F0045E20054BC900D9B6D0 /* GiftyTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GiftyTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0F0045F20054BC900D9B6D0 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -425,6 +434,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A03BC4209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Frameworks */,
 				B00BDA062093BF1100D0B20F /* GiftyWatchBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +445,7 @@
 			files = (
 				B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */,
 				B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */,
+				B0A03BC2209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Frameworks */,
 				B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */,
 				842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */,
 			);
@@ -482,6 +493,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BF75AFB396CDA82C760A3E5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -504,6 +522,7 @@
 				B00BDA012093BF1100D0B20F /* GiftyWatchBridge.h */,
 				B00BDA022093BF1100D0B20F /* Info.plist */,
 				B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */,
+				B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */,
 			);
 			path = GiftyWatchBridge;
 			sourceTree = "<group>";
@@ -592,6 +611,8 @@
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
+				B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */,
+				B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */,
 				B0DBFB7D201127F6009442F4 /* GiftyBridge */,
 				B00BDA002093BF1100D0B20F /* GiftyWatchBridge */,
 				B041F7651EF899F500A3E332 /* Gifty */,
@@ -826,7 +847,6 @@
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
 				B0B19204207FD58000F2A468 /* EventDeepCopy.swift */,
 				B08B30D42087B835000A87F2 /* Person+Extension.swift */,
-				B0E7B0D42097959A00540EA7 /* WatchConnectivityService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1054,6 +1074,7 @@
 			buildPhases = (
 				B0110BB1208F9DA700775DA0 /* Resources */,
 				B0110BD6208F9DA700775DA0 /* Embed App Extensions */,
+				BF75AFB396CDA82C760A3E5A /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1539,6 +1560,7 @@
 			files = (
 				B0A7FEE220968947001A75F5 /* Theme.swift in Sources */,
 				B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */,
+				B0A03BBE209E1F1200FC53B0 /* ConnectivityCommand.swift in Sources */,
 				B0E7B0D320977CEA00540EA7 /* DateHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1609,7 +1631,6 @@
 				B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */,
 				B07A55E31F677D5A004BD772 /* PresentationController.swift in Sources */,
 				B0B19205207FD58000F2A468 /* EventDeepCopy.swift in Sources */,
-				B0E7B0D52097959A00540EA7 /* WatchConnectivityService.swift in Sources */,
 				B02866781F143590003F5E22 /* EventTableViewCell.swift in Sources */,
 				B0D064B520619995002B4865 /* GiftSelectTableViewCell.swift in Sources */,
 				B0E8B89F1EF8E26700D1B5DC /* CustomViewController.swift in Sources */,
@@ -1674,6 +1695,7 @@
 			files = (
 				B0F4048C203624F000112E6D /* EventFRC.swift in Sources */,
 				B0A7FEE720969E64001A75F5 /* EventWKObject.swift in Sources */,
+				B0A03BBF209E1F3800FC53B0 /* ConnectivityCommand.swift in Sources */,
 				B00B53EA2011358800A2301F /* DateHandler.swift in Sources */,
 				B00B53EE20113AF300A2301F /* TableSectionEvent.swift in Sources */,
 				B0151DC3209019E60032D054 /* Theme.swift in Sources */,
@@ -1787,6 +1809,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GiftyWatchBridge/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1817,6 +1843,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GiftyWatchBridge/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1887,6 +1917,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2733C6P24Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "GiftyWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1896,7 +1930,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Debug;
 		};
@@ -1908,6 +1942,10 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2733C6P24Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "GiftyWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -1917,7 +1955,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+				WATCHOS_DEPLOYMENT_TARGET = 4.3;
 			};
 			name = Release;
 		};
@@ -1968,7 +2006,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2019,7 +2057,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -2038,8 +2076,12 @@
 				CODE_SIGN_ENTITLEMENTS = Gifty/Gifty.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Gifty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2059,8 +2101,12 @@
 				CODE_SIGN_ENTITLEMENTS = Gifty/Gifty.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2733C6P24Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Gifty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";

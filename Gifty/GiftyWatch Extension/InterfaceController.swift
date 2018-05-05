@@ -9,7 +9,7 @@
 import WatchKit
 import Foundation
 import GiftyWatchBridge
-import WatchConnectivity
+import TDBConnectivityWatchOS
 
 class InterfaceController: WKInterfaceController {
     
@@ -20,18 +20,13 @@ class InterfaceController: WKInterfaceController {
     private var overdueEvents: [EventWKObject]?
     private var upcomingEvents: [EventWKObject]?
     
-    private var datasource: [EventWKObject]?
+    private var selectedIndex = 0
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         // Configure interface objects here.
         print("WATCH: AWAKE")
         
-        if (WCSession.isSupported()) {
-            let session = WCSession.default
-            session.delegate = self
-            session.activate()
-        }
     }
     
     override func willActivate() {
@@ -39,24 +34,29 @@ class InterfaceController: WKInterfaceController {
         super.willActivate()
         print("WATCH: ACTIVATE")
         
-        if (WCSession.default.isReachable) {
+        WatchConnectivityService.shared.activate()
+        
+        WatchConnectivityService.shared.sendMessage(identifier: ConnectivityIdentifier.getEvents.rawValue, payload: [:]) { (response) in
             
-            let message = ["getEventWKData": [:]]
-            WCSession.default.sendMessage(message, replyHandler: { (result) in
-
-                let upcomingData = result["upcomingWKEvent"] // change to upcomingData, overdueData
-                let overdueData = result["overdueWKEvent"]
-
+            if let error = response[UserInfoKey.error] as? Error {
+                print("Watch Connectivity Reponse Error: \(error.localizedDescription)")
+            }
+            
+            if let payload = response[UserInfoKey.payload] as? [String: Any] {
+                
                 NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
-                self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData as! Data) as? [EventWKObject]
-                self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData as! Data) as? [EventWKObject]
                 
-
-                self.updateTable(with: self.upcomingEvents)
+                if let upcomingData = payload["upcoming"] as? Data {
+                    self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData) as? [EventWKObject]
+                }
                 
-            }, errorHandler: { (error) in
-                print("\(error.localizedDescription)")
-            })
+                if let overdueData = payload["overdue"] as? Data {
+                    self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData) as? [EventWKObject]
+                }
+                
+                let datasource = self.selectedIndex == 0 ? self.upcomingEvents : self.overdueEvents
+                self.updateTable(with: datasource)
+            }
         }
     }
     
@@ -103,6 +103,7 @@ class InterfaceController: WKInterfaceController {
         let overdue = NSAttributedString(string: "Overdue", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
         overdueButton.setAttributedTitle(overdue)
         
+        self.selectedIndex = 0
         updateTable(with: self.upcomingEvents)
     }
     
@@ -116,30 +117,8 @@ class InterfaceController: WKInterfaceController {
         let upcoming = NSAttributedString(string: "Upcoming", attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
         upcomingButton.setAttributedTitle(upcoming)
         
+        self.selectedIndex = 1
         updateTable(with: overdueEvents)
-    }
-    
-}
-
-extension InterfaceController: WCSessionDelegate {
-    
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        //
-    }
-    
-    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        
-        var replyValues = Dictionary<String, AnyObject>()
-        
-        let upcomingData = message["upcomingWKEvent"]
-        let overdueData = message["overdueWKEvent"]
-        
-        NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
-        self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData as! Data) as? [EventWKObject]
-        self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData as! Data) as? [EventWKObject]
-        
-        replyValues["status"] = "ProgramReceived" as AnyObject
-        replyHandler(replyValues)
     }
     
 }

@@ -1,0 +1,11 @@
+framework module TDBWatchConnectivityiOS {
+  umbrella header "TDBWatchConnectivityiOS.h"
+
+  export *
+  module * { export * }
+}
+
+module TDBWatchConnectivityiOS.Swift {
+    header "TDBWatchConnectivityiOS-Swift.h"
+    requires objc
+}
