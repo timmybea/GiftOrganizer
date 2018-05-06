@@ -50,6 +50,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WatchConnectivityService.shared.delegate = self
         
         
+        //TEMP!!! get Events
+//        guard let frc = EventFRC.frc(), let events = frc.fetchedObjects else {
+//            return true
+//        }
+//        
+//        EventFRC.sortEventsTodayExtension(events: events) { (upcoming, overdue) in
+//            
+//            var wkUpcoming = [EventWKObject]()
+//            if let upcoming = upcoming {
+//                for event in upcoming {
+//                    if let wke = EventToWKObjectAdapter(event: event).returnWKObject() {
+//                        wkUpcoming.append(wke)
+//                    }
+//                }
+//            }
+//            
+//            var wkOverdue = [EventWKObject]()
+//            if let overdue = overdue {
+//                for event in overdue {
+//                    if let wke = EventToWKObjectAdapter(event: event).returnWKObject() {
+//                        wkOverdue.append(wke)
+//                    }
+//                }
+//            }
+//            
+//            NSKeyedArchiver.setClassName("EventWKObject", for: EventWKObject.self)
+//            let archivedUpcoming = NSKeyedArchiver.archivedData(withRootObject: wkUpcoming)
+//            let archivedOverdue = NSKeyedArchiver.archivedData(withRootObject: wkOverdue)
+//            
+//            let payload: [String: Any] = [UserInfoKey.payload : ["upcoming": archivedUpcoming, "overdue": archivedOverdue]]
+//            
+//            NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
+//            guard let  apayload = payload[UserInfoKey.payload] as? [String: Any] else { return }
+//            guard let upData = apayload["upcoming"] as? Data else { return }
+//            guard let unarchivedUp = NSKeyedUnarchiver.unarchiveObject(with: upData) as? [EventWKObject] else { return }
+//            for event in unarchivedUp {
+//                print("Unarchived: \(event)")
+//            }
+//            
+//            
+//        }
+        
+        //END TEMP!!! get Events
+
+        
+        
         //MARK: setup interstitials
 //        InterstitialService.shared.delegate = self
 //        InterstitialService.shared.createAndLoadInterstitial()

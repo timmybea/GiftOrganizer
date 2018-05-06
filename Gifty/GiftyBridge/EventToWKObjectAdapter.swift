@@ -17,13 +17,11 @@ public class EventToWKObjectAdapter {
         self.event = event
     }
     
-    //<<<YOU ARE HERE: Make types optional. Use EventFRC to calculate incomplete gift count for initializer
-    
     public func returnWKObject() -> EventWKObject? {
         guard let date = event.date, let eventName = event.type, let personName = event.person?.fullName else { return nil }
 
         let incompleteCount = countIncompleteActions()
-        return EventWKObject(date: date, eventName: eventName, personName: personName, isComplete: event.isComplete, incompleteCount: incompleteCount)
+        return EventWKObject(date: date, eventName: eventName, personName: personName, incompleteCount: incompleteCount)
     }
     
     private func countIncompleteActions() -> Int {
