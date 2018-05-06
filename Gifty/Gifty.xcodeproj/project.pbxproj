@@ -90,13 +90,14 @@
 		B08B999720577C5300779C6C /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08B999620577C5300779C6C /* NotificationViewController.swift */; };
 		B08B999A20577C5300779C6C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B08B999820577C5300779C6C /* MainInterface.storyboard */; };
 		B08B999E20577C5300779C6C /* GiftyNotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B08B999020577C5300779C6C /* GiftyNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B08EC8B3209F85AA00067611 /* ConnectivityMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08EC8B2209F85AA00067611 /* ConnectivityMediator.swift */; };
+		B08EC8B6209F904700067611 /* TDBWatchConnectivityiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */; };
+		B08EC8B7209F904700067611 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B08EC8BA209F909400067611 /* TDBConnectivityWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */; };
+		B08EC8BB209F909400067611 /* TDBConnectivityWatchOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A03BBE209E1F1200FC53B0 /* ConnectivityCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */; };
 		B0A03BBF209E1F3800FC53B0 /* ConnectivityCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */; };
-		B0A03BC2209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */; };
-		B0A03BC3209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B0A03BC4209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */; };
-		B0A03BC5209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */; };
 		B0A7FEE220968947001A75F5 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C205761F22D2C200C3E7ED /* Theme.swift */; };
 		B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */; };
@@ -214,7 +215,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B0A03BC5209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Embed Frameworks */,
+				B08EC8BB209F909400067611 /* TDBConnectivityWatchOS.framework in Embed Frameworks */,
 				B00BDA082093BF1100D0B20F /* GiftyWatchBridge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -248,7 +249,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B0A03BC3209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */,
+				B08EC8B7209F904700067611 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */,
 				B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -366,10 +367,11 @@
 		B08B999620577C5300779C6C /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		B08B999920577C5300779C6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B08B999B20577C5300779C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B08EC8B2209F85AA00067611 /* ConnectivityMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityMediator.swift; sourceTree = "<group>"; };
+		B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBWatchConnectivityiOS.framework; sourceTree = "<group>"; };
+		B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBConnectivityWatchOS.framework; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
-		B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBWatchConnectivityiOS.framework; sourceTree = "<group>"; };
 		B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityCommand.swift; sourceTree = "<group>"; };
-		B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBConnectivityWatchOS.framework; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
 		B0A7FEE320968CAD001A75F5 /* EventWKObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventWKObject.swift; sourceTree = "<group>"; };
 		B0A7FEE520969E1A001A75F5 /* EventToWKObjectAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventToWKObjectAdapter.swift; sourceTree = "<group>"; };
@@ -434,7 +436,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0A03BC4209E202100FC53B0 /* TDBConnectivityWatchOS.framework in Frameworks */,
+				B08EC8BA209F909400067611 /* TDBConnectivityWatchOS.framework in Frameworks */,
 				B00BDA062093BF1100D0B20F /* GiftyWatchBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,7 +447,7 @@
 			files = (
 				B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */,
 				B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */,
-				B0A03BC2209E1FEF00FC53B0 /* TDBWatchConnectivityiOS.framework in Frameworks */,
+				B08EC8B6209F904700067611 /* TDBWatchConnectivityiOS.framework in Frameworks */,
 				B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */,
 				842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */,
 			);
@@ -611,8 +613,8 @@
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
-				B0A03BC0209E1FC100FC53B0 /* TDBConnectivityWatchOS.framework */,
-				B0A03BBB209E1E3500FC53B0 /* TDBWatchConnectivityiOS.framework */,
+				B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */,
+				B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */,
 				B0DBFB7D201127F6009442F4 /* GiftyBridge */,
 				B00BDA002093BF1100D0B20F /* GiftyWatchBridge */,
 				B041F7651EF899F500A3E332 /* Gifty */,
@@ -847,6 +849,7 @@
 				B0DA02B0206588800084A2FF /* ActionSheetService.swift */,
 				B0B19204207FD58000F2A468 /* EventDeepCopy.swift */,
 				B08B30D42087B835000A87F2 /* Person+Extension.swift */,
+				B08EC8B2209F85AA00067611 /* ConnectivityMediator.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1611,6 +1614,7 @@
 				B0D064B320618242002B4865 /* SelectGiftViewController.swift in Sources */,
 				B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */,
 				B0020BFB20853E96005A5F94 /* ResizingTextView.swift in Sources */,
+				B08EC8B3209F85AA00067611 /* ConnectivityMediator.swift in Sources */,
 				B06F41E9205B2E080083A28F /* GiftBuilder.swift in Sources */,
 				B0D064BB20642E0C002B4865 /* AlertService.swift in Sources */,
 				B041F79C1EF89B5800A3E332 /* SettingsViewController.swift in Sources */,

@@ -34,29 +34,36 @@ class InterfaceController: WKInterfaceController {
         super.willActivate()
         print("WATCH: ACTIVATE")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(dataDidFlow(notification:)), name: Notification.Name.dataDidFlow, object: nil)
+        
         WatchConnectivityService.shared.activate()
         
         WatchConnectivityService.shared.sendMessage(identifier: ConnectivityIdentifier.getEvents.rawValue, payload: [:]) { (response) in
             
-            if let error = response[UserInfoKey.error] as? Error {
-                print("Watch Connectivity Reponse Error: \(error.localizedDescription)")
+            self.parseAndDeliver(userInfo: response)
+        }
+    }
+    
+    private func parseAndDeliver(userInfo: [String: Any]) {
+        
+        if let error = userInfo[UserInfoKey.error] as? Error {
+            print("Watch Connectivity Reponse Error: \(error.localizedDescription)")
+        }
+        
+        if let payload = userInfo[UserInfoKey.payload] as? [String: Any] {
+            
+            NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
+            
+            if let upcomingData = payload["upcoming"] as? Data {
+                self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData) as? [EventWKObject]
             }
             
-            if let payload = response[UserInfoKey.payload] as? [String: Any] {
-                
-                NSKeyedUnarchiver.setClass(EventWKObject.self, forClassName: "EventWKObject")
-                
-                if let upcomingData = payload["upcoming"] as? Data {
-                    self.upcomingEvents = NSKeyedUnarchiver.unarchiveObject(with: upcomingData) as? [EventWKObject]
-                }
-                
-                if let overdueData = payload["overdue"] as? Data {
-                    self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData) as? [EventWKObject]
-                }
-                
-                let datasource = self.selectedIndex == 0 ? self.upcomingEvents : self.overdueEvents
-                self.updateTable(with: datasource)
+            if let overdueData = payload["overdue"] as? Data {
+                self.overdueEvents = NSKeyedUnarchiver.unarchiveObject(with: overdueData) as? [EventWKObject]
             }
+            
+            let datasource = self.selectedIndex == 0 ? self.upcomingEvents : self.overdueEvents
+            self.updateTable(with: datasource)
         }
     }
     
@@ -92,6 +99,14 @@ class InterfaceController: WKInterfaceController {
         print("WATCH: DEACTIVATE")
     }
     
+    
+    @objc func dataDidFlow(notification: Notification) {
+        
+        guard let userInfo = notification.userInfo as? [String: Any] else { return }
+        if userInfo[UserInfoKey.identifier] as? String == ConnectivityIdentifier.updateEventData.rawValue {
+            self.parseAndDeliver(userInfo: userInfo)
+        }
+    }
     
     @IBAction func upcomingTouched() {
     

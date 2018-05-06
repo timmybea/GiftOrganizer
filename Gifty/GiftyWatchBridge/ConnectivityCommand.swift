@@ -10,4 +10,6 @@ import Foundation
 
 public enum ConnectivityIdentifier: String {
     case getEvents = "getEvents"
+    case getEventsResponse = "getEventsResponse"
+    case updateEventData = "updateEventData"
 }
