@@ -51,9 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = ConnectivityMediator.shared //instantiate mediator to observe notifications
         
         //MARK: setup interstitials
-//        InterstitialService.shared.delegate = self
-//        InterstitialService.shared.createAndLoadInterstitial()
-//        InterstitialService.shared.setupTimer()
+        InterstitialService.shared.delegate = self
+        InterstitialService.shared.createAndLoadInterstitial()
+        InterstitialService.shared.setupTimer()
         
         return true
     }
@@ -171,40 +171,6 @@ extension AppDelegate : WatchConnectivityServiceDelegate {
             let eventData = ConnectivityMediator.shared.getEventData()
             let userInfo: [String: Any] = [UserInfoKey.identifier: ConnectivityIdentifier.getEventsResponse.rawValue, UserInfoKey.payload: eventData]
             replyHandler(userInfo)
-            
-            //get Events
-//            guard let frc = EventFRC.frc(), let events = frc.fetchedObjects else {
-//                replyHandler([:])
-//                return
-//            }
-//            EventFRC.sortEventsTodayExtension(events: events) { (upcoming, overdue) in
-//
-//                var wkUpcoming = [EventWKObject]()
-//                if let upcoming = upcoming {
-//                    for event in upcoming {
-//                        if let wke = EventToWKObjectAdapter(event: event).returnWKObject() {
-//                            wkUpcoming.append(wke)
-//                        }
-//                    }
-//                }
-//
-//                var wkOverdue = [EventWKObject]()
-//                if let overdue = overdue {
-//                    for event in overdue {
-//                        if let wke = EventToWKObjectAdapter(event: event).returnWKObject() {
-//                            wkOverdue.append(wke)
-//                        }
-//                    }
-//                }
-//
-//                NSKeyedArchiver.setClassName("EventWKObject", for: EventWKObject.self)
-//                let archivedUpcoming = NSKeyedArchiver.archivedData(withRootObject: wkUpcoming)
-//                let archivedOverdue = NSKeyedArchiver.archivedData(withRootObject: wkOverdue)
-//
-//                let payload: [String: Any] = [UserInfoKey.payload : ["upcoming": archivedUpcoming, "overdue": archivedOverdue]]
-//
-//                replyHandler(payload)
-//            }
         }
     }
 }
