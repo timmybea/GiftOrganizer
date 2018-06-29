@@ -28,6 +28,10 @@
 		B0110BC9208F9DA700775DA0 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0110BC8208F9DA700775DA0 /* NotificationController.swift */; };
 		B0110BCB208F9DA700775DA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0110BCA208F9DA700775DA0 /* Assets.xcassets */; };
 		B0110BD0208F9DA700775DA0 /* GiftyWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B0110BB3208F9DA700775DA0 /* GiftyWatch.app */; };
+		B012DAA620A0050000FDC108 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012DAA220A0046300FDC108 /* WatchConnectivityService.swift */; };
+		B012DAA720A0050000FDC108 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012DAA420A0049300FDC108 /* Options.swift */; };
+		B012DAA820A0050400FDC108 /* WatchConnectivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012DAA220A0046300FDC108 /* WatchConnectivityService.swift */; };
+		B012DAA920A0050400FDC108 /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012DAA420A0049300FDC108 /* Options.swift */; };
 		B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5731EFF21E300107B64 /* CustomCalendar.swift */; };
 		B013B5761EFF221000107B64 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5751EFF221000107B64 /* CustomCalendarCell.swift */; };
 		B013B57A1EFF23AB00107B64 /* ScheduledTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B013B5791EFF23AB00107B64 /* ScheduledTimer.swift */; };
@@ -91,10 +95,6 @@
 		B08B999A20577C5300779C6C /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B08B999820577C5300779C6C /* MainInterface.storyboard */; };
 		B08B999E20577C5300779C6C /* GiftyNotificationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B08B999020577C5300779C6C /* GiftyNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B08EC8B3209F85AA00067611 /* ConnectivityMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08EC8B2209F85AA00067611 /* ConnectivityMediator.swift */; };
-		B08EC8B6209F904700067611 /* TDBWatchConnectivityiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */; };
-		B08EC8B7209F904700067611 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B08EC8BA209F909400067611 /* TDBConnectivityWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */; };
-		B08EC8BB209F909400067611 /* TDBConnectivityWatchOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B09ECEB81FDF5F65009B15B9 /* CustomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */; };
 		B0A03BBE209E1F1200FC53B0 /* ConnectivityCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */; };
 		B0A03BBF209E1F3800FC53B0 /* ConnectivityCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */; };
@@ -215,7 +215,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B08EC8BB209F909400067611 /* TDBConnectivityWatchOS.framework in Embed Frameworks */,
 				B00BDA082093BF1100D0B20F /* GiftyWatchBridge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -249,7 +248,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B08EC8B7209F904700067611 /* TDBWatchConnectivityiOS.framework in Embed Frameworks */,
 				B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -298,6 +296,8 @@
 		B0110BCA208F9DA700775DA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0110BCC208F9DA700775DA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0110BCD208F9DA700775DA0 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		B012DAA220A0046300FDC108 /* WatchConnectivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityService.swift; sourceTree = "<group>"; };
+		B012DAA420A0049300FDC108 /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		B013B5731EFF21E300107B64 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		B013B5751EFF221000107B64 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
 		B013B5771EFF233200107B64 /* DateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHandler.swift; sourceTree = "<group>"; };
@@ -368,8 +368,6 @@
 		B08B999920577C5300779C6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		B08B999B20577C5300779C6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B08EC8B2209F85AA00067611 /* ConnectivityMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityMediator.swift; sourceTree = "<group>"; };
-		B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBWatchConnectivityiOS.framework; sourceTree = "<group>"; };
-		B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TDBConnectivityWatchOS.framework; sourceTree = "<group>"; };
 		B09ECEB71FDF5F65009B15B9 /* CustomTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewController.swift; sourceTree = "<group>"; };
 		B0A03BBD209E1F1200FC53B0 /* ConnectivityCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityCommand.swift; sourceTree = "<group>"; };
 		B0A0CB861FDDF9600000CE03 /* ChartReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartReportCell.swift; sourceTree = "<group>"; };
@@ -436,7 +434,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B08EC8BA209F909400067611 /* TDBConnectivityWatchOS.framework in Frameworks */,
 				B00BDA062093BF1100D0B20F /* GiftyWatchBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -447,7 +444,6 @@
 			files = (
 				B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */,
 				B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */,
-				B08EC8B6209F904700067611 /* TDBWatchConnectivityiOS.framework in Frameworks */,
 				B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */,
 				842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */,
 			);
@@ -559,6 +555,8 @@
 				B0110BCC208F9DA700775DA0 /* Info.plist */,
 				B0110BCD208F9DA700775DA0 /* PushNotificationPayload.apns */,
 				B0E7B0D12097795200540EA7 /* EventWKRowController.swift */,
+				B012DAA220A0046300FDC108 /* WatchConnectivityService.swift */,
+				B012DAA420A0049300FDC108 /* Options.swift */,
 			);
 			path = "GiftyWatch Extension";
 			sourceTree = "<group>";
@@ -613,8 +611,6 @@
 		B041F75A1EF899F500A3E332 = {
 			isa = PBXGroup;
 			children = (
-				B08EC8B8209F907700067611 /* TDBConnectivityWatchOS.framework */,
-				B08EC8B4209F903800067611 /* TDBWatchConnectivityiOS.framework */,
 				B0DBFB7D201127F6009442F4 /* GiftyBridge */,
 				B00BDA002093BF1100D0B20F /* GiftyWatchBridge */,
 				B041F7651EF899F500A3E332 /* Gifty */,
@@ -1561,9 +1557,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B012DAA820A0050400FDC108 /* WatchConnectivityService.swift in Sources */,
 				B0A7FEE220968947001A75F5 /* Theme.swift in Sources */,
 				B0A7FEE420968CAD001A75F5 /* EventWKObject.swift in Sources */,
 				B0A03BBE209E1F1200FC53B0 /* ConnectivityCommand.swift in Sources */,
+				B012DAA920A0050400FDC108 /* Options.swift in Sources */,
 				B0E7B0D320977CEA00540EA7 /* DateHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1705,6 +1703,8 @@
 				B0151DC3209019E60032D054 /* Theme.swift in Sources */,
 				B00B53E92011350400A2301F /* PersonEventModel.xcdatamodeld in Sources */,
 				B0DBFB8C201128A6009442F4 /* CoreDataStorage.swift in Sources */,
+				B012DAA720A0050000FDC108 /* Options.swift in Sources */,
+				B012DAA620A0050000FDC108 /* WatchConnectivityService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1877,6 +1877,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2733C6P24Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = GiftyWatch_Extension;
 				INFOPLIST_FILE = GiftyWatch/Info.plist;
@@ -1900,6 +1904,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2733C6P24Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = GiftyWatch_Extension;
 				INFOPLIST_FILE = GiftyWatch/Info.plist;

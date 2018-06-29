@@ -9,7 +9,6 @@
 import UIKit
 import GiftyBridge
 import CoreData
-import TDBWatchConnectivityiOS
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

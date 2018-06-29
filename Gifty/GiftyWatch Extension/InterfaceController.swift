@@ -9,7 +9,6 @@
 import WatchKit
 import Foundation
 import GiftyWatchBridge
-import TDBConnectivityWatchOS
 
 class InterfaceController: WKInterfaceController {
     

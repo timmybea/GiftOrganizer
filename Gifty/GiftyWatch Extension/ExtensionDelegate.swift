@@ -7,7 +7,7 @@
 //
 
 import WatchKit
-import TDBConnectivityWatchOS
+import GiftyWatchBridge
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 

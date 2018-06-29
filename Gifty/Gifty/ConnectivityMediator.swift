@@ -8,7 +8,6 @@
 
 import Foundation
 import GiftyBridge
-import TDBWatchConnectivityiOS
 
 class ConnectivityMediator {
     
