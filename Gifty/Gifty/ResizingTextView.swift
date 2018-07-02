@@ -11,6 +11,7 @@ import GiftyBridge
 
 protocol ResizingTextViewDelegate {
     func resizeToHeight(_ height: CGFloat)
+    func didBeginEditing()
 }
 
 class ResizingTextView: UIView {
@@ -98,7 +99,16 @@ extension ResizingTextView : UITextViewDelegate {
         if textView.text == placeholder {
             textView.text = ""
         }
+        
+        self.delegate?.didBeginEditing()
+        
         return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == "" || textView.text == nil {
+            textView.text = placeholder
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

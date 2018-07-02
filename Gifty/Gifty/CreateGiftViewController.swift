@@ -291,20 +291,20 @@ class CreateGiftViewController: CustomViewController {
             //scroll to bottom <<<
             //print("selected textfield: \(self.selectedTF)")
             
-            var textFieldOriginY: CGFloat = 0
             
             switch self.selectedTF {
-            case .giftName?: textFieldOriginY = self.giftNameTF.frame.origin.y
-            case .giftDescription?: textFieldOriginY = self.detailsTextView.frame.origin.y
-            case .personName?: textFieldOriginY = (self.autoCompletePerson?.frame.origin.y) ?? 0.0
-            default: textFieldOriginY = 0.0
+            case .giftDescription?: scrollToBottom()
+            case .personName?: scrollToBottom()
+            default: print("do not scroll")
             }
-            
-//            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - pad - textFieldOriginY)
-//            scrollView.setContentOffset(bottomOffset, animated: true)
         } else {
             scrollView.frame = scrollViewFrame
         }
+    }
+    
+    private func scrollToBottom() {
+        let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.frame.size.height)
+        scrollView.setContentOffset(bottomOffset, animated: true)
     }
     
     @objc
@@ -451,11 +451,9 @@ extension CreateGiftViewController: UITextFieldDelegate {
         self.selectedTF = nil
     }
     
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case giftNameTF: self.selectedTF = .giftName
-        case detailsTextView: self.selectedTF = .giftDescription
         case autoCompletePerson?.autoCompleteTF: self.selectedTF = .personName
         default:
             self.selectedTF = nil
@@ -517,6 +515,10 @@ extension CreateGiftViewController: UIImagePickerControllerDelegate, UINavigatio
 
 //MARK: Resizing Text View Delegate
 extension CreateGiftViewController : ResizingTextViewDelegate {
+    
+    func didBeginEditing() {
+        self.selectedTF = .giftDescription
+    }
     
     func resizeToHeight(_ height: CGFloat) {
         
