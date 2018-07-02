@@ -105,6 +105,9 @@ extension ResizingTextView : UITextViewDelegate {
         
         if text == "\n" {
             textView.resignFirstResponder()
+            if textView.text == "" || textView.text == nil {
+                textView.text = placeholder
+            }
             return true
         }
         

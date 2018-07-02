@@ -26,6 +26,14 @@ class CreateGiftViewController: CustomViewController {
         self.person = person
     }
     
+    private enum GiftTextFields {
+        case giftName
+        case giftDescription
+        case personName
+    }
+    
+    private var selectedTF: GiftTextFields? = nil
+    
     var delegate: CreateGiftViewControllerDelegate?
     
     private var mode: CreateGiftModes = .newGiftPersonUnknown
@@ -280,9 +288,20 @@ class CreateGiftViewController: CustomViewController {
                 self.view.layoutIfNeeded()
             })
             
-            //scroll to bottom
-            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - pad - (autoCompletePerson?.frame.origin.y)!)
-            scrollView.setContentOffset(bottomOffset, animated: true)
+            //scroll to bottom <<<
+            //print("selected textfield: \(self.selectedTF)")
+            
+            var textFieldOriginY: CGFloat = 0
+            
+            switch self.selectedTF {
+            case .giftName?: textFieldOriginY = self.giftNameTF.frame.origin.y
+            case .giftDescription?: textFieldOriginY = self.detailsTextView.frame.origin.y
+            case .personName?: textFieldOriginY = (self.autoCompletePerson?.frame.origin.y) ?? 0.0
+            default: textFieldOriginY = 0.0
+            }
+            
+//            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - pad - textFieldOriginY)
+//            scrollView.setContentOffset(bottomOffset, animated: true)
         } else {
             scrollView.frame = scrollViewFrame
         }
@@ -428,8 +447,21 @@ extension CreateGiftViewController: UITextFieldDelegate {
         textField.text = capitalized
         
         self.giftName = capitalized
+        
+        self.selectedTF = nil
     }
     
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case giftNameTF: self.selectedTF = .giftName
+        case detailsTextView: self.selectedTF = .giftDescription
+        case autoCompletePerson?.autoCompleteTF: self.selectedTF = .personName
+        default:
+            self.selectedTF = nil
+        }
+        
+    }
 }
 
 //MARK: ImagePicker delegate methods
