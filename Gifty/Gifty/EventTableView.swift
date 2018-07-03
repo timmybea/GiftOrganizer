@@ -45,6 +45,10 @@ class EventTableView: UIView {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                
+                if let selected = self.selectedIndexPath {
+                    self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: selected)
+                }
             }
         }
     }
@@ -185,8 +189,9 @@ extension EventTableView: UITableViewDelegate, UITableViewDataSource {
             CATransaction.begin()
             
             CATransaction.setCompletionBlock {
-                let cell = tableView.cellForRow(at: indexPath) as! EventTableViewCell
-                cell.showActionsButtonsView()
+                if let cell = tableView.cellForRow(at: indexPath) as? EventTableViewCell {
+                    cell.showActionsButtonsView()
+                }
             }
             
             tableView.beginUpdates()
