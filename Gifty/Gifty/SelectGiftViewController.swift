@@ -107,7 +107,7 @@ class SelectGiftViewController: CustomViewController {
         
         view.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: safeAreaTop + navHeight),
             segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
             segmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad)
             ])

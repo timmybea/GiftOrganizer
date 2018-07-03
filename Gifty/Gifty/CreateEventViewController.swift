@@ -69,11 +69,7 @@ class CreateEventViewController: CustomViewController {
     }
     
     private var tabBarHeight: CGFloat! {
-        return tabBarController?.tabBar.bounds.height ?? 48
-    }
-    
-    private var navHeight: CGFloat! {
-        return navigationController?.navigationBar.frame.height
+        return tabBarController?.tabBar.bounds.height ?? 0.0
     }
     
     private let statusHeight = UIApplication.shared.statusBarFrame.height

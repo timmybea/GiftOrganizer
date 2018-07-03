@@ -12,6 +12,7 @@ import GiftyBridge
 //MARK: layout constants
 let pad: CGFloat = 16
 let smallPad: CGFloat = 12
+let safeAreaTop = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 40
 
 enum ImageNames: String {
     case horizontalBGGradient = "bg_horizontal"

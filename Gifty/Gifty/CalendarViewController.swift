@@ -18,8 +18,6 @@ class CalendarViewController: CustomViewController {
     var monthYearString = ""
     
     lazy var calendar: CustomCalendar = {
-        let safeAreaTop = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 40
-        let navHeight = navigationController?.navigationBar.frame.height ?? 70
         let frame = CGRect(x: pad, y: safeAreaTop + navHeight, width: self.view.bounds.width - (2 * pad), height: 280)
         let calendar = CustomCalendar(frame: frame)
         calendar.delegate = self

@@ -26,6 +26,10 @@ class CustomViewController: UIViewController {
         return titleLabel
     }()
     
+    lazy var navHeight: CGFloat = {
+        return navigationController?.navigationBar.frame.height ?? 0.0
+    }()
+    
     func setTitleLabelPosition(withSize size: CGSize) {
 
         var labelX: CGFloat = -20.0

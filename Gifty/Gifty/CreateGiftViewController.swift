@@ -48,10 +48,6 @@ class CreateGiftViewController: CustomViewController {
         return tabBarController?.tabBar.bounds.height ?? 48
     }
     
-    private var navHeight: CGFloat! {
-        return navigationController?.navigationBar.frame.height
-    }
-    
     private let statusHeight = UIApplication.shared.statusBarFrame.height
     
     private var saveButton: ButtonTemplate!
