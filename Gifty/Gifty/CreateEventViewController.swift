@@ -349,7 +349,7 @@ class CreateEventViewController: CustomViewController {
     //MARK: check sufficient information to build event
     func checkSufficientInformationToCreateEvent(completion: (_ success: Bool, _ error: CustomErrors.createEvent?) -> Void) {
         
-        guard self.eventType != nil else {
+        guard self.eventType != nil && self.eventType != "" else {
             completion(false, CustomErrors.createEvent.noEventType)
             return
         }

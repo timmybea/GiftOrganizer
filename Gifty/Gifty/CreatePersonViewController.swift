@@ -59,6 +59,7 @@ class CreatePersonViewController: CustomViewController {
         imageControl.addTarget(self, action: #selector(profileImageTouchDown), for: .touchDown)
         imageControl.addTarget(self, action: #selector(profileImageTouchUpInside), for: .touchUpInside)
         imageControl.layer.masksToBounds = true
+        imageControl.setContentMode(.scaleAspectFill) //<<<
         return imageControl
     }()
     
