@@ -57,6 +57,7 @@ class CreatePersonViewController: CustomViewController {
             imageControl.setDefaultImage(image)
         }
         imageControl.addTarget(self, action: #selector(profileImageTouchDown), for: .touchDown)
+        imageControl.addTarget(self, action: #selector(profileImageTouchUpOutside), for: .touchUpOutside)
         imageControl.addTarget(self, action: #selector(profileImageTouchUpInside), for: .touchUpInside)
         imageControl.layer.masksToBounds = true
         imageControl.setContentMode(.scaleAspectFill) //<<<
@@ -415,11 +416,8 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
     
     @objc func profileImageTouchUpInside() {
         
-        if self.profileImageView.isImageSelected == false {
-            if let image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue) {
-                self.profileImageView.setDefaultImage(image)
-            }
-        }
+        returnToDefaultProfileImage()
+        
         let options = ["Camera", "Photo library"]
         ActionSheetService.actionSheet(with: options, presentedIn: self) { (option) in
             switch option {
@@ -429,6 +427,19 @@ extension CreatePersonViewController: UIImagePickerControllerDelegate, UINavigat
             }
         }
     }
+    
+    @objc func profileImageTouchUpOutside() {
+        returnToDefaultProfileImage()
+    }
+    
+    private func returnToDefaultProfileImage() {
+        if self.profileImageView.isImageSelected == false {
+            if let image = UIImage(named: ImageNames.profileImagePlaceHolder.rawValue) {
+                self.profileImageView.setDefaultImage(image)
+            }
+        }
+    }
+    
     
     private func launchImagePicker() {
         let picker = UIImagePickerController()

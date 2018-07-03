@@ -34,6 +34,7 @@ class EventDisplayViewCreatePerson: EventTableView {
         add.setTintColor(Theme.colors.lightToneTwo.color)
         add.addTarget(self, action: #selector(addButtonTouchedDown), for: .touchDown)
         add.addTarget(self, action: #selector(addButtonTouchedUpInside), for: .touchUpInside)
+        add.addTarget(self, action: #selector(addButtonTouchedUpOutside), for: .touchUpOutside)
         return add
     }()
     
@@ -127,8 +128,16 @@ extension EventDisplayViewCreatePerson {
     }
     
     @objc func addButtonTouchedUpInside() {
-        addButton.setTintColor(Theme.colors.lightToneTwo.color)
+        touchedUp()
         self.eventDisplayViewPersonDelegate?.didTouchAddEventButton()
+    }
+    
+    @objc func addButtonTouchedUpOutside() {
+        touchedUp()
+    }
+    
+    private func touchedUp() {
+        addButton.setTintColor(Theme.colors.lightToneTwo.color)
     }
 }
 

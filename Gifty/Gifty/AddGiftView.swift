@@ -92,8 +92,9 @@ class AddGiftView: UIView {
         
         layoutViews()
         
-        touchView.addTarget(self, action: #selector(didTouchDownSelf), for: .touchDown)
-        touchView.addTarget(self, action: #selector(didTouchUpSelf), for: .touchUpInside)
+        touchView.addTarget(self, action: #selector(didTouchDown), for: .touchDown)
+        touchView.addTarget(self, action: #selector(didTouchUpInside), for: .touchUpInside)
+        touchView.addTarget(self, action: #selector(didTouchUpOutside), for: .touchUpOutside)
     }
     
     private func layoutViews() {
@@ -224,7 +225,7 @@ class AddGiftView: UIView {
 extension AddGiftView {
     
     @objc
-    func didTouchDownSelf() {
+    func didTouchDown() {
 
         self.giftImage.tintColor = Theme.colors.lightToneOne.color
         self.label.textColor = Theme.colors.lightToneOne.color
@@ -232,15 +233,23 @@ extension AddGiftView {
     }
     
     @objc
-    func didTouchUpSelf() {
+    func didTouchUpInside() {
         
-        self.giftImage.tintColor = UIColor.white
-        self.label.textColor = UIColor.white
-        self.underline.backgroundColor = UIColor.white
+        touchUp()
         
         if self.delegate != nil {
             self.delegate?.addGiftViewWasTouched()
         }
+    }
+    
+    @objc func didTouchUpOutside() {
+        touchUp()
+    }
+    
+    private func touchUp() {
+        self.giftImage.tintColor = UIColor.white
+        self.label.textColor = UIColor.white
+        self.underline.backgroundColor = UIColor.white
     }
 }
 

@@ -69,8 +69,9 @@ class AddDateView: UIView {
         
         layoutViews()
         
-        touchView.addTarget(self, action: #selector(didTouchDownSelf), for: .touchDown)
-        touchView.addTarget(self, action: #selector(didTouchUpSelf), for: .touchUpInside)
+        touchView.addTarget(self, action: #selector(didTouchDown), for: .touchDown)
+        touchView.addTarget(self, action: #selector(didTouchUpInside), for: .touchUpInside)
+        touchView.addTarget(self, action: #selector(didTouchUpOutside), for: .touchUpOutside)
         recurringEventSwitch.addTarget(self, action: #selector(switchDidChange), for: .valueChanged)
     }
     
@@ -135,18 +136,26 @@ extension AddDateView {
 //MARK: touchViewtouched (protocol method called)
 extension AddDateView {
     
-    @objc func didTouchDownSelf() {
+    @objc func didTouchDown() {
         
         self.calendarImage.tintColor = Theme.colors.lightToneOne.color
         self.label.textColor = Theme.colors.lightToneOne.color
     }
     
-    @objc func didTouchUpSelf() {
-        self.calendarImage.tintColor = UIColor.white
-        self.label.textColor = UIColor.white
+    @objc func didTouchUpInside() {
+        didTouchUp()
         
         if self.delegate != nil {
             self.delegate?.addDateViewWasTouched()
         }
+    }
+    
+    @objc func didTouchUpOutside() {
+        didTouchUp()
+    }
+    
+    private func didTouchUp() {
+        self.calendarImage.tintColor = UIColor.white
+        self.label.textColor = UIColor.white
     }
 }
