@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Grant access to take and assign images from camera</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -35,10 +33,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Grant access to take and assign images from camera</string>
 	<key>NSContactsUsageDescription</key>
-	<string>&quot;Grant access to add friends and family from existing contacts&quot;</string>
+	<string>"Grant access to add friends and family from existing contacts"</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>&quot;Grant access to assign profile images from photo library&quot;</string>
+	<string>"Grant access to assign profile images from photo library"</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

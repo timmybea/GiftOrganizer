@@ -1821,7 +1821,7 @@
 				INFOPLIST_FILE = GiftyWatchBridge/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = timbeals.GiftyWatchBridge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.GiftyWatchBridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1855,7 +1855,7 @@
 				INFOPLIST_FILE = GiftyWatchBridge/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = timbeals.GiftyWatchBridge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.GiftyWatchBridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1884,7 +1884,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = GiftyWatch_Extension;
 				INFOPLIST_FILE = GiftyWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1911,7 +1911,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				IBSC_MODULE = GiftyWatch_Extension;
 				INFOPLIST_FILE = GiftyWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1936,7 +1936,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "GiftyWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1961,7 +1961,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = "GiftyWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2095,7 +2095,7 @@
 				INFOPLIST_FILE = Gifty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Gifty/BridgingHeader.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -2120,7 +2120,7 @@
 				INFOPLIST_FILE = Gifty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = Gifty/BridgingHeader.h;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -2205,7 +2205,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GiftyNotificationExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.GiftyNotificationExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.giftyNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -2224,7 +2224,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = GiftyNotificationExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.GiftyNotificationExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.giftyNotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -2252,7 +2252,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.GiftyBridge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.GiftyBridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -2282,7 +2282,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.GiftyBridge;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.GiftyBridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -2305,7 +2305,7 @@
 				INFOPLIST_FILE = GiftyTodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.GiftyTodayExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.GiftyTodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -2326,7 +2326,7 @@
 				INFOPLIST_FILE = GiftyTodayExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tapp.timbeals.Gifty.GiftyTodayExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty.GiftyTodayExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;

@@ -50,6 +50,7 @@ class CustomViewController: UIViewController {
     func setupBackgroundView() {
         
         let imageView = UIImageView()
+        
         imageView.image =  UIImage(named: ImageNames.verticalBGGradient.rawValue)
         
         imageView.contentMode = .scaleAspectFill

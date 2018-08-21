@@ -53,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         InterstitialService.shared.delegate = self
         InterstitialService.shared.createAndLoadInterstitial()
         InterstitialService.shared.setupTimer()
+        InterstitialService.shared.showInterstitials = false //comment this out for correct operation
         
         return true
     }

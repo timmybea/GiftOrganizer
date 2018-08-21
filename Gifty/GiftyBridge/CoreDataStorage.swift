@@ -76,7 +76,7 @@ public class CoreDataStorage: NSObject, DataPersistence {
     }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
-        guard let frameworkBundle = Bundle(identifier: "com.tapp.timbeals.GiftyBridge") else {
+        guard let frameworkBundle = Bundle(identifier: "com.roobicreative.GiftyBridge") else {
             fatalError("Error finding Bundle for bridge")
         }
         guard let modelURL = frameworkBundle.url(forResource: "PersonEventModel", withExtension: "momd") else {
@@ -95,7 +95,7 @@ public class CoreDataStorage: NSObject, DataPersistence {
             NSMigratePersistentStoresAutomaticallyOption: true,
             NSInferMappingModelAutomaticallyOption: true
         ]
-        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.tapp.timbeals.Gifty")!
+        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.roobicreative.gifty")!
         let url = directory.appendingPathComponent("Gifty.sqlite")
         do {
             try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
