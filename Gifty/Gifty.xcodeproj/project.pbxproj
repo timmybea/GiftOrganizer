@@ -126,6 +126,7 @@
 		B0DA02B1206588800084A2FF /* ActionSheetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B0206588800084A2FF /* ActionSheetService.swift */; };
 		B0DA02B32065A6EB0084A2FF /* EventActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
+		B0DBD932212F5BAA0099711A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0DBD931212F5BAA0099711A /* GoogleService-Info.plist */; };
 		B0DBFB80201127F6009442F4 /* GiftyBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = B0DBFB7E201127F6009442F4 /* GiftyBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B0DBFB84201127F6009442F4 /* GiftyBridge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -399,6 +400,7 @@
 		B0DA02B0206588800084A2FF /* ActionSheetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetService.swift; sourceTree = "<group>"; };
 		B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventActivityView.swift; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		B0DBD931212F5BAA0099711A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GiftyBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DBFB7E201127F6009442F4 /* GiftyBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftyBridge.h; sourceTree = "<group>"; };
 		B0DBFB7F201127F6009442F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -528,6 +530,7 @@
 		B00FF3E6202CC643004CF10C /* Interstitials */ = {
 			isa = PBXGroup;
 			children = (
+				B0DBD931212F5BAA0099711A /* GoogleService-Info.plist */,
 				B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */,
 				B00FF3E7202CC777004CF10C /* GoogleAdService.swift */,
 				B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */,
@@ -1113,7 +1116,6 @@
 				B041F7601EF899F500A3E332 /* Frameworks */,
 				B041F7611EF899F500A3E332 /* Resources */,
 				7CCFF5A522DD2BA77A04BC9B /* [CP] Embed Pods Frameworks */,
-				17912AD8F988054A4664DA57 /* [CP] Copy Pods Resources */,
 				B0F0046E20054BC900D9B6D0 /* Embed App Extensions */,
 				B0DBFB88201127F6009442F4 /* Embed Frameworks */,
 				B0110BD8208F9DA700775DA0 /* Embed Watch Content */,
@@ -1139,8 +1141,6 @@
 				B041F7731EF899F500A3E332 /* Sources */,
 				B041F7741EF899F500A3E332 /* Frameworks */,
 				B041F7751EF899F500A3E332 /* Resources */,
-				5A2D721B4BFEEB2C7338ABC1 /* [CP] Embed Pods Frameworks */,
-				FC8D4739438BAD76F59C4F2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1160,8 +1160,6 @@
 				B041F77E1EF899F500A3E332 /* Sources */,
 				B041F77F1EF899F500A3E332 /* Frameworks */,
 				B041F7801EF899F500A3E332 /* Resources */,
-				F7CD4818F22061904F23FEAC /* [CP] Embed Pods Frameworks */,
-				B349979335B91F15ABCD939B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1232,7 +1230,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Tim Beals";
 				TargetAttributes = {
 					B00BD9FE2093BF1100D0B20F = {
@@ -1357,6 +1355,7 @@
 				B041F7711EF899F500A3E332 /* LaunchScreen.storyboard in Resources */,
 				B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */,
 				B041F76E1EF899F500A3E332 /* PersonAssets.xcassets in Resources */,
+				B0DBD932212F5BAA0099711A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1401,21 +1400,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		17912AD8F988054A4664DA57 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gifty/Pods-Gifty-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		55E0858435C834C6E7E59E5A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1434,39 +1418,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5A2D721B4BFEEB2C7338ABC1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7CCFF5A522DD2BA77A04BC9B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Gifty/Pods-Gifty-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Gifty/Pods-Gifty-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/RKPieChart/RKPieChart.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKPieChart.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gifty/Pods-Gifty-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Gifty/Pods-Gifty-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		924B261CB98E7444897F96AB /* [CP] Check Pods Manifest.lock */ = {
@@ -1503,51 +1476,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B349979335B91F15ABCD939B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiftyUITests/Pods-GiftyUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F7CD4818F22061904F23FEAC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiftyUITests/Pods-GiftyUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FC8D4739438BAD76F59C4F2D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GiftyTests/Pods-GiftyTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1985,6 +1913,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1992,6 +1921,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -2042,6 +1972,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2049,6 +1980,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -2082,7 +2014,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DFE808D0507F6B5715849CB5 /* Pods-Gifty.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gifty/Gifty.entitlements;
@@ -2093,7 +2025,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Gifty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2107,7 +2039,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 168833BE887AA8C64532C8D8 /* Pods-Gifty.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Gifty/Gifty.entitlements;
@@ -2118,7 +2050,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Gifty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roobicreative.gifty;
 				PRODUCT_NAME = "$(TARGET_NAME)";

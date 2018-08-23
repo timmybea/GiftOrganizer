@@ -23,17 +23,18 @@ class GoogleAdService: NSObject {
     private var isShowing = false
     
     override init() {
-        GADMobileAds.configure(withApplicationID: "ca-app-pub-3940256099942544~1458002511")
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-7286043563325113~1169227545")
     }
     
     func createAndLoadInterstitial() {
         
         let request = GADRequest()
         //test device - window/devices/identifier
-        request.testDevices = [kGADSimulatorID]
+        request.testDevices = [kGADSimulatorID, "4d9da18ac4cce21e75ebc2c416ebe110"]
+        request.tag(forChildDirectedTreatment: true)
         
         //you need to create an adMob account and register the app
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-7286043563325113/5837416080")
         interstitial.delegate = self
         interstitial.load(request)
         self.interstitialAd = interstitial

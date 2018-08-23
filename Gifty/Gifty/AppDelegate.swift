@@ -9,6 +9,7 @@
 import UIKit
 import GiftyBridge
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -49,11 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         WatchConnectivityService.shared.delegate = self
         _ = ConnectivityMediator.shared //instantiate mediator to observe notifications
         
+    
         //MARK: setup interstitials
+        FirebaseApp.configure()
+        
         InterstitialService.shared.delegate = self
         InterstitialService.shared.createAndLoadInterstitial()
         InterstitialService.shared.setupTimer()
-        InterstitialService.shared.showInterstitials = false //comment this out for correct operation
         
         return true
     }

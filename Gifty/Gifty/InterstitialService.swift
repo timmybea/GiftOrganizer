@@ -21,9 +21,6 @@ class InterstitialService: NSObject {
     var fireInterval: TimeInterval = 60.0 * 3
     
     var showInterstitials: Bool {
-        set {
-            SettingsHandler.shared.showInterstitials = newValue
-        }
         get {
             return SettingsHandler.shared.showInterstitials
         }
