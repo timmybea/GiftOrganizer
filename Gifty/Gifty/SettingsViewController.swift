@@ -123,7 +123,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.delegate = self
             cell?.args = cellType.args
             return cell!
-            
+        case .popOver:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "segueSettingsCell") as? SegueSettingsTableViewCell
+            cell?.args = cellType.args
+            return cell!
         }
     }
 

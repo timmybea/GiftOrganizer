@@ -107,6 +107,9 @@
 		B0AFD7D11FBA5E7A002F89FF /* SettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFD7D01FBA5E7A002F89FF /* SettingsHandler.swift */; };
 		B0B19205207FD58000F2A468 /* EventDeepCopy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B19204207FD58000F2A468 /* EventDeepCopy.swift */; };
 		B0C250F420018EE400E741DA /* DispatchQueueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */; };
+		B0C5361621309554006FEB48 /* IAPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5361521309554006FEB48 /* IAPService.swift */; };
+		B0C5361821309590006FEB48 /* Extension_SK.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C5361721309590006FEB48 /* Extension_SK.swift */; };
+		B0C5361A213096FC006FEB48 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C53619213096FC006FEB48 /* StoreKit.framework */; };
 		B0CA63211F0D69C500C1A2B1 /* BudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */; };
 		B0CA63261F0D737300C1A2B1 /* ManagedObjectBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */; };
 		B0CA63281F0D7D3200C1A2B1 /* UIImage + Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CA63271F0D7D3200C1A2B1 /* UIImage + Scale.swift */; };
@@ -380,6 +383,9 @@
 		B0B19204207FD58000F2A468 /* EventDeepCopy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDeepCopy.swift; sourceTree = "<group>"; };
 		B0C205761F22D2C200C3E7ED /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		B0C250F320018EE400E741DA /* DispatchQueueHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueHandler.swift; sourceTree = "<group>"; };
+		B0C5361521309554006FEB48 /* IAPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPService.swift; sourceTree = "<group>"; };
+		B0C5361721309590006FEB48 /* Extension_SK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension_SK.swift; sourceTree = "<group>"; };
+		B0C53619213096FC006FEB48 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B0CA63201F0D69C500C1A2B1 /* BudgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudgetView.swift; sourceTree = "<group>"; };
 		B0CA63231F0D70EB00C1A2B1 /* PersonEventModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonEventModel.xcdatamodel; sourceTree = "<group>"; };
 		B0CA63251F0D737300C1A2B1 /* ManagedObjectBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectBuilder.swift; sourceTree = "<group>"; };
@@ -446,6 +452,7 @@
 			files = (
 				B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */,
 				B0DBFB83201127F6009442F4 /* GiftyBridge.framework in Frameworks */,
+				B0C5361A213096FC006FEB48 /* StoreKit.framework in Frameworks */,
 				B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */,
 				842CF645AC072AA97B0BD6E6 /* Pods_Gifty.framework in Frameworks */,
 			);
@@ -805,6 +812,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		B0C5361421309535006FEB48 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				B0C5361521309554006FEB48 /* IAPService.swift */,
+				B0C5361721309590006FEB48 /* Extension_SK.swift */,
+			);
+			name = IAP;
+			sourceTree = "<group>";
+		};
 		B0D514FB1F378000008A88A4 /* CalendarTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -978,6 +994,7 @@
 		B0D5150F1F378A63008A88A4 /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
+				B0C5361421309535006FEB48 /* IAP */,
 				B08833081FE48C570085BBD9 /* Model */,
 				B0AFD7951FBA31D1002F89FF /* View */,
 				B041F7941EF89A0800A3E332 /* Controller */,
@@ -1018,6 +1035,7 @@
 		D97FE7C96A58FFBC09172875 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B0C53619213096FC006FEB48 /* StoreKit.framework */,
 				B019FC3D1F05AD8300805687 /* ContactsUI.framework */,
 				B019FC3B1F05AD6B00805687 /* Contacts.framework */,
 				66E0F7DFB3BDD26E6515B037 /* Pods_Gifty.framework */,
@@ -1255,6 +1273,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
@@ -1528,6 +1549,7 @@
 				B0E7B0D020976DD300540EA7 /* EventToWKObjectAdapter.swift in Sources */,
 				B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */,
 				B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */,
+				B0C5361821309590006FEB48 /* Extension_SK.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
 				B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */,
@@ -1583,6 +1605,7 @@
 				B07042081F06DAE000D6A027 /* EventTableView.swift in Sources */,
 				B08695AB1FDA2D6F00080855 /* PieChartCell.swift in Sources */,
 				B0DA02B1206588800084A2FF /* ActionSheetService.swift in Sources */,
+				B0C5361621309554006FEB48 /* IAPService.swift in Sources */,
 				B06D5B211FE5EF6100C096C9 /* ReturnContainerView.swift in Sources */,
 				B022CF1E2051EDA8003F6F89 /* CENDateTableViewCell.swift in Sources */,
 				B0FAB87E1F620699008EA9A1 /* EventDisplayHeader.swift in Sources */,

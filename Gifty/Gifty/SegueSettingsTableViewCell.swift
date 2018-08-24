@@ -36,7 +36,8 @@ class SegueSettingsTableViewCell: UITableViewCell {
         
         self.textLabel?.textColor = Theme.colors.charcoal.color
         self.textLabel!.text = id
-        self.accessoryType = .disclosureIndicator
+        self.accessoryType = args!.contains("popOver") ? .none : .disclosureIndicator
+        
     }
 
 }

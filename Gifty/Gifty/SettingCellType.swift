@@ -23,7 +23,7 @@ struct SettingData {
                                                  SettingCellType(type: .scrollview, args: ["rounding"])]),
                       
                       SettingData(section: "Purchase & Review",
-                                  settingCells: [SettingCellType(type: .segue, args: ["Upgrade to full version"]),
+                                  settingCells: [SettingCellType(type: .popOver, args: ["View upgrade options", "popOver"]),
                                                  SettingCellType(type: .segue, args: ["Review this app"])])
         ]
         return output
@@ -38,6 +38,7 @@ struct SettingCellType {
 
     enum CellType {
         case segue
+        case popOver
         case textfield
         case scrollview
     }
