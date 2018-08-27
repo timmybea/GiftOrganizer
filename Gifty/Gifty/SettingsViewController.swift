@@ -37,6 +37,8 @@ class SettingsViewController: CustomViewController {
     
     var editingTextField: TFSettingsCellID?
 
+    private var customTransitionDelegate = CustomTransitionDelegate()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -133,14 +135,17 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if let segueCell = cell as? SegueSettingsTableViewCell {
-            let destination = CustomTableViewController()
-            if segueCell.identifier == "Groups" {
-                destination.useCase = CustomTableViewController.UseCase.group
-            } else if segueCell.identifier == "Events" {
-                destination.useCase = CustomTableViewController.UseCase.celebration
+            if (segueCell.args!.contains("popOver")) {
+                popOverInAppPurchase()
+            } else {
+                let destination = CustomTableViewController()
+                if segueCell.identifier == "Groups" {
+                    destination.useCase = CustomTableViewController.UseCase.group
+                } else if segueCell.identifier == "Events" {
+                    destination.useCase = CustomTableViewController.UseCase.celebration
+                }
+                self.navigationController?.pushViewController(destination, animated: true)
             }
-            self.navigationController?.pushViewController(destination, animated: true)
-            
         } else if let tfCell = cell as? TextfieldSettingsTableViewCell {
             tfCell.textfield.becomeFirstResponder()
         }
@@ -163,6 +168,16 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
+    }
+    
+    private func popOverInAppPurchase() {
+        let overlayVC = OverlayIAPViewController()
+        self.transitioningDelegate = self.customTransitionDelegate
+        overlayVC.transitioningDelegate = self.customTransitionDelegate
+  //      overlayVC.delegate = self
+        overlayVC.modalPresentationStyle = .custom
+
+        self.present(overlayVC, animated: true, completion: nil)
     }
 }
 

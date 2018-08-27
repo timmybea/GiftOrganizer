@@ -43,6 +43,7 @@
 		B0151DC420901D450032D054 /* GiftyBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DBFB7C201127F6009442F4 /* GiftyBridge.framework */; };
 		B019FC3C1F05AD6B00805687 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3B1F05AD6B00805687 /* Contacts.framework */; };
 		B019FC3E1F05AD8300805687 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B019FC3D1F05AD8300805687 /* ContactsUI.framework */; };
+		B02124FF21346A46007398BD /* OverlayIAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02124FE21346A46007398BD /* OverlayIAPViewController.swift */; };
 		B022CF172051E905003F6F89 /* CENTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */; };
 		B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */; };
 		B022CF1E2051EDA8003F6F89 /* CENDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */; };
@@ -312,6 +313,7 @@
 		B013B5CC1F04497400107B64 /* DropDownTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownTextField.swift; sourceTree = "<group>"; };
 		B019FC3B1F05AD6B00805687 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		B019FC3D1F05AD8300805687 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
+		B02124FE21346A46007398BD /* OverlayIAPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayIAPViewController.swift; sourceTree = "<group>"; };
 		B022CF162051E905003F6F89 /* CENTitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTitleTableViewCell.swift; sourceTree = "<group>"; };
 		B022CF1B2051EB4E003F6F89 /* CENTableViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENTableViewData.swift; sourceTree = "<group>"; };
 		B022CF1D2051EDA8003F6F89 /* CENDateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CENDateTableViewCell.swift; sourceTree = "<group>"; };
@@ -776,6 +778,7 @@
 				B07A55E01F677CFE004BD772 /* ViewControllerAnimatedTransitioning.swift */,
 				B07A55E21F677D5A004BD772 /* PresentationController.swift */,
 				B07A55E41F677DE4004BD772 /* OverlayEventBudgetViewController.swift */,
+				B02124FE21346A46007398BD /* OverlayIAPViewController.swift */,
 				B0A9458A207D30D20051C755 /* OverlayGiftViewController.swift */,
 				B0020BFC2086583B005A5F94 /* OverlayTransferGiftViewController.swift */,
 			);
@@ -1550,6 +1553,7 @@
 				B088330E1FE4B4000085BBD9 /* TextfieldSettingsTableViewCell.swift in Sources */,
 				B07A55E51F677DE4004BD772 /* OverlayEventBudgetViewController.swift in Sources */,
 				B0C5361821309590006FEB48 /* Extension_SK.swift in Sources */,
+				B02124FF21346A46007398BD /* OverlayIAPViewController.swift in Sources */,
 				B013B5741EFF21E300107B64 /* CustomCalendar.swift in Sources */,
 				B088330C1FE495770085BBD9 /* SegueSettingsTableViewCell.swift in Sources */,
 				B022CF1C2051EB4E003F6F89 /* CENTableViewData.swift in Sources */,
