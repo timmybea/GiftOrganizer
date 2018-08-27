@@ -59,7 +59,7 @@ class EventNotificationBuilder {
         EventNotificationUNService.shared.createUNNotification(eventNotification: n)
     }
     
-    func saveChanges(_ dataPersistence: DataPersistence, completion: () -> ()) {
+    func saveChanges(_ dataPersistence: DataPersistence, completion: @escaping () -> ()) {
         dataPersistence.saveToContext(dataPersistence.mainQueueContext) {
             completion()
         }

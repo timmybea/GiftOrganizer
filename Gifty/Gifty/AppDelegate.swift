@@ -28,9 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             for event in recurringEvents {
                 let _ = EventDeepCopy(event: event).copyRecurringEvent()
             }
-            DataPersistenceService.shared.saveToContext(DataPersistenceService.shared.mainQueueContext, completion: {
-                //
-            })
+            
+            DataPersistenceService.shared.saveToContext(DataPersistenceService.shared.mainQueueContext, completion: nil)
         }
         
         window?.rootViewController = setupTabBarController()
@@ -159,6 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+//MARK: Interstitical Service Delegate
 extension AppDelegate: InterstitialServiceDelegate {
     
     func interstitialTimerExecuted() {
@@ -169,6 +169,8 @@ extension AppDelegate: InterstitialServiceDelegate {
     }
 }
 
+
+//MARK: Watch Connectivity Service Delegate
 extension AppDelegate : WatchConnectivityServiceDelegate {
     
     func reply(to message: [String : Any], replyHandler: @escaping ([String : Any]) -> ()) {

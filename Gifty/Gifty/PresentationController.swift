@@ -10,6 +10,8 @@ import UIKit
 
 class CustomPresentationController: UIPresentationController, UIAdaptivePresentationControllerDelegate {
     
+    static var isPresenting = false
+    
     var dimmingView = UIView()
     
     override var shouldPresentInFullscreen: Bool {

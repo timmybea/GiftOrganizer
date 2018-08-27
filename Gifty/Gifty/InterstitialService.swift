@@ -61,13 +61,24 @@ class InterstitialService: NSObject {
     }
     
     func showInterstitial(in vc: UIViewController) {
-        self.adService.showInterstitial(in: vc)
+        if SettingsHandler.shared.launchCount > 4 {
+            var review = SKReviewHandler()
+            review.delegate = self
+            review.requestReview(in: vc)
+        } else {
+            self.adService.showInterstitial(in: vc)
+        }
     }
     
     
     func dispose() {
         self.timer.removeTimerFromRunLoop()
         self.adService.interstitialAd = nil
+    }
+    
+    private func resetWith(timeInterval: TimeInterval) {
+        self.timer.removeTimerFromRunLoop()
+        self.timer.setupInterstitialTimer(timeInterval: timeInterval)
     }
 }
 
@@ -83,12 +94,21 @@ extension InterstitialService: InterstitialTimerDelegate {
 extension InterstitialService: GoogleAdServiceDelegate {
     
     func unableToShow() {
-            self.timer.removeTimerFromRunLoop()
-            self.timer.setupInterstitialTimer(timeInterval: failedToShowInterval)
+        resetWith(timeInterval: failedToShowInterval)
     }
     
     func adWasDismissed() {
-        self.timer.removeTimerFromRunLoop()
-        self.timer.setupInterstitialTimer(timeInterval: fireInterval)
+        resetWith(timeInterval: fireInterval)
+    }
+}
+
+extension InterstitialService : SKReviewHandlerDelegate {
+    
+    func reviewUnableToShow() {
+        resetWith(timeInterval: failedToShowInterval)
+    }
+
+    func reviewShowed() {
+        resetWith(timeInterval: fireInterval)
     }
 }

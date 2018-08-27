@@ -8,10 +8,10 @@
 
 import UIKit
 
-class SettingsHandler: NSObject {
+//MARK: Properties
+class SettingsHandler {
     
-    override private init() {}
-    
+    //public properties
     static let shared = SettingsHandler()
     
     var maxBudget: Int = 0 {
@@ -44,18 +44,45 @@ class SettingsHandler: NSObject {
         }
     }
     
+    var launchCount: Int = 0 {
+        willSet {
+            udStandard.set(newValue, forKey: key.launchCount.rawValue)
+        }
+    }
+    
+
+    //private
+    private init() {}
+    
     private let udStandard = UserDefaults.standard
     
+}
+
+//MARK: Public Interface
+extension SettingsHandler {
+    
     func getSettings() {
-        
+        launchCount = udStandard.object(forKey: key.launchCount.rawValue) as? Int ?? 0
         maxBudget = udStandard.object(forKey: key.maxBudget.rawValue) as? Int ?? 100
         groups = udStandard.object(forKey: key.groups.rawValue) as? [String] ?? ["Colleagues", "Family", "Friends"]
         celebrations = udStandard.object(forKey: key.celebrations.rawValue) as? [String] ?? ["Baby Shower", "Birthday", "Graduation", "Wedding"]
         rounding = udStandard.object(forKey: key.rounding.rawValue) as? Float ?? 0.50
         showInterstitials = udStandard.object(forKey: key.showInterstitials.rawValue) as? Bool ?? true
+        
+        incrementLaunchCount()
+    }
+ 
+}
+
+//MARK: Private Methods
+extension SettingsHandler {
+    
+    private func incrementLaunchCount() {
+        launchCount += 1
     }
     
-    enum key: String {
+    private enum key: String {
+        case launchCount
         case maxBudget
         case groups
         case celebrations

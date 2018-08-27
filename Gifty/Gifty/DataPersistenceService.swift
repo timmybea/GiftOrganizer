@@ -15,9 +15,9 @@ import CoreData
 
 class DataPersistenceService: DataPersistence {
     
-    func saveToContext(_ context: NSManagedObjectContext?, completion: () -> ()) {
+    func saveToContext(_ context: NSManagedObjectContext?, completion: (() -> ())?) {
         self.dataPersistence.saveToContext(context, completion: {
-            completion()
+            completion?()
         })
     }
     

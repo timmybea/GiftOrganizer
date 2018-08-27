@@ -41,7 +41,7 @@ class GoogleAdService: NSObject {
     }
     
     func showInterstitial(in vc: UIViewController) {
-        if vc.presentedViewController != nil {
+        if CustomPresentationController.isPresenting {
             print("VC ALREADY PRESENTING. CANNOT SHOW AD")
             self.delegate?.unableToShow()
         } else {

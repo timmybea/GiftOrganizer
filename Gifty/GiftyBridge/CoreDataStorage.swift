@@ -9,7 +9,7 @@
 import CoreData
 
 public protocol DataPersistence {
-    func saveToContext(_ context: NSManagedObjectContext?, completion: () -> ())
+    func saveToContext(_ context: NSManagedObjectContext?, completion: (() -> Void)?)
     var mainQueueContext: NSManagedObjectContext? { get }
     var privateQueueContext: NSManagedObjectContext? { get }
 }
@@ -144,9 +144,9 @@ public class CoreDataStorage: NSObject, DataPersistence {
         }
     }
     
-    open func saveToContext(_ context: NSManagedObjectContext?, completion: () -> ()) {
+    open func saveToContext(_ context: NSManagedObjectContext?, completion: (() -> ())?) {
         self.privateSaveContext(context) {
-            completion()
+            completion?()
         }
     }
 }
