@@ -51,6 +51,7 @@ class OverlayEventBudgetViewController: UIViewController {
         textView.isScrollEnabled = false
         textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = Theme.fonts.mediumText.font
         return textView
     }()
     
@@ -114,7 +115,7 @@ class OverlayEventBudgetViewController: UIViewController {
         if let currentEvent = self.event {
             let budget = CurrencyHandler.formattedString(for: currentEvent.budgetAmt)
             textView.text = "You have set a budget of $\(budget) for the event, \(currentEvent.type!)"
-            textView.font = Theme.fonts.mediumText.font
+            
         }
     }
 

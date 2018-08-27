@@ -8,6 +8,7 @@
 
 import UIKit
 import GiftyBridge
+import StoreKit
 
 class SettingsViewController: CustomViewController {
     
@@ -174,7 +175,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let overlayVC = OverlayIAPViewController()
         self.transitioningDelegate = self.customTransitionDelegate
         overlayVC.transitioningDelegate = self.customTransitionDelegate
-  //      overlayVC.delegate = self
+        overlayVC.delegate = self
         overlayVC.modalPresentationStyle = .custom
 
         self.present(overlayVC, animated: true, completion: nil)
@@ -208,5 +209,19 @@ extension SettingsViewController: ScrollingSettingsCellDelegate {
         }
         SettingsHandler.shared.rounding = Float(temp)!
     }
+}
+
+//MARK: OverlayIAPViewControllerDelegate
+extension SettingsViewController: OverlayIAPViewControllerDelegate {
+   
+    func makePurchase() {
+        print("make a purchase")
+        do {
+            try IAPService.shared.purchaseProduct(SKProduct.product.nonConsumable)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+        
 }
 

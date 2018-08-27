@@ -58,6 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         InterstitialService.shared.createAndLoadInterstitial()
         InterstitialService.shared.setupTimer()
         
+        
+        //MARK: In App Purchases
+        IAPService.shared.getProducts()
+                
         return true
     }
     

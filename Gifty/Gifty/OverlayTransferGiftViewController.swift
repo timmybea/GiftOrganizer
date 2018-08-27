@@ -164,15 +164,6 @@ class OverlayTransferGiftViewController: UIViewController {
     func handleKeyboardNotification(sender: NSNotification) {
         
         print("Keyboard will show")
-        
-//        if let userInfo = sender.userInfo {
-//            guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-            
-//            let showBottomConst = CGFloat(keyboardFrame.height)
-//
-//            let showKeyboard = sender.name == Notification.Name.UIKeyboardWillShow
-//
-//            bottomConstraint?.constant = showKeyboard ? -showBottomConst : -tabBarHeight
             
             UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
                 self.view.layoutIfNeeded()
@@ -180,7 +171,6 @@ class OverlayTransferGiftViewController: UIViewController {
                 
             })
         }
- //   }
     
 }
 

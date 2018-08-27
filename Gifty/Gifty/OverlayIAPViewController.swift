@@ -9,13 +9,15 @@
 import UIKit
 import GiftyBridge
 
-class OverlayIAPViewControllerDelegate {
-    
+//MARK: Protocol Declaration
+protocol OverlayIAPViewControllerDelegate {
+    func makePurchase()
 }
 
+//MARK: Properties
 class OverlayIAPViewController: UIViewController {
     
-    var delegate: OverlayIAPViewController?
+    var delegate: OverlayIAPViewControllerDelegate?
     
     let bgView: UIImageView = {
         let view = UIImageView(image: UIImage(named: ImageNames.horizontalBGGradient.rawValue))
@@ -24,7 +26,7 @@ class OverlayIAPViewController: UIViewController {
         return view
     }()
     
-    lazy var okButton: UIButton = {
+    let okButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("OK", for: .normal)
@@ -34,7 +36,7 @@ class OverlayIAPViewController: UIViewController {
         return button
     }()
     
-    lazy var cancelButton: UIButton = {
+    let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Cancel", for: .normal)
@@ -61,15 +63,18 @@ class OverlayIAPViewController: UIViewController {
         textView.isScrollEnabled = false
         textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = Theme.fonts.mediumText.font
         return textView
     }()
+}
+
+//MARK: ViewController Lifecycle
+extension OverlayIAPViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
-        view.backgroundColor = UIColor.blue
-        
     }
 
     override func viewDidLayoutSubviews() {
@@ -91,6 +96,37 @@ class OverlayIAPViewController: UIViewController {
             bgView.leftAnchor.constraint(equalTo: view.leftAnchor),
             bgView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
+        
+        view.addSubview(headingLabel)
+        NSLayoutConstraint.activate([
+            headingLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: pad),
+            headingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
+        
+        let stackview = UIStackView()
+        stackview.translatesAutoresizingMaskIntoConstraints = false
+        stackview.spacing = 0
+        stackview.axis = .horizontal
+        stackview.distribution = .fillEqually
+        
+        view.addSubview(stackview)
+        NSLayoutConstraint.activate([
+            stackview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stackview.heightAnchor.constraint(equalToConstant: 30.0),
+            stackview.leftAnchor.constraint(equalTo: view.leftAnchor),
+            stackview.rightAnchor.constraint(equalTo: view.rightAnchor)
+            ])
+        
+        stackview.addArrangedSubview(cancelButton)
+        stackview.addArrangedSubview(okButton)
+    
+        view.addSubview(textView)
+        NSLayoutConstraint.activate([
+            textView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
+            textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad)
+            ])
+        textView.text = "Remove all advertising and get every feature of future versions for $2.99"
     }
     
     
@@ -100,10 +136,13 @@ class OverlayIAPViewController: UIViewController {
 extension OverlayIAPViewController {
     
     @objc func okButtonTouched(sender: UIButton) {
-        
+        presentingViewController?.dismiss(animated: true, completion: {
+            self.delegate?.makePurchase()
+        })
     }
 
     @objc func cancelButtonTouched(sender: UIButton) {
         
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
