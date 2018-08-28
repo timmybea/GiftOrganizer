@@ -136,8 +136,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if let segueCell = cell as? SegueSettingsTableViewCell {
-            if (segueCell.args!.contains("popOver")) {
+            let args = segueCell.args!
+            if (args.contains("makePurchase")) {
                 popOverInAppPurchase()
+            } else if args.contains("restorePurchases"){
+                IAPService.shared.restorePurchases()
             } else {
                 let destination = CustomTableViewController()
                 if segueCell.identifier == "Groups" {

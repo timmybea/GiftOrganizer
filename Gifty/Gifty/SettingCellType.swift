@@ -22,9 +22,9 @@ struct SettingData {
                                                                  args: [TFSettingsCellID.budgetAmt.rawValue]),
                                                  SettingCellType(type: .scrollview, args: ["rounding"])]),
                       
-                      SettingData(section: "Purchase & Review",
-                                  settingCells: [SettingCellType(type: .popOver, args: ["View upgrade options", "popOver"]),
-                                                 SettingCellType(type: .segue, args: ["Review this app"])])
+                      SettingData(section: "Upgrade",
+                                  settingCells: [SettingCellType(type: .popOver, args: ["View upgrade options", "popOver", "makePurchase"]),
+                                                 SettingCellType(type: .popOver, args: ["Restore purchases", "popOver", "restorePurchases"])])
         ]
         return output
     }
