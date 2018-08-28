@@ -36,7 +36,6 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //self.view.bounds.size = CGSize(width: 320, height: 60)
         self.view.backgroundColor = UIColor.clear
     
         setupSubviews()

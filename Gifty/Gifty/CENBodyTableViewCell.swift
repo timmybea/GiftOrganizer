@@ -24,16 +24,6 @@ class CENBodyTableViewCell: UITableViewCell {
         return v
     }()
     
-    let topLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Message"
-        label.textColor = Theme.colors.lightToneTwo.color
-        label.font = Theme.fonts.mediumText.font
-        label.textAlignment = .left
-        return label
-    }()
-    
     let countLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -47,11 +37,12 @@ class CENBodyTableViewCell: UITableViewCell {
     let textView: UITextView = {
         let t = UITextView()
         t.font = Theme.fonts.mediumText.font
-        t.textColor = Theme.colors.charcoal.color
+        t.textColor = Theme.colors.lightToneTwo.color
+        t.text = "Message"
         t.translatesAutoresizingMaskIntoConstraints = false
+        t.backgroundColor = Theme.colors.offWhite.color
         t.textAlignment = .left
         t.bounces = false
-        t.backgroundColor = Theme.colors.lightToneOne.color.withAlphaComponent(0.3)
         return t
     }()
     
@@ -74,12 +65,6 @@ class CENBodyTableViewCell: UITableViewCell {
     
     private func setupSubviews() {
         
-        self.addSubview(topLabel)
-        NSLayoutConstraint.activate([
-            topLabel.topAnchor.constraint(equalTo: topAnchor, constant: pad + pad),
-            topLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: pad + 4),
-            ])
-        
         self.addSubview(countLabel)
         NSLayoutConstraint.activate([
             countLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
@@ -90,7 +75,7 @@ class CENBodyTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             clearframe.leftAnchor.constraint(equalTo: leftAnchor, constant: pad),
             clearframe.rightAnchor.constraint(equalTo: rightAnchor, constant: -pad),
-            clearframe.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 4),
+            clearframe.topAnchor.constraint(equalTo: topAnchor, constant: pad),
             clearframe.bottomAnchor.constraint(equalTo: countLabel.topAnchor, constant: -4)
             ])
         
@@ -106,6 +91,11 @@ class CENBodyTableViewCell: UITableViewCell {
 }
 
 extension CENBodyTableViewCell: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.textColor = Theme.colors.charcoal.color
+        textView.text = ""
+    }
     
     func textViewDidChange(_ textView: UITextView) {
         if textView.text.last == "\n", var t = textView.text {
@@ -123,7 +113,13 @@ extension CENBodyTableViewCell: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        guard let t = textView.text else { return }
+        
+        guard let t = textView.text, t != "" && t != "Message" else {
+            textView.text = "Message"
+            textView.textColor = Theme.colors.lightToneTwo.color
+            return
+        }
+        
         delegate?.finishedEditing(text: t)
     }
     

@@ -76,7 +76,11 @@ class CreateGiftViewController: CustomViewController {
         return tf
     }()
     
-    let personLabel = UILabel.createMediumLabel()
+    let personLabel: UILabel = {
+        let label = UILabel.createMediumLabel()
+        label.textColor = label.textColor.withAlphaComponent(0.8)
+        return label
+    }()
     
     var autoCompletePerson: AutoCompletePerson?
     
@@ -165,6 +169,8 @@ class CreateGiftViewController: CustomViewController {
                                    width: scrollView.bounds.width,
                                    height: 25)
         budgetLabel.text = "Price"
+        budgetLabel.textColor = budgetLabel.textColor.withAlphaComponent(0.7)
+        
         scrollView.addSubview(budgetLabel)
         
         //budgetView

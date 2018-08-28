@@ -54,9 +54,8 @@ class OverlayTransferGiftViewController: UIViewController {
     
     var sameNameWarning = false
     
-    var normalOriginX: CGFloat = 0.0
-    let raisedOriginX: CGFloat = 0.0
-    
+    var normalOrigin: CGPoint!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,8 +70,8 @@ class OverlayTransferGiftViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         self.view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: 220)
-        self.normalOriginX = self.view.frame.origin.x
-        print(normalOriginX)
+        self.normalOrigin = self.view.frame.origin
+        
         self.view.layer.cornerRadius = 8.0
         self.view.layer.masksToBounds = true
         
@@ -167,14 +166,31 @@ class OverlayTransferGiftViewController: UIViewController {
     @objc
     func handleKeyboardNotification(sender: NSNotification) {
         
-        print("Keyboard will show")
+        guard let userInfo = sender.userInfo else { return }
+        
+        guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        let keyboardUp = sender.name == Notification.Name.UIKeyboardWillShow
+        
+        let origin = keyboardUp ? calculateViewOrigin(for: keyboardFrame) : normalOrigin!
+        
+        UIView.animate(withDuration: 0) {
+            self.view.frame.origin = origin
+            self.view.layoutIfNeeded()
             
-            UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {
-                self.view.layoutIfNeeded()
-            }, completion: { (success) in
-                
-            })
         }
+
+    }
+    
+    private func calculateViewOrigin(for keyboardRect: CGRect) -> CGPoint {
+        let fullheight = UIScreen.main.bounds.maxY
+        let keyboardHeight = keyboardRect.height
+        let vcHeight = self.view.frame.height
+        let y = fullheight - keyboardHeight - pad - vcHeight
+        
+        return CGPoint(x: 20.0, y: y)
+    }
+        
     
 }
 

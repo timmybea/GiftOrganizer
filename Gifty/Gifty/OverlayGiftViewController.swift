@@ -89,6 +89,8 @@ class OverlayGiftViewController: UIViewController {
         height = height > 220 ? height : 220
         
         view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: height)
+//        view.frame.origin = CGPoint(x: 20.0, y: 20.0)
+//        print("Frame: \(view.frame)")
         view.backgroundColor = UIColor.colorWithVals(r: 206, g: 78, b: 120)
         view.layer.cornerRadius = 8.0
         view.layer.masksToBounds = true

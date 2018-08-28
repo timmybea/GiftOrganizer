@@ -183,13 +183,13 @@ class CreateEventNotificationVC: CustomViewController {
     @objc
     func saveButtonTouched(sender: UIButton) {
         guard let event = self.event else { return }
-        //guard let d = self.notificationDate else { return }
+        guard let d = self.notificationDate else { return }
         guard let t = self.notificationTitle else { return }
         guard let b = self.notificationBody else { return }
         
         let nb = EventNotificationBuilder.newNotificaation(for: event)
-        nb.moBuilder.addDate(Date(timeInterval: 10.0, since: Date()))
-        //nb.moBuilder.addDate(d)
+        //nb.moBuilder.addDate(Date(timeInterval: 10.0, since: Date())) For testing only
+        nb.moBuilder.addDate(d)
         nb.moBuilder.addTitle(t)
         nb.moBuilder.addMessage(b)
         _ = nb.createNewNotification()

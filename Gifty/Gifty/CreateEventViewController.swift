@@ -98,6 +98,7 @@ class CreateEventViewController: CustomViewController {
     
     private var budgetLabel: UILabel = {
         let l = UILabel.createMediumLabel()
+        l.textColor = l.textColor.withAlphaComponent(0.7)
         l.text = "Set Budget"
         return l
     }()
@@ -170,6 +171,7 @@ class CreateEventViewController: CustomViewController {
                                        width: scrollView.bounds.width,
                                        height: 25)
             personLabel.text = "Set Person"
+            personLabel.textColor = personLabel.textColor.withAlphaComponent(0.7)
             scrollView.addSubview(personLabel)
             
             autoCompletePerson = AutoCompletePerson(frame: CGRect(x: 0,
