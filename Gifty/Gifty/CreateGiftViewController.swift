@@ -326,6 +326,7 @@ class CreateGiftViewController: CustomViewController {
         overlayVC.modalPresentationStyle = .custom
         
         self.present(overlayVC, animated: true, completion: nil)
+        PopUpManager.popUpShowing = true
     }
     
     //MARK: Back Button

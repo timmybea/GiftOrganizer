@@ -95,6 +95,12 @@ extension IAPService: SKPaymentTransactionObserver {
             //Cleans the transaction queue so user can repurchase consumable content.
             switch transaction.transactionState {
             case .purchasing: break
+            case .purchased:
+                SettingsHandler.shared.showInterstitials = false
+                queue.finishTransaction(transaction)
+            case .failed, .restored:
+                InterstitialService.shared.isSuspended = false
+                queue.finishTransaction(transaction)
             default: queue.finishTransaction(transaction)
             }
         }

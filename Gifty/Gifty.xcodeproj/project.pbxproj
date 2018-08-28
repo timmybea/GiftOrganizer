@@ -128,6 +128,7 @@
 		B0D064BD20643AD3002B4865 /* GiftFRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D064BC20643AD3002B4865 /* GiftFRC.swift */; };
 		B0D515041F378751008A88A4 /* MainAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515031F378751008A88A4 /* MainAssets.xcassets */; };
 		B0D515061F37883A008A88A4 /* CalendarAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */; };
+		B0D52E472135C23A00C91713 /* PopUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0D52E462135C23A00C91713 /* PopUpManager.swift */; };
 		B0DA02B1206588800084A2FF /* ActionSheetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B0206588800084A2FF /* ActionSheetService.swift */; };
 		B0DA02B32065A6EB0084A2FF /* EventActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */; };
 		B0DA44151F17E7B7000E78F2 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */; };
@@ -407,6 +408,7 @@
 		B0D064BC20643AD3002B4865 /* GiftFRC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiftFRC.swift; sourceTree = "<group>"; };
 		B0D515031F378751008A88A4 /* MainAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MainAssets.xcassets; sourceTree = "<group>"; };
 		B0D515051F37883A008A88A4 /* CalendarAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CalendarAssets.xcassets; sourceTree = "<group>"; };
+		B0D52E462135C23A00C91713 /* PopUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpManager.swift; sourceTree = "<group>"; };
 		B0DA02B0206588800084A2FF /* ActionSheetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetService.swift; sourceTree = "<group>"; };
 		B0DA02B22065A6EB0084A2FF /* EventActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventActivityView.swift; sourceTree = "<group>"; };
 		B0DA44141F17E7B7000E78F2 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				B00FF3E9202CC787004CF10C /* InterstitialTimer.swift */,
 				B00FF3E7202CC777004CF10C /* GoogleAdService.swift */,
 				B076AF1E202D1D6D00B54CDF /* InterstitialService.swift */,
+				B0D52E462135C23A00C91713 /* PopUpManager.swift */,
 			);
 			name = Interstitials;
 			sourceTree = "<group>";
@@ -1604,6 +1607,7 @@
 				B0A0CB871FDDF9600000CE03 /* ChartReportCell.swift in Sources */,
 				B035E7EC207E878800AB66C3 /* GiftCompletionTableViewCell.swift in Sources */,
 				B013B5C91F041DD700107B64 /* PersonTFTableView.swift in Sources */,
+				B0D52E472135C23A00C91713 /* PopUpManager.swift in Sources */,
 				B06CF695203E2B6800072152 /* EventNotificationMOBuilder.swift in Sources */,
 				B00FF3E8202CC777004CF10C /* GoogleAdService.swift in Sources */,
 				B070420A1F09A2DC00D6A027 /* CreateEventViewController.swift in Sources */,

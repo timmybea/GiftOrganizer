@@ -150,14 +150,18 @@ class OverlayTransferGiftViewController: UIViewController {
             })
         }
         
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        presentingViewController?.dismiss(animated: true) {
+            PopUpManager.popUpShowing = false
+        }
     
     }
     
     @objc
     func cancelButtonTouched(sender: UIButton) {
         print("Cancel button touched")
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        presentingViewController?.dismiss(animated: true) {
+            PopUpManager.popUpShowing = false
+        }
     }
 
     @objc

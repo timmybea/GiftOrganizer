@@ -50,6 +50,12 @@ class SettingsHandler {
         }
     }
     
+    var lastVersionPromptedForReview: String! {
+        willSet {
+            udStandard.set(newValue, forKey: key.lastVersionPromptedForReview.rawValue)
+        }
+    }
+    
 
     //private
     private init() {}
@@ -69,7 +75,16 @@ extension SettingsHandler {
         rounding = udStandard.object(forKey: key.rounding.rawValue) as? Float ?? 0.50
         showInterstitials = udStandard.object(forKey: key.showInterstitials.rawValue) as? Bool ?? true
         
+        lastVersionPromptedForReview = udStandard.object(forKey: key.lastVersionPromptedForReview.rawValue) as? String ?? getCurrentBundleVersion()
+        
         incrementLaunchCount()
+    }
+    
+    func getCurrentBundleVersion() -> String {
+        let infoDictionaryKey = kCFBundleVersionKey as String
+        guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String
+            else { fatalError("Expected to find a bundle version in the info dictionary") }
+        return currentVersion
     }
  
 }
@@ -82,6 +97,7 @@ extension SettingsHandler {
     }
     
     private enum key: String {
+        case lastVersionPromptedForReview
         case launchCount
         case maxBudget
         case groups

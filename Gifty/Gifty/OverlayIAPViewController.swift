@@ -137,12 +137,15 @@ extension OverlayIAPViewController {
     
     @objc func okButtonTouched(sender: UIButton) {
         presentingViewController?.dismiss(animated: true, completion: {
+            PopUpManager.popUpShowing = false
             self.delegate?.makePurchase()
         })
     }
 
     @objc func cancelButtonTouched(sender: UIButton) {
         
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        presentingViewController?.dismiss(animated: true) {
+            PopUpManager.popUpShowing = false
+        }
     }
 }

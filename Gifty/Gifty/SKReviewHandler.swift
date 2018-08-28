@@ -9,44 +9,66 @@
 import UIKit
 import StoreKit
 
-//MARK: SK Review Handler Delegate
-protocol SKReviewHandlerDelegate {
-    func reviewUnableToShow()
-    func reviewShowed()
-}
-
 
 //MARK: SK Review Handler Protocol
-protocol SKReview {
-    var delegate: SKReviewHandlerDelegate? { get set }
-}
+protocol SKReview { }
 
 
 //MARK: SK Review Handler Protocol Extension
 extension SKReview {
 
-    func requestReview(in vc: UIViewController) {
+    static func isAbleToRequestReview() -> Bool {
         
-        guard !CustomPresentationController.isPresenting else {
-            self.delegate?.reviewUnableToShow()
-            return
+        guard SettingsHandler.shared.launchCount > 4 else {
+            return false
         }
-        guard  #available(iOS 10.3, *) else {
-            self.delegate?.reviewUnableToShow()
+        
+        guard checkiOSVersionCompatible() else {
+            return false
+        }
+        
+        
+        guard notPromptedForReviewThisBundleVersion() else {
+            return false
+        }
+        return true
+    }
+    
+    static func requestReview(in vc: UIViewController) {
+        
+        guard PopUpManager.shouldShowPopUp(in: vc) else {
+            InterstitialService.shared.unableToShow()
             return
         }
         
         SKStoreReviewController.requestReview()
         SettingsHandler.shared.launchCount = 0
-        self.delegate?.reviewShowed()
+        
+        //reset the timer so that no ads show while the review is showing
+        InterstitialService.shared.adWasDismissed()
+        return
+    }   
+    
+    private static func checkiOSVersionCompatible() -> Bool {
+        if #available(iOS 10.3, *) {
+            return true
+        } else {
+            return false
+        }
     }
     
-    
+    private static func notPromptedForReviewThisBundleVersion() -> Bool {
+        
+        let currentVersion = SettingsHandler.shared.getCurrentBundleVersion()
+        let lastVersionPrompted = SettingsHandler.shared.lastVersionPromptedForReview
+        
+        return currentVersion != lastVersionPrompted
+    }
 }
 
 //MARK: STRUCT SK Review Handler Properties
 struct SKReviewHandler : SKReview {
     
-    var delegate: SKReviewHandlerDelegate?
+    //var delegate: SKReviewHandlerDelegate?
     
 }

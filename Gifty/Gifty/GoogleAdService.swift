@@ -41,18 +41,20 @@ class GoogleAdService: NSObject {
     }
     
     func showInterstitial(in vc: UIViewController) {
-        if CustomPresentationController.isPresenting {
-            print("VC ALREADY PRESENTING. CANNOT SHOW AD")
+        
+        guard PopUpManager.shouldShowPopUp(in: vc) else {
             self.delegate?.unableToShow()
-        } else {
-            if let interstitial = self.interstitialAd {
+            return
+        }
+                
+        if let interstitial = self.interstitialAd {
                 if interstitial.isReady {
                     interstitial.present(fromRootViewController: vc)
                     isShowing = true
-                }
             }
         }
     }
+    
 }
 
 extension GoogleAdService: GADInterstitialDelegate {

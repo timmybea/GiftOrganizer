@@ -20,6 +20,8 @@ class InterstitialService: NSObject {
     var initialFireInterval: TimeInterval = 30.0
     var fireInterval: TimeInterval = 60.0 * 3
     
+    var isSuspended = false
+    
     var showInterstitials: Bool {
         get {
             return SettingsHandler.shared.showInterstitials
@@ -61,10 +63,8 @@ class InterstitialService: NSObject {
     }
     
     func showInterstitial(in vc: UIViewController) {
-        if SettingsHandler.shared.launchCount > 4 {
-            var review = SKReviewHandler()
-            review.delegate = self
-            review.requestReview(in: vc)
+        if SKReviewHandler.isAbleToRequestReview() {
+            SKReviewHandler.requestReview(in: vc)
         } else {
             self.adService.showInterstitial(in: vc)
         }
@@ -85,7 +85,7 @@ class InterstitialService: NSObject {
 extension InterstitialService: InterstitialTimerDelegate {
     
     func interstitialTimerExecuted() {
-        if showInterstitials {
+        if showInterstitials && !isSuspended {
             self.delegate?.interstitialTimerExecuted()
         }
     }
@@ -98,17 +98,6 @@ extension InterstitialService: GoogleAdServiceDelegate {
     }
     
     func adWasDismissed() {
-        resetWith(timeInterval: fireInterval)
-    }
-}
-
-extension InterstitialService : SKReviewHandlerDelegate {
-    
-    func reviewUnableToShow() {
-        resetWith(timeInterval: failedToShowInterval)
-    }
-
-    func reviewShowed() {
         resetWith(timeInterval: fireInterval)
     }
 }

@@ -194,11 +194,14 @@ class OverlayGiftViewController: UIViewController {
         if let gift = datasource?.first, let id = gift.eventId, let moc = gift.managedObjectContext {
             if let event = EventFRC.getEvent(forId: id, with: moc), checkEventCompleted(), event.actualAmt == 0 {
                 presentingViewController?.dismiss(animated: true, completion: {
+                    PopUpManager.popUpShowing = false
                     self.delegate?.segueToOverlayBudgetViewController(event: event)
                 })
             }
         }
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        presentingViewController?.dismiss(animated: true) {
+            PopUpManager.popUpShowing = false
+        }
     }
 }
 
@@ -232,6 +235,7 @@ extension OverlayGiftViewController : UITableViewDelegate, UITableViewDataSource
         let action = UITableViewRowAction(style: .default, title: "View/Edit") { (action, indexPath) in
             if let gift = self.datasource?[indexPath.row] {
                 self.dismiss(animated: true, completion: {
+                    PopUpManager.popUpShowing = false
                     self.delegate?.segueToGiftVCForEdit(with: gift)
                 })
             }

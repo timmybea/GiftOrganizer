@@ -124,7 +124,9 @@ class OverlayEventBudgetViewController: UIViewController {
         event?.actualAmt = self.budgetView.getBudgetAmount()
         ManagedObjectBuilder.saveChanges(dataPersistence: DataPersistenceService.shared) { (success) in
             print("Saving spent amount success: \(success)")
-            presentingViewController?.dismiss(animated: true, completion: nil)
+            presentingViewController?.dismiss(animated: true){
+                PopUpManager.popUpShowing = false
+            }
         }
     }
     

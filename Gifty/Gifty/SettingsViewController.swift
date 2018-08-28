@@ -179,6 +179,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         overlayVC.modalPresentationStyle = .custom
 
         self.present(overlayVC, animated: true, completion: nil)
+        PopUpManager.popUpShowing = true
     }
 }
 
@@ -215,7 +216,7 @@ extension SettingsViewController: ScrollingSettingsCellDelegate {
 extension SettingsViewController: OverlayIAPViewControllerDelegate {
    
     func makePurchase() {
-        print("make a purchase")
+        InterstitialService.shared.isSuspended = true
         do {
             try IAPService.shared.purchaseProduct(SKProduct.product.nonConsumable)
         } catch {

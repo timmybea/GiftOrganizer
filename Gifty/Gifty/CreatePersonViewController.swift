@@ -614,6 +614,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         overlayVC.event = event
         
         self.present(overlayVC, animated: true, completion: nil)
+        PopUpManager.popUpShowing = true
     }
     
     func didTouchGifts(for event: Event) {
@@ -625,6 +626,7 @@ extension CreatePersonViewController: EventTableViewDelegate {
         overlayVC.event = event
         
         self.present(overlayVC, animated: true, completion: nil)
+        PopUpManager.popUpShowing = true
     }
     
     func didTouchReminder(for event: Event) {

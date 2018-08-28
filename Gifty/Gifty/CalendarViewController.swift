@@ -431,6 +431,7 @@ extension CalendarViewController: EventTableViewDelegate {
         overlayVC.modalPresentationStyle = .custom
         
         self.present(overlayVC, animated: true, completion: nil)
+        PopUpManager.popUpShowing = true
     }
 
     
@@ -443,6 +444,7 @@ extension CalendarViewController: EventTableViewDelegate {
         overlayVC.modalPresentationStyle = .custom
         
         self.present(overlayVC, animated: true, completion: nil)
+        PopUpManager.popUpShowing = true
     }
     
   
