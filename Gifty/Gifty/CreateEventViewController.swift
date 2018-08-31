@@ -141,11 +141,20 @@ class CreateEventViewController: CustomViewController {
     }
     
     private func subviewLayout() {
+        let isIPad = UIDevice.current.userInterfaceIdiom == .pad
+        let x = isIPad ? (view.bounds.width / 2) / 2 : pad
+        let width = view.bounds.width - x - x
+        
         //saveButton
-        let buttonframe = CGRect(x: pad,
+//        let buttonframe = CGRect(x: x,
+//                                 y: view.bounds.height - tabBarHeight - pad - 35,
+//                                 width: view.bounds.width - pad - pad,
+//                                 height: 35)
+        let buttonframe = CGRect(x: x,
                                  y: view.bounds.height - tabBarHeight - pad - 35,
-                                 width: view.bounds.width - pad - pad,
+                                 width: width,
                                  height: 35)
+        
         saveButton = ButtonTemplate(frame: buttonframe)
         saveButton.setTitle("SAVE")
         saveButton.setBackgroundColor(Theme.colors.buttonPurple.color)
@@ -154,9 +163,9 @@ class CreateEventViewController: CustomViewController {
         view.addSubview(saveButton)
         
         //scrollView
-        scrollViewFrame = CGRect(x: pad,
+        scrollViewFrame = CGRect(x: x,
                                  y: navHeight + statusHeight + pad,
-                                 width: view.bounds.width - pad - pad,
+                                 width: width,
                                  height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - 35)
         
         scrollView.frame = scrollViewFrame
@@ -328,9 +337,13 @@ class CreateEventViewController: CustomViewController {
             
         if sender.name == Notification.Name.UIKeyboardWillShow {
             //keyboard up
-            scrollView.frame = CGRect(x: pad,
+            let isIPad = UIDevice.current.userInterfaceIdiom == .pad
+            let x = isIPad ? (view.bounds.width / 2) / 2 : pad
+            let width = view.bounds.width - x - x
+            
+            scrollView.frame = CGRect(x: x,
                                       y: navHeight + statusHeight + pad,
-                                      width: view.bounds.width - pad - pad,
+                                      width: width,
                                       height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
             
 //            //scroll to bottom

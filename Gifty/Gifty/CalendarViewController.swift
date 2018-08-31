@@ -18,7 +18,11 @@ class CalendarViewController: CustomViewController {
     var monthYearString = ""
     
     lazy var calendar: CustomCalendar = {
-        let frame = CGRect(x: pad, y: safeAreaTop + navHeight, width: self.view.bounds.width - (2 * pad), height: 280)
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let width = isIpad ? self.view.bounds.width / 2 : self.view.bounds.width - (2 * pad)
+        let height = isIpad ? width : 280
+        let x = isIpad ? (self.view.bounds.width - width) / 2 : pad
+        let frame = CGRect(x: x, y: safeAreaTop + navHeight, width: width, height: height)
         let calendar = CustomCalendar(frame: frame)
         calendar.delegate = self
         return calendar

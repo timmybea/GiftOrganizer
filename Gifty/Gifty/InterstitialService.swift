@@ -18,7 +18,7 @@ class InterstitialService: NSObject {
     
     var failedToShowInterval: TimeInterval = 10.0
     var initialFireInterval: TimeInterval = 60.0
-    var fireInterval: TimeInterval = 60.0 * 4
+    var fireInterval: TimeInterval = 60.0 * 5
     
     var isSuspended = false
     

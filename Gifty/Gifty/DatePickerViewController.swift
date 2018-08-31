@@ -41,16 +41,23 @@ class DatePickerViewController: CustomViewController {
             calendar = nil
         }
         
-        var yVal: CGFloat = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.shared.statusBarFrame.height + pad
-
-        calendar = CustomCalendar(frame: CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 300))
+//        var yVal: CGFloat = (self.navigationController?.navigationBar.bounds.height)! + UIApplication.shared.statusBarFrame.height + pad
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let width = isIpad ? self.view.bounds.width / 2 : self.view.bounds.width - (2 * pad)
+        let height = isIpad ? width : 280
+        let x = isIpad ? (self.view.bounds.width - width) / 2 : pad
+        let frame = CGRect(x: x, y: safeAreaTop + navHeight, width: width, height: height)
+        
+        calendar = CustomCalendar(frame: frame)
+        
+//        calendar = CustomCalendar(frame: CGRect(x: pad, y: yVal, width: self.view.bounds.width - (2 * pad), height: 300))
         calendar.delegate = self
         
         view.addSubview(calendar)
         
-        yVal += calendar.frame.height + pad
+//        yVal = calendar.frame.maxY + pad
         
-        let buttonframe = CGRect(x: pad, y: yVal, width: view.bounds.width - pad - pad, height: 35)
+        let buttonframe = CGRect(x: x, y: calendar.frame.maxY + pad, width: width, height: 35)
         addDateToEventButton = ButtonTemplate(frame: buttonframe)
         addDateToEventButton.backgroundColor = UIColor.clear
         addDateToEventButton.setTitle("ADD DATE")
