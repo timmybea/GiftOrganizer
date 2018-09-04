@@ -71,17 +71,17 @@ class PeopleViewController: CustomViewController {
     }
 
     private func setupSubviews() {
-                
-        let navHeight = (self.navigationController?.navigationBar.frame.height)! + UIApplication.shared.statusBarFrame.height
+        
         let tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
         
         view.addSubview(headerView)
         headerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         headerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navHeight).isActive = true
+        headerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navHeight + safeAreaTop + pad).isActive = true
         headerViewHeightConstraint = NSLayoutConstraint(item: headerView, attribute: .height, relatedBy: .equal, toItem: headerView, attribute: .height, multiplier: 0, constant: 0)
         headerViewHeightConstraint.isActive = true
         headerView.addConstraint(headerViewHeightConstraint)
+        headerView.layoutIfNeeded()
         
         view.addSubview(tableView)
         tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

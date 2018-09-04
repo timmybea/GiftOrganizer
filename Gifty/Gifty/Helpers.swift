@@ -14,8 +14,8 @@ let pad: CGFloat = 16
 let smallPad: CGFloat = 12
 
 let safeAreaTop: CGFloat = {
-    guard let a = UIApplication.shared.keyWindow?.safeAreaInsets.top else { return 40.0 }
-    return a > 0.0 ? a : 40.0
+    guard let a = UIApplication.shared.keyWindow?.safeAreaInsets.top else { return 20.0 } // the safe area or the status bar height
+    return a > 0.0 ? a : 20.0
 }()
 
 enum ImageNames: String {

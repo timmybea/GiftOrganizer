@@ -164,57 +164,39 @@ class CreatePersonViewController: CustomViewController {
     private func layoutSubviews() {
         
         self.backgroundView.isUserInteractionEnabled = true
-        
         self.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapBackgroundView)))
         
-        var currMaxX: CGFloat = 0
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let padx = isIpad ? view.bounds.width / 4 : pad
+        let maxWidth = isIpad ? view.bounds.width / 2 : view.bounds.width - pad - pad
         
-        var currMaxY: CGFloat = 0
         
-        if let navHeight = navigationController?.navigationBar.frame.height {
-         
-            currMaxY = navHeight + UIApplication.shared.statusBarFrame.height + pad
-            
-            profileImageView.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 150)
-        
-        }
-        
+        profileImageView.frame = CGRect(x: padx, y: safeAreaTop + navHeight + pad, width: 150, height: 150)
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
-        
         view.addSubview(profileImageView)
         
-        currMaxX = pad + profileImageView.frame.width + pad
-        
-        textFieldTV = PersonTFTableView(frame: CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.6666))
-        
+        let tfx = profileImageView.frame.maxX + pad
+        textFieldTV = PersonTFTableView(frame: CGRect(x: tfx, y: profileImageView.frame.origin.y, width: maxWidth - profileImageView.frame.width - pad, height: profileImageView.frame.height * 0.6666))
         textFieldTV.delegate = self
-        
         view.addSubview(textFieldTV)
         
-        currMaxY += textFieldTV.frame.height
-        
-        let dropDownFrame = CGRect(x: currMaxX, y: currMaxY, width: view.bounds.width - currMaxX - pad, height: profileImageView.bounds.height * 0.3333)
+        let dropDownFrame = CGRect(x: tfx, y: textFieldTV.frame.maxY, width: textFieldTV.frame.width, height: profileImageView.bounds.height * 0.3333)
         
         dropDown = DropDownTextField(frame: dropDownFrame, title: "Group", options: SettingsHandler.shared.groups)
         
         dropDown.delegate = self
         
         view.addSubview(dropDown)
-
-        currMaxY += profileImageView.bounds.height / 3 + pad
         
         view.addSubview(addFromContactLabel)
         
-        addFromContactLabel.frame = CGRect(x: pad, y: currMaxY, width: 150, height: 17)
-        
-        
-        currMaxY += addFromContactLabel.frame.height + pad
+        addFromContactLabel.frame = CGRect(x: padx, y: profileImageView.frame.maxY + pad, width: 150, height: 17)
         
         guard let tabBarHeight: CGFloat = self.tabBarController?.tabBar.bounds.height else { return }
         
-        let eventHeight = view.bounds.height - currMaxY - tabBarHeight
+        let eventHeight = view.bounds.height - addFromContactLabel.frame.maxY - pad - tabBarHeight
         
-        eventTableView = EventDisplayViewCreatePerson(frame: CGRect(x: 0, y: currMaxY, width: view.bounds.width, height: eventHeight))
+        eventTableView = EventDisplayViewCreatePerson(frame: CGRect(x: 0, y: addFromContactLabel.frame.maxY + pad, width: view.bounds.width, height: eventHeight))
         
         eventTableView.delegate = self
         

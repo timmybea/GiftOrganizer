@@ -130,7 +130,7 @@ class CreateGiftViewController: CustomViewController {
         
         //scrollView
         scrollViewFrame = CGRect(x: pad,
-                                 y: navHeight + statusHeight + pad,
+                                 y: navHeight + safeAreaTop + pad,
                                  width: view.bounds.width - pad - pad,
                                  height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - buttonframe.height)
         

@@ -36,24 +36,32 @@ class SearchHeaderView: UIView {
         
         self.layer.masksToBounds = true
         backgroundColor = UIColor.clear
-        addSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func addSubviews() {
+    override func layoutSubviews() {
+        
+        searchBar.removeFromSuperview()
+        segmentedControl.removeFromSuperview()
+        
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let indent = isIpad ? self.frame.width / 4 : pad
         
         addSubview(searchBar)
-        searchBar.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
-        searchBar.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
-        searchBar.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6).isActive = true
+        NSLayoutConstraint.activate([
+            searchBar.leftAnchor.constraint(equalTo: self.leftAnchor, constant: indent - 8),
+            searchBar.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -indent + 8),
+            searchBar.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6)
+            ])
         
         addSubview(segmentedControl)
-        segmentedControl.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        segmentedControl.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
-        segmentedControl.bottomAnchor.constraint(equalTo: searchBar.topAnchor, constant: -6).isActive = true
+        NSLayoutConstraint.activate([
+            segmentedControl.leftAnchor.constraint(equalTo: self.searchBar.leftAnchor, constant: 8),
+            segmentedControl.rightAnchor.constraint(equalTo: self.searchBar.rightAnchor, constant: -8),
+            segmentedControl.bottomAnchor.constraint(equalTo: searchBar.topAnchor, constant: -6)
+            ])
     }
 }

@@ -180,12 +180,22 @@ class EventDisplayViewCalendar: EventTableView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableViewHeightDown = self.frame.height - self.frame.minY - 34 - tabHeight
         self.tableViewHeightUp = self.frame.height - smallPad - 34 - tabHeight - pad - navHeight
-            
+        
         addSubview(tableView)
-        tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: tableViewHeightDown)
+        setTableViewFrame(forUp: false)
         header.setFrame(appear: false)
         tableView.tableHeaderView = header
 
+    }
+    
+    private func setTableViewFrame(forUp up: Bool) {
+        
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let width = isIpad ? (self.frame.width / 2) + pad : self.frame.width - pad
+        let x = isIpad ?  width / 2 : pad
+        let height = up ? tableViewHeightUp : tableViewHeightDown
+        
+        tableView.frame = CGRect(x: x, y: 34, width: width, height: height)
     }
     
     func eventDisplaySnapped() {
@@ -195,7 +205,7 @@ class EventDisplayViewCalendar: EventTableView {
         UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseInOut, animations: {
             
             self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
-            self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightUp)
+            self.setTableViewFrame(forUp: true)
             self.header.setFrame(appear: true)
             self.tableView.tableHeaderView = self.header
             self.selectedIndexPath = nil
@@ -225,7 +235,7 @@ class EventDisplayViewCalendar: EventTableView {
                 self.swipeIcon.transform = self.swipeIcon.transform.rotated(by: CGFloat.pi)
                 self.tableView.alpha = 0.0
             }, completion: { (success) in
-                self.tableView.frame = CGRect(x: pad, y: 34, width: self.frame.width - pad, height: self.tableViewHeightDown)
+                self.setTableViewFrame(forUp: false)
                 self.header.setFrame(appear: false)
                 self.displayMode = .normal
                 self.selectedIndexPath = nil

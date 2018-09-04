@@ -63,6 +63,9 @@ class EventDisplayViewCreatePerson: EventTableView {
         
         backgroundColor = Theme.colors.offWhite.color
         
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let xPad = isIpad ? self.bounds.width / 4 : pad
+        
         addSubview(addButton)
         let addSize: CGFloat = 22
         addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
@@ -70,8 +73,9 @@ class EventDisplayViewCreatePerson: EventTableView {
         addButton.widthAnchor.constraint(equalToConstant: addSize).isActive = true
         
         addSubview(segmentedControl)
-        segmentedControl.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        segmentedControl.rightAnchor.constraint(equalTo: addButton.leftAnchor, constant: -pad).isActive  = true
+        segmentedControl.leftAnchor.constraint(equalTo: self.leftAnchor, constant: xPad).isActive = true
+        let const = isIpad ? -xPad + addSize + pad : -xPad
+        segmentedControl.rightAnchor.constraint(equalTo: addButton.leftAnchor, constant: const).isActive  = true
         segmentedControl.topAnchor.constraint(equalTo: self.topAnchor, constant: smallPad).isActive = true
 
         addButton.centerYAnchor.constraint(equalTo: segmentedControl.centerYAnchor).isActive = true
@@ -80,8 +84,8 @@ class EventDisplayViewCreatePerson: EventTableView {
         saveButton.setTitle("SAVE")
         saveButton.setBackgroundColor(Theme.colors.buttonPurple.color)
         saveButton.translatesAutoresizingMaskIntoConstraints = false
-        saveButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        saveButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -pad).isActive = true
+        saveButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: xPad).isActive = true
+        saveButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -xPad).isActive = true
         saveButton.heightAnchor.constraint(equalToConstant: saveButton.defaultHeight).isActive = true
         saveButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -smallPad).isActive = true
         saveButton.delegate = self
@@ -90,8 +94,8 @@ class EventDisplayViewCreatePerson: EventTableView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: smallPad).isActive = true
         tableView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -smallPad).isActive = true
-        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: pad).isActive = true
-        tableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        tableView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: xPad).isActive = true
+        tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -xPad + pad).isActive = true
     }
     
     func changeSaveButtonText(_ text: String) {

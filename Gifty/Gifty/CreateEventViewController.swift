@@ -145,11 +145,6 @@ class CreateEventViewController: CustomViewController {
         let x = isIPad ? (view.bounds.width / 2) / 2 : pad
         let width = view.bounds.width - x - x
         
-        //saveButton
-//        let buttonframe = CGRect(x: x,
-//                                 y: view.bounds.height - tabBarHeight - pad - 35,
-//                                 width: view.bounds.width - pad - pad,
-//                                 height: 35)
         let buttonframe = CGRect(x: x,
                                  y: view.bounds.height - tabBarHeight - pad - 35,
                                  width: width,
@@ -164,9 +159,9 @@ class CreateEventViewController: CustomViewController {
         
         //scrollView
         scrollViewFrame = CGRect(x: x,
-                                 y: navHeight + statusHeight + pad,
+                                 y: safeAreaTop + navHeight + pad,
                                  width: width,
-                                 height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - 35)
+                                 height: view.bounds.height - navHeight - pad - safeAreaTop - tabBarHeight - pad - 35)
         
         scrollView.frame = scrollViewFrame
         view.addSubview(scrollView)
@@ -345,11 +340,7 @@ class CreateEventViewController: CustomViewController {
                                       y: navHeight + statusHeight + pad,
                                       width: width,
                                       height: view.bounds.height - navHeight - statusHeight - pad - keyboardFrame.height - pad)
-            
-//            //scroll to bottom
-//            let bottomOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.bounds.size.height)
-//            scrollView.setContentOffset(bottomOffset, animated: true)
-//            scrollView.addGestureRecognizer(tapGesture)
+
         } else {
             scrollView.frame = scrollViewFrame
             scrollView.removeGestureRecognizer(tapGesture)

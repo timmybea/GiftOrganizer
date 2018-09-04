@@ -22,7 +22,7 @@ class CalendarViewController: CustomViewController {
         let width = isIpad ? self.view.bounds.width / 2 : self.view.bounds.width - (2 * pad)
         let height = isIpad ? width : 280
         let x = isIpad ? (self.view.bounds.width - width) / 2 : pad
-        let frame = CGRect(x: x, y: safeAreaTop + navHeight, width: width, height: height)
+        let frame = CGRect(x: x, y: safeAreaTop + navHeight + pad, width: width, height: height)
         let calendar = CustomCalendar(frame: frame)
         calendar.delegate = self
         return calendar
