@@ -84,11 +84,15 @@ class OverlayGiftViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        guard let c = tableViewHeightConstraint else { return }
-        var height = 80.0 + c.constant + 30.0
-        height = height > 220 ? height : 220
+//        guard let c = tableViewHeightConstraint else { return }
+//        var height = 80.0 + c.constant + 30.0
+//        height = height > 220 ? height : 220
         
-        view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: height)
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        let width = isPad ? UIScreen.main.bounds.width / 2 - 40 : UIScreen.main.bounds.width - 40
+        self.view.bounds.size = CGSize(width: width, height: 220)
+        
+//        view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: height)
 //        view.frame.origin = CGPoint(x: 20.0, y: 20.0)
 //        print("Frame: \(view.frame)")
         view.backgroundColor = UIColor.colorWithVals(r: 206, g: 78, b: 120)

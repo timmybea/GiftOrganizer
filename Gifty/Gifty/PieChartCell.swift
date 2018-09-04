@@ -14,7 +14,9 @@ class PieChartCell: UITableViewCell {
     
     //MARK: properties
     private static var cellWidth: CGFloat {
-        return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) - pad
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        
+        return isPad ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width - pad
     }
     
     private static var chartWidth: CGFloat {

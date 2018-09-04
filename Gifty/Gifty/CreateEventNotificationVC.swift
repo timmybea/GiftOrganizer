@@ -108,7 +108,7 @@ class CreateEventNotificationVC: CustomViewController {
         view.addSubview(monthLabel)
         NSLayoutConstraint.activate([
             monthLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            monthLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70)
+            monthLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: safeAreaTop + navHeight + pad)
             ])
         
         view.addSubview(dayLabel)
@@ -129,17 +129,19 @@ class CreateEventNotificationVC: CustomViewController {
         
         view.addSubview(bgView)
         NSLayoutConstraint.activate([
+            bgView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad),
             bgView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bgView.heightAnchor.constraint(equalToConstant: tabBarHeight + pad + 35 + pad),
             bgView.leftAnchor.constraint(equalTo: view.leftAnchor),
             bgView.rightAnchor.constraint(equalTo: view.rightAnchor)
             ])
         
         view.addSubview(tableView)
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        let padX = isPad ? view.bounds.width / 4 : 0.0
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad),
-            tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor)
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: padX),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -padX)
             ])
         tvBottomConstraint = NSLayoutConstraint(item: tableView,
                                                             attribute: .bottom,
@@ -151,9 +153,9 @@ class CreateEventNotificationVC: CustomViewController {
         tvBottomConstraint.isActive = true
 
         view.addSubview(saveButton)
-        let buttonframe = CGRect(x: pad,
+        let buttonframe = CGRect(x: padX,
                                  y: view.bounds.height - tabBarHeight - pad - 35,
-                                 width: view.bounds.width - pad - pad,
+                                 width: view.bounds.width - padX - padX,
                                  height: 35)
         saveButton.frame = buttonframe
     }

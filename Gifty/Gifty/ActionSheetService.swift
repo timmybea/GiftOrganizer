@@ -24,6 +24,13 @@ class ActionSheetService {
             alert.dismiss(animated: true, completion: nil)
         })
         alert.addAction(cancel)
+        
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = vc.view
+            popoverController.sourceRect = CGRect(x: vc.view.bounds.midX, y: vc.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
         vc.present(alert, animated: true, completion: nil)
     }
     

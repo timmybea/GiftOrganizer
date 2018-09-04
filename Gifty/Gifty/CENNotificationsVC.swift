@@ -126,6 +126,9 @@ class CENNotificationsVC: CustomViewController {
             ])
         
         view.addSubview(tableView)
+//        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+//        let padX = isPad ? view.bounds.width / 4 : pad
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: eventTypeLabel.bottomAnchor, constant: pad),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),

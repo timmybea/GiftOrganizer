@@ -79,7 +79,10 @@ extension OverlayIAPViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.view.bounds.size = CGSize(width: UIScreen.main.bounds.width - 40, height: 220)
+        
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        let width = isPad ? UIScreen.main.bounds.width / 2 - 40 : UIScreen.main.bounds.width - 40
+        self.view.bounds.size = CGSize(width: width, height: 220)
         self.view.layer.cornerRadius = 8.0
         self.view.layer.masksToBounds = true
         

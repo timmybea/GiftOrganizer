@@ -57,10 +57,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     func didReceive(_ notification: UNNotification) {
-       // guard let date = notification.request.content.userInfo["date"] as? Date else { return }
-        
-//        monthLabel.text = DateHandler.stringMonthAbb(from: date).uppercased()
-//        dayLabel.text = DateHandler.stringDayNum(from: date)
+
     }
 
 }

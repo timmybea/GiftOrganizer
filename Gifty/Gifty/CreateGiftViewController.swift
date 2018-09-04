@@ -58,7 +58,9 @@ class CreateGiftViewController: CustomViewController {
     private var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.layer.masksToBounds = true
-        sv.backgroundColor = UIColor.clear
+        sv.backgroundColor = UIColor.blue
+        sv.layer.borderColor = UIColor.green.cgColor
+        sv.layer.borderWidth = 3
         sv.bounces = false
         sv.isPagingEnabled = false
         return sv
@@ -115,10 +117,14 @@ class CreateGiftViewController: CustomViewController {
     
     private func setupSubviews() {
 
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let padX = isIpad ? view.bounds.width / 4 : pad
+        let width = isIpad ? view.bounds.width / 2 : view.bounds.width - pad - pad
+        
         //saveButton
-        let buttonframe = CGRect(x: pad,
-                                 y: view.bounds.height - tabBarHeight - pad - 35,
-                                 width: view.bounds.width - pad - pad,
+        let buttonframe = CGRect(x: padX,
+                                 y: view.frame.maxY - tabBarHeight - pad - 35,
+                                 width: width,
                                  height: 35)
         saveButton = ButtonTemplate(frame: buttonframe)
         let buttonText = mode == .editExistingGift ? "UPDATE" : "SAVE"
@@ -129,20 +135,20 @@ class CreateGiftViewController: CustomViewController {
         view.addSubview(saveButton)
         
         //scrollView
-        scrollViewFrame = CGRect(x: pad,
+        scrollViewFrame = CGRect(x: padX,
                                  y: navHeight + safeAreaTop + pad,
-                                 width: view.bounds.width - pad - pad,
-                                 height: view.bounds.height - navHeight - statusHeight - pad - tabBarHeight - pad - buttonframe.height)
+                                 width: width,
+                                 height: view.bounds.height - navHeight - safeAreaTop - pad - tabBarHeight - pad - buttonframe.height)
         
         scrollView.frame = scrollViewFrame
         view.addSubview(scrollView)
         
         //gift imageControl
-        let width = (scrollView.frame.width / 3)
-        giftImageControl.frame = CGRect(x: scrollView.frame.width / 3,
+        let giftImageDim = scrollView.frame.width / 3
+        giftImageControl.frame = CGRect(x: giftImageDim,
                                         y: 0,
-                                        width: width,
-                                        height: width)
+                                        width: giftImageDim,
+                                        height: giftImageDim)
         scrollView.addSubview(giftImageControl)
         giftImageControl.addTarget(self, action: #selector(didTouchAddImage(sender:)), for: .touchUpInside)
         
@@ -188,12 +194,10 @@ class CreateGiftViewController: CustomViewController {
         scrollView.addSubview(detailsTextView)
         detailsTextView.delegate = self
         
-        var contentHeight: CGFloat = detailsTextView.frame.maxY + pad
-        
         if mode == .newGiftPersonUnknown {
             
             //autoCompletePerson
-            
+        
             personLabel.frame = CGRect(x: 0,
                                        y: detailsTextView.frame.maxY + pad,
                                        width: scrollView.bounds.width,
@@ -207,15 +211,21 @@ class CreateGiftViewController: CustomViewController {
                                                                   height: 100))
             self.autoCompletePerson?.autoCompleteTF.autocompleteDelegate = self
             scrollView.addSubview(autoCompletePerson!)
-            
-            contentHeight = autoCompletePerson!.frame.maxY + pad
         }
+        
+        
         //set content size
-        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
+        setScrollViewContentSize()
         
         if mode == .editExistingGift {
             updateViewsForGift()
         }
+    }
+    
+    
+    private func setScrollViewContentSize() {
+        let contentHeight = mode == .newGiftPersonUnknown ? autoCompletePerson!.frame.maxY + pad : detailsTextView.frame.maxY + pad
+        scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: contentHeight)
     }
     
     private func setupNavigationBar() {
@@ -275,24 +285,18 @@ class CreateGiftViewController: CustomViewController {
         self.view.endEditing(true)
     }
     
+    //MARK: Handle Keyboard notification
     @objc
     func handleKeyboardNotification(sender: Notification) {
-        
-        guard tabBarController?.selectedIndex == 2 else { return }
         guard let userInfo = sender.userInfo else { return }
         guard let keyboardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
         if sender.name == Notification.Name.UIKeyboardWillShow {
             //keyboard up
-
             UIView.animate(withDuration: 0.0, animations: {
-                self.scrollView.frame.size.height = self.view.bounds.height - self.navHeight - self.statusHeight - pad - keyboardFrame.height
+                self.scrollView.frame.size.height = self.view.bounds.height - self.navHeight - safeAreaTop - pad - keyboardFrame.height
                 self.view.layoutIfNeeded()
             })
-            
-            //scroll to bottom <<<
-            //print("selected textfield: \(self.selectedTF)")
-            
             
             switch self.selectedTF {
             case .giftDescription?: scrollToBottom()
@@ -524,7 +528,7 @@ extension CreateGiftViewController : ResizingTextViewDelegate {
     }
     
     func resizeToHeight(_ height: CGFloat) {
-        
+
         UIView.animate(withDuration: 0.0, animations: {
             self.detailsTextView.frame.size.height
                 = height
@@ -532,9 +536,9 @@ extension CreateGiftViewController : ResizingTextViewDelegate {
             if self.autoCompletePerson != nil {
                 self.personLabel.frame.origin.y = self.detailsTextView.frame.maxY + pad
                 self.autoCompletePerson!.frame.origin.y = self.personLabel.frame.maxY + pad
-                self.scrollView.contentSize.height = self.autoCompletePerson!.frame.maxY + pad
-
             }
+            self.setScrollViewContentSize()
+            self.scrollToBottom()
             
             self.view.layoutIfNeeded()
         })
