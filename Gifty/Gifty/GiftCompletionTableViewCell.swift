@@ -137,7 +137,7 @@ class GiftCompletionTableViewCell: UITableViewCell {
     func setup(with gift: Gift) {
         self.gift = gift
         self.giftNameLabel.text = gift.name
-        self.summaryLabel.text = "$\(CurrencyHandler.formattedString(for: gift.cost))"
+        self.summaryLabel.text = "\(currencySymbol)\(CurrencyHandler.formattedString(for: gift.cost))"
         self.complete = gift.isCompleted
         
         if let imageData = gift.image {

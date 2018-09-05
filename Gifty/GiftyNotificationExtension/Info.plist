@@ -19,7 +19,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>3</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
@@ -27,7 +27,7 @@
 			<key>UNNotificationExtensionCategory</key>
 			<string>NotificationModel.event</string>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<real>0.14000000000000001</real>
+			<real>0.14</real>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>

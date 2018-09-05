@@ -18,7 +18,7 @@ class BudgetView: UIView {
     private let budgetLabel: UILabel = {
         let label = UILabel.createMediumLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "$0.00"
+        label.text = "\(currencySymbol)0.00"
         label.textAlignment = .center
         return label
     }()
@@ -66,7 +66,7 @@ class BudgetView: UIView {
     private func setLabel(for amount: Float) {
         let roundedAmount = CurrencyHandler.round(amount, toNearest: SettingsHandler.shared.rounding)
         let formattedString = CurrencyHandler.formattedString(for: roundedAmount)
-        self.budgetLabel.text = "$\(formattedString)"
+        self.budgetLabel.text = "\(currencySymbol)\(formattedString)"
     }
     
     public func getBudgetAmount() -> Float {

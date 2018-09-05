@@ -116,7 +116,7 @@ class OverlayEventBudgetViewController: UIViewController {
     func setText() {
         if let currentEvent = self.event {
             let budget = CurrencyHandler.formattedString(for: currentEvent.budgetAmt)
-            textView.text = "You have set a budget of $\(budget) for the event, \(currentEvent.type!)"
+            textView.text = "You have set a budget of \(currencySymbol)\(budget) for the event, \(currentEvent.type!)"
             
         }
     }

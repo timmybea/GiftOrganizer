@@ -120,7 +120,7 @@ class PersonCell: UITableViewCell {
                 actualAmt += event.actualAmt
             }
             eventCountLabel.text = "\(completedCount)/\(eventCount)"
-            budgetSummaryLabel.text = "Budgetted $\(String(format: "%.2f", budgetAmt)) • Spent $\(String(format: "%.2f", actualAmt))"
+            budgetSummaryLabel.text = "Budgetted \(currencySymbol)\(String(format: "%.2f", budgetAmt)) • Spent \(currencySymbol)\(String(format: "%.2f", actualAmt))"
         }
     }
 }

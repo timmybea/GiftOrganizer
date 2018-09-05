@@ -80,7 +80,7 @@ class AddGiftView: UIView {
         l.font = Theme.fonts.mediumText.font
         l.translatesAutoresizingMaskIntoConstraints = false
         l.textAlignment = .right
-        l.text = "Total: $20.00"
+        l.text = "Total: \(currencySymbol)20.00"
         return l
     }()
     
@@ -207,7 +207,7 @@ class AddGiftView: UIView {
             cost += g.cost
         }
         let a = String(format: "%.2f", cost)
-        costLabel.text = "Total cost: $\(a)"
+        costLabel.text = "Total cost: \(currencySymbol)\(a)"
     }
     
     required init?(coder aDecoder: NSCoder) {

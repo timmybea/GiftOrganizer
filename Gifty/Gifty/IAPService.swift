@@ -21,6 +21,7 @@ class IAPService : NSObject { //NSObject required to interact with ObjC on the b
     
     private var paymentQueue = SKPaymentQueue.default()
     
+    var fullVersionPrice: Float?
 }
 
 //MARK: Public API
@@ -76,6 +77,9 @@ extension IAPService : SKProductsRequestDelegate {
             print("IAPService: line \(#line): No products received in response")
         }
         
+        for product in response.products {
+            self.fullVersionPrice = Float(truncating: product.price)
+        }
         self.products = response.products
     }
 }

@@ -58,8 +58,6 @@ class CreateGiftViewController: CustomViewController {
     private var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.layer.masksToBounds = true
-        sv.backgroundColor = UIColor.blue
-        sv.layer.borderColor = UIColor.green.cgColor
         sv.layer.borderWidth = 3
         sv.bounces = false
         sv.isPagingEnabled = false
@@ -518,7 +516,6 @@ extension CreateGiftViewController: UIImagePickerControllerDelegate, UINavigatio
         }
     }
 }
-
 
 //MARK: Resizing Text View Delegate
 extension CreateGiftViewController : ResizingTextViewDelegate {

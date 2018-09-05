@@ -207,8 +207,9 @@ extension SettingsViewController: TextFieldSettingsCellDelegate {
 extension SettingsViewController: ScrollingSettingsCellDelegate {
     func optionChanged(to option: String) {
         var temp = option
+        guard temp.count > 0 else { return }
         
-        if temp.first == "$" {
+        if String(temp.first!) == "\(currencySymbol)" {
             _ = temp.removeFirst()
         }
         SettingsHandler.shared.rounding = Float(temp)!

@@ -64,13 +64,6 @@ public struct Theme {
         }
     }
     
-//    public static func createMediumLabel() -> UILabel {
-//        let label = UILabel()
-//        label.textColor = UIColor.white
-//        label.font = Theme.fonts.boldSubtitleText.font
-//        label.textAlignment = .left
-//        return label
-//    }
 }
 
 extension UIColor {

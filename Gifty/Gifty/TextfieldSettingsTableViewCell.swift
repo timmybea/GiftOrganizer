@@ -63,7 +63,7 @@ class TextfieldSettingsTableViewCell: UITableViewCell {
             
             self.textLabel?.text = "Max budget amount"
             self.textLabel?.textColor = Theme.colors.charcoal.color
-            self.textfield.text = "$\(SettingsHandler.shared.maxBudget).00"
+            self.textfield.text = "\(currencySymbol)\(SettingsHandler.shared.maxBudget).00"
         }
     }
     
@@ -83,13 +83,13 @@ extension TextfieldSettingsTableViewCell: UITextFieldDelegate {
         
         if use == TFSettingsCellID.budgetAmt.rawValue {
             if save {
-                let userInput = tfText.hasPrefix("$") ? String(tfText.dropFirst()) : tfText
+                let userInput = tfText.hasPrefix("\(currencySymbol)") ? String(tfText.dropFirst()) : tfText
                 if let newValue = Int(userInput) {
                     SettingsHandler.shared.maxBudget = newValue
                     
                 }
             }
-            self.textfield.text = "$\(SettingsHandler.shared.maxBudget).00"
+            self.textfield.text = "\(currencySymbol)\(SettingsHandler.shared.maxBudget).00"
         }
     }
     
@@ -101,7 +101,7 @@ extension TextfieldSettingsTableViewCell: UITextFieldDelegate {
         }
         if use == TFSettingsCellID.budgetAmt.rawValue {
             
-            textField.text = "$"
+            textField.text = "\(currencySymbol)"
         }
         return true
     }

@@ -13,6 +13,27 @@ import GiftyBridge
 let pad: CGFloat = 16
 let smallPad: CGFloat = 12
 
+
+var currencySymbol: String = {
+    if let country = (Locale.current as NSLocale).countryCode {
+        switch country {
+        case "GB": return "£"
+        case "GH": return "₵"
+        case "IN": return "₹"
+        case "IE", "MT": return "€"
+        case "KE": return "KSh"
+        case "MU", "NP", "SC": return "Rs"
+        case "NA", "ZA": return "R"
+        case "NG": return "₦"
+        case "PG": return "K"
+        case "PH": return "₱"
+        default: return "$"
+        }
+    } else {
+        return "$"
+    }
+}()
+
 let safeAreaTop: CGFloat = {
     guard let a = UIApplication.shared.keyWindow?.safeAreaInsets.top else { return 20.0 } // the safe area or the status bar height
     return a > 0.0 ? a : 20.0
@@ -202,7 +223,7 @@ extension UILabel {
 extension Float {
  
     var dollarString:String {
-        return String(format: "$%.2f", self)
+        return String(format: "\(currencySymbol)%.2f", self)
     }
 
 }

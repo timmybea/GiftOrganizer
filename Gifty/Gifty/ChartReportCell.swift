@@ -89,7 +89,7 @@ class ChartReportCell: UITableViewCell {
         
         self.groupLabel.text = chartReportItem.group
         let amount = String(format: "%.2f", chartReportItem.totalSpent)
-        self.spendingLabel.text = "Spent: $\(amount)"
+        self.spendingLabel.text = "Spent: \(currencySymbol)\(amount)"
         self.giftCountLabel.text = "Gifts: \(chartReportItem.numberGifts)"
     }
     

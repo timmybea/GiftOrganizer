@@ -122,7 +122,7 @@ class ScrollSettingsTableViewCell: UITableViewCell {
     private func getIndexForUse() -> Int {
         var index = 0
         if use == CellUse.rounding {
-            let input = "$" + String(format: "%.2f", SettingsHandler.shared.rounding)
+            let input = "\(currencySymbol)" + String(format: "%.2f", SettingsHandler.shared.rounding)
             index = datasource?.index(of: input) ?? 0
         }
         return index
@@ -157,7 +157,10 @@ class ScrollSettingsTableViewCell: UITableViewCell {
         var scrollOptions: [String] {
             switch self {
             case .rounding:
-                return ["$0.01","$0.25", "$0.50", "$1.00"]
+                return ["\(currencySymbol)0.01",
+                    "\(currencySymbol)0.25",
+                    "\(currencySymbol)0.50",
+                    "\(currencySymbol)1.00"]
             }
         }
     }

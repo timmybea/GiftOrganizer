@@ -129,7 +129,13 @@ extension OverlayIAPViewController {
             textView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
             textView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad)
             ])
-        textView.text = "Remove all advertising and get every feature of future versions for $2.99"
+        
+        var msg = "Remove all advertising and get every feature of future versions"
+        
+        if let price = IAPService.shared.fullVersionPrice {
+            msg += " for \(currencySymbol)\(CurrencyHandler.formattedString(for: price))"
+        }
+        textView.text = msg
     }
     
     

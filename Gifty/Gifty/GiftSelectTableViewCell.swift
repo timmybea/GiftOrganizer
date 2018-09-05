@@ -119,7 +119,7 @@ class GiftSelectTableViewCell: UITableViewCell {
         }
         self.giftNameLabel.text = gift.name
         
-        var summaryText = "$\(CurrencyHandler.formattedString(for: gift.cost)) "
+        var summaryText = "\(currencySymbol)\(CurrencyHandler.formattedString(for: gift.cost)) "
         
         if let id = gift.eventId {
             completionIcon.isHidden = false
