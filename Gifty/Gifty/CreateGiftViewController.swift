@@ -58,7 +58,6 @@ class CreateGiftViewController: CustomViewController {
     private var scrollView: UIScrollView = {
         let sv = UIScrollView()
         sv.layer.masksToBounds = true
-        sv.layer.borderWidth = 3
         sv.bounces = false
         sv.isPagingEnabled = false
         return sv

@@ -51,10 +51,12 @@ class CreateEventViewController: CustomViewController {
         }
     }
     
-    private var eventDate: Date? {
+    var eventDate: Date? {
         didSet {
             print("event date changed to \(String(describing: eventDate))")
-            addDateView.updateLabel(with: eventDate)
+            if addDateView != nil {
+                addDateView.updateLabel(with: eventDate)
+            }
             editsMade = true
         }
     }
@@ -210,6 +212,10 @@ class CreateEventViewController: CustomViewController {
                                                 height: 30))
         scrollView.addSubview(addDateView)
         addDateView.delegate = self
+
+        if self.eventDate != nil {
+            addDateView.updateLabel(with: self.eventDate)
+        }
         
         //Add gift view
         self.addGiftView = AddGiftView(frame: CGRect(x: 0,

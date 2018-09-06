@@ -106,10 +106,13 @@ class SelectGiftViewController: CustomViewController {
     private func setupSubviews() {
         
         view.addSubview(segmentedControl)
+        let isPad = UIDevice.current.userInterfaceIdiom == .pad
+        let xPad = isPad ? view.bounds.width / 4 : pad
+        
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: safeAreaTop + navHeight + pad),
-            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: pad),
-            segmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -pad)
+            segmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: xPad),
+            segmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -xPad)
             ])
         
         view.addSubview(tableView)

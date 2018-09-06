@@ -17,6 +17,8 @@ class CalendarViewController: CustomViewController {
 
     var monthYearString = ""
     
+    var selectedDate: Date?
+    
     lazy var calendar: CustomCalendar = {
         let isIpad = UIDevice.current.userInterfaceIdiom == .pad
         let width = isIpad ? self.view.bounds.width / 2 : self.view.bounds.width - (2 * pad)
@@ -194,6 +196,11 @@ class CalendarViewController: CustomViewController {
         let destination = CreateEventViewController()
         destination.createEventState = .newEventToBeAssigned
         
+        //check if date selected
+        if self.selectedDate != nil {
+            destination.eventDate = self.selectedDate
+        }
+        
         DispatchQueue.main.async {
             self.navigationController?.pushViewController(destination, animated: true)
         }
@@ -213,11 +220,13 @@ extension CalendarViewController: CustomCalendarDelegate {
     func hideShowInfoForSelectedDate(_ date: Date, show: Bool) {
             if show {
                 print(date)
+                self.selectedDate = date
                 frc = EventFRC.frc(for: date)
                 eventDisplayView.displayDateString = DateHandler.stringFromDate(date)
                 eventDisplayView.orderedEvents = frc?.fetchedObjects
             } else {
                 print("Don't show info")
+                self.selectedDate = nil
                 eventDisplayView.displayDateString = nil
                 eventDisplayView.orderedEvents = nil
             }
