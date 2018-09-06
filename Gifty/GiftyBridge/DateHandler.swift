@@ -69,7 +69,7 @@ public class DateHandler: NSObject {
     
     public static func describeDate(_ date: Date) -> String {
         let df = dateFormatter()
-        df.dateStyle = .long
+        df.dateStyle = .medium
         return df.string(from: date)
     }
     

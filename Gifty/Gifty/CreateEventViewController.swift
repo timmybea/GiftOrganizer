@@ -454,6 +454,12 @@ extension CreateEventViewController: DatePickerViewControllerDelegate {
 
 //MARK: AddGiftDelegate
 extension CreateEventViewController: AddGiftViewDelegate {
+    
+    func changedBudget(amount: Float) {
+        
+        self.budgetView.setTo(amount: amount)
+    }
+    
    
     func addGiftViewWasTouched() {
         

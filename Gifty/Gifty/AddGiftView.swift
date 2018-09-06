@@ -12,6 +12,7 @@ import GiftyBridge
 protocol AddGiftViewDelegate {
     func addGiftViewWasTouched()
     func needsToResize(to height: CGFloat)
+    func changedBudget(amount: Float)
 }
 
 class AddGiftView: UIView {
@@ -207,7 +208,11 @@ class AddGiftView: UIView {
             cost += g.cost
         }
         let a = String(format: "%.2f", cost)
-        costLabel.text = "Total cost: \(currencySymbol)\(a)"
+        let updated = "Total cost: \(currencySymbol)\(a)"
+        if costLabel.text != updated {
+            costLabel.text = updated
+            self.delegate?.changedBudget(amount: cost)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
